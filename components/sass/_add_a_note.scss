@@ -1,0 +1,524 @@
+/* The Modal (background) */
+.aan-modal {
+  display: none; /* turn this modal on or off for dev at btm of script */
+  position: fixed;
+  z-index: 78;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+}
+
+/* Modal Content/Box */
+.aan-modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 15% auto 0;
+  padding: 0px;
+  border: 1px solid #fff;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+
+/* The Close Button */
+.aan-close {
+  color: #313131;
+  float: right;
+  margin-top: -0.2em;
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: #fff;
+  border-radius: 50%;
+  &:hover,
+  &:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.aan-close:hover,
+.aan-close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Header */
+.aan-modal-header,
+.aan-modal-footer {
+  padding: 1em;
+  background-color: #62bee8;
+  color: white;
+}
+.aan-modal-header {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.aan-modal-wrap {
+  width: 90%;
+  margin: 1em auto;
+}
+
+/* Modal Body */
+.aan-modal-body,
+.modify-modal-body
+ {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #313131;
+  p {
+    line-height: 1.5em;
+  }
+  form.edit-link-form,
+  form.modify-note-form {
+    width: 100%;
+    input.edit-input {
+      margin-top: 0.2em;
+      padding: 0.3em;
+      font-size: 1.2em;
+      color: #313131;
+      width: 100%;
+    }
+    input.link-name {
+      margin-bottom: 1em;
+      margin-top: 0.2em;
+      padding: 0.3em;
+      font-size: 1.2em;
+      color: #313131;
+      width: 100%;
+    }
+    textarea {
+      width: 100%;
+      resize: none;
+      height: 4em;
+      font-size: 1.2em;
+      color: #313131;
+      padding: 0.5em;
+      line-spacing: 1.2em;
+
+    }
+    input,
+    textarea {
+      border: none;
+      background-color: rgba(98,190,232,0.2);
+      outline: none;
+      border-bottom: 1px solid transparent;
+      &:hover,
+      &:focus {
+        background-color: rgba(11,85,150,1);
+        color: #fff;
+      }
+      &:focus {
+        border-bottom: 1px solid rgba(10,34,64,1);
+      }
+    }
+    label.clipboard {
+      cursor: pointer;
+    }
+    .submit-links {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.5em;
+      input.update,
+      a.cancel-close,
+      a.closer {
+        margin-top: 1em;
+        width: 48%;
+        border: 1px solid green;
+        padding: 1em;
+        color: #fff;
+        font-size: 1em;
+        text-decoration: none;
+        text-align: center;
+        background-color: rgba(92,184,92,1);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        &:hover {
+          background-color: rgba(92,184,92,0.8);
+        }
+      }
+      a.cancel-close,
+      a.closer {
+        background-color: rgba(247,58,58,1);
+        &:hover {
+          background-color: rgba(247,58,58,0.8);
+        }
+      }
+    }
+    
+    i.fa-paste {
+      font-size: 1.3em;
+      color: #757575;
+      margin-left: 0.2em;
+      transition: all 0.2s ease;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+
+/* Modal Footer */
+.aan-modal-footer {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.reorder i.fa-arrows-alt {
+  color: rgba(255,255,255,0.4);
+  &:hover {
+    color: rgba(255,255,255,0.8);
+    cursor: move;
+  }
+}
+
+.project-notes {
+  width: 100%;
+  margin-top: 0.2em;
+  display: flex;
+  flex-direction: column;
+  // ^ making notes centered on my_projects page
+  align-items: center;
+  color: #fff;
+  li {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 2px;
+    border-radius: 3px;
+  }
+  li:nth-child(odd) {
+    a.modify-note,
+    a.deletenote {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: rgba(255,255,255,1);
+      }
+    }
+    a.deletenote {
+      &:hover {
+        color: red;
+      }
+    }
+  }
+  li:nth-child(even) {
+    background-color: rgba(255,255,255,0.2);
+    color: #fff;
+    a.modify-note {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: rgba(255,2552,255,1);
+      }
+    }
+    a.deletenote {
+      color: rgba(255,255,255,0.8);
+      &:hover {
+        color: red;
+      }
+    }
+    input { 
+      color: #313131;
+    }
+  }
+  li {
+    .sec {
+      display: inline;
+      text-align: left;
+      padding: 0.5em;
+    }
+    .sec.note-url {
+      width: 30%;
+      padding-left: 1em;
+      word-wrap: break-word;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      a.note-link {
+        color: #fff;
+        text-decoration: underline;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      .reorder {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        padding-right: 0.6em;
+        i.fas.fa-sort-up,
+        i.fas.fa-sort-down {
+          line-height: 0.4em;
+          cursor: pointer;
+          &:hover {
+            color: #003f87;
+          }
+        }
+        form {
+          // flex-grow: 1;
+          // line-height: 0.4em;
+          a {
+            background-color: transparent;
+            color: rgba(255,255,255,0.8);
+            padding: 0em 0.25em;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            &:hover {
+              color: #003f87;
+              //background-color: #fff;
+            }
+          }
+        }
+      }
+    }
+    .sec.note-url.move {
+        padding-left: 0.6em;
+      }
+    .sec.note {
+      width: 60%;
+      word-wrap: break-word;
+      display: flex;
+      a.clipboard {
+        float: left;
+        margin: 0em 0.5em 0 0;
+        padding: 0px;
+        color: rgba(255,255,255,0.8);
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: none;
+        background-color: transparent;
+        font-size: 1em;
+        cursor: pointer;
+        // width: 1.5em;
+        &:focus {
+          outline: none;
+        }
+        &:hover {
+          color: #a0cd6f;
+        }
+      }
+      .input-copy,
+      .norm-copy {
+        color: #fff;
+        line-height: 1.2em;
+      }
+      .fa-exclamation-triangle {
+        color: red;
+      }
+    }
+    .sec.manage-note {
+      display: flex;
+      justify-content: space-around;
+      text-align: right;
+      width: 10%;
+      min-width: 4em;
+      padding-right: 1em;
+    }
+    input {
+      outline: none;
+      border: none;
+      background-color: inherit;
+      color: #fff;
+      font-size: 1em;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+        color: rgba(255,148,148,1);
+      }
+    }    
+  }
+}
+.note-url > a {
+  color: #fff;
+  text-decoration: underline;
+  &:hover {
+    text-decoration: none;
+  }
+}
+// logged in - add a note 
+ul#bottom-search.logged li:last-child {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  background-color: rgba(255,255,255,0.2);
+}
+
+/* get rid of the add note section from edit pages and add border radius to only li left. */
+
+#edit-wrap ul#bottom-search li.note-edit-pg,
+#edit-wrap ul#project-notes {
+  display: none;
+}
+#edit-wrap ul#bottom-search li {
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+a#add-note,
+a#note-limit {
+  color: #fff;
+  text-decoration: none;
+  margin: 0.5em;
+  padding: 0.5em 1em;
+  border-radius: 10%;
+  background-color: transparent;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: rgba(255,255,255,0.2);
+  }
+}
+
+// dealing with sortable notes
+#sortable { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+  width: 60%; 
+}
+#sortable li { 
+  margin: 0 3px 3px 3px; 
+  padding: 0.4em; 
+  padding-left: 1.5em; 
+  font-size: 1.4em; 
+  height: 18px; 
+  cursor: move; 
+}
+#sortable li span { 
+  position: absolute; 
+  margin-left: -1.3em; 
+}
+
+
+
+#sortanote { 
+  list-style-type: none; 
+  margin: 0; 
+  padding: 0; 
+  width: 100%; 
+}
+#sortanote li { 
+  cursor: move;
+}
+#sortanote ul.tab-links li {
+  cursor: default;
+}
+#sortanote ul.tab-links li:first-child,
+#sortanote ul.tab-links li:last-child {
+  border-radius: 0;
+}
+#sortanote ul.tab-links a.exp {
+  margin-left: 0;
+}
+#sortanote li.static {
+  // cursor: default;
+}
+#sortanote li span { 
+  position: absolute; 
+  margin-left: -1.3em; 
+}
+#sortanote li .go > input[type=submit],
+#sortanote li input[type=text],
+#sortanote li input[type=checkbox],
+// #sortanote li label,
+#sortanote li a,
+#sortanote .chk-img,
+#sortanote .chk-map,
+#sortanote .chk-ref {
+  pointer-events: none;
+  &:hover {
+    background-color: inherit;
+  }
+}
+#sortanote li label,
+#sortanote ul.tab-links li a.nav {
+  pointer-events: auto;
+  cursor: pointer;
+}
+#sortanote li label.ssp {
+  cursor: move;
+  pointer-events: none;
+}
+
+#sortanote {
+  margin-top: 0.2em;
+  li {
+    cursor: default;
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    border-radius: 3px;
+    a {
+      pointer-events: auto; 
+    }
+    a.closer {
+      pointer-events: auto;
+      &:hover {
+        background-color: rgba(247,58,58,0.8);
+      }
+    }
+    a.note-link {
+      color: #fff;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    label {
+      pointer-events: none;
+    } 
+    label.clipboard {
+      pointer-events: auto;
+    }
+    textarea[name=note],
+    input[type=text] {
+      pointer-events: auto;
+      &:hover {
+        background-color: #0b5596;
+        cursor: text;
+      }
+      &:focus {
+        background-color: #0b5596;
+        color: #fff;
+      }
+    }
+    &:first-child, 
+    &:last-child {
+      border-radius: 3px;
+    }
+    span.input-copy,
+    span.norm-copy,
+    span.modify-close {
+      position: relative;
+      margin: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .project-notes li {
+    .sec.manage-note {
+      padding: 0.5em 0em;
+    }
+  }
+}

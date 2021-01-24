@@ -1,0 +1,397 @@
+body {
+	background-color: rgba(250,250,226,1);
+	background-image: url("_images/floral-pattern.jpg");
+	background-repeat: repeat;
+	background-attachment: fixed;	
+	color: #fff;
+	color: #003f87;
+}
+.preload,
+.preload-manage {
+	background-color: rgba(250,240,203,1);
+	background-image: url("_images/floral-pattern.jpg");
+	background-repeat: repeat;
+	background-attachment: fixed;	
+}
+
+
+// login background homepage
+#landing > .visitor1 > form.front-login,
+#landing > form,
+.sharing {
+	background-color: rgba(25,96,174,0.6);
+	border-radius: 3px;
+	border: 1px solid #fff;
+	box-shadow: 0px 0px 5px 5px rgba(0,0,0,0.1);
+	h3, h1, p.btm-p {
+		color: #fff;
+	}
+}
+// on signup -> Success! Almost there...
+#landing-content {
+	background-color: rgba(25,96,174,0.6);
+}
+// login autofill Chrome
+#landing > .visitor1 > form input:-webkit-autofill,
+#landing > .visitor1 > form input:-webkit-hover,
+#landing > .visitor1 > form input:-webkit-focus,
+#landing > .visitor1 > form input:-webkit-active,
+#landing > form input:-webkit-autofill,
+#landing > form input:-webkit-hover,
+#landing > form input:-webkit-focus,
+#landing > form input:-webkit-active  {
+	-webkit-box-shadow: 0 0 0 30px #7999b8 inset !important;
+	-webkit-text-fill-color: white !important;
+}
+#table-page #table-wrap .visitor .visitor2 {
+	background-color: rgba(255,255,255,0.3);
+}
+#table-page #table-wrap .new-intro {
+    background-color: rgba(25,96,174,0.6);
+    color: #fff;
+}
+
+.sharing form input[type=email] {
+	background-color: rgba(0,153,204,0.3);
+}
+.sharing form input[type=email] {
+	background-color: rgba(255,255,255,0.8);
+	border-top: 1px solid #003f87;
+	border-bottom: 1px solid #003f87;
+	color: #003f87;
+	&::placeholder {
+		color: rgba(0,63,135,0.6);
+	}
+}
+.sharing form input[type=submit]:hover {
+	background-color: #82c33a;
+}
+.sharing form .share-note {
+	background-color: rgba(0,0,0,0.3);
+}
+.sharing h2.edit-share,
+.sharing form.edit-user,
+.sharing form .share-note {
+	color: #fff;
+}
+
+.sharing form p,
+#table-page #project-wrap .sharing h1 {
+	color: #fff;
+	margin-bottom: 0.5em;
+}
+// login button
+#landing>.visitor1>form>input.submit, #landing>form>input.submit {
+	background-color: rgba(130,195,58,1);
+	&:hover {
+		background-color: rgba(105,156,47,1);
+	}
+}
+// anchor on current_project_not_found.php
+a.go {
+	color: #fff;
+	text-decoration: underline;
+	&:hover {
+		text-decoration: none;
+	}
+}
+// primary navigation
+nav > ul li > a,
+a.logout {
+	color: #fff;
+	background-color: rgba(11,85,150,1);
+	&:hover {
+		background-color: rgba(11,85,150,1);;
+	}
+}
+// page number tabs
+.tab-links li input {
+	background-color: rgba(0,63,135,1);
+	&:hover {
+		background-color: rgba(145,202,80,1);
+	}
+}
+.tab-links li.active input {
+	color: #fff;
+	background-color: rgba(0,153,204,1);
+	border: 1px solid rgba(145,202,80,1);
+}
+
+
+
+
+
+
+
+
+//hyperlinks
+ul#sortable li.pg1, 
+ul#sortable li.pg3, 
+ul#sortable a.project-links,  
+ul#static-sort li.pg1, 
+ul#static-sort li.pg2, 
+ul#static-sort li.pg3, 
+ul#static-sort a.project-links {
+	color: #fff;
+	background-color: rgba(0,153,204,1);
+	&:hover {
+		background-color: rgba(0,63,135,1);
+	}
+}
+
+// static section on edit_searches.php
+ul#sortablesearch li.static {
+	background-color: rgba(83,171,233,0.24);
+	// color: #fff;
+}
+
+// project notes
+#table-page #project-wrap .project-details .project-notes {
+	background-color: rgba(255,255,255,0.2)
+}
+
+
+
+// background of my_projects bars 
+#table-page #project-wrap .review-project {
+	background-color: #0099cc;
+	&:hover {
+		background-color: #e89e77;
+		color: #fff;
+	}
+}
+#table-page #project-wrap .review-project.active {
+	background-color: #e89e77;
+	&:hover {
+		background-color: #0099cc;
+	}
+}
+.project-details { // my_projects -> project details background
+	// background-color: rgba(0,153,204,1);
+	background-color: #e89e77;
+}
+
+
+
+
+
+
+
+
+// my_projects inner_nav
+// .project-details a i.fa-home,
+// .project-details a i.fa-edit,
+// .project-details a i.fa-sort,
+// .project-details a i.fa-fill-drip,
+// .project-details a i.fa-info-circle,
+// .project-details a i.fa-user-friends, 
+// .project-details a i.fa-arrows-alt,
+
+#edit-order-page #edit-order-wrap a.op i.fa-edit, 
+#edit-order-page #edit-order-wrap a.op i.fa-sort,
+#edit-order-page #edit-order-wrap a.op i.fa-fill-drip, 
+#edit-order-page #edit-order-wrap a.op i.fa-house-user, 
+#edit-order-page #edit-order-wrap a.op i.fa-list-ol {
+	color: rgba(0,63,135,1);
+	&:hover {
+		color: #fff;
+	}
+}
+
+
+
+.project-greeting {
+	color: #003f87;
+}
+// inner_nav - homepage
+ul.inner-nav li a {
+	color: #003f87;
+	&:hover {
+		color: #038700; // green
+		color: #ff5a00; // orange
+
+	}
+}
+.project-details ul.inner-nav { // inner_nav projects page
+
+	a i.fa-info-circle,
+	a i.fa-user-friends,
+	a i.fa-minus-circle {
+		color: #fff;
+			&:hover {
+			color: rgba(0,63,135,1);
+		}	
+	}
+	a i.fa-minus-circle:hover {
+		color: red;
+	}
+
+	form {
+		display: inline;
+		a i.fa-home,
+		a i.fa-edit,
+		a i.fa-sort,
+		a i.fa-fill-drip,
+		a i.fa-info-circle,
+		a i.fa-user-friends,
+		a i.fa-arrows-alt {
+			color: #fff;
+			text-decoration: none;
+			transition: all 0.2s ease;
+			&:hover {
+				color: rgba(0,63,135,1);
+			}
+		}
+	}
+}
+.project-details ul.inner-nav li a {
+// inner_nav projects page needed bc of diff color bkg
+	&:hover {
+		color: #fff;
+	}
+}
+
+
+ul.inner-nav li.project-name span.attn {
+	color: red;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.tab-links a,
+.tab-links a.project-link,
+#table-page #project-wrap a.my-nav  {
+	color: rgba(0,63,135,1);
+	&:hover {
+		//color: rgba(0,63,135,1);
+	}
+}
+.tab-links a.project-link:hover {
+	color: rgba(0,63,135,1);
+}
+// #table-page #project-wrap .project-details a i.fa-minus-circle {
+// 	color: rgba(0,63,135,1);
+// }
+
+// delete page
+#edit-delete-page #delete-form input[type=text] {
+	background-color: rgba(255,255,255,0.6);
+	border-bottom: 1px solid red;
+}
+
+#edit-content-page #edit-wrap #tab1,
+#edit-content-page #edit-wrap #tab2,
+#edit-content-page #edit-wrap #tab3 {
+			background-image: url("_images/floral-edit.jpg");
+			background-repeat: repeat;
+			background-attachment: fixed;
+}
+// edit hyperlinks
+#edit-content-page #edit-wrap a.project-links {
+	background-color: rgba(222,44,13,0.5);
+	&:hover {
+		background-color: rgba(222,44,13,0.9);
+	}
+}
+// + icon inside empty links
+ul#static-sort a.project-links.edit-shim {
+	color: rgba(255,255,255,0.5);
+}
+#edit-content-page #edit-wrap {
+	// background-color: rgba(255,0,0,0.16);
+}
+#edit-order-page #edit-order-wrap p.dnd-title a {
+	color: #003f87;
+	&:hover {
+		color: #003f87;
+	}
+}
+
+// add a note
+ul#bottom-search.logged li:last-child {
+	background-color: rgba(251,190,113,1);
+}
+.project-notes li:nth-child(odd) {
+	background-color: rgba(237,141,126,1);
+}
+.project-notes li:nth-child(even) {
+	background-color: rgba(242,162,122,1);	
+}
+
+a#add-note {
+  &:hover {
+    background-color: rgba(150,204,86,1);
+  }
+}
+.project-notes li a.deletenote {
+	color: rgba(255,255,255,0.6);
+}
+.project-notes li:nth-child(even) a.deletenote {
+	color: rgba(255,255,255,0.6);
+}
+#edit-deets {
+	background-color: rgba(0,153,204,1);
+	color: #fff;
+	.btn-wrap a.cancel-deets {
+		background-color: rgba(11,85,150,1);
+		&:hover {
+			background-color: rgba(15,121,214,1);
+		}
+	}
+}
+li.google {
+	background-color: rgba(66,132,247,1);
+}
+li.url {
+	background-color: rgba(84,85,87,1);
+	::placeholder {
+		color: #313131;
+	}
+}
+li.bing {
+	background-color: rgba(141,198,63,1 );
+}
+li.reference {
+	background-color: rgba(0,36,139,1);
+}
+li.youtube {
+	background-color: rgba(255,0,0,1);
+}
+#google,
+#url,
+#bing,
+#reference,
+#youtube {
+	.go-btn {
+	background-color: rgba(130,195,58,1);
+		&:hover {
+		background-color: rgba(170,252,76,1);
+		}	
+	}
+	input[type=text] {
+		background-color: rgba(255,255,255,0.2);
+		// color: rgba(49,49,49,1);
+		&::placeholder {
+			color: rgba(185,187,189,1);
+		}
+	}
+}
+footer {
+	background-color: rgba(43,61,80,1);
+}
+footer button#toggle-contact-form:hover {
+	background-color: rgba(0,0,0,0.2);
+}

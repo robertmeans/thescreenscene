@@ -1,0 +1,1 @@
+this folder (_includes_static) is just for the static versions of the search fields being used on the edit_searches.php page.

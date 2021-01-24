@@ -1,0 +1,125 @@
+ul.inner-nav {
+	display: flex;
+	float: left;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0 0 3px 1.5em;
+	padding: 5px 0px;
+	li {
+		margin-right: 1.5em;
+		a {
+			color: #fff;
+			transition: all 0.2s ease;
+			text-decoration: none;
+			&:hover {
+				color: #62bee8;
+			}
+		}
+		a i.fa-minus-circle:hover {
+				color: red;
+			}
+		a.project-link {
+			margin-left: 0.5em;
+		}
+		ul { // dropdown
+			visibility: hidden;
+			opacity: 0;
+			position: absolute;
+			transition: all 0.2s ease;
+			padding-top: 0.5em;
+			// left: 0;
+			display: none;
+			// line-height: 2.1em;
+			li {
+				width: 100%;
+				clear: both;
+				margin-top: 1px;
+				margin-right: 0;
+				transition: all 0.2s ease;
+				form {
+					display: flex;
+				}
+				a {
+					padding: 0.5em 1em 0.5em 0.5em;
+					text-decoration: none;
+					width: 100%;
+					border: 1px solid #ccc;
+					transition: all 0.2s ease;
+				}
+				a.spring {
+					background-color: rgba(250,250,226,1);
+					background-image: url("_images/floral-pattern.jpg");
+					color: #00248b;
+					transition: all 0.2s ease;
+					&:hover {
+						background-image: none;
+						background-color: #8dc63f;
+						color: #fff;
+					}
+				}
+				a.darkmode {
+					color: #fff;
+					background-color: #606060;
+					transition: all 0.2s ease;
+					&:hover {
+						background-color: #313131;
+						color: #fff;
+					}
+				}
+			}
+			&:hover {
+				visibility: visible;
+				opacity: 1;
+				display: block;
+				display: flex;
+				flex-direction: column;
+
+			}
+		}
+		&:hover > ul {
+			visibility: visible;
+			opacity: 1;
+			display: block;
+		}
+
+	}
+	li.project-name span.attn {
+		color: #ffa1a1;
+		cursor: default;
+	}
+}
+// ul.inner-nav.project-pg {
+// 	width: 100%;
+// 	margin: 0;
+// 	float: none;
+// 	li {
+// 		margin-right: 1em;
+// 		background-color: transparent;
+// 	}
+// }
+
+@media screen and (max-width: 650px) {
+	ul.tab-links {
+		justify-content: space-around;
+		width: 100%;
+		input {
+			padding: 1em 1.5em;
+		}
+		li {
+			margin: 0;
+			width: 30%;
+			display: flex;
+			justify-content: center;
+		}
+	}
+	ul.inner-nav {
+		flex-wrap: wrap;
+		margin: 0;
+		li {
+			padding: 1em 1em 0.6em;
+			.project-name {
+				padding: 8px 0px;
+			}
+		}
+	}
+}

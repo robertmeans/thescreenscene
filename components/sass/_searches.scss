@@ -1,0 +1,296 @@
+.searches {
+	width: 100%;
+	display: flex;
+	color: #fff;
+
+}
+.tabs {
+	margin: 1em 0 0.5em;
+}
+#google, 
+#url, 
+#bing, 
+#reference, 
+#youtube {
+	font-family: 'Roboto', sans-serif;
+	//display: flex;
+	//align-items: center;
+	form {
+		width: 100%;
+		display: flex;
+		align-items: center;
+	}
+	p {
+		padding: 0.5em 0 0.5em 1em;
+		display: inline-block;
+		width: 15%;
+		text-align: right;
+
+	}
+	.go {
+		display: flex;
+		padding: 0.5em 0em 0.5em 0em;
+		margin-right: 8%;
+	}
+	.check-group {
+		display: flex;
+		flex-grow: 1;
+		justify-content: center;
+		height: 100%;
+		margin: 0 1em;
+	}	
+	.chk-img,
+	.chk-map,
+	.chk-ref,
+	.chk-yt {
+		display: flex;
+		flex-grow: 1;
+		position: relative;
+		justify-content: center;
+		width: 50%;
+		height: 100%;
+		color: #fff;
+		transition: all 0.2s ease;
+		&:hover {
+			background-color: rgba(255,255,255,0.3);
+		}
+	}
+	.chk-yt:hover {
+		background-color: inherit;
+	}
+	.chk-ref {
+	}
+	.gchk:checked + .gchk-label,
+	.bchk:checked + .bchk-label,
+	.refchk:checked + .refchk-label,
+	 {
+		background-color: rgba(255,255,255,0.3);
+	}	
+	label {
+		cursor: pointer;
+		display: flex;
+		width: 100%;
+		justify-content: center;
+		align-items: center;
+	}
+	.gchk,
+	.bchk,
+	.refchk { // input checkbox
+		opacity: 0;
+		cursor: pointer;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		margin: 0;
+	}
+	.srs {
+		width: 45%;
+		display: flex;
+		align-items: center;
+	}
+	input[type=text] {
+		border: none;
+		color: #fff;
+		font-size: 1em;
+		padding: 0.2em;
+		outline: none;
+		margin: 0.5em 0 0.5em 0.75em;
+		width: 95%;
+		background-color: rgba(255,255,255,0.17);
+		border-bottom: 1px solid rgba(255,255,255,0.8);
+		&::placeholder {
+			color: rgba(167,170,171,1);
+		}
+	}
+	a.go-a { // go button on edit_searches
+		background-color: rgba(130,195,58,1);
+		color: #fff;
+		// font-weight: bold;
+		// cursor: pointer;
+		text-decoration: none;
+		font-size: 0.8em;
+		padding: 0.6em 0.5em;
+		border-radius: 50%;
+		border: 1px solid rgba(255,255,255,0.6);
+		box-shadow: 0px 10px 10px -5px rgba(0,0,0,0.4);
+		outline: none;
+		transition: all 0.2s ease;
+		&:hover {
+			background-color: rgba(125,186,56,1);
+			background-color: rgba(14,159,227,1);
+		}
+
+		.go-btn { // go button
+			background-color: rgba(88,130,39,1);
+			background-color: rgba(31,31,31,1);
+			
+		}
+	}
+
+	i.fa-backspace {
+		color: #fff;
+		margin-left: 0.2em;
+		cursor: pointer;
+		transition: all 0.2s ease;
+		&:hover {
+			color: #0b5596;
+		}
+	}
+}
+@media screen and (max-width: 500px) {
+	.td-form {
+		flex-direction: column;
+		width: 100%;
+		form {
+			width: 100%;
+		}
+		a.td {
+			width: 100%;
+			margin-bottom: 5px;
+			padding: 1em;
+		}
+	}
+}
+@media screen and (max-width: 700px) {
+#google, 
+#url, 
+#bing, 
+#reference, 
+#youtube {
+	.go {
+		margin-right: 2%;
+	}
+}	
+}
+@media screen and (max-width: 650px) {
+	#google, 
+	#url, 
+	#bing, 
+	#reference, 
+	#youtube {
+		form {
+			flex-direction: column;
+		}
+		p {
+			width: 100%;
+			text-align: left;
+			padding: 0;
+			margin: 0.5em 0 0.5em 1.5em;
+		}
+		.srs {
+			width: 90%;
+		}
+		input[type=text] {
+			font-size: 1.5em;
+			margin: 0 0 3px 0;
+		}
+		i.fa-backspace {
+			margin-left: 8px;
+		}
+		.check-group {
+			width: 80%;
+		}
+		.go {
+			margin-right: 0;
+			display: block;
+			margin: 0.2em auto 0.5em;
+		}
+		input {
+			-webkit-appearance: none;
+		}
+		a.go-a {
+			border-radius: 3px;
+			padding: 0.5em 4em;
+			font-size: 1em;
+			line-height: 1.5em;
+		}
+		label {
+			// width: auto;
+			padding: 1em;
+		}
+	}
+
+
+
+
+	ul#sortablesearch #google,
+	ul#sortablesearch #url,
+	ul#sortablesearch #bing,
+	ul#sortablesearch #reference,
+	ul#sortablesearch #youtube,
+	 {
+		flex-direction: column;
+	}
+
+
+
+
+
+
+
+
+
+
+
+}
+
+ul#top-search li:first-child {
+	border-top-right-radius: 8px;
+	border-top-left-radius: 8px;
+}
+
+ul#sortablesearch {
+	li:first-child {
+		border-top-right-radius: 8px;
+		border-top-left-radius: 8px;
+	}
+	li:last-child {
+		border-bottom-right-radius: 8px;
+		border-bottom-left-radius: 8px;
+	}
+	li.static {
+		cursor: default;
+		margin: 0.5em 0;
+		background-color: rgba(255,255,255,0.2);
+	}
+}
+
+ul#sortablesearch li.sert {
+	display: flex;
+}
+ul#sortablesearch #google,
+ul#sortablesearch #url,
+ul#sortablesearch #bing,
+ul#sortablesearch #reference,
+ul#sortablesearch #youtube,
+ {
+	display: flex;
+	align-items: center;
+}
+
+
+// for front end, not logged in
+// does not have add a note
+ul#bottom-search li:last-child {
+	border-bottom-right-radius: 8px;
+	border-bottom-left-radius: 8px;
+}
+
+li.google {
+	background-color: rgba(37,74,138,1);
+}
+li.url {
+	background-color: rgba(84,85,87,1);
+	::placeholder {
+		color: #313131;
+	}
+}
+li.bing {
+	background-color: rgba(91,128,41,1 );
+}
+li.reference {
+	background-color: rgba(33,46,82,1);
+}
+li.youtube {
+	background-color: rgba(122,0,0,1);
+}

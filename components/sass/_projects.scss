@@ -1,0 +1,172 @@
+#table-page {
+	display: flex;
+	width: 100%;
+	// height: 100%;
+	justify-content: center;
+	align-items: center;
+	#project-wrap {
+		width: 100%;
+		max-width: 900px;
+		padding: 2em 0.5em 2em;
+		.my-projects {
+			width: 100%;
+			// background-color: #000;
+			margin: 2px 0;
+			form {
+				width: 100%;
+				display: flex;
+				flex-wrap: wrap;
+			}
+		}
+		a.my-nav {
+			color: #fff;
+			text-decoration: none;
+			margin-left: 1.4em;
+			transition: all 0.2s ease;
+			&:hover {
+				color: rgba(98,190,232,1);
+			}
+		}
+		div.project-greeting {
+			margin: 1em 0.5em;
+		}
+		.review-project {
+			padding: 1em;
+			background-color: rgba(0,0,0,1);
+			cursor: pointer;
+			width: 100%;
+			color: #fff;
+			transition: all 0.2s ease;
+			justify-content: space-between;
+			&:hover {
+				background-color: rgba(255,255,255,0.8);
+				color: #313131;
+			}
+		}
+		input.update-current-project {
+			border: none;
+			// display: flex;
+			font-size: 1em;
+			color: #fff;
+			// padding: 0.5em 1em;
+			width: 100%;
+			// background-color: rgba(0,0,0,1);
+			cursor: pointer;
+			outline: none;
+			line-height: 1.5em;
+			text-decoration: none;
+			transition: all 0.2s ease;
+			&:hover {
+				// background-color: rgba(255,255,255,0.3);
+			}
+		}
+
+	}
+}
+p.owner-txt {
+	color: #fff;
+	margin-bottom: 0.5em;
+}
+
+
+
+
+
+
+
+// my_projects.php
+.project-details {
+	display: flex;
+	flex-direction: column;
+	form {
+		display: inline;
+		a i.fa-home,
+		a i.fa-edit,
+		a i.fa-sort,
+		a i.fa-fill-drip,
+		a i.fa-info-circle,
+		a i.fa-user-friends,
+		a i.fa-arrows-alt {
+			color: #fff;
+			text-decoration: none;
+			transition: all 0.2s ease;
+			&:hover {
+				color: #62bee8;
+			}
+		}
+	}
+	.shared-with {
+		width: 100%;
+		text-align: right;
+		margin: 0.5em 0;
+		padding-right: 1em;
+	}
+	background-color: rgba(255,255,255,0.2);
+	padding: 1em;
+	// a {
+	// 	margin: 0 1em;
+	// }
+
+
+
+		.project-notes {
+		flex-direction: row;
+		white-space: pre-line;
+		padding: 1.5em;
+		margin: 1em 0;
+		border: 1px solid rgba(255,255,255,0.3);
+		border-radius: 8px;
+		line-height: 1.5em;
+		pre {
+		    white-space: pre-wrap;       /* Since CSS 2.1 */
+		    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+		    white-space: -pre-wrap;      /* Opera 4-6 */
+		    white-space: -o-pre-wrap;    /* Opera 7 */
+		    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a.my-projects {
+	color: #fff;
+}
+a.hl {
+	color: #fff;
+	text-decoration: underline;
+	&:hover {
+		text-decoration: none;
+	}
+}
+a.project-links,
+a.project-links.shim {
+	color: #fff;
+	text-decoration: none;
+	&:hover {
+		text-decoration: underline;
+	}
+}
+a.project-links.shim {
+	// visibility: hidden;
+	cursor: default;
+}
+a.project-links.shim-edit {
+	// visibility: hidden;
+	cursor: pointer;
+}
+a.project-links.delete-pg {
+	cursor: default;
+}

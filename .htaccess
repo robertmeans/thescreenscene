@@ -1,0 +1,11 @@
+# Options +MultiViews
+# RewriteEngine on
+
+# RewriteCond %{HTTPS} off [OR]
+# RewriteCond %{HTTP_HOST} ^www\.browsergadget\.com [NC]
+# RewriteRule (.*) https://browsergadget.com/$1 [L,R=301]
+
+# ErrorDocument 401 https://www.browsergadget.com/
+# ErrorDocument 404 https://www.browsergadget.com/
+# ErrorDocument 500 https://www.browsergadget.com/
+

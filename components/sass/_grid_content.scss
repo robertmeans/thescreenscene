@@ -1,0 +1,249 @@
+#table-page,
+#edit-content-page,
+#edit-delete-page {
+	display: flex;
+	width: 100%;
+	min-height: 100vh;
+	justify-content: center;
+	align-items: center;
+	#table-wrap {
+		width: 100%;
+		max-width: 900px;
+		padding: 2em 0.5em 2em;
+	}
+	#edit-wrap {
+		width: 98%;
+		max-width: 900px;
+		//background-color: rgba(255,0,0,0.1);
+		padding: 2em 0.5em 2em;
+		a.project-links {
+			background-color: rgba(222,44,13,0.2);
+			&:hover {
+				background-color: rgba(222,44,13,0.5);
+			}
+		}
+		#tab1,
+		#tab2,
+		#tab3 {
+			background-image: url("_images/edit-bkg-dm.jpg");
+			background-repeat: repeat;
+			background-attachment: fixed;
+		}
+		.ctr-edit {
+			width: 100%;
+			text-align: center;
+		}
+		li.pg1 {
+			background-color: rgba(255,0,0,0.2);
+		}
+		li.pg2 {
+			background-color: rgba(0,255,0,0.1);
+		}
+		li.pg3 {
+			background-color: rgba(0,0,255,0.2);
+		}
+		li.page-divider {
+			flex-basis: 100%;
+		}
+		a.op i.fa-edit,
+		a.op i.fa-house-user,
+		a.op i.fa-list-ol {
+			color: #fff;
+			margin-left: 1.4em;
+			transition: all 0.2s ease;
+			&:hover {
+				color: rgba(98,190,232,1);
+			}
+		}
+	}
+}
+a.testaroo {
+	color: #fff;
+}
+ul#sortable,
+ul#static-sort {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	margin: 1em 0;
+	li {
+		display: flex;
+		flex: 1 0 21%;
+		min-width: 25%;
+		overflow-wrap: break-word;
+	}
+	li.pg1,
+	li.pg2,
+	li.pg3,
+	a.project-links,
+	a.project-links-empty {
+		width: 100%;
+		min-width: 50px;
+		margin: 0.1em;
+		font-size: 1em;
+		padding: 1em 0.5em;
+		background-color: rgba(255,255,255,0.2);
+		line-height: 1em;
+		height: auto;
+		text-decoration: none;
+		transition: all 0.2s ease;
+		&:hover {
+			background-color: rgba(255,255,255,0.1);
+		}	
+	}
+	li.pg2 {
+		background-color: rgba(255,255,255,0.4);
+	}
+	a.project-links {
+		line-height: 1.25em;
+	}
+	a.project-links.edit-shim {
+		text-align: center;
+		color: rgba(255,255,255,0.4);
+		&:hover {
+			color: rgba(255,255,255,1);
+		}
+	}		
+	a.project-links-empty {
+		background-color: transparent;
+		cursor: default;
+		&:hover {
+			background-color: transparent;
+		}
+	}
+}
+@media screen and (max-width: 750px) {
+	ul#sortable li,
+	ul#static-sort li {
+		flex: 1 0 30%;
+		min-width: 30%;
+	}
+}
+@media screen and (max-width: 620px) {
+	ul#sortable li,
+	ul#static-sort li {
+		flex: 1 0 46%;
+		min-width: 46%;
+	}
+}
+ul#static-sort.homepage a.project-links-empty {
+	padding: 0em;
+}
+ul#sortable.order a.project-links-empty,
+ul#sortable.order li {
+	padding: 0.5em;
+}
+a.textNav {
+	color: red;
+	text-decoration: none;
+	&:hover {
+		color: #fff;
+		text-decoration: underline;
+	}
+}
+#tab1,
+#tab2,
+#tab3 {
+	display: flex;
+	flex-wrap: wrap;
+	animation: fadein 0.75s;
+}
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+.tab-content {
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// page tabs
+.tab-links {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	float: left;
+}
+.tab-links li {
+	// this is for Page 1, Page 2...
+    margin: 0px 5px 3px 2px;
+    float: left;
+    list-style: none;
+}
+.tab-links li.project-name {
+	margin-left: 0.8em;
+}
+.tab-links a.project-link {
+	margin-left: 0.3em;
+	color: #fff;
+	text-decoration: none;
+	&:hover {
+		color: #fff;
+		color: rgba(255,255,255,0.9);
+		text-decoration: none;
+	}
+}
+
+.tab-links a {
+	// this is for edit icon...
+	color: #fff;
+	// margin-left: 1em;
+	transition: all 0.2s ease;
+	&:hover {
+		color: rgba(98,190,232,1);
+	}
+	i.fa-sign-out-alt,
+	i.fa-house-user,
+	i.fa-list-ol,
+	i.fa-arrows-alt {
+		&:hover {
+			color: rgba(98,190,232,1);
+		}
+	}
+	i.fa-sign-out-alt {
+		transform: rotate(180deg);
+	}	
+}
+.tab-links  input {
+    padding: 5px 6px;
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 3px;
+    background-color: rgba(255,255,255,0.3);
+    font-size: 0.8em;
+    color: #fff;
+    transition: all ease 0.3s;
+    text-decoration: none;
+    outline: none;
+}
+.tab-links input:hover {
+    background-color: #435162;
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+li.active input, li.active input:hover {
+    background: #fff;
+    color: #4c4c4c;
+    border-bottom: 1px solid white;
+    cursor: default;
+}
