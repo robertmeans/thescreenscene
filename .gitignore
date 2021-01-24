@@ -18,4 +18,3 @@ composer.lock
 .gitattributes
 sftp-config.json
 package-lock.json
-footer.php
