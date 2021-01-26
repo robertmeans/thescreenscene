@@ -28,6 +28,8 @@
 
 	<?php if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { // 2 = Spring ?>
 		<link rel="stylesheet" href="style-spring.css?<?php echo time(); ?>" type="text/css">
+	<?php } else if (isset($_SESSION['color']) && $_SESSION['color'] == "3") { // 3 = Classic ?>
+		<link rel="stylesheet" href="style-classic.css?<?php echo time(); ?>" type="text/css">
 	<?php } else { // default is Darkmode which is = 1 ?>
 		<link rel="stylesheet" href="style.css?<?php echo time(); ?>" type="text/css">
 	<?php } ?>

@@ -36,6 +36,13 @@
 				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>
+<!-- 			<li>
+			<form action="" method="post">
+				<input type="hidden" name="color" value="3">
+				<input type="hidden" name="shared_with" value="1">
+				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+			</form>
+			</li> -->
 		</ul>
 	</li>
 	<?php } 
@@ -88,6 +95,13 @@
 				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>
+<!-- 			<li>
+			<form action="" method="post">
+				<input type="hidden" name="color" value="3">
+				<input type="hidden" name="owner" value="1">
+				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+			</form>
+			</li> -->
 		</ul>
 	</li>
 	<?php } 

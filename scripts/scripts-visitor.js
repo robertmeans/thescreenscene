@@ -15,10 +15,10 @@ setTimeout(function() {
 		watchvideo.onclick = function() {
 
 			if (document.getElementById("foo").hasAttribute("src")) {
-				ytvideo.style.display = "block";
+				ytvideo.style.display = "flex";
 			} else {
 				document.getElementById("foo").setAttribute("src", vid);
-				ytvideo.style.display = "block";
+				ytvideo.style.display = "flex";
 			}
 
 		}
