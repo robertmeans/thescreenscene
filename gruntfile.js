@@ -28,8 +28,8 @@ module.exports = function(grunt) {
 		  		sourcemap: 'none'
 		  	},
 		  	files: {
-		  		//'style.css': 'components/sass/style.scss' // default is Darkmode
-		  		'style-spring.css': 'components/sass/style.scss'
+		  		'style.css': 'components/sass/style.scss' // default is Darkmode
+		  		// 'style-spring.css': 'components/sass/style.scss'
 		  		// 'style-classic.css': 'components/sass/style.scss'
 		  	}
 		  }

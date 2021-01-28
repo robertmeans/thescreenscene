@@ -535,7 +535,7 @@ $(document).ready(function() {
   });
 });
 
-// solution to submit without refresh found at: https://www.youtube.com/watch?t=470&v=GrycH6F-ksY&feature=youtu.be&ab_channel=Codecourse
+// general ajax submit -> put "ajax" in class to call
 $('form.ajax').on('submit', function() {
 	var that = $(this),
 	url = that.attr('action'),
@@ -562,93 +562,59 @@ $('form.ajax').on('submit', function() {
 });
 
 
-/*
-// was working on this 01.11.21 0905 - abandoned
-// for future consideration.
-// https://www.youtube.com/watch?v=a1aGlaA4kQQ&ab_channel=Webslesson
+
 $(document).ready(function() {
-	$('form.ajax-note').on('submit', function() {
-		var that = $(this),
-		url = that.attr('action'),
-		type = that.attr('method'),
-		data = {};
+// edit_toggle | edit toggle
+	$('#edit-content').click(function() {
 
-		that.find('[name]').each(function(index, value) {
-			// console.log(value);
-			var that = $(this),
-				name = that.attr('name'),
-				value = that.val();
-			data[name] = value;
-		});
-		$.ajax({
-			url: url,
-			type: type,
-			data: data,
-			success: function(response) {
-				// console.log(response);
-				$($row).val();
-			}
-		});
-		// console.log(data);
-		return false;
-	});
-	setInterval(function() {
-		$('#foo').load("_logged_in/add_a_note.php").fadeIn("fast");
-
-	}, 1000);
-});
-*/
-
-
-
-// close...
-// $(document).ready(function() {
-// 	$(document).on('click','a[data-role=update]',function() {
-// 		var id = $(this).data('id');
-// 		var urlz = $('#'+id).children('span[data-target=urlz]').text();
-// 	  var name = $('#'+id).children('span[data-target=name]').text();
-// 	  var rowid = $('#'+id).children('span[data-target=rowid]').text();
-// 		var theModal = document.getElementById("theModal");
-
-// 		$('#urlz').val(urlz);
-// 		$('#name').val(name);
-// 		$('#rowid').val(rowid);
-
-// 		theModal.style.display = "block";
-
-// 	});
-
-// 	var closefp = document.getElementsByClassName("closefp")[0];
-// 	closefp.onclick = function() {
-// 	  theModal.style.display = "none";
-// 	}
-
-
-// 	$('#update-link').click(function() {
-// 		var name 		= $('#name').val();
-// 		var url 		= $('#urlz').val();
-// 		var rowid 	= $('#rowid').val();
-// 		var cp 			= $('#cp').val();
-
-// 		$.ajax({
-// 			url 		: 'update_hyperlink.php',
-// 			method 	: 'post',
-// 			data 		: {name: name, url: url, cp: cp, rowid: rowid},
-// 			success : function(respones) {
-// 				console.log(response); // 12:50 in video 
-// 			}
-// 		});
-
-// 	});
-
-// });
-
-function toggleShim() {
 	var shimOnOff = document.getElementById("static-sort");
 	var editOnOff	=	document.getElementById("edit-content");
+	// set variables and toggle css
 	shimOnOff.classList.toggle("edit-shim");
 	editOnOff.classList.toggle("active");
-}
+
+
+	// get state of checkbox and set it to variable
+	var editValue 	= document.getElementById("et1");
+
+	if (!editValue.checked) {
+		editValue = "1";
+	} else {
+		editValue = "0";
+	}
+
+	var userId 					= $('#userid').val();
+	var currentProject 	= $('#curpro').val();
+	var ownShare				= $('#ownShare').val();
+
+		$.ajax({
+			url 		: 'ajax_edit_toggle.php',
+			method 	: 'post',
+			data 		: {ownShare:ownShare, editValue:editValue, userId:userId, currentProject:currentProject},
+			success : function(response) {
+				console.log('update successful');
+
+			}
+		});
+
+	var ettoggle 	= $('#et-form input[type="checkbox"]');
+	ettoggle.attr('checked', !ettoggle.attr('checked'));
+
+
+	});
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).ready(function() {
 	$(document).on('click','a[data-role=update]',function() {

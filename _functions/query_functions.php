@@ -81,7 +81,7 @@ function find_users_projects($user_id) { // 12.29.20 rewritten
 function assemble_current_project($user_id, $current_project) { 
   global $db;
 
-  $sql = "SELECT p_u.color, p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.search_order, p_u.reference, p_u.page_number, p_u.share, p_u.edit, p_u.edit_links, p.* ";
+  $sql = "SELECT p_u.color, p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.search_order, p_u.reference, p_u.page_number, p_u.share, p_u.edit, p_u.edit_toggle, p.* ";
   $sql .= "FROM projects as p ";
   $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
   $sql .= "WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";

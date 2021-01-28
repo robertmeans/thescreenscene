@@ -8,7 +8,13 @@
 
 	if (($row['edit'] == "1") && ($layout_context == 'homepage')) { ?>
 	<li>
-		<a href="#" id="edit-content" onclick="toggleShim();"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+		<form id="et-form" action="" method="post">
+			<input type="hidden" id="ownShare" name="ownShare" value="0">
+			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
+			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
+			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
+			<a href="#" id="edit-content" class="<?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+		</form>
 	</li>
 	<?php }
 
@@ -67,7 +73,13 @@
 
 	if (($layout_context == 'homepage')) { ?>
 	<li>
-		<a href="#" id="edit-content" onclick="toggleShim();"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+		<form id="et-form" action="" method="post">
+			<input type="hidden" id="ownShare" name="ownShare" value="1">
+			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
+			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
+			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
+			<a href="#" id="edit-content" class="<?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+		</form>
 	</li>
 	<?php }
 
