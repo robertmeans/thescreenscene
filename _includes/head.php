@@ -32,6 +32,7 @@
 		<link rel="stylesheet" href="style.css?<?php echo time(); ?>" type="text/css">
 	<?php } ?>
 
+	<script src="scripts/header-scripts.js?<?php echo time(); ?>"></script>
 	<script src="scripts/jquery-3.5.1.min.js"></script>
   <script src="scripts/jquery_1-12-1_ui_min.js"></script>
   

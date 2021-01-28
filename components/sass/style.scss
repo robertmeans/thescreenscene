@@ -14,6 +14,7 @@
 @import "sharing";
 @import "edit_page";
 @import "edit_modal";
+@import "front_pg_modal";
 @import "add_a_note";
 @import "modify_a_note";
 @import "projects";
@@ -24,6 +25,6 @@
 // color themes
 // default is darkmode: style.css
 
-// @import "spring";
+@import "spring";
 // @import "classic";
 

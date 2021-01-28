@@ -67,10 +67,23 @@ ul#static-sort {
 	flex-wrap: wrap;
 	margin: 1em 0;
 	li {
+		position: relative;
 		display: flex;
 		flex: 1 0 21%;
 		min-width: 25%;
 		overflow-wrap: break-word;
+		min-height: 0px;
+		transition: all 0.5s ease;
+		a.ue {
+			position: absolute;
+			top: 1px;
+			right: 5px;
+			color: rgba(255,255,255,0.2);
+			transition: all 0.2s ease;
+			&:hover {
+				color: rgba(255,255,255,1);
+			}
+		}
 	}
 	li.pg1,
 	li.pg2,
@@ -91,11 +104,31 @@ ul#static-sort {
 			background-color: rgba(255,255,255,0.1);
 		}	
 	}
+	a.project-links-empty.foo {
+		color: #fff;
+		width: 100%;
+		min-width: 50px;
+		margin: 0.1em;
+		font-size: 1em;
+		padding: 1em 0.5em;
+		background-color: rgba(255,255,255,0.2);
+		line-height: 1.25em;
+		height: auto;
+		text-decoration: none;
+		outline: none;
+		transition: all 0.2s ease;
+			&:hover {
+				background-color: rgba(255,255,255,0.1);
+			}
+
+
+	}
 	li.pg2 {
 		background-color: rgba(255,255,255,0.4);
 	}
 	a.project-links {
 		line-height: 1.25em;
+		transition: all 0.2s ease;
 	}
 	a.project-links.edit-shim {
 		text-align: center;
@@ -105,13 +138,39 @@ ul#static-sort {
 		}
 	}		
 	a.project-links-empty {
+		height: 0.2em;
 		background-color: transparent;
 		cursor: default;
+		transition: all 0.2s ease;
 		&:hover {
 			background-color: transparent;
 		}
 	}
 }
+ul#static-sort.homepage a.project-links-empty,
+ul#static-sort li a.ue {
+	// display: none;
+	visibility: hidden;
+	opacity: 0;
+	height: 0px;
+	transition: visibility 0s, opacity 1s linear;
+}
+ul#static-sort.edit-shim a.project-links-empty {
+	visibility: visible;
+	opacity: 1;
+}
+ul#static-sort.edit-shim {
+	li {
+		min-height: 1.5em;
+	}
+	li a.ue {
+		visibility: visible;
+		opacity: 1;
+	}
+}
+
+
+
 @media screen and (max-width: 750px) {
 	ul#sortable li,
 	ul#static-sort li {

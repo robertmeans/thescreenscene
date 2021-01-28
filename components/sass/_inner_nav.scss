@@ -15,6 +15,9 @@ ul.inner-nav {
 				color: #62bee8;
 			}
 		}
+		a#edit-content.active {
+			color: #82c33a;
+		}
 		a i.fa-minus-circle:hover {
 				color: red;
 			}
@@ -80,6 +83,7 @@ ul.inner-nav {
 			visibility: visible;
 			opacity: 1;
 			display: block;
+			z-index: 99;
 		}
 
 	}

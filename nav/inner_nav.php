@@ -6,8 +6,10 @@
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php }
 
-	if ($row['edit'] == "1" && $layout_context != 'edit_hyperlinks') { ?>
-	<li><a href="edit_content.php"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a></li>
+	if (($row['edit'] == "1") && ($layout_context == 'homepage')) { ?>
+	<li>
+		<a href="#" id="edit-content" onclick="toggleShim();"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+	</li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>
@@ -63,8 +65,10 @@
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php } 
 
-	if ($layout_context != 'edit_hyperlinks') { ?>
-	<li><a href="edit_content.php"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a></li>
+	if (($layout_context == 'homepage')) { ?>
+	<li>
+		<a href="#" id="edit-content" onclick="toggleShim();"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+	</li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>

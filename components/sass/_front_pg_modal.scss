@@ -1,0 +1,148 @@
+/* The Modal (background) */
+#theModal {
+  display: none; /* turn this modal on or off for dev at btm of script */
+  position: fixed;
+  z-index: 80;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+
+/* Modal Content/Box */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: 15% auto 0;
+  padding: 0px;
+  border: 1px solid #fff;
+  width: 90%;
+  max-width: 500px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+
+/* The Close Button */
+.closefp {
+  color: #313131;
+  float: right;
+  margin-top: -0.2em;
+  font-size: 1.5em;
+  font-weight: bold;
+  background-color: #fff;
+  border-radius: 50%;
+  &:hover,
+  &:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Modal Header */
+.modal-header,
+.modal-footer {
+  padding: 1em;
+  background-color: #757575;
+  color: white;
+}
+.modal-header {
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.modal-wrap {
+  width: 90%;
+  margin: 1em auto;
+}
+/* Modal Body */
+.modal-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  color: #313131;
+  padding: 1em;
+  background-color: #313131;
+  color: #fff;
+
+  form.edit-link-form {
+    width: 100%;
+    input.edit-input {
+      margin-top: 0.2em;
+      padding: 0.3em;
+      font-size: 1.2em;
+      color: #757575;
+      width: 100%;
+      background-color: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    input.link-name {
+      margin-bottom: 1em;
+    }
+    .submit-links {
+      width: 100%;
+      display: flex;
+      justify-content: space-aroung;
+      margin: 1em auto;
+      input.update,
+      input.delete {
+        margin-top: 1em;
+        width: 48%;
+        border: 1px solid green;
+        padding: 1em;
+        color: #fff;
+        font-size: 1em;
+        background-color: rgba(92,184,92,1);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        &:hover {
+          background-color: rgba(92,184,92,0.8);
+        }
+      }
+      input.delete {
+        background-color: rgba(247,58,58,1);
+        &:hover {
+          background-color: rgba(247,58,58,0.8);
+        }
+      }
+    }
+    
+    i.fa-paste {
+      font-size: 1.3em;
+      color: #757575;
+      margin-left: 0.2em;
+      transition: all 0.2s ease;
+      &:hover {
+        color: #000;
+      }
+    }
+  }
+}
+
+
+
+
+}
+
+
+
+/* Add Animation */
+@keyframes animatetop {
+  from {top: -300px; opacity: 0}
+  to {top: 0; opacity: 1}
+}
+

@@ -81,7 +81,7 @@ function find_users_projects($user_id) { // 12.29.20 rewritten
 function assemble_current_project($user_id, $current_project) { 
   global $db;
 
-  $sql = "SELECT p_u.color, p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.search_order, p_u.reference, p_u.page_number, p_u.share, p_u.edit, p.* ";
+  $sql = "SELECT p_u.color, p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.search_order, p_u.reference, p_u.page_number, p_u.share, p_u.edit, p_u.edit_links, p.* ";
   $sql .= "FROM projects as p ";
   $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
   $sql .= "WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";
@@ -843,48 +843,48 @@ Problem:
 // }
 
 
-function build_edit_dialog($edit_count, $modal_id, $url, $name) {
-  print <<< EDITBOX
+// function build_edit_dialog($edit_count, $modal_id, $url, $name) {
+//   print <<< EDITBOX
 
-<!-- The Modal -->
-<div id="$modal_id" class="modal">
+// <!-- The Modal -->
+// <div id="$modal_id" class="modal">
 
-<!-- Modal content -->
-<div class="modal-content">
-  <div class="modal-header">
-    <span class="close"><i class="fas fa-times-circle"></i></span>
-    <h2>Add | Edit | Delete</h2>
-  </div>
-  <div class="modal-wrap">
-    <div class="modal-body">
+// <!-- Modal content -->
+// <div class="modal-content">
+//   <div class="modal-header">
+//     <span class="close"><i class="fas fa-times-circle"></i></span>
+//     <h2>Add | Edit | Delete</h2>
+//   </div>
+//   <div class="modal-wrap">
+//     <div class="modal-body">
 
-      <!-- put errors here -->
+//       <!-- put errors here -->
 
-      <form action="" method="post" class="edit-link-form">
-        <input type="hidden" name="count" value="$edit_count">
+//       <form action="" method="post" class="edit-link-form">
+//         <input type="hidden" name="count" value="$edit_count">
 
-        <label>Name | Limit 30 characters
-        <input name="name" class="edit-input link-name" type="text" value="$name" maxlength="30"></label>
+//         <label>Name | Limit 30 characters
+//         <input name="name" class="edit-input link-name" type="text" value="$name" maxlength="30"></label>
 
-        <label>URL
-        <input name="url" class="edit-input link-url" type="text" value="$url" placeholder="http://"></label>
-        <div class="submit-links">
-          <input type="submit" name="update-link" style="display:none">
-          <input name="delete-link" class="delete" type="submit" value="Delete">
-          <input name="update-link" class="update" type="submit" value="Update">
-        </div><!-- #submit-links -->
-      </form>
-    </div><!-- .modal-body -->
-  </div><!-- .modal-wrap -->
-  <div class="modal-footer">
-    <h3>&nbsp;</h3>
-  </div>
-</div><!-- .modal-content -->
+//         <label>URL
+//         <input name="url" class="edit-input link-url" type="text" value="$url" placeholder="http://"></label>
+//         <div class="submit-links">
+//           <input type="submit" name="update-link" style="display:none">
+//           <input name="delete-link" class="delete" type="submit" value="Delete">
+//           <input name="update-link" class="update" type="submit" value="Update">
+//         </div><!-- #submit-links -->
+//       </form>
+//     </div><!-- .modal-body -->
+//   </div><!-- .modal-wrap -->
+//   <div class="modal-footer">
+//     <h3>&nbsp;</h3>
+//   </div>
+// </div><!-- .modal-content -->
 
-</div><!-- #modal -->
+// </div><!-- #modal -->
 
-EDITBOX;
-}
+// EDITBOX;
+// }
 
 function validate_update($row) {
 
@@ -939,29 +939,6 @@ function update_page_number_owner($user_id, $current_project, $page_number) {
     }  
 }
 
-
-
-function update_link($current_project, $row, $url) {
-  global $db;
-
-  $sql = "UPDATE projects SET ";
-  $sql .= $row['count'] . "_text='"  . db_escape($db, $row['name'])  . "', ";
-  $sql .= $row['count'] . "_url='"   . db_escape($db, $url)   . "' ";
-
-  $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
-  $sql .= "LIMIT 1";
-
-  $result = mysqli_query($db, $sql);
-  // UPDATE statements are true/false
-  if($result === true) {
-    return true;
-    } else {
-      // UPDATE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }  
-}
 
 function update_project_deets($current_project, $row) {
   global $db;
@@ -1056,27 +1033,49 @@ function update_row_order($current_project, $row) {
 //     }  
 // }
 
-function delete_link($current_project, $row) {
-  global $db;
+// function update_link($current_project, $row, $url) {
+//   global $db;
 
-  $sql = "UPDATE projects SET ";
-  $sql .= $row['count'] . "_text='', ";
-  $sql .= $row['count'] . "_url='' ";
+//   $sql = "UPDATE projects SET ";
+//   $sql .= $row['count'] . "_text='"  . db_escape($db, $row['name'])  . "', ";
+//   $sql .= $row['count'] . "_url='"   . db_escape($db, $url)   . "' ";
 
-  $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
-  $sql .= "LIMIT 1";
+//   $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
+//   $sql .= "LIMIT 1";
 
-  $result = mysqli_query($db, $sql);
-  // UPDATE statements are true/false
-  if($result === true) {
-    return true;
-    } else {
-      // UPDATE failed
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }  
-}
+//   $result = mysqli_query($db, $sql);
+//   // UPDATE statements are true/false
+//   if($result === true) {
+//     return true;
+//     } else {
+//       // UPDATE failed
+//       echo mysqli_error($db);
+//       db_disconnect($db);
+//       exit;
+//     }  
+// }
+
+// function delete_link($current_project, $row) {
+//   global $db;
+
+//   $sql = "UPDATE projects SET ";
+//   $sql .= $row['count'] . "_text='', ";
+//   $sql .= $row['count'] . "_url='' ";
+
+//   $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
+//   $sql .= "LIMIT 1";
+
+//   $result = mysqli_query($db, $sql);
+//   // UPDATE statements are true/false
+//   if($result === true) {
+//     return true;
+//     } else {
+//       // UPDATE failed
+//       echo mysqli_error($db);
+//       db_disconnect($db);
+//       exit;
+//     }  
+// }
 
 
 function delete_project($current_project, $vamoose) {

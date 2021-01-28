@@ -128,15 +128,6 @@ if ($projects > 0) { //(321)
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-				<input type="hidden" name="edit_project" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="far fa-edit fa-fw"></i></a></div>
-				</form>
-			</li>
-			<li>
-				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
 					<div class="tooltip"><span class="tooltiptext">Reorder search field</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
@@ -193,17 +184,6 @@ if ($projects > 0) { //(321)
 					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
-			<?php if ($row['edit'] == "1") { ?>
-			<li>
-				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-				<input type="hidden" name="edit_project" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="far fa-edit fa-fw"></i></a></div>
-				</form>
-			</li>
-			<?php } ?>
 			<li>
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
@@ -267,15 +247,6 @@ if ($projects > 0) { //(321)
 				<input type="hidden" name="go_to_homepage" value="1">
 
 					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
-				</form>
-			</li>
-			<li>
-				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-				<input type="hidden" name="edit_project" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="far fa-edit fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
