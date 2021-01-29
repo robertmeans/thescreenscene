@@ -96,9 +96,11 @@ $id_count = 1 + $row_count;
 <li id="<?php echo $id_count ?>" class="ui-state-default">           
 <?php 
       if (h($row[$r[$row_count] . '_text']) != "") { ?>
+        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
         <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
         <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
     <?php  } else {  ?>
+        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
         <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
         <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
 <?php } ?></li><?php } // end for loop page 2 ?>
@@ -116,9 +118,11 @@ $id_count = 1 + $row_count;
 <li id="<?php echo $id_count ?>" class="ui-state-default">           
 <?php 
       if (h($row[$r[$row_count] . '_text']) != "") { ?>
+        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
         <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
         <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
     <?php  } else {  ?>
+        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
         <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
         <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
 <?php } ?></li><?php } // end for loop page 3 ?>

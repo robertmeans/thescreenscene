@@ -95,7 +95,7 @@ ul#static-sort {
 	a.project-links-empty {
 		width: 100%;
 		min-width: 50px;
-		margin: 0.1em;
+		margin: 1.5px;
 		font-size: 1em;
 		padding: 1em 0.5em;
 		background-color: rgba(255,255,255,0.2);
@@ -156,7 +156,7 @@ ul#static-sort li a.ue {
 	visibility: hidden;
 	opacity: 0;
 	height: 0px;
-	transition: visibility 0s, opacity 1s linear;
+	transition: visibility 0.5s, opacity 0.5s linear;
 }
 ul#static-sort.edit-shim a.project-links-empty {
 	visibility: visible;
@@ -208,7 +208,7 @@ a.textNav {
 #tab3 {
 	display: flex;
 	flex-wrap: wrap;
-	animation: fadein 0.75s;
+	animation: fadein 1.25s;
 }
 @keyframes fadein {
     from { opacity: 0; }

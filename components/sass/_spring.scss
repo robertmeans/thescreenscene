@@ -21,7 +21,7 @@ ul#sortable,
 ul#static-sort {
 	li a.ue {
 		color: rgba(0,90,120,0.4);
-		transition: all 0.2s ease;
+		// transition: all 0.2s ease;
 		&:hover {
 			color: #b22222;
 		}

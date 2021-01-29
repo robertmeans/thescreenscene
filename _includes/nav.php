@@ -3,6 +3,7 @@
 		<!-- 1st link -->
 		<?php
 		switch ($layout_context) {
+			case 'home-first-visit' 	:	echo "<li><a class=\"logout\" href=\"logout.php\"><i class=\"fas fa-power-off\"></i> Exit</a></li>"; 	break;
 			case 'home-private' 	:	echo "<li><a class=\"logout\" href=\"logout.php\"><i class=\"fas fa-power-off\"></i> Exit</a></li>"; 	break;
 			case 'homepage' 	:	echo "<li><a class=\"logout\" href=\"logout.php\"><i class=\"fas fa-power-off\"></i> Exit</a></li>"; 	break;
 			case 'delete_project' 	:	echo "<li><a class=\"logout\" href=\"logout.php\"><i class=\"fas fa-power-off\"></i> Exit</a></li>"; 	break;

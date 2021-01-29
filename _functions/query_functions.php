@@ -77,7 +77,6 @@ function find_users_projects($user_id) { // 12.29.20 rewritten
   return $result;  
 }
 
-
 function assemble_current_project($user_id, $current_project) { 
   global $db;
 
@@ -146,7 +145,6 @@ function show_owner_info($this_project) {
   return $result;  // returns an assoc. array 
 }
 
-
 function shared_or_owner($user_id, $current_project) {
   global $db;
 
@@ -176,7 +174,6 @@ function edit_search_order($user_id, $current_project) {
   $row = mysqli_fetch_assoc($result);
   return $row;
 }
-
 
 function update_current_project($id, $current_project) { // 12.30.20 - checks out/no changes
   global $db;
@@ -234,7 +231,6 @@ function project_colormode_shared_with($user_id, $color, $current_project) { // 
     }  
 }
 
-
 function add_note($row, $url) {
   global $db;
 
@@ -261,8 +257,6 @@ function add_note($row, $url) {
   }
 }
 
-
-
 function modify_note($row, $this_note, $url) {
   global $db;
 
@@ -284,122 +278,6 @@ function modify_note($row, $this_note, $url) {
     exit;
   }
 }
-
-/*
-function sort_note_up($note_id, $hold, $original, $up, $down, $current_project, $user_id) {
-  global $db;
-
-  $one = "UPDATE notes SET "; 
-  $one .= "sort='" . db_escape($db, h($hold)) . "' "; // set sort to 99 (and set aside)
-  $one .= "WHERE sort='"  . $up . "' "; // where (original - 1) was
-  $one .= "AND (project_id='"  . $current_project . "' "; // now the original is sitting at 99
-  $one .= "AND user_id='"  . $user_id . "') ";
-  $one .= "LIMIT 1";
-
-  $result = mysqli_query($db, $one);  
-
-  if ($result) { // phase 1 complete. now decrease the current position
-
-    $two = "UPDATE notes SET "; 
-    $two .= "sort='" . db_escape($db, h($up))  . "' "; // set sort to (original - 1)
-    $two .= "WHERE sort='"  . $original . "' "; // where original was
-    $two .= "AND note_id='"  . $note_id . "' "; // on this note
-    $two .= "LIMIT 1";
-
-    $result = mysqli_query($db, $two);
-
-    if ($result) { // if everything's good so far we need to move 99 back in
-
-
-      $three = "UPDATE notes SET "; 
-      $three .= "sort='" . db_escape($db, h($original))  . "' "; // set to the # that was moved
-      $three .= "WHERE sort='"  . $hold . "' "; // where 99 is sitting
-      $three .= "AND (project_id='"  . $current_project . "' "; // this user can only have one 99 at a time... 
-      $three .= "AND user_id='"  . $user_id . "') ";
-      $three .= "LIMIT 1"; // unless they're trying to break something
-
-      $result = mysqli_query($db, $three);
-
-      if ($result) { 
-        return true;
-
-        } else {
-          echo mysqli_error($db);
-          db_disconnect($db);
-          exit;
-        }
-
-      } else {
-        echo mysqli_error($db);
-        db_disconnect($db);
-        exit;
-      }
-    } else {
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
-}
-
-
-
-function sort_note_down($note_id, $hold, $original, $up, $down, $current_project, $user_id) {
-  global $db;
-
-  $one = "UPDATE notes SET "; 
-  $one .= "sort='" . db_escape($db, h($hold)) . "' "; // set sort to 99 (and set aside)
-  $one .= "WHERE sort='"  . $down . "' "; // where (original + 1) was
-  $one .= "AND (project_id='"  . $current_project . "' "; // now the original is sitting at 99
-  $one .= "AND user_id='"  . $user_id . "') ";
-  $one .= "LIMIT 1";
-
-  $result = mysqli_query($db, $one);  
-
-  if ($result) { // phase 1 complete. now increase the current position
-
-    $two = "UPDATE notes SET "; 
-    $two .= "sort='" . db_escape($db, h($down))  . "' "; // set sort to (original + 1)
-    $two .= "WHERE sort='"  . $original . "' "; // where original was
-    $two .= "AND note_id='"  . $note_id . "' "; // on this note
-    $two .= "LIMIT 1";
-
-    $result = mysqli_query($db, $two);
-
-    if ($result) { // if everything's good so far we need to move 99 back in
-
-
-      $three = "UPDATE notes SET "; 
-      $three .= "sort='" . db_escape($db, h($original))  . "' "; // set to the # that was moved
-      $three .= "WHERE sort='"  . $hold . "' "; // where 99 is sitting
-      $three .= "AND (project_id='"  . $current_project . "' "; // this user can only have one 99 at a time... 
-      $three .= "AND user_id='"  . $user_id . "') ";
-      $three .= "LIMIT 1"; // unless they're trying to break something
-
-      $result = mysqli_query($db, $three);
-
-      if ($result) { 
-        return true;
-
-        } else {
-          echo mysqli_error($db);
-          db_disconnect($db);
-          exit;
-        }
-
-      } else {
-        echo mysqli_error($db);
-        db_disconnect($db);
-        exit;
-      }
-    } else {
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
-}
-
-*/
-
 
 function find_project_notes($user_id, $current_project) {
   global $db;
@@ -468,7 +346,6 @@ function does_user_have_a_single_project($user_id) {
   confirm_result_set($result);
   return $result;
 }
-
 
 function owner_share_project($row, $user_id, $id, $share, $edit, $current_project) { // coming in $row = $_POST values
   global $db;
@@ -689,8 +566,6 @@ function validate_unique_from_shared($row2) {
   return $errors; 
 }
 
-
-
 function find_user_by_email($users_email) {
   global $db;
 
@@ -723,24 +598,6 @@ function show_project($current_project) {
   $row = mysqli_fetch_assoc($result);
   return $row;   
 }
-
-// working with this for share_project.php
-// function share_project_information($current_project) {
-//   global $db;
-
-//   $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.share, p_u.edit, u.first_name, u.last_name, u.user_id, p.project_name ";
-//   $sql .= "FROM projects as p ";
-//   $sql .= "LEFT JOIN project_user as p_u ON p_u.project_id=p.id ";
-//   $sql .= "LEFT JOIN users as u ON p_u.owner_id=u.user_id ";
-//   $sql .= "LEFT JOIN users ON p_u.shared_with=u.user_id ";
-//   $sql .= "WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";
- 
-//   $result = mysqli_query($db, $sql); 
-//   confirm_result_set($result);
-//   $row = mysqli_fetch_assoc($result);
-//   return $row;   
-// }
-
 
 function show_project_to_owner($current_project) {
   global $db;
@@ -794,97 +651,6 @@ function owner_or_shared_with($current_project, $user_id) {
   confirm_result_set($result);
   return $result;
 }
-
-/* here's where this piece gets all fuddup. you have to have owner AND shared_with information from users table which means (1 solution, at least) that you have to separate share_project.php into 2 different iterations via if statement. or...
-
-1. call function to see if your $user_id is either in the owner_id or shared_with column for this project.
-2. if ($row['owner_id'] == $user_id) { ... } else { ... }
-
-Needs to be resolved on the following pages:
-delete_project.php
-edit_content.php
-edit_order.php
-edit_project_details.php
-edit_searches.php
-new_project.php
-share_project.php *currently working on -->
-
-Problem:
-1. need to be able to know if we're looking at a project you own or are shared_with so that later we can treat the project accordingly. e.g., in discusion and for permissions 
-2. this function (currently) joins users on p_u.owner_id -> what about shared_with?
-3. what we want to say is:
-  LEFT JOIN users u.user_id = p_u.owner_id
-  OR u.user_id = p_u.shared_with
-  IF $user_id = p_u.owner or p_u.shared_with
-
-  really, what we want is: 
-  all owner_id AND shared_with information from the users table while knowing which one this particular user is
-
-*/
-// function show_project_FIGGER_IT_OUT($current_project, $user_id) {
-//   global $db;
-
-//   $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.page_number, p_u.role, u.first_name, u.last_name, u.user_id, p.* ";
-//   $sql .= "FROM projects as p ";
-//   $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
-//   $sql .= "CASE ";
-//   $sql .= "WHEN p_u.owner_id='" . db_escape($db, $user_id) . "' ";
-//   $sql .= "THEN LEFT JOIN users as u ON u.user_id=p_u.owner_id WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";
-//   $sql .= "ELSE LEFT JOIN users as u on u.user_id=p_u.shared_with WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";
-//   $sql .= "END ";
-
-//   $sql .= "LIMIT 1";
-//   // echo $sql; 
-//   $result = mysqli_query($db, $sql); 
-//   confirm_result_set($result);
-//   $row = mysqli_fetch_assoc($result);
-//   // mysqli_free_result($result);
-//   return $row;   
-// }
-
-
-// function build_edit_dialog($edit_count, $modal_id, $url, $name) {
-//   print <<< EDITBOX
-
-// <!-- The Modal -->
-// <div id="$modal_id" class="modal">
-
-// <!-- Modal content -->
-// <div class="modal-content">
-//   <div class="modal-header">
-//     <span class="close"><i class="fas fa-times-circle"></i></span>
-//     <h2>Add | Edit | Delete</h2>
-//   </div>
-//   <div class="modal-wrap">
-//     <div class="modal-body">
-
-//       <!-- put errors here -->
-
-//       <form action="" method="post" class="edit-link-form">
-//         <input type="hidden" name="count" value="$edit_count">
-
-//         <label>Name | Limit 30 characters
-//         <input name="name" class="edit-input link-name" type="text" value="$name" maxlength="30"></label>
-
-//         <label>URL
-//         <input name="url" class="edit-input link-url" type="text" value="$url" placeholder="http://"></label>
-//         <div class="submit-links">
-//           <input type="submit" name="update-link" style="display:none">
-//           <input name="delete-link" class="delete" type="submit" value="Delete">
-//           <input name="update-link" class="update" type="submit" value="Update">
-//         </div><!-- #submit-links -->
-//       </form>
-//     </div><!-- .modal-body -->
-//   </div><!-- .modal-wrap -->
-//   <div class="modal-footer">
-//     <h3>&nbsp;</h3>
-//   </div>
-// </div><!-- .modal-content -->
-
-// </div><!-- #modal -->
-
-// EDITBOX;
-// }
 
 function validate_update($row) {
 
@@ -986,97 +752,6 @@ function update_row_order($current_project, $row) {
       exit;
     }  
 }
-
-
-// function update_search_order_owner($row, $user_id, $current_project) {
-//   global $db;
-
-//   $sql = "UPDATE project_user SET ";
-//   $sql .= "reference='"       . $row['reference']           . "', ";
-//   $sql .= "search_order='"    . $row['search_order']     . "' ";
-//   $sql .= "WHERE owner_id='"  . db_escape($db, $user_id) . "' ";
-//   $sql .= "AND project_id='"  . db_escape($db, $current_project) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   // UPDATE statements are true/false
-//   if($result === true) {
-//     return true;
-//     } else {
-//       // UPDATE failed
-//       echo mysqli_error($db);
-//       db_disconnect($db);
-//       exit;
-//     }  
-// }
-
-
-// function update_search_order_shared_with($row, $user_id, $current_project) {
-//   global $db;
-
-//   $sql = "UPDATE project_user SET ";
-//   $sql .= "reference='"       . $row['reference']           . "', ";
-//   $sql .= "search_order='"    . $row['search_order']     . "' ";
-//   $sql .= "WHERE shared_with='"  . db_escape($db, $user_id) . "' ";
-//   $sql .= "AND project_id='"  . db_escape($db, $current_project) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   // UPDATE statements are true/false
-//   if($result === true) {
-//     return true;
-//     } else {
-//       // UPDATE failed
-//       echo mysqli_error($db);
-//       db_disconnect($db);
-//       exit;
-//     }  
-// }
-
-// function update_link($current_project, $row, $url) {
-//   global $db;
-
-//   $sql = "UPDATE projects SET ";
-//   $sql .= $row['count'] . "_text='"  . db_escape($db, $row['name'])  . "', ";
-//   $sql .= $row['count'] . "_url='"   . db_escape($db, $url)   . "' ";
-
-//   $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   // UPDATE statements are true/false
-//   if($result === true) {
-//     return true;
-//     } else {
-//       // UPDATE failed
-//       echo mysqli_error($db);
-//       db_disconnect($db);
-//       exit;
-//     }  
-// }
-
-// function delete_link($current_project, $row) {
-//   global $db;
-
-//   $sql = "UPDATE projects SET ";
-//   $sql .= $row['count'] . "_text='', ";
-//   $sql .= $row['count'] . "_url='' ";
-
-//   $sql .= "WHERE id='"  . db_escape($db, $current_project) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   // UPDATE statements are true/false
-//   if($result === true) {
-//     return true;
-//     } else {
-//       // UPDATE failed
-//       echo mysqli_error($db);
-//       db_disconnect($db);
-//       exit;
-//     }  
-// }
-
 
 function delete_project($current_project, $vamoose) {
   global $db;

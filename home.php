@@ -107,7 +107,7 @@ require_once 'config/initialize.php';
   <div class="yt-modal-wrap">
       <div class="yt-modal-body">
 
-      <iframe id="foo" class="yvideo" width="100%" max-width="820" height="462" src="https://www.youtube.com/embed/cMbTpvm696c" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="foo" class="yvideo" width="100%" max-width="820" height="462" src="https://www.youtube.com/embed/3DWidpn8yBk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
       </div><!-- .yt-modal-body -->
 

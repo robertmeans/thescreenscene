@@ -477,11 +477,10 @@ $('.tab.active').show();
     // because the # was interfering with the Ajax form submission.
     // holy cow this took a long time to figure out!
 
-	    // $('.tabs ' + currentAttrValue).slideDown(400).siblings().slideUp(400);
-	    $('.tabs ' + thesetwo).show().siblings().hide();
-	    // $('.tabs ' + thesetwo).slideDown(250).siblings().slideUp(250);
+    // $('.tabs ' + thesetwo).show().siblings().hide();
+    $('.tabs ' + thesetwo).slideDown(250).siblings().slideUp(250);
 
-	    $(this).closest('li').addClass('active').siblings().removeClass('active');
+    $(this).closest('li').addClass('active').siblings().removeClass('active');
 
     // e.preventDefault();
 	}); // end tab switch
