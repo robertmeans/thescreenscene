@@ -8,7 +8,7 @@ if (is_post_request()) {
 
 	if (isset($_POST['update'])) {
 		global $db;
-
+		// only owner can rearrange hyperlink order so no need for shared_with version
 		$links = implode(',', $_POST['reorder'])  ?? '' ;
 
 		$sql = "UPDATE projects SET ";
@@ -19,7 +19,6 @@ if (is_post_request()) {
 		mysqli_query($db, $sql);
 
 	    exit('success');
-		// header('location:' . WWW_ROOT );
 
 	}
 }

@@ -14,7 +14,8 @@ if (is_post_request()) {
 		$sql = "UPDATE project_user SET ";
 		$sql .= "reference='" . $_POST['the_dic'] . "' ";
 		$sql .= "WHERE owner_id='"  . db_escape($db, $user_id) . "' ";
-		$sql .= "AND project_id='"  . db_escape($db, $current_project) . "' ";		
+		$sql .= "AND project_id='"  . db_escape($db, $current_project) . "' ";
+		$sql .= "AND shared_with IS NULL ";		
 		$sql .= "LIMIT 1";
 
 		mysqli_query($db, $sql);

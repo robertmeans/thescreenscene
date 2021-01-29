@@ -9,7 +9,8 @@ if (is_post_request()) {
 
     $count      = $_POST['rowid'] ?? '';
     $cp         = $_POST['cp'] ?? '';
-
+    // delete only happens in projects table so no need for shared_with version
+    
     $sql = "UPDATE projects SET ";
     $sql .= $count . "_text='', ";
     $sql .= $count . "_url='' ";

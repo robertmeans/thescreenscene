@@ -1,5 +1,5 @@
 <?php
-	switch ($inner_nav_context) { 
+	switch ($inner_nav_context) { // start shared_with navigation
 		
 	case 'shared_with' :
 	if ($layout_context != 'homepage') { ?>	
@@ -13,7 +13,7 @@
 			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
 			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
 			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-			<a href="#" id="edit-content" class="<?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+			<a href="#" id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
 		</form>
 	</li>
 	<?php }
@@ -63,11 +63,11 @@
 	<?php }
 
 
-	break;
+	break; // end shared_with navigation | begin owner navigation
 
 
 	case 'owner' :	
-	if ($layout_context != 'homepage') { ?>	
+	if ($layout_context != 'homepage') { // begin owner navigation ?>	
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php } 
 
@@ -78,7 +78,7 @@
 			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
 			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
 			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-			<a href="#" id="edit-content" class="<?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+			<a href="#" id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
 		</form>
 	</li>
 	<?php }

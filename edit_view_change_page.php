@@ -2,8 +2,6 @@
 
 require_once 'config/initialize.php';
 
-// off for local testing
-
 if (!isset($_SESSION['id'])) {
 	header('location: home.php');
 	exit();

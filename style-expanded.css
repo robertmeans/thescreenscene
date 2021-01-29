@@ -518,6 +518,12 @@ footer form#contactForm ul {
 footer form#contactForm ul li {
   list-style: none;
 }
+footer form#contactForm ul li .send-items {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+      align-items: center;
+}
 footer form#contactForm label {
   display: block;
   margin-bottom: .5em;
@@ -526,7 +532,7 @@ footer form#contactForm input {
   margin-bottom: 20px;
   margin-top: 5px;
 }
-footer form#contactForm input#name,
+footer form#contactForm input#sendersname,
 footer form#contactForm input#email {
   height: 1.5em;
   width: 100%;
@@ -545,7 +551,7 @@ footer form#contactForm textarea#comments {
   font-family: 'Architects Daughter', Tahoma, sans-serif;
   resize: none;
 }
-footer form#contactForm input#name,
+footer form#contactForm input#sendersname,
 footer form#contactForm input#email,
 footer form#contactForm textarea#comments {
   background-color: rgba(255, 255, 255, 0.2);
@@ -559,12 +565,12 @@ footer form#contactForm textarea#comments {
   padding: 1em;
   transition: background-color 0.3s ease, border-top 0.8s ease, border-right 0.8s ease, border-bottom 0.8s ease, border-left 0.8s ease;
 }
-footer form#contactForm input#name:hover,
+footer form#contactForm input#sendersname:hover,
 footer form#contactForm input#email:hover,
 footer form#contactForm textarea#comments:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
-footer form#contactForm input#name:focus,
+footer form#contactForm input#sendersname:focus,
 footer form#contactForm input#email:focus,
 footer form#contactForm textarea#comments:focus {
   background-color: transparent;
@@ -574,7 +580,6 @@ footer form#contactForm textarea#comments:focus {
   border-left: transparent;
 }
 footer form#contactForm input#send {
-  display: inline-block;
   float: left;
   width: 150px;
   padding: 10px;
@@ -596,7 +601,7 @@ footer form#contactForm input#send:visited {
   background: #ccc;
 }
 footer button#confirm {
-  float: left;
+  display: block;
   margin-top: 10px;
   max-width: 300px;
   padding: 10px 12px;
@@ -620,23 +625,33 @@ footer button.enable-submit {
 footer .g-recaptcha {
   margin-top: 10px;
 }
-footer button#send {
+footer input#send {
+  margin-right: 1em;
   float: left;
   margin-top: 10px;
   max-width: 300px;
-  padding: 10px 20px;
+  padding: 0.5em 1em;
   border: 1px solid #206311;
   background: #2cb20c;
   color: #fff;
   cursor: pointer;
 }
-footer button#send:hover {
+footer input#send:hover {
   background: #278111;
   color: #fff;
 }
-footer button#send:active, footer button#send:focus {
+footer input#send:active, footer input#send:focus {
   outline: 0;
   outline-style: 0;
+}
+footer span#status {
+  color: #fff;
+  margin-left: 1.5em;
+}
+footer h2.successmsg {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2em;
 }
 footer .display {
   display: none;
@@ -701,7 +716,7 @@ div#success-wrap span.success-msg {
     width: 94%;
     max-width: 420px;
   }
-  footer form#contactForm input#name,
+  footer form#contactForm input#sendersname,
   footer form#contactForm input#email {
     height: 30px;
   }

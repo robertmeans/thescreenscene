@@ -175,3 +175,26 @@ $(document).ready(function() {
   });
 });
 
+// footer_contact_ajax
+function _(id) { return document.getElementById(id); }
+function submitFooter() {
+  _("send").disabled = true;
+  _("status").innerHTML = 'working on it...';
+  var formdata = new FormData();
+  formdata.append("sendersname", _("sendersname").value);
+  formdata.append("email", _("email").value);
+  formdata.append("comments", _("comments").value);
+  var ajax = new XMLHttpRequest();
+  ajax.open("POST", "footer_contact_ajax.php");
+  ajax.onreadystatechange = function() {
+    if(ajax.readyState == 4 && ajax.status == 200) {
+      if(ajax.responseText == "success") {
+        _("contactForm").innerHTML = '<h2 class="successmsg">Thanks '+_("sendersname").value+', your message was sent successfully!</h2>';
+      } else {
+        _("status").innerHTML = ajax.responseText;
+        _("send").disabled = false;
+      }
+    }
+  }
+  ajax.send(formdata);
+}

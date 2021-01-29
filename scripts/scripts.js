@@ -384,34 +384,30 @@ var reorder = [];
 }
 
 // footer_contact_ajax
-$(document).ready(function() {
- $('#send-footer').click(function() {
- 	var name = $('#name').val();
- 	var message = $('#message').val();
+function _(id) { return document.getElementById(id); }
+function submitFooter() {
+  _("send").disabled = true;
+  _("status").innerHTML = 'working on it...';
+  var formdata = new FormData();
+  formdata.append("sendersname", _("sendersname").value);
+  formdata.append("email", _("email").value);
+  formdata.append("comments", _("comments").value);
+  var ajax = new XMLHttpRequest();
+  ajax.open("POST", "footer_contact_ajax.php");
+  ajax.onreadystatechange = function() {
+    if(ajax.readyState == 4 && ajax.status == 200) {
+      if(ajax.responseText == "success") {
+        _("contactForm").innerHTML = '<h2 class="successmsg">Thanks '+_("sendersname").value+', your message was sent successfully!</h2>';
+      } else {
+        _("status").innerHTML = ajax.responseText;
+        _("send").disabled = false;
+      }
+    }
+  }
+  ajax.send(formdata);
+}
 
- 	if (name == '') {
- 		$('#error_message').html("What's your name?");
- 	} else if (message == '') {
- 		$('#error_message').html("Don't send me a blank message!");
- 	} else {
- 		$('#error_message').html('');
- 		$.ajax({
- 			url:"footer_contact_ajax.php",
- 			method:"POST",
- 			data:{name:name, message:message},
- 			success:function(data) {
- 				$("form").trigger("reset");
- 				$('#success_message').fadeIn().html(data);
 
-				setTimeout(function() {
-				  $("#success_message").fadeOut('slow');
-				}, 2000);
-
- 			}
- 		});
- 	}
- });
-});
 
 $(document).ready(function() { // 122120856 start
 
@@ -561,7 +557,6 @@ $('form.ajax').on('submit', function() {
 });
 
 
-
 $(document).ready(function() {
 // edit_toggle | edit toggle
 	$('#edit-content').click(function() {
@@ -603,16 +598,6 @@ $(document).ready(function() {
 	});
 
 });
-
-
-
-
-
-
-
-
-
-
 
 
 $(document).ready(function() {

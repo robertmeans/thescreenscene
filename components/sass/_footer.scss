@@ -61,6 +61,10 @@ footer {
       padding: 0;
       li {
         list-style: none;
+        .send-items {
+          display: flex;
+          align-items: center;
+        }
       }
     }
     label {
@@ -71,7 +75,7 @@ footer {
       margin-bottom: 20px;
       margin-top: 5px;
     }
-    input#name,
+    input#sendersname,
     input#email {
       height: 1.5em;
       width: 100%;
@@ -91,7 +95,7 @@ footer {
       font-family: 'Architects Daughter', Tahoma, sans-serif;
       resize: none;
     }
-    input#name,
+    input#sendersname,
     input#email,
     textarea#comments {
       background-color: rgba(255,255,255,0.2);
@@ -119,7 +123,7 @@ footer {
       }
     } 
     input#send {
-      display: inline-block;
+      // display: inline-block;
       float: left;
       width: 150px;
       padding: 10px;
@@ -143,7 +147,8 @@ footer {
   }
 
   button#confirm {
-    float: left;
+    // float: left;
+    display: block;
     margin-top: 10px;
     max-width: 300px;
     padding: 10px 12px;
@@ -171,11 +176,14 @@ footer {
     // float: right;
   }
 
-  button#send {
+  input#send {
+    // display: inline;
+    margin-right: 1em;
     float: left;
     margin-top: 10px;
     max-width: 300px;
-    padding: 10px 20px;
+    // padding: 10px 20px;
+    padding: 0.5em 1em;
     // border-radius: 8px;
     border: 1px solid #206311;
     background: #2cb20c;
@@ -189,6 +197,15 @@ footer {
       outline: 0;
       outline-style: 0;
     }
+  }
+  span#status {
+    color: #fff;
+    margin-left: 1.5em;
+  }
+  h2.successmsg {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2em;
   }
 
   .display {
@@ -252,7 +269,7 @@ div#success-wrap {
     form#contactForm {
       width: 94%;
       max-width: 420px;
-      input#name,
+      input#sendersname,
       input#email {
         height: 30px;
       }

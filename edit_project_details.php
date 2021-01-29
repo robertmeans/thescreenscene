@@ -25,9 +25,6 @@ if (is_post_request()) {
   $result = update_project_deets($current_project, $row);
 
   if ($result === true) {
-
-// echo '<div id="success-wrap"><span class="success-msg">Update Successful!</span></div>';
-
     header('location: my_projects.php?id=' . $current_project);
 
     } else {
@@ -71,7 +68,6 @@ if ($row['owner_id'] == $user_id) { ?>
   <div class="btn-wrap">
     <a href="my_projects.php" class="cancel-deets">Cancel</a><input type="submit" name="update-deets">
   </div>
-
 
 </form>
 

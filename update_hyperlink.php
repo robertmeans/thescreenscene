@@ -2,7 +2,6 @@
 
 require_once 'config/initialize.php';
 
-
 if (is_post_request()) {
   if (isset($_POST['cp'])) {
     global $db;
@@ -11,7 +10,8 @@ if (is_post_request()) {
     $url        = $_POST['urlz']  ?? ''  ;
     $count      = $_POST['rowid'] ?? '';
     $cp         = $_POST['cp'] ?? '';
-
+    // update only happens in project table so no need for shared_with version
+    
     $sql = "UPDATE projects SET ";
     $sql .= $count . "_text='"  . db_escape($db, $name)  . "', ";
     $sql .= $count . "_url='"   . db_escape($db, $url)   . "' ";
@@ -20,7 +20,7 @@ if (is_post_request()) {
 
     $result = mysqli_query($db, $sql);
     if($result) {
-    	echo 'data updated';
+        echo 'data updated';
     }
   }
 

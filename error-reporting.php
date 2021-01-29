@@ -2,7 +2,6 @@
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 // error_reporting(0);  // turns off all error reporting
 
-
 error_reporting(-1); // reports all errors
 
 // ini_set("display_errors", "1"); // shows all errors in browser

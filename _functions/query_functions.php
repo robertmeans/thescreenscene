@@ -200,6 +200,7 @@ function project_colormode_owner($user_id, $color, $current_project) { // 12.30.
 
   $sql .= "WHERE owner_id='"  . db_escape($db, $user_id) . "' ";
   $sql .= "AND project_id='"  . $current_project . "' ";
+  $sql .= "AND shared_with IS NULL ";
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
@@ -691,6 +692,7 @@ function update_page_number_owner($user_id, $current_project, $page_number) {
   $sql .= "page_number='"  . $page_number . "' ";
   $sql .= "WHERE project_id='"  . db_escape($db, $current_project) . "' ";
   $sql .= "AND owner_id='"  . db_escape($db, $user_id) . "' ";
+  $sql .= "AND shared_with IS NULL ";
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
@@ -713,7 +715,7 @@ function update_project_deets($current_project, $row) {
   if (!empty($errors)) {
     return $errors;
   }   
-
+  // only an owner can do this
   $sql = "UPDATE projects SET ";
   $sql .= "project_name='"  . db_escape($db, $row['project_name'])  . "', ";
   $sql .= "project_notes='"   . db_escape($db, $row['project_notes'])   . "' ";
