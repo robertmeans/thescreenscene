@@ -3016,7 +3016,7 @@ div#success-wrap span.success-msg {
 #theModal .modal-header,
 #theModal .modal-footer {
   padding: 1em;
-  background-color: #757575;
+  background-color: #0a2240;
   color: white;
 }
 #theModal .modal-header {
@@ -3052,6 +3052,11 @@ div#success-wrap span.success-msg {
   width: 100%;
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
+  outline: none;
+  border: none;
+}
+#theModal .modal-body form.edit-link-form input.edit-input:hover, #theModal .modal-body form.edit-link-form input.edit-input:focus {
+  outline: none;
 }
 #theModal .modal-body form.edit-link-form input.link-name {
   margin-bottom: 1em;
@@ -3109,7 +3114,8 @@ div#success-wrap span.success-msg {
   }
 }
 /* The Modal (background) */
-.aan-modal {
+.aan-modal,
+.modify-modal {
   display: none;
   /* turn this modal on or off for dev at btm of script */
   position: fixed;
@@ -3124,9 +3130,11 @@ div#success-wrap span.success-msg {
 }
 
 /* Modal Content/Box */
-.aan-modal-content {
+.aan-modal-content,
+.modify-modal-content {
   position: relative;
-  background-color: #fefefe;
+  background-color: #313131;
+  color: #fff;
   margin: 15% auto 0;
   padding: 0px;
   border: 1px solid #fff;
@@ -3150,7 +3158,8 @@ div#success-wrap span.success-msg {
   }
 }
 /* The Close Button */
-.aan-close {
+.aan-close,
+.modify-close {
   color: #313131;
   float: right;
   margin-top: -0.2em;
@@ -3159,14 +3168,18 @@ div#success-wrap span.success-msg {
   background-color: #fff;
   border-radius: 50%;
 }
-.aan-close:hover, .aan-close:focus {
+.aan-close:hover, .aan-close:focus,
+.modify-close:hover,
+.modify-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
 }
 
 .aan-close:hover,
-.aan-close:focus {
+.aan-close:focus,
+.modify-close:hover,
+.modify-close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
@@ -3174,18 +3187,22 @@ div#success-wrap span.success-msg {
 
 /* Modal Header */
 .aan-modal-header,
-.aan-modal-footer {
+.aan-modal-footer,
+.modify-modal-header,
+.modify-modal-footer {
   padding: 1em;
-  background-color: #62bee8;
+  background-color: #0a2240;
   color: white;
 }
 
-.aan-modal-header {
+.aan-modal-header,
+.modify-modal-header {
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
 }
 
-.aan-modal-wrap {
+.aan-modal-wrap,
+.modify-modal-wrap {
   width: 90%;
   margin: 1em auto;
 }
@@ -3201,7 +3218,7 @@ div#success-wrap span.success-msg {
       align-items: center;
   width: 100%;
   height: 100%;
-  color: #313131;
+  color: #fff;
 }
 .aan-modal-body p,
 .modify-modal-body p {
@@ -3221,6 +3238,7 @@ div#success-wrap span.success-msg {
   padding: 0.3em;
   font-size: 1.2em;
   color: #313131;
+  color: rgba(255, 255, 255, 0.7);
   width: 100%;
 }
 .aan-modal-body form.edit-link-form input.link-name,
@@ -3232,6 +3250,7 @@ div#success-wrap span.success-msg {
   padding: 0.3em;
   font-size: 1.2em;
   color: #313131;
+  color: rgba(255, 255, 255, 0.7);
   width: 100%;
 }
 .aan-modal-body form.edit-link-form textarea,
@@ -3243,6 +3262,7 @@ div#success-wrap span.success-msg {
   height: 4em;
   font-size: 1.2em;
   color: #313131;
+  color: rgba(255, 255, 255, 0.7);
   padding: 0.5em;
   line-spacing: 1.2em;
 }
@@ -3256,6 +3276,7 @@ div#success-wrap span.success-msg {
 .modify-modal-body form.modify-note-form textarea {
   border: none;
   background-color: rgba(98, 190, 232, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
   outline: none;
   border-bottom: 1px solid transparent;
 }
@@ -3275,17 +3296,8 @@ div#success-wrap span.success-msg {
 .modify-modal-body form.modify-note-form textarea:hover,
 .modify-modal-body form.modify-note-form textarea:focus {
   background-color: #0b5596;
+  background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
-}
-.aan-modal-body form.edit-link-form input:focus,
-.aan-modal-body form.edit-link-form textarea:focus,
-.aan-modal-body form.modify-note-form input:focus,
-.aan-modal-body form.modify-note-form textarea:focus,
-.modify-modal-body form.edit-link-form input:focus,
-.modify-modal-body form.edit-link-form textarea:focus,
-.modify-modal-body form.modify-note-form input:focus,
-.modify-modal-body form.modify-note-form textarea:focus {
-  border-bottom: 1px solid #0a2240;
 }
 .aan-modal-body form.edit-link-form label.clipboard,
 .aan-modal-body form.modify-note-form label.clipboard,
@@ -3379,7 +3391,8 @@ div#success-wrap span.success-msg {
 }
 
 /* Modal Footer */
-.aan-modal-footer {
+.aan-modal-footer,
+.modify-modal-footer {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
@@ -3745,185 +3758,6 @@ a#note-limit:hover {
     padding: 0.5em 0em;
   }
 }
-/* The Modal (background) */
-.modify-modal {
-  display: none;
-  /* turn this modal on or off for dev at btm of script */
-  position: fixed;
-  z-index: 78;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.4);
-}
-
-/* Modal Content/Box */
-.modify-modal-content {
-  position: relative;
-  background-color: #fefefe;
-  margin: 15% auto 0;
-  padding: 0px;
-  border: 1px solid #fff;
-  width: 90%;
-  max-width: 500px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  animation-name: animatetop;
-  animation-duration: 0.4s;
-}
-
-/* Add Animation */
-@keyframes animatetop {
-  from {
-    top: -300px;
-    opacity: 0;
-  }
-  to {
-    top: 0;
-    opacity: 1;
-  }
-}
-/* The Close Button */
-.modify-close {
-  color: #313131;
-  float: right;
-  margin-top: -0.2em;
-  font-size: 1.5em;
-  font-weight: bold;
-  background-color: #fff;
-  border-radius: 50%;
-}
-.modify-close:hover, .modify-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.modify-close:hover,
-.modify-close:focus {
-  color: black;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* Modal Header */
-.modify-modal-header,
-.modify-modal-footer {
-  padding: 1em;
-  background-color: #62bee8;
-  color: white;
-}
-
-.modify-modal-header {
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
-}
-
-.modify-modal-wrap {
-  width: 90%;
-  margin: 1em auto;
-}
-
-/* Modal Body */
-.modify-modal-body {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: center;
-      justify-content: center;
-  -ms-flex-align: center;
-      align-items: center;
-  width: 100%;
-  height: 100%;
-  color: #313131;
-}
-.modify-modal-body form.modify-note-form {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  width: 100%;
-}
-.modify-modal-body form.modify-note-form input.edit-input {
-  margin-top: 0.2em;
-  padding: 0.3em;
-  font-size: 1.2em;
-  color: #313131;
-  width: 100%;
-}
-.modify-modal-body form.modify-note-form input.link-name {
-  margin-bottom: 1em;
-}
-.modify-modal-body form.modify-note-form textarea {
-  width: 100%;
-  resize: none;
-  height: 4em;
-  font-size: 1.2em;
-  color: #313131;
-  padding: 0.5em;
-  line-spacing: 1.2em;
-}
-.modify-modal-body form.modify-note-form input,
-.modify-modal-body form.modify-note-form textarea {
-  border: none;
-  background-color: rgba(98, 190, 232, 0.2);
-  color: #313131;
-  outline: none;
-  border-bottom: 1px solid transparent;
-}
-.modify-modal-body form.modify-note-form input:focus,
-.modify-modal-body form.modify-note-form textarea:focus {
-  border-bottom: 1px solid #0a2240;
-}
-.modify-modal-body form.modify-note-form .submit-links {
-  width: 100%;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: justify;
-      justify-content: space-between;
-}
-.modify-modal-body form.modify-note-form .submit-links input.update,
-.modify-modal-body form.modify-note-form .submit-links a.cancel-close {
-  margin-top: 1em;
-  width: 48%;
-  border: 1px solid green;
-  padding: 1em;
-  color: #fff;
-  font-size: 1em;
-  text-decoration: none;
-  text-align: center;
-  background-color: #5cb85c;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-.modify-modal-body form.modify-note-form .submit-links input.update:hover,
-.modify-modal-body form.modify-note-form .submit-links a.cancel-close:hover {
-  background-color: rgba(92, 184, 92, 0.8);
-}
-.modify-modal-body form.modify-note-form .submit-links a.cancel-close {
-  background-color: #f73a3a;
-}
-.modify-modal-body form.modify-note-form .submit-links a.cancel-close:hover {
-  background-color: rgba(247, 58, 58, 0.8);
-}
-.modify-modal-body form.modify-note-form i.fa-paste {
-  font-size: 1.3em;
-  color: #757575;
-  margin-left: 0.2em;
-  transition: all 0.2s ease;
-}
-.modify-modal-body form.modify-note-form i.fa-paste:hover {
-  color: #000;
-}
-
-/* Modal Footer */
-.modify-modal-footer {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
-}
-
 .project-notes li input.modify-input {
   background-color: #fff;
   color: #313131;

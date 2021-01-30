@@ -150,7 +150,6 @@ $id_count = 1 + $row_count;
       </div>
       <div class="modal-body">
 
-
       <form class="edit-link-form">
         <input type="hidden" name="rowid" id="rowid">
         <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">

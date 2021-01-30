@@ -577,9 +577,9 @@ $(document).ready(function() {
 		editValue = "0";
 	}
 
-	var userId 					= $('#userid').val();
-	var currentProject 	= $('#curpro').val();
-	var ownShare				= $('#ownShare').val();
+	var userId             = $('#userid').val();
+	var currentProject     = $('#curpro').val();
+	var ownShare           = $('#ownShare').val();
 
 		$.ajax({
 			url 		: 'ajax_edit_toggle.php',
@@ -602,19 +602,19 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 	$(document).on('click','a[data-role=update]',function() {
-		var id = $(this).data('id');
-		var urlz = $('#'+id).children('a[data-target=urlz]').attr('href');
-	  var name = $('#'+id).children('a[data-target=urlz]').text();
-	  var rowid = $('#'+id).children('span[data-target=rowid]').text();
-	  var idcount = $('#'+id).children('span[data-target=idcount]').text();
-		var theModal = document.getElementById("theModal");
+    	var id         = $(this).data('id');
+    	var urlz       = $('#'+id).children('a[data-target=urlz]').attr('href');
+    	var name       = $('#'+id).children('a[data-target=urlz]').text();
+    	var rowid      = $('#'+id).children('span[data-target=rowid]').text();
+    	var idcount    = $('#'+id).children('span[data-target=idcount]').text();
+    	var theModal   = document.getElementById("theModal");
 
-		$('#urlz').val(urlz);
-		$('#name').val(name);
-		$('#rowid').val(rowid);
-		$('#idcount').val(idcount);
+    	$('#urlz').val(urlz);
+    	$('#name').val(name);
+    	$('#rowid').val(rowid);
+    	$('#idcount').val(idcount);
 
-		theModal.style.display = "block";
+        theModal.style.display = "block";
 
 	});
 
@@ -624,11 +624,11 @@ $(document).ready(function() {
 	}
 
 	$('#update').click(function() {
-		var id 			= $('#idcount').val();
-		var name 		= $('#name').val();
-		var urlz 		= $('#urlz').val();
+		var id 		= $('#idcount').val();
+		var name 	= $('#name').val();
+		var urlz 	= $('#urlz').val();
 		var rowid 	= $('#rowid').val();
-		var cp 			= $('#cp').val();
+		var cp 		= $('#cp').val();
 		var pattern = /^((http|https|ftp):\/\/)/;
 
 		if(!pattern.test(urlz)) {
@@ -640,11 +640,11 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url 		: 'update_hyperlink.php',
+			url 	: 'update_hyperlink.php',
 			method 	: 'post',
-			data 		: {name:name, urlz:urlz, rowid:rowid, cp:cp},
+			data 	: {name:name, urlz:urlz, rowid:rowid, cp:cp},
 			success : function(response) {
-				$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
+			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
 	  		$('#'+id).children('a[data-target=urlz]').text(name); 
 
 	  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
@@ -657,18 +657,17 @@ $(document).ready(function() {
 		theModal.style.display = "none";
 	});
 
-
 	$('#delete').click(function() {
-		var id 			= $('#idcount').val();
+		var id 		= $('#idcount').val();
 		var rowid 	= $('#rowid').val();
-		var cp 			= $('#cp').val();
+		var cp 		= $('#cp').val();
 
 		$.ajax({
-			url 		: 'delete_hyperlink.php',
+			url 	: 'delete_hyperlink.php',
 			method 	: 'post',
-			data 		: {rowid:rowid, cp:cp},
+			data 	: {rowid:rowid, cp:cp},
 			success : function(response) {
-				$('#'+id).children('a[data-target=urlz]').attr('href','');
+			$('#'+id).children('a[data-target=urlz]').attr('href','');
 	  		$('#'+id).children('a[data-target=urlz]').text(''); 
 
 	  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');

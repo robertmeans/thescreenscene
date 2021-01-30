@@ -38,7 +38,6 @@ $modify_id = 0;
 $str_length = 2;
 $note_count = 0;
 
-// find out if user has any projects they manage
 if ($notes > 0) {
 // they have notes so you can run a query to get largest number in sort column
 global $db;

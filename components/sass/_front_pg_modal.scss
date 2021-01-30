@@ -55,7 +55,7 @@
 .modal-header,
 .modal-footer {
   padding: 1em;
-  background-color: #757575;
+  background-color: #0a2240;
   color: white;
 }
 .modal-header {
@@ -88,6 +88,12 @@
       width: 100%;
       background-color: rgba(255,255,255,0.2);
       color: #fff;
+      outline: none;
+      border: none;
+      &:hover,
+      &:focus {
+        outline: none;
+      }
     }
     input.link-name {
       margin-bottom: 1em;

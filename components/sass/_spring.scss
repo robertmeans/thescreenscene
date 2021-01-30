@@ -27,6 +27,45 @@ ul#static-sort {
 		}
 	}
 }
+.modify-modal-content,
+.aan-modal-content {
+	background-color: rgba(250,240,203,1);
+	background-image: url("_images/floral-pattern.jpg");
+	background-repeat: repeat;
+	background-attachment: fixed;	
+	color: #313131;
+	form p,	
+	label {
+		color: #313131;
+	}
+}
+#theModal .modal-body form.edit-link-form input.edit-input {
+	background-color: rgba(98,190,232,0.2);
+	color: #313131;
+	border: none;	
+	outline: none;
+	&:hover,
+	&:focus {
+		background-color: #0b5596;
+		color: #fff;
+		border: none;
+		outline: none;
+	}
+}
+.modify-modal-body form.modify-note-form textarea,
+.modify-modal-body form.modify-note-form input.link-name,
+.aan-modal-body form.edit-link-form textarea,
+.aan-modal-body form.edit-link-form input.link-name,
+.aan-modal-body form.aan-note-form input.link-name,
+.aan-modal-body form.aan-note-form input.textarea,
+#theModal .modal-body form.edit-link-form input.edit-input
+ {
+	color: #313131;
+	&:focus,
+	&:hover {
+		color: #fff;
+	}
+}
 #theModal {
 	.modal-body {
 		background-color: rgba(250,240,203,1);
@@ -35,8 +74,11 @@ ul#static-sort {
 		background-attachment: fixed;	
 		color: #313131;
 		form.edit-link-form input.edit-input {
-			background-color: rgba(255,255,255,0.75);
 			color: #313131;
+			&:focus,
+			&:hover {
+				color: #fff;
+			}
 		}
 	}
 	.modal-header,
@@ -434,3 +476,6 @@ footer {
 footer button#toggle-contact-form:hover {
 	background-color: rgba(0,0,0,0.2);
 }
+  span#status {
+    color: #313131;
+  }
