@@ -132,6 +132,10 @@ ul#static-sort {
 	a.project-links {
 		line-height: 1.25em;
 		transition: all 0.2s ease;
+		&:focus,
+		&:active {
+			outline: none;
+		}
 	}
 	a.project-links.edit-shim {
 		text-align: center;

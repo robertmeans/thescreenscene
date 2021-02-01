@@ -20,9 +20,6 @@ if (is_post_request()) {
 		}
 
 	    exit('success');
-		// header('location:' . WWW_ROOT );
 
 	}
 }
-		
-

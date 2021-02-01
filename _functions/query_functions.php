@@ -232,31 +232,31 @@ function project_colormode_shared_with($user_id, $color, $current_project) { // 
     }  
 }
 
-function add_note($row, $url) {
-  global $db;
+// function add_note($row, $url) {
+//   global $db;
 
-  $sql = "INSERT INTO notes ";
-  $sql .= "(user_id, project_id, name, url, note, sort, clipboard) ";
-  $sql .= "VALUES ("; 
-  $sql .= "'" . $row['user_id'] . "', ";
-  $sql .= "'" . db_escape($db, $row['project_id'])    . "', ";
-  $sql .= "'" . db_escape($db, $row['name'])    . "', ";
-  $sql .= "'" . db_escape($db, $url)    . "', ";
-  $sql .= "'" . db_escape($db, $row['note'])    . "', ";
-  $sql .= "'" . db_escape($db, $row['sort'])    . "', ";
-  $sql .= "'" . $row['clipboard']    . "'";
-  $sql .= ")";
+//   $sql = "INSERT INTO notes ";
+//   $sql .= "(user_id, project_id, name, url, note, sort, clipboard) ";
+//   $sql .= "VALUES ("; 
+//   $sql .= "'" . $row['user_id'] . "', ";
+//   $sql .= "'" . db_escape($db, $row['project_id'])    . "', ";
+//   $sql .= "'" . db_escape($db, $row['name'])    . "', ";
+//   $sql .= "'" . db_escape($db, $url)    . "', ";
+//   $sql .= "'" . db_escape($db, $row['note'])    . "', ";
+//   $sql .= "'" . db_escape($db, $row['sort'])    . "', ";
+//   $sql .= "'" . $row['clipboard']    . "'";
+//   $sql .= ")";
 
-  $result = mysqli_query($db, $sql);
-  // echo $sql;  
-  if ($result) {
-    return true;
-  } else {
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
-}
+//   $result = mysqli_query($db, $sql);
+//   // echo $sql;  
+//   if ($result) {
+//     return true;
+//   } else {
+//     echo mysqli_error($db);
+//     db_disconnect($db);
+//     exit;
+//   }
+// }
 
 function modify_note($row, $this_note, $url) {
   global $db;
@@ -293,24 +293,24 @@ function find_project_notes($user_id, $current_project) {
   return $result; // returns an assoc. array    
 }
 
-function delete_note($note_id) {
-  global $db;
+// function delete_note($note_id) {
+//   global $db;
  
-  $sql = "DELETE FROM notes ";
-  $sql .= "WHERE note_id='" . $note_id . "' ";
-  $sql .= "LIMIT 1";
+//   $sql = "DELETE FROM notes ";
+//   $sql .= "WHERE note_id='" . $note_id . "' ";
+//   $sql .= "LIMIT 1";
 
-  $result = mysqli_query($db, $sql);
+//   $result = mysqli_query($db, $sql);
 
-  if($result) {
-    header('location:' . WWW_ROOT);
-  } else {
-    // delete failed
-    mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
-}
+//   if($result) {
+//     header('location:' . WWW_ROOT);
+//   } else {
+//     // delete failed
+//     mysqli_error($db);
+//     db_disconnect($db);
+//     exit;
+//   }
+// }
 
 
 // 1222202024

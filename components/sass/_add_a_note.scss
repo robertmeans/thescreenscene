@@ -153,6 +153,10 @@
       display: flex;
       justify-content: space-between;
       margin-top: 0.5em;
+      #update-note,
+      #modify-note {
+        display: none;
+      }
       input.update,
       a.cancel-close,
       a.closer {
@@ -531,6 +535,22 @@ a#note-limit {
     }
   }
 }
+
+
+
+
+#sortanote li input.cb-txt {
+  color: #fff;
+  &:hover,
+  &:focus,
+  &::selection {
+    text-decoration: none;
+    background-color: transparent;
+  }
+}
+
+
+
 
 @media screen and (max-width: 650px) {
   .project-notes li {

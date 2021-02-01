@@ -1440,6 +1440,11 @@ ul#static-sort a.project-links {
   line-height: 1.25em;
   transition: all 0.2s ease;
 }
+ul#sortable a.project-links:focus, ul#sortable a.project-links:active,
+ul#static-sort a.project-links:focus,
+ul#static-sort a.project-links:active {
+  outline: none;
+}
 ul#sortable a.project-links.edit-shim,
 ul#static-sort a.project-links.edit-shim {
   text-align: center;
@@ -2341,6 +2346,11 @@ a.go:hover {
 #sortable li span {
   position: absolute;
   margin-left: -1.3em;
+}
+
+#sortanote li span.urlns {
+  position: relative;
+  margin-left: 0;
 }
 
 #sortablesearch {
@@ -3316,6 +3326,16 @@ div#success-wrap span.success-msg {
       justify-content: space-between;
   margin-top: 0.5em;
 }
+.aan-modal-body form.edit-link-form .submit-links #update-note,
+.aan-modal-body form.edit-link-form .submit-links #modify-note,
+.aan-modal-body form.modify-note-form .submit-links #update-note,
+.aan-modal-body form.modify-note-form .submit-links #modify-note,
+.modify-modal-body form.edit-link-form .submit-links #update-note,
+.modify-modal-body form.edit-link-form .submit-links #modify-note,
+.modify-modal-body form.modify-note-form .submit-links #update-note,
+.modify-modal-body form.modify-note-form .submit-links #modify-note {
+  display: none;
+}
 .aan-modal-body form.edit-link-form .submit-links input.update,
 .aan-modal-body form.edit-link-form .submit-links a.cancel-close,
 .aan-modal-body form.edit-link-form .submit-links a.closer,
@@ -3751,6 +3771,14 @@ a#note-limit:hover {
 #sortanote li span.modify-close {
   position: relative;
   margin: 0;
+}
+
+#sortanote li input.cb-txt {
+  color: #fff;
+}
+#sortanote li input.cb-txt:hover, #sortanote li input.cb-txt:focus, #sortanote li input.cb-txt::selection {
+  text-decoration: none;
+  background-color: transparent;
 }
 
 @media screen and (max-width: 650px) {

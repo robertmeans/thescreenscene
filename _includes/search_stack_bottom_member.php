@@ -16,14 +16,14 @@
         ?></li>
 
 <?php
-$user_id = $_SESSION['id'];
+// $user_id = $_SESSION['id'];
 $notes_for_project = find_project_notes($user_id, $current_project);
 $notes = mysqli_num_rows($notes_for_project);
 
 ?>
 
 <?php if ($notes <= 9) { ?>
-        <li class="note-edit-pg"><a href="#" id="add-note" class="add-a-note static">Add a note</a></li>
+        <li class="note-edit-pg"><a href="#" id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 <?php } else { ?>
         <li class="note-edit-pg"><a href="#" id="note-limit" class="add-a-note static">Add a note</a></li>
 <?php } ?>
@@ -31,6 +31,8 @@ $notes = mysqli_num_rows($notes_for_project);
 </ul>
 <?php } ?>
 
+
+<div id="usersnotes">
 <ul <?php if ($notes > 1) { echo "id=\"sortanote\""; } ?> class="project-notes">
 
 <?php 
@@ -63,30 +65,32 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <div class="notename">
         <?php
         if ($row['url'] != "") { ?>
-            <a href="<?= $row['url']; ?>" class="note-link" target="_blank"><?= $row['name']; ?></a>
-        <?php } else { 
-            echo $row['name'];
-         } ?>   
+            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $row['name']; ?></a>
+        <?php } else { ?>
+            <span data-target="urln" class="urlns"><?= $row['name']; ?></span>
+        <?php } ?>   
         </div>
 
     </div>  
     <div class="sec note">
         <?php
-        if ($row['clipboard'] == "1") {
-          echo "<a href=\"#\" class=\"clipboard btn static\"><i class=\"far fa-copy fa-fw\"></i></a>";
-        }
-        if ($row['note'] != "" && $row['clipboard'] == "1") { 
-            echo "<span class=\"input-copy\">" . $row['note'] . "</span>";
-         } else {
-            echo "<span class=\"norm-copy\">" . $row['note'] . "</span>";
-         }
+        if ($row['clipboard'] == "1") { ?>
+          <a href="#" data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
+       <?php }
+        if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
+            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>" data-target="cb" ><?= $row['note']; ?></p>
+        <?php } else { ?>
+            <span class="norm-copy" data-target="cb"><?= $row['note']; ?></span>
+        <?php }
          ?>
     </div> 
     <div class="sec manage-note">
-      <a href="#" id="<?= $modify_id; ?>_modify-note" class="modify-note static"><i class="far fa-edit"></i></a>
+      <a href="#" data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
-      <form action="delete_note.php?note=<?= $row['note_id']; ?>" method="post" onsubmit="return confirm('Confirm - Delete note: <?php echo $row['name']; ?>?')">
-          <div><a href="#" class="deletenote static" onclick="$(this).closest('form').submit()"><i class="fas fa-minus-circle"></i></a></div>
+      <form>
+        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
+        <a href="#" data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
     </div> 
 
@@ -97,35 +101,41 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 ?>
 
 </ul><?php // #project-notes ?>
+</div><?php // #usersnotes  ?>
+
+
 <?php // this is THE ADD/CREATE A NOTE MODAL for under 20 notes // ?>
 <div id="aan-modal" class="aan-modal">
 
 <!-- Modal content -->
 <div class="aan-modal-content">
   <div class="aan-modal-header">
-    <span class="aan-close"><i class="fas fa-times-circle"></i></span>
+    <span class="aan-close" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
     <h2>Add a note</h2>
   </div>
 
   <div class="aan-modal-wrap">
       <div class="aan-modal-body">
 
-      <form action="add_note.php?id=<?= $current_project ?>" method="post" class="edit-link-form">
-        <input type="hidden" name="sort" value="<?php if ($notes == 0) { echo "1"; } else { echo $max_sort[0] + 1; } ?>">
+      <form class="edit-link-form">
+        <input type="hidden" name="sort" id="sort" value="<?php if ($notes == 0) { echo "1"; } else { echo $max_sort[0] + 1; } ?>">
+        <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
+        <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
+        <input type="hidden" name="nid" id="nid">
         <label>Name | Limit 30 characters
-        <input name="name" class="edit-input link-name" type="text" maxlength="30"></label>
+        <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="30"></label>
 
         <label>URL | Makes the name a hyperlink
-        <input name="url" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
+        <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
 
         <label>Note | Limit 200 characters
-        <textarea name="note" class="edit-input link-url" maxlength="200" type="text"></textarea></label>
+        <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="200" type="text"></textarea></label>
 
-        <input type="hidden" name="clipboard" value="0">
-        <label class="clipboard"><input type="checkbox" name="clipboard" value="1"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
+        <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
         <div class="submit-links">
-          <a href="#" class="cancel-close static">Cancel</a>
-          <input name="update-link" class="update" type="submit" value="Add note">
+          <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
+          <input name="update-note" id="update-note" class="update" value="Add note">
+          <input name="modify-note" id="modify-note" class="update" value="Modify note">
         </div><!-- #submit-links -->
       </form>
 
@@ -135,7 +145,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
   <div class="aan-modal-footer">
     <!-- <h3>&nbsp;</h3> -->
     <?php 
-    if ($notes == 4) { echo "<h3>You have 5 notes remaining.</h3>"; }
+    if ($notes == 5) { echo "<h3>You have 5 notes remaining.</h3>"; }
     if ($notes == 7) { echo "<h3>This is note #8. There is a 10 note limit.</h3>"; }
     if ($notes == 8) { echo "<h3>This is note #9. You're a note maniac.</h3>"; } 
     if ($notes == 9) { echo "<h3>Don't say I didn't warn you.</h3>"; } // this is last note -> #20
@@ -187,7 +197,7 @@ $modify_id = substr("0{$modify_id}", -$str_length);
 $note_count++;
 ?>
 
-
+<?php /*
 <?php // this is the MODIFY NOTE MODAL // ?>
 <div id="<?= $modify_id ?>_modify-modal" class="modify-modal">
 
@@ -229,5 +239,7 @@ $note_count++;
 
 </div><!-- .modify-modal-content -->
 </div><?php // #modify-modal ?>
+*/ ?>
+
 
 <?php } } ?>

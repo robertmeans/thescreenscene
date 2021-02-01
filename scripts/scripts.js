@@ -5,146 +5,76 @@ setTimeout(function() {
 
 
 // add a note | add-a-note
-var modal_aan = document.getElementById("aan-modal");
-var btn_aan = document.getElementById("add-note");
-var span_aan = document.getElementsByClassName("aan-close")[0];
-var a_aan = document.getElementsByClassName("cancel-close")[0];
+// var modal_aan = document.getElementById("aan-modal");
+// var btn_aan = document.getElementById("add-note");
+// var span_aan = document.getElementsByClassName("aan-close")[0];
+// var a_aan = document.getElementsByClassName("cancel-close")[0];
 
-window.addEventListener("load", function(){
-	btn_aan.onclick = function() {
-	  modal_aan.style.display = "block";
-	}
-	span_aan.onclick = function() {
-	  modal_aan.style.display = "none";
-	}
-	a_aan.onclick = function() {
-	  modal_aan.style.display = "none";
-	}
-	window.onmousedown = function(event) {
-	  if (event.target == modal_aan) {
-	    modal_aan.style.display = "none";
-	  }
-	}
-});
+// window.addEventListener("load", function(){
+	// btn_aan.onclick = function() {
+	//   modal_aan.style.display = "block";
+	// }
+	// span_aan.onclick = function() {
+	//   modal_aan.style.display = "none";
+	// }
+	// a_aan.onclick = function() {
+	//   modal_aan.style.display = "none";
+	// }
+// 	window.onmousedown = function(event) {
+// 	  if (event.target == modal_aan) {
+// 	    modal_aan.style.display = "none";
+// 	  }
+// 	}
+// });
 // end add a note
 
-// modify a note | modify-a-note
-// **** Whoever is at the bottom with the window.addEventListener function is the only one that is 
-// letting a mouse click outside the modal close it. maybe put all the onmousedown events into last function?
-if(null!==document.getElementById("01_modify-modal"))var note_01=document.getElementById("01_modify-modal");if(null!==document.getElementById("02_modify-modal"))var note_02=document.getElementById("02_modify-modal");if(null!==document.getElementById("03_modify-modal"))var note_03=document.getElementById("03_modify-modal");if(null!==document.getElementById("04_modify-modal"))var note_04=document.getElementById("04_modify-modal");if(null!==document.getElementById("05_modify-modal"))var note_05=document.getElementById("05_modify-modal");if(null!==document.getElementById("06_modify-modal"))var note_06=document.getElementById("06_modify-modal");if(null!==document.getElementById("07_modify-modal"))var note_07=document.getElementById("07_modify-modal");if(null!==document.getElementById("08_modify-modal"))var note_08=document.getElementById("08_modify-modal");if(null!==document.getElementById("09_modify-modal"))var note_09=document.getElementById("09_modify-modal");if(null!==document.getElementById("10_modify-modal"))var note_10=document.getElementById("10_modify-modal");if(null!==document.getElementById("11_modify-modal"))var note_11=document.getElementById("11_modify-modal");if(null!==document.getElementById("12_modify-modal"))var note_12=document.getElementById("12_modify-modal");if(null!==document.getElementById("13_modify-modal"))var note_13=document.getElementById("13_modify-modal");if(null!==document.getElementById("14_modify-modal"))var note_14=document.getElementById("14_modify-modal");if(null!==document.getElementById("15_modify-modal"))var note_15=document.getElementById("15_modify-modal");if(null!==document.getElementById("16_modify-modal"))var note_16=document.getElementById("16_modify-modal");if(null!==document.getElementById("17_modify-modal"))var note_17=document.getElementById("17_modify-modal");if(null!==document.getElementById("18_modify-modal"))var note_18=document.getElementById("18_modify-modal");if(null!==document.getElementById("19_modify-modal"))var note_19=document.getElementById("19_modify-modal");if(null!==document.getElementById("20_modify-modal"))var note_20=document.getElementById("20_modify-modal");if(null!==document.getElementById("01_modify-note"))var note_btn_01=document.getElementById("01_modify-note");if(null!==document.getElementById("02_modify-note"))var note_btn_02=document.getElementById("02_modify-note");if(null!==document.getElementById("03_modify-note"))var note_btn_03=document.getElementById("03_modify-note");if(null!==document.getElementById("04_modify-note"))var note_btn_04=document.getElementById("04_modify-note");if(null!==document.getElementById("05_modify-note"))var note_btn_05=document.getElementById("05_modify-note");if(null!==document.getElementById("06_modify-note"))var note_btn_06=document.getElementById("06_modify-note");if(null!==document.getElementById("07_modify-note"))var note_btn_07=document.getElementById("07_modify-note");if(null!==document.getElementById("08_modify-note"))var note_btn_08=document.getElementById("08_modify-note");if(null!==document.getElementById("09_modify-note"))var note_btn_09=document.getElementById("09_modify-note");if(null!==document.getElementById("10_modify-note"))var note_btn_10=document.getElementById("10_modify-note");if(null!==document.getElementById("11_modify-note"))var note_btn_11=document.getElementById("11_modify-note");if(null!==document.getElementById("12_modify-note"))var note_btn_12=document.getElementById("12_modify-note");if(null!==document.getElementById("13_modify-note"))var note_btn_13=document.getElementById("13_modify-note");if(null!==document.getElementById("14_modify-note"))var note_btn_14=document.getElementById("14_modify-note");if(null!==document.getElementById("15_modify-note"))var note_btn_15=document.getElementById("15_modify-note");if(null!==document.getElementById("16_modify-note"))var note_btn_16=document.getElementById("16_modify-note");if(null!==document.getElementById("17_modify-note"))var note_btn_17=document.getElementById("17_modify-note");if(null!==document.getElementById("18_modify-note"))var note_btn_18=document.getElementById("18_modify-note");if(null!==document.getElementById("19_modify-note"))var note_btn_19=document.getElementById("19_modify-note");if(null!==document.getElementById("20_modify-note"))var note_btn_20=document.getElementById("20_modify-note");var spanz=document.getElementsByClassName("closer");window.addEventListener("load",function(){null!=note_01&&(note_btn_01.onclick=function(){note_01.style.display="block"}),null!=note_02&&(note_btn_02.onclick=function(){note_02.style.display="block"}),null!=note_03&&(note_btn_03.onclick=function(){note_03.style.display="block"}),null!=note_04&&(note_btn_04.onclick=function(){note_04.style.display="block"}),null!=note_05&&(note_btn_05.onclick=function(){note_05.style.display="block"}),null!=note_06&&(note_btn_06.onclick=function(){note_06.style.display="block"}),null!=note_07&&(note_btn_07.onclick=function(){note_07.style.display="block"}),null!=note_08&&(note_btn_08.onclick=function(){note_08.style.display="block"}),null!=note_09&&(note_btn_09.onclick=function(){note_09.style.display="block"}),null!=note_10&&(note_btn_10.onclick=function(){note_10.style.display="block"}),null!=note_11&&(note_btn_11.onclick=function(){note_11.style.display="block"}),null!=note_12&&(note_btn_12.onclick=function(){note_12.style.display="block"}),null!=note_13&&(note_btn_13.onclick=function(){note_13.style.display="block"}),null!=note_14&&(note_btn_14.onclick=function(){note_14.style.display="block"}),null!=note_15&&(note_btn_15.onclick=function(){note_15.style.display="block"}),null!=note_16&&(note_btn_16.onclick=function(){note_16.style.display="block"}),null!=note_17&&(note_btn_17.onclick=function(){note_17.style.display="block"}),null!=note_18&&(note_btn_18.onclick=function(){note_18.style.display="block"}),null!=note_19&&(note_btn_19.onclick=function(){note_19.style.display="block"}),null!=note_20&&(note_btn_20.onclick=function(){note_20.style.display="block"});for(var e=0;e<spanz.length;e++)spanz[e].onclick=function(){null!=note_01&&(note_01.style.display="none"),null!=note_02&&(note_02.style.display="none"),null!=note_03&&(note_03.style.display="none"),null!=note_04&&(note_04.style.display="none"),null!=note_05&&(note_05.style.display="none"),null!=note_06&&(note_06.style.display="none"),null!=note_07&&(note_07.style.display="none"),null!=note_08&&(note_08.style.display="none"),null!=note_09&&(note_09.style.display="none"),null!=note_10&&(note_10.style.display="none"),null!=note_11&&(note_11.style.display="none"),null!=note_12&&(note_12.style.display="none"),null!=note_13&&(note_13.style.display="none"),null!=note_14&&(note_14.style.display="none"),null!=note_15&&(note_15.style.display="none"),null!=note_16&&(note_16.style.display="none"),null!=note_17&&(note_17.style.display="none"),null!=note_18&&(note_18.style.display="none"),null!=note_19&&(note_19.style.display="none"),null!=note_20&&(note_20.style.display="none")};window.onmousedown=function(e){e.target!=note_01&&e.target!=note_02&&e.target!=note_03&&e.target!=note_04&&e.target!=note_05&&e.target!=note_06&&e.target!=note_07&&e.target!=note_08&&e.target!=note_09&&e.target!=note_10&&e.target!=note_11&&e.target!=note_12&&e.target!=note_13&&e.target!=note_14&&e.target!=note_15&&e.target!=note_16&&e.target!=note_17&&e.target!=note_18&&e.target!=note_19&&e.target!=note_20||(note_01.style.display="none",note_02.style.display="none",note_03.style.display="none",note_04.style.display="none",note_05.style.display="none",note_06.style.display="none",note_07.style.display="none",note_08.style.display="none",note_09.style.display="none",note_10.style.display="none",note_11.style.display="none",note_12.style.display="none",note_13.style.display="none",note_14.style.display="none",note_15.style.display="none",note_16.style.display="none",note_17.style.display="none",note_18.style.display="none",note_19.style.display="none",note_20.style.display="none")}});
-// end modify a note
 
 // add a note | add-a-note LIMIT REACHED
-var note_limit = document.getElementById("thats-all");
-var yer_done = document.getElementById("note-limit");
-var zipit = document.getElementsByClassName("shutit")[0];
+// var note_limit = document.getElementById("thats-all");
+// var yer_done = document.getElementById("note-limit");
+// var zipit = document.getElementsByClassName("shutit")[0];
 
-window.addEventListener("load", function(){
-	yer_done.onclick = function() {
-	  note_limit.style.display = "block";
-	}
-	zipit.onclick = function() {
-	  note_limit.style.display = "none";
-	}
-	window.onclick = function(event) {
-	  if (event.target == note_limit) {
-	    note_limit.style.display = "none";
-	  }
-	}
-});
+// window.addEventListener("load", function(){
+// 	yer_done.onclick = function() {
+// 	  note_limit.style.display = "block";
+// 	}
+// 	zipit.onclick = function() {
+// 	  note_limit.style.display = "none";
+// 	}
+// 	window.onclick = function(event) {
+// 	  if (event.target == note_limit) {
+// 	    note_limit.style.display = "none";
+// 	  }
+// 	}
+// });
 // end add a note LIMIT REACHED
 
 
+// clipboard
+$(document).ready(function() {
+  $(document).on('click','a[data-role=cb]',function() {
+    var id       = $(this).data('id');
+    var text = document.getElementById("cb_"+id).innerText;
 
+    var elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = text;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
 
-// add a note - copy to clipboard
-var but = document.getElementsByClassName('btn');
-var txt = document.getElementsByClassName('input-copy');
-for (var x = 0; x < but.length; x++) {
-  (function(x) {
-    but[x].addEventListener("click", function() {
-      copyToClipboardMsg(txt[x], but[x]);
-    }, false);
-  })(x);
-}
+    // var originalIcon = $(this).html();
+    var originalIcon = "<i class=\"far fa-copy fa-fw\"></i>"
+    var changeBack  = $(this);
 
-function copyToClipboardMsg(elem, msgElem) {
-    var succeed = copyToClipboard(elem);
-    var msg;
-    if (!succeed) {
-        msg = "<i class=\"fas fa-exclamation-triangle fa-fw\"></i>";
-    } else {
-        msg = "<i class=\"fas fa-check fa-fw\"></i>";
-    }
-    if (typeof msgElem === "string") {
-        msgElem = document.getElementById(msgElem);
-    }
-    msgElem.innerHTML = msg;
-    // msgElem.style.background = "#40d046";
-    // msgElem.style.color = "#fff";
-    // msgElem.style.border = "1px solid #fff";
-
+    $(this).html("<i class=\"fas fa-check fa-fw\"></i>");
     setTimeout(function() {
-        msgElem.innerHTML = "<i class=\"far fa-copy fa-fw\"></i>";
-        // msgElem.style.background = "#fff";
-        // msgElem.style.color = "rgba(255,255,255,0.8)";
-        // msgElem.style.border = "1px solid #757575";
+      changeBack.html(originalIcon);
+    }, 1000);
+ 
+  });
+});
 
-    }, 750);
-}
-
-
-function copyToClipboard(elem) {
-    // create hidden text element, if it doesn't already exist
-    var targetId = "_hiddenCopyText_";
-    var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
-    var origSelectionStart, origSelectionEnd;
-    if (isInput) {
-        // can just use the original source element for the selection and copy
-        target = elem;
-        origSelectionStart = elem.selectionStart;
-        origSelectionEnd = elem.selectionEnd;
-    } else {
-        // must use a temporary form element for the selection and copy
-        target = document.getElementById(targetId);
-        if (!target) {
-            var target = document.createElement("textarea");
-            target.style.position = "absolute";
-            target.style.left = "-9999px";
-            target.style.top = "0";
-            target.id = targetId;
-            document.body.appendChild(target);
-        }
-        target.textContent = elem.textContent;
-    }
-    // select the content
-    var currentFocus = document.activeElement;
-    target.focus();
-    target.setSelectionRange(0, target.value.length);
-
-    // copy the selection
-    var succeed;
-    try {
-        succeed = document.execCommand("copy");
-
-    } catch(e) {
-        succeed = false;
-    }
-    // restore original focus
-    if (currentFocus && typeof currentFocus.focus === "function") {
-        currentFocus.focus();
-    }
-
-    if (isInput) {
-        // restore prior selection
-        elem.setSelectionRange(origSelectionStart, origSelectionEnd);
-    } else {
-        // clear temporary content
-        target.textContent = "";
-    }
-    return succeed;
-
-}
 
 // a static link - stop from jumping to top of page
 $('a.static').click(function(e)
@@ -498,23 +428,38 @@ $('.tab.active').show();
     }
   });
 
-  	// allow formatting in project notes
-	document.getElementById('textbox').addEventListener('keydown', function(e) {
-	  if (e.key == 'Tab') {
-	    e.preventDefault();
-	    var start = this.selectionStart;
-	    var end = this.selectionEnd;
 
-	               // set textarea value to: text before caret + tab + text after caret
-	    this.value = this.value.substring(0, start) +
-	      "\t" + this.value.substring(end);
 
-	               // put caret at right position again
-	    this.selectionStart =
-	      this.selectionEnd = start + 1;
-	  }
-	});
+
 }); // // 122120856 end
+
+
+
+
+
+$(document).on('click','#textbox',function() {
+  // allow formatting in project notes
+  document.getElementById('textbox').addEventListener('keydown', function(e) {
+    if (e.key == 'Tab') {
+      e.preventDefault();
+      var start = this.selectionStart;
+      var end = this.selectionEnd;
+
+                 // set textarea value to: text before caret + tab + text after caret
+      this.value = this.value.substring(0, start) +
+        "\t" + this.value.substring(end);
+
+                 // put caret at right position again
+      this.selectionStart =
+        this.selectionEnd = start + 1;
+    }
+  });
+})
+
+
+
+
+
 
 $(document).ready(function() {
   $("#email-bob").hide();
@@ -599,7 +544,7 @@ $(document).ready(function() {
 
 });
 
-
+// hyperlink | bookmarks add, update, delete
 $(document).ready(function() {
 	$(document).on('click','a[data-role=update]',function() {
     	var id         = $(this).data('id');
@@ -679,5 +624,184 @@ $(document).ready(function() {
 
 		theModal.style.display = "none";
 	});
+
+});
+
+
+// Add a note | add, update, delete
+$(document).ready(function() {
+  $(document).on('click','a[data-role=notes]',function() {
+    var noteModal = document.getElementById('aan-modal');
+    var updatenote = document.getElementById('update-note');
+
+    updatenote.style.display = "block";
+    noteModal.style.display = "block";
+
+  });
+  $(document).on('click','[data-role=notesClose]',function() {
+    var noteModal = document.getElementById('aan-modal');
+    var updatenote = document.getElementById('update-note');
+
+    $('#aanName').val('');
+    $('#aanUrl').val('');
+    $('#aanNote').val('');
+    $('input[type=checkbox]').prop('checked',false);
+
+    updatenote.style.display = "none";
+    noteModal.style.display = "none";
+
+  });
+
+  $('#update-note').click(function() {
+    var noteModal = document.getElementById('aan-modal');
+    var updatenote = document.getElementById('update-note');
+    var sort = $('#sort').val();
+    var cp = $('#cp').val();
+    var uid = $('#uid').val();
+    var name = $('#aanName').val();
+    var urly = $('#aanUrl').val();
+    var note = $('#aanNote').val();
+    var clipboard = document.getElementById('aanClipboard');
+    var pattern = /^((http|https|ftp):\/\/)/;
+
+    if(urly != '') {
+      if(!pattern.test(urly)) {
+          urly = "http://" + urly;
+      }
+    } else {
+      urly = '';
+    }
+
+    if(!clipboard.checked) {
+      clipboard = "0";
+    } else {
+      clipboard = "1";
+    }
+
+    $.ajax({
+      url     : 'note_manager.php',
+      method  : 'post',
+      data    : {sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard},
+      success : function(response) {
+        $('#usersnotes').load('usersnotes.php');
+      }
+
+    });
+
+    $('#aanName').val('');
+    $('#aanUrl').val('');
+    $('#aanNote').val('');
+    $('input[type=checkbox]').prop('checked',false);
+
+    updatenote.style.display = "none";
+    noteModal.style.display = "none";
+
+  });
+
+  $(document).on('click','a[data-role=deletenote]',function() { 
+    var noteModal = document.getElementById("aan-modal");
+    var updatenote = document.getElementById('update-note');
+    var deletethis = $(this).closest('form').find('[data-role=deletethis]').val();
+    var notename = $(this).closest('form').find('[data-role=notename]').val();
+    
+    if(confirm("Delete: \"" + notename + "\" ?")) {
+      $.ajax({
+        url     : 'note_manager.php',
+        method  : 'post',
+        data    : {deletethis:deletethis},
+        success : function(response) {
+          $('#usersnotes').load('usersnotes.php');
+        }
+
+      });
+
+    }
+
+    updatenote.style.display = "none";
+    noteModal.style.display = "none";
+
+  });
+
+
+ $(document).on('click','a[data-role=modify-note]',function() {
+  var ida       = $(this).data('id');
+  // added a "z_" to this data-id element so the clipboard data-id would be unique
+  var id        = ida.substring(2);
+  var urln      = $('#'+id).find('a[data-target=urln]').attr('href');
+  var noten     = $('#'+id).find('[data-target=urln]').text();
+  var notes     = $('#'+id).find('[data-target=cb]').text();
+  var clipb     = $('#'+id).find('a[data-id='+id+']');
+
+  if(clipb.length) { // if clipboard exists
+    $('input[type=checkbox]').prop('checked',true);
+    // clipb = "1";
+  } else {
+    $('input[type=checkbox]').prop('checked',false);
+    // clipb = "0";
+  }
+
+  $('#aanUrl').val(urln);
+  $('#aanName').val(noten);
+  $('#aanNote').val(notes);
+  $('#nid').val(id);
+
+  var modifynote  = document.getElementById('modify-note');
+  var noteModal   = document.getElementById('aan-modal');
+
+  // alert(clipb);
+  modifynote.style.display = "block";
+  noteModal.style.display = "block";
+
+  // modal is set, all fields contain db content. now grab new
+  // content and assign to separate variables?
+ });
+
+
+ $('#modify-note').click(function() {
+    var modifynote  = document.getElementById('modify-note');
+    var noteModal   = document.getElementById('aan-modal');
+    var nid = $('#nid').val();
+    var name = $('#aanName').val();
+    var urly = $('#aanUrl').val();
+    var note = $('#aanNote').val();
+    var clipboard = document.getElementById('aanClipboard');
+    var pattern = /^((http|https|ftp):\/\/)/;
+
+    if(urly != '') {
+      if(!pattern.test(urly)) {
+          urly = "http://" + urly;
+      }
+    } else {
+      urly = '';
+    }
+
+    if(!clipboard.checked) {
+      clipboard = "0";
+    } else {
+      clipboard = "1";
+    }
+
+    $.ajax({
+      url     : 'note_manager.php',
+      method  : 'post',
+      data    : {name:name, urly:urly, note:note, clipboard:clipboard, nid:nid},
+      success : function(response) {
+        $('#usersnotes').load('usersnotes.php');
+      }
+
+    });
+
+
+    $('#aanName').val('');
+    $('#aanUrl').val('');
+    $('#aanNote').val('');
+    $('input[type=checkbox]').prop('checked',false);
+    
+    modifynote.style.display = "none";
+    noteModal.style.display = "none";
+
+ });
+
+
 
 });
