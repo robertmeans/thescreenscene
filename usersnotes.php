@@ -27,7 +27,9 @@ $(document).ready(function () {
 function save_new_positions() {
   var positions = [];
   $('.updated').each(function () {
-    positions.push([$(this).attr('id'), $(this).attr('sort')]);
+    var thisida = $(this).attr('id');
+    var thisid = thisida.substring(2);
+    positions.push([thisid, $(this).attr('sort')]);
     $(this).removeClass('updated');
   });
 
@@ -67,7 +69,7 @@ $modify_id = substr("0{$modify_id}", -$str_length);
 
 if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
 
-<li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>"> 
+<li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>">
     <div class="sec note-url <?php if ($notes > 1) { echo "move"; } ?>">
 
       <?php if ($notes > 1) { ?>

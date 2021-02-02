@@ -43,9 +43,6 @@ $str_length = 2;
 
 if ($notes > 0) {
 // they have notes so you can run a query to get largest number in sort column
-global $db;
-// $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
-// $max_sort = mysqli_fetch_array($result);
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -144,6 +141,29 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
   </div><!-- .aan-modal-wrap -->
   <div class="aan-modal-footer">
     <h3 id="im-watchin">&nbsp;</h3>
+  </div>
+
+</div><!-- .aan-modal-content -->
+</div><?php // #aan-modal ?>
+
+
+<?php // limit reached modal // ?>
+<div id="thats-all" class="aan-modal">
+
+<div class="aan-modal-content">
+  <div class="aan-modal-header">
+    <span class="aan-close shutit" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
+    <h2>Limit Reached</h2>
+  </div>
+
+  <div class="aan-modal-wrap">
+      <div class="aan-modal-body">
+        <p>There's a 10 note limit per project (for now).</p>
+      </div><!-- .aan-modal-body -->
+
+  </div><!-- .aan-modal-wrap -->
+  <div class="aan-modal-footer">
+    <h3>That'll do, note piggy.</h3>
   </div>
 
 </div><!-- .aan-modal-content -->

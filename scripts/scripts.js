@@ -198,11 +198,16 @@ $(document).ready(function () {
 		}
 	});
 });
+
+
+
 // ajax background save for sorting add a note
 function save_new_positions() {
 	var positions = [];
 	$('.updated').each(function () {
-		positions.push([$(this).attr('id'), $(this).attr('sort')]);
+        var thisida = $(this).attr('id');
+        var thisid = thisida.substring(2);
+		positions.push([thisid, $(this).attr('sort')]);
 		$(this).removeClass('updated');
 	});
 
@@ -641,6 +646,7 @@ $(document).ready(function() {
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
+    var limitModal  = document.getElementById('thats-all');
 
     var notecount1 = $('[data-role=notecount]').val();
     var notecount2 = $('[data-role=notecountz]').val();
@@ -662,9 +668,8 @@ $(document).ready(function() {
     } else if (notecount == 9) {
       $('#im-watchin').html("Don't say I didn\'t warn you.");
     } else if (notecount == 10) {
-      $('#header-msg').html("That's all");
-      $('#thatll-do').html("There's a 10 note limit per project (for now).");
-      $('#im-watchin').html("&nbsp;");
+        limitModal.style.display = "block";
+        exit();
     } else {
 
     }
@@ -677,6 +682,7 @@ $(document).ready(function() {
 
   $(document).on('click','[data-role=notesClose]',function() {
     var noteModal = document.getElementById('aan-modal');
+    var limitModal  = document.getElementById('thats-all');
 
     $('#aanName').val('');
     $('#aanUrl').val('');
@@ -684,6 +690,7 @@ $(document).ready(function() {
     $('input[type=checkbox]').prop('checked',false);
 
     noteModal.style.display = "none";
+    limitModal.style.display = "none";
 
   });
 

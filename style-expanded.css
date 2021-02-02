@@ -3635,6 +3635,10 @@ a#note-limit:hover {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
+#thatll-do {
+  line-height: 1.5em;
+}
+
 #sortable {
   list-style-type: none;
   margin: 0;
@@ -4442,4 +4446,506 @@ p.query-tinkerer {
 }
 .delete-exit > p {
   margin-bottom: 1em;
+}
+
+body {
+  background-color: #fafae2;
+  background-image: url("_images/floral-pattern.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #fff;
+  color: #003f87;
+}
+
+.preload,
+.preload-manage {
+  background-color: #faf0cb;
+  background-image: url("_images/floral-pattern.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+ul.inner-nav li a#edit-content.active {
+  color: #ff4500;
+}
+
+ul#sortable li a.ue,
+ul#static-sort li a.ue {
+  color: rgba(0, 90, 120, 0.4);
+}
+ul#sortable li a.ue:hover,
+ul#static-sort li a.ue:hover {
+  color: #b22222;
+}
+
+.modify-modal-content,
+.aan-modal-content {
+  background-color: #faf0cb;
+  background-image: url("_images/floral-pattern.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #313131;
+}
+.modify-modal-content form p,
+.modify-modal-content label,
+.aan-modal-content form p,
+.aan-modal-content label {
+  color: #313131;
+}
+
+#theModal .modal-body form.edit-link-form input.edit-input {
+  background-color: rgba(98, 190, 232, 0.2);
+  color: #313131;
+  border: none;
+  outline: none;
+}
+#theModal .modal-body form.edit-link-form input.edit-input:hover, #theModal .modal-body form.edit-link-form input.edit-input:focus {
+  background-color: #0b5596;
+  color: #fff;
+  border: none;
+  outline: none;
+}
+
+.modify-modal-body form.modify-note-form textarea,
+.modify-modal-body form.modify-note-form input.link-name,
+.aan-modal-body form.edit-link-form textarea,
+.aan-modal-body form.edit-link-form input.link-name,
+.aan-modal-body form.aan-note-form input.link-name,
+.aan-modal-body form.aan-note-form input.textarea,
+#theModal .modal-body form.edit-link-form input.edit-input {
+  color: #313131;
+  background-color: rgba(98, 190, 232, 0.2);
+}
+.modify-modal-body form.modify-note-form textarea:focus, .modify-modal-body form.modify-note-form textarea:hover,
+.modify-modal-body form.modify-note-form input.link-name:focus,
+.modify-modal-body form.modify-note-form input.link-name:hover,
+.aan-modal-body form.edit-link-form textarea:focus,
+.aan-modal-body form.edit-link-form textarea:hover,
+.aan-modal-body form.edit-link-form input.link-name:focus,
+.aan-modal-body form.edit-link-form input.link-name:hover,
+.aan-modal-body form.aan-note-form input.link-name:focus,
+.aan-modal-body form.aan-note-form input.link-name:hover,
+.aan-modal-body form.aan-note-form input.textarea:focus,
+.aan-modal-body form.aan-note-form input.textarea:hover,
+#theModal .modal-body form.edit-link-form input.edit-input:focus,
+#theModal .modal-body form.edit-link-form input.edit-input:hover {
+  color: #fff;
+  background-color: #0b5596;
+}
+
+#theModal .modal-body {
+  background-color: #faf0cb;
+  background-image: url("_images/floral-pattern.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #313131;
+}
+#theModal .modal-body form.edit-link-form input.edit-input {
+  color: #313131;
+}
+#theModal .modal-body form.edit-link-form input.edit-input:focus, #theModal .modal-body form.edit-link-form input.edit-input:hover {
+  color: #fff;
+}
+#theModal .modal-header,
+#theModal .modal-footer {
+  background-color: #2b3d50;
+}
+
+#landing > .visitor1 > form.front-login,
+#landing > form,
+.sharing {
+  background-color: rgba(25, 96, 174, 0.6);
+  border-radius: 3px;
+  border: 1px solid #fff;
+  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+#landing > .visitor1 > form.front-login h3, #landing > .visitor1 > form.front-login h1, #landing > .visitor1 > form.front-login p.btm-p,
+#landing > form h3,
+#landing > form h1,
+#landing > form p.btm-p,
+.sharing h3,
+.sharing h1,
+.sharing p.btm-p {
+  color: #fff;
+}
+
+#landing-content {
+  background-color: rgba(25, 96, 174, 0.6);
+}
+
+#landing > .visitor1 > form input:-webkit-autofill,
+#landing > .visitor1 > form input:-webkit-hover,
+#landing > .visitor1 > form input:-webkit-focus,
+#landing > .visitor1 > form input:-webkit-active,
+#landing > form input:-webkit-autofill,
+#landing > form input:-webkit-hover,
+#landing > form input:-webkit-focus,
+#landing > form input:-webkit-active {
+  -webkit-box-shadow: 0 0 0 30px #7999b8 inset !important;
+  -webkit-text-fill-color: white !important;
+}
+
+#table-page #table-wrap .visitor .visitor2 {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+#table-page #table-wrap .new-intro {
+  background-color: rgba(25, 96, 174, 0.6);
+  color: #fff;
+}
+
+.sharing form input[type=email] {
+  background-color: rgba(0, 153, 204, 0.3);
+}
+
+.sharing form input[type=email] {
+  background-color: rgba(255, 255, 255, 0.8);
+  border-top: 1px solid #003f87;
+  border-bottom: 1px solid #003f87;
+  color: #003f87;
+}
+.sharing form input[type=email]:-ms-input-placeholder {
+  color: rgba(0, 63, 135, 0.6);
+}
+.sharing form input[type=email]::placeholder {
+  color: rgba(0, 63, 135, 0.6);
+}
+
+.sharing form input[type=submit]:hover {
+  background-color: #82c33a;
+}
+
+.sharing form .share-note {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.sharing h2.edit-share,
+.sharing form.edit-user,
+.sharing form .share-note {
+  color: #fff;
+}
+
+.sharing form p,
+#table-page #project-wrap .sharing h1 {
+  color: #fff;
+  margin-bottom: 0.5em;
+}
+
+#landing > .visitor1 > form > input.submit, #landing > form > input.submit {
+  background-color: #82c33a;
+}
+#landing > .visitor1 > form > input.submit:hover, #landing > form > input.submit:hover {
+  background-color: #699c2f;
+}
+
+a.go {
+  color: #fff;
+  text-decoration: underline;
+}
+a.go:hover {
+  text-decoration: none;
+}
+
+nav > ul li > a,
+a.logout {
+  color: #fff;
+  background-color: #0b5596;
+}
+nav > ul li > a:hover,
+a.logout:hover {
+  background-color: #0b5596;
+}
+
+.tab-links li input {
+  background-color: #003f87;
+}
+.tab-links li input:hover {
+  background-color: #91ca50;
+}
+
+.tab-links li.active input {
+  color: #fff;
+  background-color: #0099cc;
+  border: 1px solid #91ca50;
+}
+
+ul#sortable li.pg1,
+ul#sortable li.pg3,
+ul#sortable a.project-links,
+ul#static-sort li.pg1,
+ul#static-sort li.pg2,
+ul#static-sort li.pg3,
+ul#static-sort a.project-links {
+  color: #fff;
+  background-color: #0099cc;
+}
+ul#sortable li.pg1:hover,
+ul#sortable li.pg3:hover,
+ul#sortable a.project-links:hover,
+ul#static-sort li.pg1:hover,
+ul#static-sort li.pg2:hover,
+ul#static-sort li.pg3:hover,
+ul#static-sort a.project-links:hover {
+  background-color: #003f87;
+}
+
+ul#sortablesearch li.static {
+  background-color: rgba(83, 171, 233, 0.24);
+}
+
+#table-page #project-wrap .project-details .project-notes {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+#table-page #project-wrap .review-project {
+  background-color: #0099cc;
+}
+#table-page #project-wrap .review-project:hover {
+  background-color: #e89e77;
+  color: #fff;
+}
+
+#table-page #project-wrap .review-project.active {
+  background-color: #e89e77;
+}
+#table-page #project-wrap .review-project.active:hover {
+  background-color: #0099cc;
+}
+
+.project-details {
+  background-color: #e89e77;
+}
+
+#edit-order-page,
+#edit-delete-page #edit-wrap #tab1,
+#edit-delete-page #edit-wrap #tab2,
+#edit-delete-page #edit-wrap #tab3 {
+  background-color: #fafae2;
+  background-image: url("_images/floral-background-edit.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+#edit-order-page #edit-order-wrap a.op i.fa-edit,
+#edit-order-page #edit-order-wrap a.op i.fa-sort,
+#edit-order-page #edit-order-wrap a.op i.fa-fill-drip,
+#edit-order-page #edit-order-wrap a.op i.fa-house-user,
+#edit-order-page #edit-order-wrap a.op i.fa-list-ol {
+  color: #003f87;
+}
+#edit-order-page #edit-order-wrap a.op i.fa-edit:hover,
+#edit-order-page #edit-order-wrap a.op i.fa-sort:hover,
+#edit-order-page #edit-order-wrap a.op i.fa-fill-drip:hover,
+#edit-order-page #edit-order-wrap a.op i.fa-house-user:hover,
+#edit-order-page #edit-order-wrap a.op i.fa-list-ol:hover {
+  color: #fff;
+}
+
+.project-greeting {
+  color: #003f87;
+}
+
+ul.inner-nav li a {
+  color: #003f87;
+}
+ul.inner-nav li a:hover {
+  color: #038700;
+  color: #ff5a00;
+}
+
+.project-details ul.inner-nav a i.fa-info-circle,
+.project-details ul.inner-nav a i.fa-user-friends,
+.project-details ul.inner-nav a i.fa-minus-circle {
+  color: #fff;
+}
+.project-details ul.inner-nav a i.fa-info-circle:hover,
+.project-details ul.inner-nav a i.fa-user-friends:hover,
+.project-details ul.inner-nav a i.fa-minus-circle:hover {
+  color: #003f87;
+}
+.project-details ul.inner-nav a i.fa-minus-circle:hover {
+  color: red;
+}
+.project-details ul.inner-nav form {
+  display: inline;
+}
+.project-details ul.inner-nav form a i.fa-home,
+.project-details ul.inner-nav form a i.fa-edit,
+.project-details ul.inner-nav form a i.fa-sort,
+.project-details ul.inner-nav form a i.fa-fill-drip,
+.project-details ul.inner-nav form a i.fa-info-circle,
+.project-details ul.inner-nav form a i.fa-user-friends,
+.project-details ul.inner-nav form a i.fa-arrows-alt {
+  color: #fff;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.project-details ul.inner-nav form a i.fa-home:hover,
+.project-details ul.inner-nav form a i.fa-edit:hover,
+.project-details ul.inner-nav form a i.fa-sort:hover,
+.project-details ul.inner-nav form a i.fa-fill-drip:hover,
+.project-details ul.inner-nav form a i.fa-info-circle:hover,
+.project-details ul.inner-nav form a i.fa-user-friends:hover,
+.project-details ul.inner-nav form a i.fa-arrows-alt:hover {
+  color: #003f87;
+}
+
+.project-details ul.inner-nav li a:hover {
+  color: #fff;
+}
+
+ul.inner-nav li.project-name span.attn {
+  color: red;
+}
+
+.tab-links a,
+.tab-links a.project-link,
+#table-page #project-wrap a.my-nav {
+  color: #003f87;
+}
+
+.tab-links a.project-link:hover {
+  color: #003f87;
+}
+
+#edit-delete-page #delete-form input[type=text] {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-bottom: 1px solid red;
+}
+
+#edit-content-page #edit-wrap #tab1,
+#edit-content-page #edit-wrap #tab2,
+#edit-content-page #edit-wrap #tab3 {
+  background-image: url("_images/floral-edit.jpg");
+  background-repeat: repeat;
+  background-attachment: fixed;
+}
+
+#edit-content-page #edit-wrap a.project-links,
+#edit-delete-page #edit-wrap a.project-links {
+  background-color: rgba(222, 44, 13, 0.5);
+}
+#edit-content-page #edit-wrap a.project-links:hover,
+#edit-delete-page #edit-wrap a.project-links:hover {
+  background-color: rgba(222, 44, 13, 0.9);
+}
+
+ul#static-sort a.project-links.edit-shim {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+#edit-order-page #edit-order-wrap p.dnd-title a {
+  color: #003f87;
+}
+#edit-order-page #edit-order-wrap p.dnd-title a:hover {
+  color: #003f87;
+}
+
+ul#bottom-search.logged li:last-child {
+  background-color: #fbbe71;
+}
+
+.project-notes li:nth-child(odd) {
+  background-color: #ed8d7e;
+}
+
+.project-notes li:nth-child(even) {
+  background-color: #f2a27a;
+}
+
+a#add-note:hover {
+  background-color: #96cc56;
+}
+
+.project-notes li a.deletenote {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.project-notes li:nth-child(even) a.deletenote {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#edit-deets {
+  background-color: #0099cc;
+  color: #fff;
+}
+#edit-deets .btn-wrap a.cancel-deets {
+  background-color: #0b5596;
+}
+#edit-deets .btn-wrap a.cancel-deets:hover {
+  background-color: #0f79d6;
+}
+
+li.google {
+  background-color: #4284f7;
+}
+
+li.url {
+  background-color: #545557;
+}
+li.url :-ms-input-placeholder {
+  color: #313131;
+}
+li.url ::placeholder {
+  color: #313131;
+}
+
+li.bing {
+  background-color: #8dc63f;
+}
+
+li.reference {
+  background-color: #00248b;
+}
+
+li.youtube {
+  background-color: red;
+}
+
+#google .go-btn,
+#url .go-btn,
+#bing .go-btn,
+#reference .go-btn,
+#youtube .go-btn {
+  background-color: #82c33a;
+}
+#google .go-btn:hover,
+#url .go-btn:hover,
+#bing .go-btn:hover,
+#reference .go-btn:hover,
+#youtube .go-btn:hover {
+  background-color: #aafc4c;
+}
+#google input[type=text],
+#url input[type=text],
+#bing input[type=text],
+#reference input[type=text],
+#youtube input[type=text] {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+#google input[type=text]:-ms-input-placeholder,
+#url input[type=text]:-ms-input-placeholder,
+#bing input[type=text]:-ms-input-placeholder,
+#reference input[type=text]:-ms-input-placeholder,
+#youtube input[type=text]:-ms-input-placeholder {
+  color: #b9bbbd;
+}
+#google input[type=text]::placeholder,
+#url input[type=text]::placeholder,
+#bing input[type=text]::placeholder,
+#reference input[type=text]::placeholder,
+#youtube input[type=text]::placeholder {
+  color: #b9bbbd;
+}
+
+footer {
+  background-color: #2b3d50;
+}
+
+footer button#toggle-contact-form:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+span#status {
+  color: #313131;
 }
