@@ -52,7 +52,6 @@ function save_new_positions() {
 <?php 
 $modify_id = 0;
 $str_length = 2;
-$note_count = 0;
 
 if ($notes > 0) {
 // they have notes so you can run a query to get largest number in sort column
@@ -65,7 +64,6 @@ $max_sort = $max_sort[0] + 1;
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
 $modify_id = substr("0{$modify_id}", -$str_length);
-$note_count++;
 
 if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
 
@@ -104,6 +102,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <a href="#" data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
+        <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">

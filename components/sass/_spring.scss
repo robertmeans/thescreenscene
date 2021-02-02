@@ -61,9 +61,11 @@ ul#static-sort {
 #theModal .modal-body form.edit-link-form input.edit-input
  {
 	color: #313131;
+	background-color: rgba(98,190,232,0.2);
 	&:focus,
 	&:hover {
 		color: #fff;
+		background-color: #0b5596;
 	}
 }
 #theModal {

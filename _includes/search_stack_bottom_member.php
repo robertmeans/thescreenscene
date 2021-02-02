@@ -26,13 +26,9 @@ $max_sort = $max_sort[0] + 1;
 
 ?>
 
-<?php if ($notes <= 9) { ?>
   <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
+  <input type="hidden" name="notecount" data-role="notecount" value="<?= $notes; ?>">
   <li class="note-edit-pg"><a href="#" id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
-<?php } else { ?>
-  <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
-  <li class="note-edit-pg"><a href="#" id="note-limit" class="add-a-note static">Add a note</a></li>
-<?php } ?>
 
 </ul>
 <?php } ?>
@@ -44,7 +40,6 @@ $max_sort = $max_sort[0] + 1;
 <?php 
 $modify_id = 0;
 $str_length = 2;
-$note_count = 0;
 
 if ($notes > 0) {
 // they have notes so you can run a query to get largest number in sort column
@@ -55,7 +50,6 @@ global $db;
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
 $modify_id = substr("0{$modify_id}", -$str_length);
-$note_count++;
 
 if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
 
@@ -118,11 +112,11 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 <div class="aan-modal-content">
   <div class="aan-modal-header">
     <span class="aan-close" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
-    <h2>Add a note</h2>
+    <h2 id="header-msg">Notes</h2>
   </div>
 
   <div class="aan-modal-wrap">
-      <div class="aan-modal-body">
+      <div id="thatll-do" class="aan-modal-body">
 
       <form class="edit-link-form">
         <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
@@ -149,103 +143,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
   </div><!-- .aan-modal-wrap -->
   <div class="aan-modal-footer">
-    <!-- <h3>&nbsp;</h3> -->
-    <?php 
-    if ($notes == 5) { echo "<h3>You have 5 notes remaining.</h3>"; }
-    if ($notes == 7) { echo "<h3>This is note #8. There is a 10 note limit.</h3>"; }
-    if ($notes == 8) { echo "<h3>This is note #9. You're a note maniac.</h3>"; } 
-    if ($notes == 9) { echo "<h3>Don't say I didn't warn you.</h3>"; } // this is last note -> #20
-    ?>
+    <h3 id="im-watchin">&nbsp;</h3>
   </div>
 
 </div><!-- .aan-modal-content -->
 </div><?php // #aan-modal ?>
-<?php // limit reached modal // ?>
-<div id="thats-all" class="aan-modal">
-
-<div class="aan-modal-content">
-  <div class="aan-modal-header">
-    <span class="aan-close shutit"><i class="fas fa-times-circle"></i></span>
-    <h2>Limit Reached</h2>
-  </div>
-
-  <div class="aan-modal-wrap">
-      <div class="aan-modal-body">
-
-      <p>There's a 10 note limit per project (for now).</p>
-
-      </div><!-- .aan-modal-body -->
-
-  </div><!-- .aan-modal-wrap -->
-  <div class="aan-modal-footer">
-    <h3>&nbsp;</h3>
-  </div>
-
-</div><!-- .aan-modal-content -->
-</div><?php // #aan-modal ?>
-
-<?php // Start a for loop that = $notes and get individual modals ready
-      // equal to the number of notes 
-
-?>
-
-<?php
-$and_again = find_project_notes($user_id, $current_project);
-$modify_id = 0;
-$str_length = 2;
-$note_count = 0;
-
-if ($notes > 0) {
-
-while ($row = mysqli_fetch_assoc($and_again)) {
-$modify_id++;
-$modify_id = substr("0{$modify_id}", -$str_length);
-$note_count++;
-?>
-
-<?php /*
-<?php // this is the MODIFY NOTE MODAL // ?>
-<div id="<?= $modify_id ?>_modify-modal" class="modify-modal">
-
-<div class="modify-modal-content">
-  <div class="modify-modal-header">
-    <span class="modify-close closer"><i class="fas fa-times-circle"></i></span>
-    <h2>Edit note</h2>
-  </div>
-
-  <div class="modify-modal-wrap">
-      <div class="modify-modal-body">
-
-      <form action="modify_a_note.php?id=<?= $row['note_id'] ?>" method="post" class="modify-note-form">
-        
-        <p>Name | Limit 30 characters</p>
-        <input name="name" class="modify-input link-name" type="text" maxlength="30" value="<?php if (isset($row['name'])) { echo h($row['name']); } ?>">
-
-        <p>URL</p>
-        <input name="url" class="modify-input link-name" type="text" value="<?php if (isset($row['url'])) { echo h($row['url']); } ?>" maxlength="2000" placeholder="http://">
-
-        <p>Note | Limit 200 characters</p>
-        <textarea name="note" class="modify-input link-url" type="text" maxlength="200"><?php if (isset($row['note'])) { echo str_replace('\r\n', '', $row['note']); } ?></textarea></label>
-
-        <input type="hidden" name="clipboard" value="0">
-        <label class="clipboard"><input type="checkbox" name="clipboard" value="1" <?php if ($row['clipboard'] == 1) { echo 'checked'; } ?>> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
-
-        <div class="submit-links">
-          <a href="#" class="closer static">Cancel</a>
-          <input name="modify-note" class="update" type="submit" value="Update">
-        </div><!-- #submit-links -->
-      </form>
-
-      </div><!-- .modify-modal-body -->
-
-  </div><!-- .modify-modal-wrap -->
-  <div class="modify-modal-footer">
-    <h3>&nbsp;</h3>
-  </div>
-
-</div><!-- .modify-modal-content -->
-</div><?php // #modify-modal ?>
-*/ ?>
-
-
-<?php } } ?>

@@ -531,6 +531,7 @@ $(document).ready(function() {
 
 // hyperlink | bookmarks add, update, delete
 $(document).ready(function() {
+
 	$(document).on('click','a[data-role=update]',function() {
     	var id         = $(this).data('id');
     	var urlz       = $('#'+id).children('a[data-target=urlz]').attr('href');
@@ -613,48 +614,102 @@ $(document).ready(function() {
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Add a note | add, update, delete
 $(document).ready(function() {
+    var originalHeader = document.getElementById('header-msg');
+    var originalBody = document.getElementById('thatll-do');
+    var originalFooter = document.getElementById('im-watchin');
+
+
   $(document).on('click','a[data-role=notes]',function() {
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
+
+    var notecount1 = $('[data-role=notecount]').val();
+    var notecount2 = $('[data-role=notecountz]').val();
+    if (typeof notecount2 != "undefined") {
+      notecount2 = notecount2;
+    } else {
+      notecount2 = notecount1;
+    }
+    var notecount = notecount2;
+
+    if (notecount == 5) {
+      $('#im-watchin').html("You have 5 notes remaining.");
+    } else if (notecount == 6) {
+      $('#im-watchin').html("&nbsp;");
+    } else if (notecount == 7) {
+      $('#im-watchin').html("This is note #8. There is a 10 note limit.");
+    } else if (notecount == 8) {
+      $('#im-watchin').html("This is note #9. You're a note maniac.");
+    } else if (notecount == 9) {
+      $('#im-watchin').html("Don't say I didn\'t warn you.");
+    } else if (notecount == 10) {
+      $('#header-msg').html("That's all");
+      $('#thatll-do').html("There's a 10 note limit per project (for now).");
+      $('#im-watchin').html("&nbsp;");
+    } else {
+
+    }
 
     modifynote.style.display = "none";
     updatenote.style.display = "block";
     noteModal.style.display = "block";
 
   });
+
   $(document).on('click','[data-role=notesClose]',function() {
     var noteModal = document.getElementById('aan-modal');
-    var updatenote = document.getElementById('update-note');
-    var modifynote  = document.getElementById('modify-note');
 
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
     $('input[type=checkbox]').prop('checked',false);
 
-    // updatenote.style.display = "none";
-    // modifynote.style.display - "none";
     noteModal.style.display = "none";
 
   });
 
-  $('#update-note').click(function() { // add new note
+  $('#update-note').click(function() { // add new note button (this is NOT the modal)
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
+
     var sort1 = $('[data-role=maxsort]').val();
     var sort2 = $('[data-role=maxsortz]').val();
-
     if (typeof sort2 != "undefined") {
       sort2 = sort2;
     } else {
       sort2 = "0";
     }
-
     var sort = Math.max(sort1, sort2);
+
+    var notecount1 = $('[data-role=notecount]').val();
+    var notecount2 = $('[data-role=notecountz]').val();
+    if (typeof notecount2 != "undefined") {
+      notecount2 = notecount2;
+    } else {
+      notecount2 = "0";
+    }
+    var notecount = Math.max(notecount1, notecount2);
+
     var cp = $('#cp').val();
     var uid = $('#uid').val();
     var name = $('#aanName').val();
@@ -698,10 +753,8 @@ $(document).ready(function() {
 
   });
 
+
   $(document).on('click','a[data-role=deletenote]',function() { 
-    var noteModal = document.getElementById("aan-modal");
-    var updatenote = document.getElementById('update-note');
-    var modifynote  = document.getElementById('modify-note');
     var deletethis = $(this).closest('form').find('[data-role=deletethis]').val();
     var notename = $(this).closest('form').find('[data-role=notename]').val();
     
@@ -718,14 +771,10 @@ $(document).ready(function() {
 
     }
 
-    modifynote.style.display = "none";
-    updatenote.style.display = "none";
-    noteModal.style.display = "none";
-
   });
 
 
- $(document).on('click','a[data-role=modify-note]',function() {
+ $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Modal
   var ida       = $(this).data('id');
   // added a "z_" to this data-id element so the clipboard data-id would be unique
   var id        = ida.substring(2);
@@ -747,22 +796,21 @@ $(document).ready(function() {
   $('#aanNote').val(notes);
   $('#nid').val(id);
 
+  $('#im-watchin').html("&nbsp;");
+
+  var noteModal   = document.getElementById('aan-modal');
   var updatenote = document.getElementById('update-note');
   var modifynote  = document.getElementById('modify-note');
-  var noteModal   = document.getElementById('aan-modal');
 
   // alert(clipb);
+  noteModal.style.display = "block";
   updatenote.style.display = "none";
   modifynote.style.display = "block";
-  noteModal.style.display = "block";
 
-  // modal is set, all fields contain db content. now grab new
-  // content and assign to separate variables?
  });
 
 
- $('#modify-note').click(function() {
-    var modifynote  = document.getElementById('modify-note');
+ $('#modify-note').click(function() { // modify note button - NOT the modal
     var noteModal   = document.getElementById('aan-modal');
     var nid = $('#nid').val();
     var name = $('#aanName').val();
@@ -800,9 +848,7 @@ $(document).ready(function() {
     $('#aanNote').val('');
     $('input[type=checkbox]').prop('checked',false);
     
-    modifynote.style.display = "none";
     noteModal.style.display = "none";
-
  });
 
 });
