@@ -53,7 +53,7 @@ $modify_id = substr("0{$modify_id}", -$str_length);
 
 if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
 
-<li id="<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>"> 
+<li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>"> 
     <div class="sec note-url <?php if ($notes > 1) { echo "move"; } ?>">
 
       <?php if ($notes > 1) { ?>

@@ -778,10 +778,10 @@ $(document).ready(function() {
   var ida       = $(this).data('id');
   // added a "z_" to this data-id element so the clipboard data-id would be unique
   var id        = ida.substring(2);
-  var urln      = $('#'+id).find('a[data-target="urln"]').attr('href');
-  var noten     = $('#'+id).find('[data-target="urln"]').text();
-  var notes     = $('#'+id).find('[data-target="cb"]').text();
-  var clipb     = $('#'+id).find('a[data-id="'+id+'"]');
+  var urln      = $('#z_'+id).find('a[data-target="urln"]').attr('href');
+  var noten     = $('#z_'+id).find('[data-target="urln"]').text();
+  var notes     = $('#z_'+id).find('[data-target="cb"]').text();
+  var clipb     = $('#z_'+id).find('a[data-id="'+id+'"]');
 
   if(clipb.length) { // if clipboard exists
     $('input[type=checkbox]').prop('checked',true);
@@ -802,7 +802,7 @@ $(document).ready(function() {
   var updatenote = document.getElementById('update-note');
   var modifynote  = document.getElementById('modify-note');
 
-  // alert(notes);
+  // alert(id);
   noteModal.style.display = "block";
   updatenote.style.display = "none";
   modifynote.style.display = "block";
