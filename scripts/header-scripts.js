@@ -49,8 +49,10 @@ function submitBing() {
   return true;
 }
 // bing on/off images/maps
-$(".bchk").change(function() {
-    $(".bchk").not(this).prop('checked', false);
+$(document).ready(function() {
+  $(".bchk").change(function() {
+      $(".bchk").not(this).prop('checked', false);
+  });
 });
 // end bing search
 
@@ -67,8 +69,10 @@ function submitGoogle() {
   return true;
 }
 // google on/off images/maps
-$(".gchk").change(function() {
-    $(".gchk").not(this).prop('checked', false);
+$(document).ready(function() {
+  $(".gchk").change(function() {
+      $(".gchk").not(this).prop('checked', false);
+  });
 });
 // end google search
 

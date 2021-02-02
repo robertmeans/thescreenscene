@@ -778,10 +778,10 @@ $(document).ready(function() {
   var ida       = $(this).data('id');
   // added a "z_" to this data-id element so the clipboard data-id would be unique
   var id        = ida.substring(2);
-  var urln      = $('#'+id).find('a[data-target=urln]').attr('href');
-  var noten     = $('#'+id).find('[data-target=urln]').text();
-  var notes     = $('#'+id).find('[data-target=cb]').text();
-  var clipb     = $('#'+id).find('a[data-id='+id+']');
+  var urln      = $('#'+id).find('a[data-target="urln"]').attr('href');
+  var noten     = $('#'+id).find('[data-target="urln"]').text();
+  var notes     = $('#'+id).find('[data-target="cb"]').text();
+  var clipb     = $('#'+id).find('a[data-id="'+id+'"]');
 
   if(clipb.length) { // if clipboard exists
     $('input[type=checkbox]').prop('checked',true);
@@ -802,7 +802,7 @@ $(document).ready(function() {
   var updatenote = document.getElementById('update-note');
   var modifynote  = document.getElementById('modify-note');
 
-  // alert(clipb);
+  // alert(notes);
   noteModal.style.display = "block";
   updatenote.style.display = "none";
   modifynote.style.display = "block";
@@ -854,18 +854,18 @@ $(document).ready(function() {
 });
 
 // close all modals on click outside modal
-window.addEventListener("load", function(){
-var modal_aan = document.getElementById("aan-modal");
-var theModal   = document.getElementById("theModal");
+// window.addEventListener("load", function(){
+// var modal_aan = document.getElementById("aan-modal");
+// var theModal   = document.getElementById("theModal");
 
-  window.onmousedown = function(event) {
-    if (event.target == modal_aan) {
-      modal_aan.style.display = "none";
-    }
-    if (event.target == theModal) {
-      theModal.style.display = "none";
-    }
+//   window.onmousedown = function(event) {
+//     if (event.target == modal_aan) {
+//       modal_aan.style.display = "none";
+//     }
+//     if (event.target == theModal) {
+//       theModal.style.display = "none";
+//     }
 
 
-  }
-});
+//   }
+// });
