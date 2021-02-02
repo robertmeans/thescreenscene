@@ -6,6 +6,7 @@ $current_project = $_SESSION['current_project'];
 
 $notes_for_project = find_project_notes($user_id, $current_project);
 $notes = mysqli_num_rows($notes_for_project);
+// $max_sort = $notes + 1;
 ?>
 <script>
   
@@ -58,6 +59,8 @@ if ($notes > 0) {
 global $db;
 $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
 $max_sort = mysqli_fetch_array($result);
+$max_sort = $max_sort[0] + 1;
+
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -102,6 +105,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
       <form>
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a href="#" data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>

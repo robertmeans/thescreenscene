@@ -10,22 +10,7 @@ setTimeout(function() {
 // var span_aan = document.getElementsByClassName("aan-close")[0];
 // var a_aan = document.getElementsByClassName("cancel-close")[0];
 
-// window.addEventListener("load", function(){
-	// btn_aan.onclick = function() {
-	//   modal_aan.style.display = "block";
-	// }
-	// span_aan.onclick = function() {
-	//   modal_aan.style.display = "none";
-	// }
-	// a_aan.onclick = function() {
-	//   modal_aan.style.display = "none";
-	// }
-// 	window.onmousedown = function(event) {
-// 	  if (event.target == modal_aan) {
-// 	    modal_aan.style.display = "none";
-// 	  }
-// 	}
-// });
+
 // end add a note
 
 
@@ -633,7 +618,9 @@ $(document).ready(function() {
   $(document).on('click','a[data-role=notes]',function() {
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
 
+    modifynote.style.display = "none";
     updatenote.style.display = "block";
     noteModal.style.display = "block";
 
@@ -641,21 +628,33 @@ $(document).ready(function() {
   $(document).on('click','[data-role=notesClose]',function() {
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
 
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
     $('input[type=checkbox]').prop('checked',false);
 
-    updatenote.style.display = "none";
+    // updatenote.style.display = "none";
+    // modifynote.style.display - "none";
     noteModal.style.display = "none";
 
   });
 
-  $('#update-note').click(function() {
+  $('#update-note').click(function() { // add new note
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
-    var sort = $('#sort').val();
+    var modifynote  = document.getElementById('modify-note');
+    var sort1 = $('[data-role=maxsort]').val();
+    var sort2 = $('[data-role=maxsortz]').val();
+
+    if (typeof sort2 != "undefined") {
+      sort2 = sort2;
+    } else {
+      sort2 = "0";
+    }
+
+    var sort = Math.max(sort1, sort2);
     var cp = $('#cp').val();
     var uid = $('#uid').val();
     var name = $('#aanName').val();
@@ -693,7 +692,8 @@ $(document).ready(function() {
     $('#aanNote').val('');
     $('input[type=checkbox]').prop('checked',false);
 
-    updatenote.style.display = "none";
+    // modifynote.style.display = "none";
+    // updatenote.style.display = "none";
     noteModal.style.display = "none";
 
   });
@@ -701,6 +701,7 @@ $(document).ready(function() {
   $(document).on('click','a[data-role=deletenote]',function() { 
     var noteModal = document.getElementById("aan-modal");
     var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
     var deletethis = $(this).closest('form').find('[data-role=deletethis]').val();
     var notename = $(this).closest('form').find('[data-role=notename]').val();
     
@@ -717,6 +718,7 @@ $(document).ready(function() {
 
     }
 
+    modifynote.style.display = "none";
     updatenote.style.display = "none";
     noteModal.style.display = "none";
 
@@ -745,10 +747,12 @@ $(document).ready(function() {
   $('#aanNote').val(notes);
   $('#nid').val(id);
 
+  var updatenote = document.getElementById('update-note');
   var modifynote  = document.getElementById('modify-note');
   var noteModal   = document.getElementById('aan-modal');
 
   // alert(clipb);
+  updatenote.style.display = "none";
   modifynote.style.display = "block";
   noteModal.style.display = "block";
 
@@ -791,7 +795,6 @@ $(document).ready(function() {
 
     });
 
-
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
@@ -802,6 +805,21 @@ $(document).ready(function() {
 
  });
 
+});
+
+// close all modals on click outside modal
+window.addEventListener("load", function(){
+var modal_aan = document.getElementById("aan-modal");
+var theModal   = document.getElementById("theModal");
+
+  window.onmousedown = function(event) {
+    if (event.target == modal_aan) {
+      modal_aan.style.display = "none";
+    }
+    if (event.target == theModal) {
+      theModal.style.display = "none";
+    }
 
 
+  }
 });

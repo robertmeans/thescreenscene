@@ -16,7 +16,7 @@ $current_project = $_SESSION['current_project'];
 
 if (is_post_request()) {
 	
-	if (isset($_POST['uid'])) {
+	if (isset($_POST['uid'])) { // add new note
 
 	$sort     	   	= $_POST['sort']  ?? ''  ;
 	$cp    					= $_POST['cp']  ?? ''	;

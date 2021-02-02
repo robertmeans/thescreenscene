@@ -19,13 +19,19 @@
 // $user_id = $_SESSION['id'];
 $notes_for_project = find_project_notes($user_id, $current_project);
 $notes = mysqli_num_rows($notes_for_project);
+global $db;
+$result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
+$max_sort = mysqli_fetch_array($result);
+$max_sort = $max_sort[0] + 1;
 
 ?>
 
 <?php if ($notes <= 9) { ?>
-        <li class="note-edit-pg"><a href="#" id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
+  <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
+  <li class="note-edit-pg"><a href="#" id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 <?php } else { ?>
-        <li class="note-edit-pg"><a href="#" id="note-limit" class="add-a-note static">Add a note</a></li>
+  <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
+  <li class="note-edit-pg"><a href="#" id="note-limit" class="add-a-note static">Add a note</a></li>
 <?php } ?>
 
 </ul>
@@ -43,8 +49,8 @@ $note_count = 0;
 if ($notes > 0) {
 // they have notes so you can run a query to get largest number in sort column
 global $db;
-$result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
-$max_sort = mysqli_fetch_array($result);
+// $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
+// $max_sort = mysqli_fetch_array($result);
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -88,6 +94,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <a href="#" data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
+        <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a href="#" data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
@@ -118,7 +125,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <div class="aan-modal-body">
 
       <form class="edit-link-form">
-        <input type="hidden" name="sort" id="sort" value="<?php if ($notes == 0) { echo "1"; } else { echo $max_sort[0] + 1; } ?>">
         <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
         <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
         <input type="hidden" name="nid" id="nid">
