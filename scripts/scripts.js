@@ -68,20 +68,44 @@ $('a.static').click(function(e)
 });
 
 // reset icon at the end of each search field
-function reset_google() {
-	var str = '';
+// function reset_google() {
+// 	var str = '';
+//   var text = document.getElementById("sr_01").value;
+
+//   var elem = document.createElement("textarea");
+//   document.body.appendChild(elem);
+//   elem.value = text;
+//   elem.select();
+//   document.execCommand("copy");
+//   document.body.removeChild(elem);
+
+//   document.getElementById("sr_01").value= str;
+//   document.getElementById("sr_01").select();
+// }
+
+
+$('#gtog').click(function() { 
+  var str = '';
   var text = document.getElementById("sr_01").value;
+  
+  if (!/^ *$/.test(text)) {
+    document.getElementById("ghold").value = text;
+    document.getElementById("sr_01").value= str;
+    document.getElementById("sr_01").select();
+  } else {
+    var text2 = document.getElementById("ghold").value;
+    document.getElementById("sr_01").value = text2;
+    document.getElementById("sr_01").focus();
+  }
 
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
+  });
 
-  document.getElementById("sr_01").value= str;
-  document.getElementById("sr_01").select();
-}
+
+
+
+
+
+
 
 function reset_url() {
 	var str = '';
