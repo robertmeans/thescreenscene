@@ -176,7 +176,10 @@ ul#static-sort.edit-shim {
 	}
 }
 
-
+// .ea = empty anchor
+li.ea {
+	height: 0px;
+}
 
 @media screen and (max-width: 750px) {
 	ul#sortable li,

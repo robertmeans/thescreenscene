@@ -3,7 +3,30 @@ setTimeout(function() {
   $("#success-wrap").fadeOut(750);
 }, 500);
 
+// clipboard for search fields
+$(document).ready(function() {
+  $(document).on('click','a[data-role=srcb]',function() {
+    var id       = $(this).data('id');
+    var text = document.getElementById(id).value;
 
+    var elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = text;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
+
+    // var originalIcon = $(this).html();
+    var originalIcon = "<i class=\"far fa-copy fa-fw\"></i>"
+    var changeBack  = $(this);
+
+    $(this).html("<i class=\"fas fa-check fa-fw\"></i>");
+    setTimeout(function() {
+      changeBack.html(originalIcon);
+    }, 1000);
+ 
+  });
+});
 
 // homepage YouTube introduction video
 	var ytvideo = document.getElementById("ytvideo");
@@ -43,43 +66,80 @@ $('a.static').click(function(e)
    e.preventDefault();
 });
 
-// reset all form onload
-function clearForms() {
-  var i;
-  for (i = 0; (i < document.forms.length); i++) {
-    document.forms[i].reset();
-  }
-}
-
 // reset icon at the end of each search field
 function reset_google() {
-	var str = '';
-    document.getElementById("gsearch").value= str;
-    document.getElementById("gsearch").select();
+  var str = '';
+  var text = document.getElementById("sr_01").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+
+  document.getElementById("sr_01").value= str;
+  document.getElementById("sr_01").select();
 }
 
 function reset_url() {
-	var str = '';
-    document.getElementById("addressfield").value= str;
-    document.getElementById("addressfield").select();
+  var str = '';
+  var text = document.getElementById("sr_02").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem); 
+
+  document.getElementById("sr_02").value= str;
+  document.getElementById("sr_02").select();
 }
 
 function reset_bing() {
-	var str = '';
-    document.getElementById("bsearch").value= str;
-    document.getElementById("bsearch").select();
+  var str = '';
+  var text = document.getElementById("sr_03").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem); 
+
+  document.getElementById("sr_03").value= str;
+  document.getElementById("sr_03").select();
 }
 
 function reset_ref() {
-	var str = '';
-    document.getElementById("refsearch").value= str;
-    document.getElementById("refsearch").select();
+  var str = '';
+  var text = document.getElementById("sr_04").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+   
+  document.getElementById("sr_04").value= str;
+  document.getElementById("sr_04").select();
 }
 
 function reset_yt() {
-	var str = '';
-    document.getElementById("ytsearch").value= str;
-    document.getElementById("ytsearch").select();
+  var str = '';
+  var text = document.getElementById("sr_05").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+   
+  document.getElementById("sr_05").value= str;
+  document.getElementById("sr_05").select();
 }
 
 

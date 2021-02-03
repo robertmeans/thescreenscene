@@ -10,35 +10,26 @@ function ewd_copyright($startYear) {
       return "<i class=\"far fa-heart\"></i> $startYear";
   }
 }
-?>
-    <?php
-        function post_captcha($user_response) {
-        $fields_string = '';
-        $fields = array(
-            'secret' => SECRETKEY,
-            'response' => $user_response
-        );
-        foreach($fields as $key=>$value)
-        $fields_string .= $key . '=' . $value . '&';
-        $fields_string = rtrim($fields_string, '&');
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
-        curl_setopt($ch, CURLOPT_POST, count($fields));
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
-        $result = curl_exec($ch);
-        curl_close($ch);
-        return json_decode($result, true);
-    }
-        // Call the function post_captcha
-
-/* MUTE FOR LOCAL TESTING ---------------------------------------------------------- */
-        // $_POST['g-recaptcha-response'] = '';
-        // $res = post_captcha($_POST['g-recaptcha-response']);
-
-?>
-
-<footer>
+?><?php
+  function post_captcha($user_response) {
+  $fields_string = '';
+  $fields = array(
+      'secret' => SECRETKEY,
+      'response' => $user_response
+  );
+  foreach($fields as $key=>$value)
+  $fields_string .= $key . '=' . $value . '&';
+  $fields_string = rtrim($fields_string, '&');
+  $ch = curl_init();
+  curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+  curl_setopt($ch, CURLOPT_POST, count($fields));
+  curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+  curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
+  $result = curl_exec($ch);
+  curl_close($ch);
+  return json_decode($result, true);
+}
+?><footer>
 
   <button id="toggle-contact-form"><i class="fa fa-star" aria-hidden="true"></i><span class="tiny-mobile">&nbsp;&nbsp;</span> comments | questions | suggestions <span class="tiny-mobile">&nbsp;&nbsp;</span><i class="fa fa-star" aria-hidden="true"></i></button>
 

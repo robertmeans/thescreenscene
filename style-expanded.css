@@ -1487,6 +1487,10 @@ ul#static-sort.edit-shim li a.ue {
   opacity: 1;
 }
 
+li.ea {
+  height: 0px;
+}
+
 @media screen and (max-width: 750px) {
   ul#sortable li,
   ul#static-sort li {
@@ -4169,11 +4173,27 @@ a.project-links.delete-pg {
 #bing .srs,
 #reference .srs,
 #youtube .srs {
-  width: 45%;
+  width: 50%;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
       align-items: center;
+}
+#google .srs a.srcb,
+#url .srs a.srcb,
+#bing .srs a.srcb,
+#reference .srs a.srcb,
+#youtube .srs a.srcb {
+  color: #fff;
+  margin-left: 0.5em;
+  cursor: pointer;
+}
+#google .srs a.srcb:hover,
+#url .srs a.srcb:hover,
+#bing .srs a.srcb:hover,
+#reference .srs a.srcb:hover,
+#youtube .srs a.srcb:hover {
+  color: rgba(255, 255, 255, 0.5);
 }
 #google input[type=text],
 #url input[type=text],
@@ -4251,7 +4271,7 @@ a.project-links.delete-pg {
 #bing i.fa-backspace:hover,
 #reference i.fa-backspace:hover,
 #youtube i.fa-backspace:hover {
-  color: #0b5596;
+  color: rgba(255, 255, 255, 0.5);
 }
 
 @media screen and (max-width: 500px) {

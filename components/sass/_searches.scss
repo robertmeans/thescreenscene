@@ -84,9 +84,17 @@
 		margin: 0;
 	}
 	.srs {
-		width: 45%;
+		width: 50%;
 		display: flex;
 		align-items: center;
+		a.srcb {
+			color: #fff;
+			margin-left: 0.5em;
+			cursor: pointer;
+			&:hover {
+				color: rgba(255,255,255,0.5);
+			}
+		}
 	}
 	input[type=text] {
 		border: none;
@@ -133,7 +141,7 @@
 		cursor: pointer;
 		transition: all 0.2s ease;
 		&:hover {
-			color: #0b5596;
+			color: rgba(255,255,255,0.5);
 		}
 	}
 }

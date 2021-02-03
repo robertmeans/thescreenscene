@@ -33,7 +33,6 @@ $max_sort = $max_sort[0] + 1;
 </ul>
 <?php } ?>
 
-
 <div id="usersnotes">
 <ul <?php if ($notes > 1) { echo "id=\"sortanote\""; } ?> class="project-notes">
 
@@ -93,78 +92,64 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     </div> 
 
 </li>
-
 <?php
 } } }
 ?>
-
 </ul><?php // #project-notes ?>
 </div><?php // #usersnotes  ?>
 
-
 <?php // this is THE ADD/CREATE A NOTE MODAL for under 20 notes // ?>
 <div id="aan-modal" class="aan-modal">
-
 <!-- Modal content -->
 <div class="aan-modal-content">
   <div class="aan-modal-header">
     <span class="aan-close" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
     <h2 id="header-msg">Notes</h2>
   </div>
-
   <div class="aan-modal-wrap">
-      <div id="thatll-do" class="aan-modal-body">
+    <div id="thatll-do" class="aan-modal-body">
+    <form class="edit-link-form">
+      <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
+      <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
+      <input type="hidden" name="nid" id="nid">
+      <label>Name | Limit 30 characters
+      <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="30"></label>
 
-      <form class="edit-link-form">
-        <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
-        <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
-        <input type="hidden" name="nid" id="nid">
-        <label>Name | Limit 30 characters
-        <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="30"></label>
+      <label>URL | Makes the name a hyperlink
+      <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
 
-        <label>URL | Makes the name a hyperlink
-        <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
+      <label>Note | Limit 200 characters
+      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="200" type="text"></textarea></label>
 
-        <label>Note | Limit 200 characters
-        <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="200" type="text"></textarea></label>
-
-        <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
-        <div class="submit-links">
-          <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
-          <input name="update-note" id="update-note" class="update" value="Add note">
-          <input name="modify-note" id="modify-note" class="update" value="Modify note">
-        </div><!-- #submit-links -->
-      </form>
-
-      </div><!-- .aan-modal-body -->
-
+      <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
+      <div class="submit-links">
+        <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
+        <input name="update-note" id="update-note" class="update" value="Add note">
+        <input name="modify-note" id="modify-note" class="update" value="Modify note">
+      </div><!-- #submit-links -->
+    </form>
+    </div><!-- .aan-modal-body -->
   </div><!-- .aan-modal-wrap -->
   <div class="aan-modal-footer">
     <h3 id="im-watchin">&nbsp;</h3>
   </div>
-
 </div><!-- .aan-modal-content -->
 </div><?php // #aan-modal ?>
 
-
 <?php // limit reached modal // ?>
 <div id="thats-all" class="aan-modal">
-
 <div class="aan-modal-content">
   <div class="aan-modal-header">
     <span class="aan-close shutit" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
     <h2>Limit Reached</h2>
   </div>
-
   <div class="aan-modal-wrap">
-      <div class="aan-modal-body">
-        <p>There's a 10 note limit per project (for now).</p>
-      </div><!-- .aan-modal-body -->
-
+    <div class="aan-modal-body">
+      <p>There's a 10 note limit per project (for now).</p>
+    </div><!-- .aan-modal-body -->
   </div><!-- .aan-modal-wrap -->
   <div class="aan-modal-footer">
     <h3>That'll do, note piggy.</h3>
   </div>
-
 </div><!-- .aan-modal-content -->
 </div><?php // #aan-modal ?>

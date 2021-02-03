@@ -28,34 +28,31 @@ require '_includes/nav.php'; ?>
 
 <div class="tabs">
 
-      <ul class="tab-links">
+  <ul class="tab-links">
+    <li <?php if ($row['page_number'] == "1") { echo "class=\"active\""; }  ?> >
+      <form id="page_number1" class="ajax" action="project_view_owner.php" method="post">
+      <input type="hidden" name="page_number" value="1">
+      <input type="submit" name="tab1" value="Page 1">
+      </form>
+    </li>
+    <li <?php if ($row['page_number'] == "2") { echo "class=\"active\""; }  ?> >
+      <form id="page_number2" class="ajax" action="project_view_owner.php" method="post">
+      <input type="hidden" name="page_number" value="2">
+      <input type="submit" name="tab2" value="Page 2">
+      </form>
+    </li>
+    <li <?php if ($row['page_number'] == "3") { echo "class=\"active\""; }  ?> >
+      <form id="page_number3" class="ajax" action="project_view_owner.php" method="post">
+      <input type="hidden" name="page_number" value="3">
+      <input type="submit" name="tab3" value="Page 3">
+      </form>
+    </li>
+  </ul>
 
-        <li <?php if ($row['page_number'] == "1") { echo "class=\"active\""; }  ?> >
-          <form id="page_number1" class="ajax" action="project_view_owner.php" method="post">
-          <input type="hidden" name="page_number" value="1">
-          <input type="submit" name="tab1" value="Page 1">
-          </form>
-        </li>
-
-        <li <?php if ($row['page_number'] == "2") { echo "class=\"active\""; }  ?> >
-          <form id="page_number2" class="ajax" action="project_view_owner.php" method="post">
-          <input type="hidden" name="page_number" value="2">
-          <input type="submit" name="tab2" value="Page 2">
-          </form>
-        </li>
-
-        <li <?php if ($row['page_number'] == "3") { echo "class=\"active\""; }  ?> >
-          <form id="page_number3" class="ajax" action="project_view_owner.php" method="post">
-          <input type="hidden" name="page_number" value="3">
-          <input type="submit" name="tab3" value="Page 3">
-          </form>
-        </li>
-      </ul>
-
-      <?php $inner_nav_context = "owner"; ?>
-      <ul class="inner-nav">
-        <?php require 'nav/inner_nav.php'; ?>
-      </ul>
+  <?php $inner_nav_context = "owner"; ?>
+  <ul class="inner-nav">
+    <?php require 'nav/inner_nav.php'; ?>
+  </ul>
 
 <ul id="static-sort" class="homepage <?php if ($row['edit_toggle'] == "1") { echo "edit-shim"; }  ?>">
 
@@ -73,14 +70,14 @@ $id_count = substr("0{$id_count}", -$str_length);
 
 <li id="<?php echo $id_count ?>" class="ui-state-default">           
 <?php 
-      if (h($row[$r[$row_count] . '_text']) != "") { ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
-    <?php  } else {  ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
+  if (h($row[$r[$row_count] . '_text']) != "") { ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+<?php  } else {  ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
 <?php } ?></li><?php } // end for loop page 1 ?>
 
 </div><!-- #tab1 -->
@@ -95,14 +92,14 @@ $id_count = 1 + $row_count;
 
 <li id="<?php echo $id_count ?>" class="ui-state-default">           
 <?php 
-      if (h($row[$r[$row_count] . '_text']) != "") { ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
-    <?php  } else {  ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
+  if (h($row[$r[$row_count] . '_text']) != "") { ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+<?php  } else {  ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
 <?php } ?></li><?php } // end for loop page 2 ?>
 
 </div><!-- #tab2 -->
@@ -117,14 +114,14 @@ $id_count = 1 + $row_count;
 
 <li id="<?php echo $id_count ?>" class="ui-state-default">           
 <?php 
-      if (h($row[$r[$row_count] . '_text']) != "") { ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
-    <?php  } else {  ?>
-        <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
-        <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
-        <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
+  if (h($row[$r[$row_count] . '_text']) != "") { ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+<?php  } else {  ?>
+    <span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
+    <span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+    <a data-target="urlz" class="project-links-empty shim" target="_blank"></a><a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a>
 <?php } ?></li><?php } // end for loop page 3 ?>
 
 </div><!-- #tab3 -->
@@ -141,7 +138,6 @@ $id_count = 1 + $row_count;
 <!-- Modal -->
 <div id="theModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
-
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
@@ -169,10 +165,9 @@ $id_count = 1 + $row_count;
       </form>
       </div>
       <div class="modal-footer">
-       
+        <h3>&nbsp;</h3>
       </div>
     </div>
   </div>
 </div>
-
 <?php require '_includes/footer.php'; ?>

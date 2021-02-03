@@ -26,15 +26,14 @@
   	
 	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Courier+Prime|Roboto|Special+Elite' rel='stylesheet' type='text/css'>
 
-	<?php if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { // 2 = Spring ?>
-		<link rel="stylesheet" href="style-spring.css?<?php echo time(); ?>" type="text/css">
-	<?php } else { // default is Darkmode which is = 1 ?>
-		<link rel="stylesheet" href="style.css?<?php echo time(); ?>" type="text/css">
-	<?php } ?>
-
-	<script src="scripts/jquery-3.5.1.min.js"></script>
-  <script src="scripts/jquery_1-12-1_ui_min.js"></script>
-  <script src="scripts/header-scripts.js?<?php echo time(); ?>"></script>
+	<?php if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { // 2 = Spring 
+		?><link rel="stylesheet" href="style-spring.css?<?php echo time(); ?>" type="text/css">
+	<?php } else { // default is Darkmode which is = 1 
+		?><link rel="stylesheet" href="style.css?<?php echo time(); ?>" type="text/css">
+	<?php } // keeping things pretty in the sorcecode
+	?><script src="scripts/jquery-3.5.1.min.js"></script>
+  	<script src="scripts/jquery_1-12-1_ui_min.js"></script>
+  	<script src="scripts/header-scripts.js?<?php echo time(); ?>"></script>
   
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-ER0L96WN41"></script>

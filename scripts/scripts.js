@@ -3,39 +3,40 @@ setTimeout(function() {
   $("#success-wrap").fadeOut(750);
 }, 500);
 
+// add class to all li's with empty anchors in order to collapse
+// those rows and keep things tight.
+$(document).ready(function() {
+  $("a.project-links-empty").each(function () {
+    $(this).closest("li").addClass("ea");
+  }); 
+});
 
-// add a note | add-a-note
-// var modal_aan = document.getElementById("aan-modal");
-// var btn_aan = document.getElementById("add-note");
-// var span_aan = document.getElementsByClassName("aan-close")[0];
-// var a_aan = document.getElementsByClassName("cancel-close")[0];
+// clipboard for search fields
+$(document).ready(function() {
+  $(document).on('click','a[data-role=srcb]',function() {
+    var id       = $(this).data('id');
+    var text = document.getElementById(id).value;
 
+    var elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = text;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
 
-// end add a note
+    // var originalIcon = $(this).html();
+    var originalIcon = "<i class=\"far fa-copy fa-fw\"></i>"
+    var changeBack  = $(this);
 
+    $(this).html("<i class=\"fas fa-check fa-fw\"></i>");
+    setTimeout(function() {
+      changeBack.html(originalIcon);
+    }, 1000);
+ 
+  });
+});
 
-// add a note | add-a-note LIMIT REACHED
-// var note_limit = document.getElementById("thats-all");
-// var yer_done = document.getElementById("note-limit");
-// var zipit = document.getElementsByClassName("shutit")[0];
-
-// window.addEventListener("load", function(){
-// 	yer_done.onclick = function() {
-// 	  note_limit.style.display = "block";
-// 	}
-// 	zipit.onclick = function() {
-// 	  note_limit.style.display = "none";
-// 	}
-// 	window.onclick = function(event) {
-// 	  if (event.target == note_limit) {
-// 	    note_limit.style.display = "none";
-// 	  }
-// 	}
-// });
-// end add a note LIMIT REACHED
-
-
-// clipboard
+// clipboard for notes
 $(document).ready(function() {
   $(document).on('click','a[data-role=cb]',function() {
     var id       = $(this).data('id');
@@ -60,49 +61,89 @@ $(document).ready(function() {
   });
 });
 
-
 // a static link - stop from jumping to top of page
 $('a.static').click(function(e)
 {
    e.preventDefault();
 });
 
-
 // reset icon at the end of each search field
 function reset_google() {
 	var str = '';
-    document.getElementById("gsearch").value= str;
-    document.getElementById("gsearch").select();
+  var text = document.getElementById("sr_01").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+
+  document.getElementById("sr_01").value= str;
+  document.getElementById("sr_01").select();
 }
 
 function reset_url() {
 	var str = '';
-    document.getElementById("addressfield").value= str;
-    document.getElementById("addressfield").select();
+  var text = document.getElementById("sr_02").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem); 
+
+  document.getElementById("sr_02").value= str;
+  document.getElementById("sr_02").select();
 }
 
 function reset_bing() {
 	var str = '';
-    document.getElementById("bsearch").value= str;
-    document.getElementById("bsearch").select();
+  var text = document.getElementById("sr_03").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem); 
+
+  document.getElementById("sr_03").value= str;
+  document.getElementById("sr_03").select();
 }
 
 function reset_ref() {
 	var str = '';
-    document.getElementById("refsearch").value= str;
-    document.getElementById("refsearch").select();
+  var text = document.getElementById("sr_04").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+   
+  document.getElementById("sr_04").value= str;
+  document.getElementById("sr_04").select();
 }
 
 function reset_yt() {
 	var str = '';
-    document.getElementById("ytsearch").value= str;
-    document.getElementById("ytsearch").select();
+  var text = document.getElementById("sr_05").value;
+
+  var elem = document.createElement("textarea");
+  document.body.appendChild(elem);
+  elem.value = text;
+  elem.select();
+  document.execCommand("copy");
+  document.body.removeChild(elem);
+   
+  document.getElementById("sr_05").value= str;
+  document.getElementById("sr_05").select();
 }
 
-
-
-
-/* sweet rememberme triangle inside circle all css */
+/*  rememberme circle */
 $('input[name="remember_me"]').change(function(){
     if($(this).is(":checked")) {
         $('.aa-rm-out').addClass("checkablue");
@@ -147,16 +188,13 @@ $("#showSignupPass").click(function(){
     return false;
   });
 
-
 /* 	edit_order.php -> only owner can move hyperlinks so
 	there's no shared_with version of this 	*/
 // sort hyperlinks - start
 $(document).ready(function() {
   $( "#sortable" ).sortable({
 	update: function (event, ui) {
-
 		save_order();
-		//console.log('hello there');
 	 }	
   });
 });
@@ -165,7 +203,6 @@ function save_order() {
 var reorder = new Array();
   $('ul#sortable li').each(function() {
     reorder.push($(this).attr("id"));
-    // console.log(reorder);
   });
 
 	$.ajax({
@@ -179,12 +216,10 @@ var reorder = new Array();
 			console.log(response);
 		}
 	});
-
 }
 // sort hyperlinks - end
 
 // add a note sort
-//https://www.youtube.com/watch?v=V1nYMDoSCXY&ab_channel=CodingPassiveIncome
 $(document).ready(function () {
 	$('#sortanote').sortable({
 		update: function (event, ui) {
@@ -193,13 +228,10 @@ $(document).ready(function () {
 					$(this).attr('sort', (index+1)).addClass('updated');
 				}
 			});
-
 			save_new_positions();
 		}
 	});
 });
-
-
 
 // ajax background save for sorting add a note
 function save_new_positions() {
@@ -222,9 +254,7 @@ function save_new_positions() {
 			console.log(response);
 		}
 	});
-
 }
-
 
 // edit_searches.php -> sortable search fields, opens:
 // edit_search_order_owner.php and
@@ -257,7 +287,6 @@ $(document).ready(function() {
     $("#sortablesearch li.static").each(function () {
          $(this).attr("stay", "static-" + $(this).index());
     }); 
-  
 });
 /* 	grab new order of search fields and put value into input with
 	id = search_order */
@@ -279,14 +308,12 @@ var reorder = [];
 			console.log(response);
 		}
 	});
-
 }
 
 function save_search_shared_with() {
 var reorder = [];
   $('ul#sortablesearch li.ct').each(function() {
     reorder.push($(this).attr("id"));
-
   });
 
 	$.ajax({
@@ -300,7 +327,6 @@ var reorder = [];
 			console.log(response);
 		}
 	});
-
 }
 
 // footer_contact_ajax
@@ -327,10 +353,7 @@ function submitFooter() {
   ajax.send(formdata);
 }
 
-
-
 $(document).ready(function() { // 122120856 start
-
 // Dictionary or Thesaurus on edit_searches.php
 	$('#d').click(function(){
 	  $(this).addClass('selected');
@@ -352,7 +375,6 @@ $(document).ready(function() { // 122120856 start
 	  	$('#dic-row').removeClass('selected');
 	  }
 	});
-
 
 // checkbox edit/share selections
 	$('input:checkbox.edit').change(function(){
@@ -378,31 +400,19 @@ $(document).ready(function() { // 122120856 start
 $('.tab').hide();
 $('.tab.active').show();
 
-	// keep things same height and stop bouncing
-	// $('.tab-content').each(function() {
-	// $height = $(this).height();
-	// $(this).css('height', $height);
-	// // $(this).hide();
-	// });
-
 	$('.tabs .tab-links input').on('click', function(e)  {
     var currentAttrValue = $(this).attr('name');
     var addthis = "#";
     var thesetwo = addthis.concat(currentAttrValue);
     // ^^ had to add these two together in JS instead of on the html page
     // because the # was interfering with the Ajax form submission.
-    // holy cow this took a long time to figure out!
 
     // $('.tabs ' + thesetwo).show().siblings().hide();
     $('.tabs ' + thesetwo).slideDown(250).siblings().slideUp(250);
-
     $(this).closest('li').addClass('active').siblings().removeClass('active');
-
-    // e.preventDefault();
 	}); // end tab switch
 
 	$('.project-details').hide();
-  	// $('.review-project').click(function() {
   	$('.review-project').on('click', function(e) {
     var active = $(this);
     var toggle = $(this).next('.project-details');
@@ -417,39 +427,25 @@ $('.tab.active').show();
       $(active).addClass('active');
     }
   });
-
-
-
-
 }); // // 122120856 end
 
-
-
-
-
+// allow formatting in project notes
 $(document).on('click','#textbox',function() {
-  // allow formatting in project notes
   document.getElementById('textbox').addEventListener('keydown', function(e) {
     if (e.key == 'Tab') {
       e.preventDefault();
       var start = this.selectionStart;
       var end = this.selectionEnd;
-
-                 // set textarea value to: text before caret + tab + text after caret
+      // set textarea value to: text before caret + tab + text after caret
       this.value = this.value.substring(0, start) +
         "\t" + this.value.substring(end);
 
-                 // put caret at right position again
+      // put caret at right position again
       this.selectionStart =
-        this.selectionEnd = start + 1;
+      this.selectionEnd = start + 1;
     }
   });
 })
-
-
-
-
-
 
 $(document).ready(function() {
   $("#email-bob").hide();
@@ -491,9 +487,8 @@ $('form.ajax').on('submit', function() {
 	return false;
 });
 
-
-$(document).ready(function() {
 // edit_toggle | edit toggle
+$(document).ready(function() {
 	$('#edit-content').click(function() {
 
 	var shimOnOff = document.getElementById("static-sort");
@@ -501,7 +496,6 @@ $(document).ready(function() {
 	// set variables and toggle css
 	shimOnOff.classList.toggle("edit-shim");
 	editOnOff.classList.toggle("active");
-
 
 	// get state of checkbox and set it to variable
 	var editValue 	= document.getElementById("et1");
@@ -522,36 +516,31 @@ $(document).ready(function() {
 			data 		: {ownShare:ownShare, editValue:editValue, userId:userId, currentProject:currentProject},
 			success : function(response) {
 				console.log('update successful');
-
 			}
 		});
 
 	var ettoggle 	= $('#et-form input[type="checkbox"]');
 	ettoggle.attr('checked', !ettoggle.attr('checked'));
-
-
 	});
-
 });
 
 // hyperlink | bookmarks add, update, delete
 $(document).ready(function() {
 
 	$(document).on('click','a[data-role=update]',function() {
-    	var id         = $(this).data('id');
-    	var urlz       = $('#'+id).children('a[data-target=urlz]').attr('href');
-    	var name       = $('#'+id).children('a[data-target=urlz]').text();
-    	var rowid      = $('#'+id).children('span[data-target=rowid]').text();
-    	var idcount    = $('#'+id).children('span[data-target=idcount]').text();
-    	var theModal   = document.getElementById("theModal");
+    var id         = $(this).data('id');
+    var urlz       = $('#'+id).children('a[data-target=urlz]').attr('href');
+    var name       = $('#'+id).children('a[data-target=urlz]').text();
+    var rowid      = $('#'+id).children('span[data-target=rowid]').text();
+    var idcount    = $('#'+id).children('span[data-target=idcount]').text();
+    var theModal   = document.getElementById("theModal");
 
-    	$('#urlz').val(urlz);
-    	$('#name').val(name);
-    	$('#rowid').val(rowid);
-    	$('#idcount').val(idcount);
+  	$('#urlz').val(urlz);
+  	$('#name').val(name);
+  	$('#rowid').val(rowid);
+  	$('#idcount').val(idcount);
 
-        theModal.style.display = "block";
-
+    theModal.style.display = "block";
 	});
 
 	var closefp = document.getElementsByClassName("closefp")[0];
@@ -581,12 +570,11 @@ $(document).ready(function() {
 			data 	: {name:name, urlz:urlz, rowid:rowid, cp:cp},
 			success : function(response) {
 			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
-	  		$('#'+id).children('a[data-target=urlz]').text(name); 
+  		$('#'+id).children('a[data-target=urlz]').text(name); 
 
-	  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
-	  		$('#'+id).children('a[data-target=urlz]').removeClass('shim');
-	  		$('#'+id).children('a[data-target=urlz]').addClass('project-links');
-
+  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
+  		$('#'+id).children('a[data-target=urlz]').removeClass('shim');
+  		$('#'+id).children('a[data-target=urlz]').addClass('project-links');
 			}
 		});
 
@@ -604,43 +592,22 @@ $(document).ready(function() {
 			data 	: {rowid:rowid, cp:cp},
 			success : function(response) {
 			$('#'+id).children('a[data-target=urlz]').attr('href','');
-	  		$('#'+id).children('a[data-target=urlz]').text(''); 
+  		$('#'+id).children('a[data-target=urlz]').text(''); 
 
-	  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
-	  		$('#'+id).children('a[data-target=urlz]').addClass('shim');
-	  		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
-
+  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
+  		$('#'+id).children('a[data-target=urlz]').addClass('shim');
+  		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
 			}
 		});
-
 		theModal.style.display = "none";
 	});
-
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Add a note | add, update, delete
 $(document).ready(function() {
     var originalHeader = document.getElementById('header-msg');
     var originalBody = document.getElementById('thatll-do');
     var originalFooter = document.getElementById('im-watchin');
-
 
   $(document).on('click','a[data-role=notes]',function() {
     var noteModal = document.getElementById('aan-modal');
@@ -677,7 +644,6 @@ $(document).ready(function() {
     modifynote.style.display = "none";
     updatenote.style.display = "block";
     noteModal.style.display = "block";
-
   });
 
   $(document).on('click','[data-role=notesClose]',function() {
@@ -746,7 +712,6 @@ $(document).ready(function() {
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
-
     });
 
     $('#aanName').val('');
@@ -754,10 +719,7 @@ $(document).ready(function() {
     $('#aanNote').val('');
     $('input[type=checkbox]').prop('checked',false);
 
-    // modifynote.style.display = "none";
-    // updatenote.style.display = "none";
     noteModal.style.display = "none";
-
   });
 
 
@@ -773,13 +735,9 @@ $(document).ready(function() {
         success : function(response) {
           $('#usersnotes').load('usersnotes.php');
         }
-
       });
-
     }
-
   });
-
 
  $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Modal
   var ida       = $(this).data('id');
@@ -813,9 +771,7 @@ $(document).ready(function() {
   noteModal.style.display = "block";
   updatenote.style.display = "none";
   modifynote.style.display = "block";
-
  });
-
 
  $('#modify-note').click(function() { // modify note button - NOT the modal
     var noteModal   = document.getElementById('aan-modal');
@@ -847,7 +803,6 @@ $(document).ready(function() {
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
-
     });
 
     $('#aanName').val('');
@@ -857,7 +812,6 @@ $(document).ready(function() {
     
     noteModal.style.display = "none";
  });
-
 });
 
 // close all modals on click outside modal
