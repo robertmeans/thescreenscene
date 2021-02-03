@@ -11,6 +11,26 @@ $(document).ready(function() {
   }); 
 });
 
+// reset icon at the end of each search field
+$(document).ready(function() {
+  $(document).on('click','a[data-role=srcr]',function() {
+    // "srcr" = search row clear & restore
+    var id = $(this).data('id');
+    var str = '';
+    var text = document.getElementById(id).value;
+
+    if (!/^ *$/.test(text)) {
+      document.getElementById('h_' + id).value = text;
+      document.getElementById(id).value= str;
+      document.getElementById(id).select();
+    } else {
+      var text2 = document.getElementById('h_' + id).value;
+      document.getElementById(id).value = text2;
+      document.getElementById(id).focus();
+    }
+  });
+});
+
 // clipboard for search fields
 $(document).ready(function() {
   $(document).on('click','a[data-role=srcb]',function() {
@@ -66,106 +86,6 @@ $('a.static').click(function(e)
 {
    e.preventDefault();
 });
-
-// reset icon at the end of each search field
-// function reset_google() {
-// 	var str = '';
-//   var text = document.getElementById("sr_01").value;
-
-//   var elem = document.createElement("textarea");
-//   document.body.appendChild(elem);
-//   elem.value = text;
-//   elem.select();
-//   document.execCommand("copy");
-//   document.body.removeChild(elem);
-
-//   document.getElementById("sr_01").value= str;
-//   document.getElementById("sr_01").select();
-// }
-
-
-$('#gtog').click(function() { 
-  var str = '';
-  var text = document.getElementById("sr_01").value;
-  
-  if (!/^ *$/.test(text)) {
-    document.getElementById("ghold").value = text;
-    document.getElementById("sr_01").value= str;
-    document.getElementById("sr_01").select();
-  } else {
-    var text2 = document.getElementById("ghold").value;
-    document.getElementById("sr_01").value = text2;
-    document.getElementById("sr_01").focus();
-  }
-
-  });
-
-
-
-
-
-
-
-
-function reset_url() {
-	var str = '';
-  var text = document.getElementById("sr_02").value;
-
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem); 
-
-  document.getElementById("sr_02").value= str;
-  document.getElementById("sr_02").select();
-}
-
-function reset_bing() {
-	var str = '';
-  var text = document.getElementById("sr_03").value;
-
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem); 
-
-  document.getElementById("sr_03").value= str;
-  document.getElementById("sr_03").select();
-}
-
-function reset_ref() {
-	var str = '';
-  var text = document.getElementById("sr_04").value;
-
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
-   
-  document.getElementById("sr_04").value= str;
-  document.getElementById("sr_04").select();
-}
-
-function reset_yt() {
-	var str = '';
-  var text = document.getElementById("sr_05").value;
-
-  var elem = document.createElement("textarea");
-  document.body.appendChild(elem);
-  elem.value = text;
-  elem.select();
-  document.execCommand("copy");
-  document.body.removeChild(elem);
-   
-  document.getElementById("sr_05").value= str;
-  document.getElementById("sr_05").select();
-}
 
 /*  rememberme circle */
 $('input[name="remember_me"]').change(function(){
@@ -596,6 +516,7 @@ $(document).ready(function() {
 			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
   		$('#'+id).children('a[data-target=urlz]').text(name); 
 
+      $('#'+id).closest('li').removeClass('ea');
   		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
   		$('#'+id).children('a[data-target=urlz]').removeClass('shim');
   		$('#'+id).children('a[data-target=urlz]').addClass('project-links');
@@ -618,6 +539,7 @@ $(document).ready(function() {
 			$('#'+id).children('a[data-target=urlz]').attr('href','');
   		$('#'+id).children('a[data-target=urlz]').text(''); 
 
+      $('#'+id).closest('li').addClass('ea');
   		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
   		$('#'+id).children('a[data-target=urlz]').addClass('shim');
   		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');

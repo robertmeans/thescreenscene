@@ -1,7 +1,10 @@
 <div id="bing" class="searches">
 
     <p>Bing</p>
-    <div class="srs"><input type="text" id="sr_03" name="q" value=""> <a onclick="reset_bing();"><i class="fas fa-backspace"></i></a><a data-role="srcb" data-id="sr_03" class="srcb static"><i class="far fa-copy fa-fw"></i></a></div>
+    <div class="srs">
+      <input type="text" id="sr_03" name="q" value=""> <a data-role="srcr" data-id="sr_03"><i class="fas fa-backspace"></i></a><a data-role="srcb" data-id="sr_03" class="srcb static"><i class="far fa-copy fa-fw"></i></a>
+    </div>
+    <input type="hidden" id="h_sr_03">
 
     <div class="check-group ssp">
 

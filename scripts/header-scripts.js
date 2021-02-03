@@ -11,11 +11,11 @@ function clearForms() {
 function OnSubmitForm() {
   if(document.reference.dictionary.checked == true) 
   {
-    document.reference.action ="https://dictionary.com/browse/" + document.getElementById('refsearch').value;
+    document.reference.action ="https://dictionary.com/browse/" + document.getElementById('sr_04').value;
     // used to be (below). not sure why the empty quotes at end...?
     // document.reference.action ="https://dictionary.com/browse/" + document.getElementById('q').value + "";
   } else {
-    document.reference.action ="https://www.thesaurus.com/browse/" + document.getElementById('refsearch').value;
+    document.reference.action ="https://www.thesaurus.com/browse/" + document.getElementById('sr_04').value;
     // document.reference.action ="http://www.thesaurus.com/browse/" + document.getElementById('q').value + "";
   }
   return true;
@@ -27,10 +27,10 @@ function OnSubmitForm() {
 function OnSubmitFormSwap() {
   if(document.reference.thesaurus.checked == true) 
   {
-    document.reference.action ="https://www.thesaurus.com/browse/" + document.getElementById('refsearch').value;
+    document.reference.action ="https://www.thesaurus.com/browse/" + document.getElementById('sr_04').value;
     // document.reference.action ="http://www.thesaurus.com/browse/" + document.getElementById('q').value + "";
   } else {
-    document.reference.action ="https://dictionary.com/browse/" + document.getElementById('refsearch').value;
+    document.reference.action ="https://dictionary.com/browse/" + document.getElementById('sr_04').value;
     // document.reference.action ="https://dictionary.com/browse/" + document.getElementById('q').value + "";
   }
   return true;
@@ -80,7 +80,7 @@ $(document).ready(function() {
 // open in new tab and then make sure everything is reset back in 
 // original tab. Opera requires the additional complications.
 function submitURLFieldForm() {
-    var url = document.getElementById('addressfield').value;
+    var url = document.getElementById('sr_02').value;
     if (!url.match(/^[a-zA-Z]+:\/\//)) {
         url = 'http://' + url;
     }

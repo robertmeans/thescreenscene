@@ -11,15 +11,15 @@
 	<title>BroswerGadget | Browser Utility</title>
 	<link rel="icon" type="image/ico" href="_images/favicon.ico">
 	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-	<meta name="description" content="Stop browsing the Internet like a Neanderthal! Upgrade to a Swiss Army homepage. BrowserGadget is a browser utility that consolidates and organizes projects for private use or to share.">
+	<meta name="description" content="Stop browsing the Internet like a Neanderthal! Upgrade to a Swiss Army homepage. BrowserGadget is designed for professional Internet surfers and precision engineered to betterize browsing.">
 	<meta name="format-detection" content="telephone=no">
 
-	<meta property="og:url" content="https://www.browsergadget.com/" />
+	<meta property="og:url" content="https://browsergadget.com/" />
 	<meta property="og:type" content="website" />
 	<meta property="og:title" content="BrowserGadget | Browser Utility" />
-	<meta property="og:image" content="https://www.browsergadget.com/_images/browsergadget.jpg" />
-	<meta property="og:image:alt" content="BrowserGadget emblem" /> 
-	<meta property="og:description" content="Stop browsing the Internet like a Neanderthal! Upgrade to a Swiss Army homepage. BrowserGadget is a browser utility that consolidates and organizes projects for private use or to share." />
+	<meta property="og:image" content="https://browsergadget.com/_images/BrowserGadget.jpg" />
+	<meta property="og:image:alt" content="BrowserGadget" /> 
+	<meta property="og:description" content="Stop browsing the Internet like a Neanderthal! Upgrade to a Swiss Army homepage. BrowserGadget is designed for professional Internet surfers and precision engineered to betterize browsing." />
 
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">

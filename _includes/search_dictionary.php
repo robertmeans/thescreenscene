@@ -2,7 +2,10 @@
 <form name="reference" method="get" onSubmit="return OnSubmitFormSwap();" target="_blank">
   <p>Dictionary</p>
     <input type="hidden" name="dictionary" value="1" checked="checked" />
-    <div class="srs"><input type="text" id="sr_04"> <a onclick="reset_ref();"><i class="fas fa-backspace"></i></a><a data-role="srcb" data-id="sr_04" class="srcb static"><i class="far fa-copy fa-fw"></i></a></div>
+    <div class="srs">
+        <input type="text" id="sr_04"> <a data-role="srcr" data-id="sr_04"><i class="fas fa-backspace"></i></a><a data-role="srcb" data-id="sr_04" class="srcb static"><i class="far fa-copy fa-fw"></i></a>
+    </div>
+    <input type="hidden" id="h_sr_04">
     
     <div class="check-group">
     	<div class="chk-ref">
