@@ -35,14 +35,12 @@ require '_includes/nav.php'; ?>
       <input type="submit" name="tab1" value="Page 1">
       </form>
     </li>
-
     <li <?php if ($row['page_number'] == "2") { echo "class=\"active\""; }  ?> >
       <form id="page_number2" class="ajax" action="project_view_shared_with.php" method="post">
       <input type="hidden" name="page_number" value="2">
       <input type="submit" name="tab2" value="Page 2">
       </form>
     </li>
-
     <li <?php if ($row['page_number'] == "3") { echo "class=\"active\""; }  ?> >
       <form id="page_number3" class="ajax" action="project_view_shared_with.php" method="post">
       <input type="hidden" name="page_number" value="3">

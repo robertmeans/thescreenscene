@@ -5,14 +5,6 @@ require_once 'config/initialize.php';
 $user_id = $_SESSION['id'];
 $current_project = $_SESSION['current_project'];
 
-// keeping this for a mintue to see whassup
-// if (isset($_SESSION['current_project'])) {
-//   $current_project = $_SESSION['current_project'];
-// } else {
-//   $current_project = "0";
-// }
-
-
 if (is_post_request()) {
 
   if (isset($_POST['project_name'])) {
@@ -39,7 +31,6 @@ if (is_post_request()) {
     $result = project_colormode_owner($user_id, $color, $current_project);
 
     if ($result === true) {
-    // $_SESSION['current_project'] = $current_project;
 
       header('location:' . WWW_ROOT);
     } else {
@@ -54,16 +45,13 @@ if (is_post_request()) {
     $result = project_colormode_shared_with($user_id, $color, $current_project);
 
     if ($result === true) {
-    // $_SESSION['current_project'] = $current_project;
 
       header('location:' . WWW_ROOT);
     } else {
     $errors = $result;
     }
   }
-
 }
-
 ?>
 
 <?php
