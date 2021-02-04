@@ -11,11 +11,11 @@ $s    = explode(",",$row['search_order']);
 ?>
 
 <?php
-  if ($s[0] == "1") { ?><body onLoad="clearForms(); document.urlField.address.value='http\://'; document.google.q.focus();"><?php }
+  if ($s[0] == "1") { ?><body onLoad="clearForms(); document.google.q.focus(); document.urlField.address.value='http\://';"><?php }
   if ($s[0] == "2") { ?><body onLoad="clearForms(); document.urlField.address.focus(); document.urlField.address.value='http\://';"><?php }
   if ($s[0] == "3") { ?><body onLoad="clearForms(); document.bing.q.focus(); document.urlField.address.value='http\://';"><?php } 
-  if ($s[0] == "4") { ?><body onLoad="clearForms(); document.reference.refsearch.focus(); document.urlField.address.value='http\://';"><?php }
-  if ($s[0] == "5") { ?><body onLoad="clearForms(); document.youtube.ytsearch.focus(); document.urlField.address.value='http\://';"><?php } ?>
+  if ($s[0] == "4") { ?><body onLoad="clearForms(); document.reference.sr_04.focus(); document.urlField.address.value='http\://';"><?php }
+  if ($s[0] == "5") { ?><body onLoad="clearForms(); document.youtube.sr_05.focus(); document.urlField.address.value='http\://';"><?php } ?>
 
 <div class="preload"></div>
 
