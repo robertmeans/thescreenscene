@@ -24,7 +24,6 @@ if (is_post_request()) {
 		$current_project   	= $_POST['current_project']  ?? ''	;
 
 		$result = update_current_project($id, $current_project);
-		// update users current_project and set it in var $new_id
 
 		if ($result === true) {
 		$_SESSION['current_project'] = $current_project;
@@ -40,7 +39,6 @@ if (is_post_request()) {
 		$current_project   	= $_POST['current_project']  ?? ''	;
 
 		$result = update_current_project($id, $current_project);
-		// update users current_project and set it in var $new_id
 
 		if ($result === true) {
 		$_SESSION['current_project'] = $current_project;
@@ -56,7 +54,6 @@ if (is_post_request()) {
 		$current_project   	= $_POST['current_project']  ?? ''	;
 
 		$result = update_current_project($id, $current_project);
-		// update users current_project and set it in var $new_id
 
 		if ($result === true) {
 		$_SESSION['current_project'] = $current_project;

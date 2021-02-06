@@ -167,26 +167,27 @@ nav {
       justify-content: center;
   z-index: 100;
 }
-nav > ul {
-  width: 100%;
+
+nav ul {
+  width: 98%;
   max-width: 1050px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: start;
       justify-content: flex-start;
-  padding: 0em 0.5em;
 }
-nav > ul li {
+
+nav ul li {
   margin-right: 4px;
 }
-nav > ul li i.fa-sign-out-alt {
+nav ul li i.fa-sign-out-alt {
   -ms-transform: rotate(180deg);
       transform: rotate(180deg);
 }
-nav > ul li i.fa-power-off {
+nav ul li i.fa-power-off {
   margin-right: 0.5em;
 }
-nav > ul li > a {
+nav ul li a {
   display: -ms-flexbox;
   display: flex;
   cursor: pointer;
@@ -199,44 +200,108 @@ nav > ul li > a {
   border-bottom: 1px solid #757575;
   border-bottom-left-radius: 3px;
   border-left: 1px solid #757575;
-  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.1s ease;
-  font-size: 0.8em;
-  padding: 0.5em 0.6em;
-  padding: 0.6em 0.6em 0.5em;
-  transition: background-color 0.2s ease;
+  font-size: 14px;
+  padding: 8px 14px 7px;
+  transition: all 0.2s ease;
 }
-nav > ul li > a i.far,
-nav > ul li > a i.fas,
-nav > ul li > a i.fa {
-  margin-right: 0.8em;
-}
-nav > ul li > a:hover {
+nav ul li a:hover {
   background-color: rgba(0, 0, 0, 0.5);
   padding-top: 0.7em;
 }
-nav > ul li > a.why-join {
+nav ul li a i.far,
+nav ul li a i.fas,
+nav ul li a i.fa {
+  margin-right: 0.8em;
+}
+nav ul li a.why-join {
   background-color: #2ab533;
 }
-nav > ul li > a.why-join:hover {
+nav ul li a.why-join:hover {
   background-color: rgba(42, 181, 51, 0.5);
 }
-nav > ul li > a.login {
+nav ul li a.login {
   background-color: #d4e8da;
 }
-nav > ul li > a.login:hover {
+nav ul li a.login:hover {
   background-color: rgba(212, 232, 218, 0.3);
+}
+
+.menuitem.desktop {
+  font-size: 14px;
+}
+
+.menuitem.mobile {
+  display: none;
+}
+
+.dropdown {
+  display: none;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  margin-bottom: 0em;
+  background-color: #444;
+  border-top: none;
+  border-right: 1px solid #757575;
+  border-bottom-right-radius: 3px;
+  border-bottom: 1px solid #757575;
+  border-bottom-left-radius: 3px;
+  border-left: 1px solid #757575;
+  cursor: pointer;
+}
+
+.nav-item {
+  position: relative;
+}
+
+a.projects-dd {
+  position: absolute;
+  top: -1px;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  background-color: #444;
+  color: #fff;
+  border-top: none;
+  border-right: 1px solid #757575;
+  border-bottom-right-radius: 3px;
+  border-bottom: 1px solid #757575;
+  border-bottom-left-radius: 3px;
+  border-left: 1px solid #757575;
+  padding: 9px 14px 7px;
+  transition: background-color 0.2s ease;
+}
+a.projects-dd i.far,
+a.projects-dd i.fas,
+a.projects-dd i.fa {
+  margin-right: 0.8em;
+}
+
+a.dda {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  display: block;
+  padding: 0.5em 2em 0.5em 1em;
+  transition: all 0.2s ease;
+}
+a.dda:hover {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 @media screen and (max-width: 800px) {
   nav {
     position: fixed;
     top: auto;
-    bottom: 0px;
+    bottom: 1px;
     margin-top: 0;
     height: auto;
   }
-  nav > ul {
+
+  nav ul {
     width: 100%;
     display: -ms-flexbox;
     display: flex;
@@ -244,33 +309,28 @@ nav > ul li > a.login:hover {
         justify-content: center;
     padding: 0px;
   }
-  nav > ul li {
+
+  nav ul li {
     display: -ms-flexbox;
     display: flex;
   }
-  nav > ul li > a {
+  nav ul li a {
     position: absolute;
     padding: 0.65em;
     cursor: pointer;
     text-align: center;
     background-color: black;
     color: #fff;
-    border-top: 1px solid #fff;
-    border-top-right-radius: 3px;
-    border-right: 1px solid #fff;
-    border-bottom-right-radius: 3px;
-    border-bottom: 1px solid #fff;
-    border-bottom-left-radius: 3px;
-    border-left: 1px solid #fff;
-    border-top-left-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #fff;
     transition: all 0.2s ease;
     outline: none;
   }
-  nav > ul li > a:hover {
+  nav ul li a:hover {
     background-color: black;
     padding: 0.65em;
   }
-  nav > ul li a.logout {
+  nav ul li a.logout {
     position: relative;
     width: 100%;
     text-align: center;
@@ -280,11 +340,30 @@ nav > ul li > a.login:hover {
     -ms-flex-pack: center;
         justify-content: center;
   }
-  nav > ul li > a.why-join {
+  nav ul li a.why-join {
     background-color: #2ab533;
   }
-  nav > ul li > a.why-join:hover {
+  nav ul li a.why-join:hover {
     background-color: #2ab533;
+  }
+
+  nav ul li a {
+    font-size: inherit;
+  }
+
+  a.projects-dd {
+    display: none;
+  }
+
+  a.projects-mobile {
+    position: relative;
+    top: auto;
+    color: #fff;
+    padding: 1em;
+    text-decoration: none;
+    background-color: #000;
+    border-radius: 3px;
+    border: 1px solid #fff;
   }
 }
 ul.inner-nav {
@@ -405,6 +484,8 @@ ul.inner-nav li.project-name span.attn {
   ul.inner-nav {
     -ms-flex-wrap: wrap;
         flex-wrap: wrap;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
     margin: 0;
   }
   ul.inner-nav li {
@@ -4687,6 +4768,24 @@ a.logout:hover {
   color: #fff;
   background-color: #0099cc;
   border: 1px solid #91ca50;
+}
+
+.dropdown {
+  background-color: #0b5596;
+}
+
+a.projects-dd {
+  background-color: #0b5596;
+}
+a.projects-dd:hover {
+  background-color: #0b5596;
+}
+
+a.dda {
+  background-color: #0b5596;
+}
+a.dda:hover {
+  background-color: #052847;
 }
 
 ul#sortable li.pg1,

@@ -82,8 +82,7 @@ $(document).ready(function() {
 });
 
 // a static link - stop from jumping to top of page
-$('a.static').click(function(e)
-{
+$('a.static').click(function(e) {
    e.preventDefault();
 });
 
@@ -131,6 +130,18 @@ $("#showSignupPass").click(function(){
     }
     return false;
   });
+
+// primary navigation - desktop
+$(document).ready(function () {
+  //Show then hide ddown menu on hover
+  $('.menuitem').hover(function () {
+      $(this).children('.dropdown').stop().slideDown(500);
+
+  }, function () {
+      $(this).children('.dropdown').stop().slideUp(500);
+
+  });
+});
 
 /* 	edit_order.php -> only owner can move hyperlinks so
 	there's no shared_with version of this 	*/
@@ -468,10 +479,12 @@ $(document).ready(function() {
 	});
 });
 
-// hyperlink | bookmarks add, update, delete
+// hyperlinks | bookmarks add, update, delete
 $(document).ready(function() {
 
 	$(document).on('click','a[data-role=update]',function() {
+    // e.preventDefault(); // prevent query from showing up in address bar
+    // also prevents any errors from propagating. things just end w/o explanation.
     var id         = $(this).data('id');
     var urlz       = $('#'+id).children('a[data-target=urlz]').attr('href');
     var name       = $('#'+id).children('a[data-target=urlz]').text();

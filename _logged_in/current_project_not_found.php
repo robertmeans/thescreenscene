@@ -1,4 +1,4 @@
-<?php
+<?php $layout_context = "cp-not-found";
 
 if (isset($row['color'])) { // booyeah!
   $_SESSION['color'] = $row['color'];

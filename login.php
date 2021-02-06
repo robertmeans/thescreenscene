@@ -6,7 +6,7 @@ include '_includes/head.php';
 ?>
 
 <body onLoad="document.login.firstname.focus();">
-<?php require '_includes/nav.php'; ?>
+<?php // require '_includes/nav.php'; ?>
 
 <div id="landing">
     <form name="login" action="" method="post">

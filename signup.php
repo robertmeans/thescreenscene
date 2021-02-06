@@ -4,7 +4,7 @@
 <?php include '_includes/head.php'; ?>
 
 <body onLoad="document.signup.firstname.focus();">
-<?php require '_includes/nav.php'; ?>
+<?php // require '_includes/nav.php'; ?>
 	
 <div id="landing">
 	<form name="signup" action="" method="post">

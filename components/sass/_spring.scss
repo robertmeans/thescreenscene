@@ -190,7 +190,21 @@ a.logout {
 	background-color: rgba(0,153,204,1);
 	border: 1px solid rgba(145,202,80,1);
 }
-
+.dropdown {
+	background-color: #0b5596;
+}
+a.projects-dd {
+	background-color: #0b5596;
+	&:hover {
+		background-color: #0b5596;
+	}
+}
+a.dda {
+	background-color: #0b5596;
+	&:hover {
+		background-color: #052847;
+	}
+}
 
 
 

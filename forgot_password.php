@@ -4,7 +4,7 @@
 <?php include '_includes/head.php'; ?>
 
 <body>
-<?php require '_includes/nav.php'; ?>   
+<?php // require '_includes/nav.php'; ?>   
 
 <div id="landing">
 	<form action="" method="post">

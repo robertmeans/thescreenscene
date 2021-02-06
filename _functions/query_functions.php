@@ -60,6 +60,32 @@ function create_new_project($row, $user_id) { // 12.29.20 - rewrote with multipl
   }
 }
 
+
+
+function build_projects_navigation($user_id) { 
+  global $db;
+  $sql = "SELECT p_u.owner_id, p_u.shared_with, p_u.project_id, p.project_name "; 
+  $sql .= "FROM projects as p ";
+  $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
+  $sql .= "WHERE p_u.owner_id='" . db_escape($db, $user_id) . "' ";
+  $sql .= "OR p_u.shared_with='" . db_escape($db, $user_id) . "' ";
+  $sql .= "GROUP BY p_u.project_id ";
+  $sql .= "ORDER BY project_name";
+
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);  
+  return $result;  
+}
+
+
+
+
+
+
+
+
+
+
 function find_users_projects($user_id) { // 12.29.20 rewritten
   global $db;
   // solution learned at: https://www.youtube.com/watch?v=2HVMiPPuPIM&ab_channel=JoeyBlue
