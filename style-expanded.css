@@ -437,10 +437,12 @@ ul.inner-nav li ul li a.spring:hover {
 ul.inner-nav li ul li a.darkmode {
   color: #fff;
   background-color: #606060;
+  background-color: #5a5a5a;
   transition: all 0.2s ease;
 }
 ul.inner-nav li ul li a.darkmode:hover {
   background-color: #313131;
+  background-color: #464646;
   color: #fff;
 }
 ul.inner-nav li ul:hover {
@@ -1552,7 +1554,7 @@ ul#static-sort li a.ue {
   visibility: hidden;
   opacity: 0;
   height: 0px;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility 0.15s, opacity 0.15s linear;
 }
 
 ul#static-sort.edit-shim a.project-links-empty {
@@ -1613,7 +1615,7 @@ a.textNav:hover {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  animation: fadein 1.25s;
+  animation: fadein 0.75s;
 }
 
 @keyframes fadein {

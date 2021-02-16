@@ -135,10 +135,10 @@ $("#showSignupPass").click(function(){
 $(document).ready(function () {
   //Show then hide ddown menu on hover
   $('.menuitem').hover(function () {
-      $(this).children('.dropdown').stop().slideDown(500);
+      $(this).children('.dropdown').stop().slideDown(250);
 
   }, function () {
-      $(this).children('.dropdown').stop().slideUp(500);
+      $(this).children('.dropdown').stop().slideUp(50);
 
   });
 });
@@ -362,8 +362,8 @@ $('.tab.active').show();
     // ^^ had to add these two together in JS instead of on the html page
     // because the # was interfering with the Ajax form submission.
 
-    // $('.tabs ' + thesetwo).show().siblings().hide();
-    $('.tabs ' + thesetwo).slideDown(250).siblings().slideUp(250);
+    //$('.tabs ' + thesetwo).show().siblings().hide();
+    $('.tabs ' + thesetwo).slideDown(100).siblings().slideUp(100);
     $(this).closest('li').addClass('active').siblings().removeClass('active');
 	}); // end tab switch
 

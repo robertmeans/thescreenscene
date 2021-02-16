@@ -160,7 +160,7 @@ ul#static-sort li a.ue {
 	visibility: hidden;
 	opacity: 0;
 	height: 0px;
-	transition: visibility 0.5s, opacity 0.5s linear;
+	transition: visibility 0.15s, opacity 0.15s linear;
 }
 ul#static-sort.edit-shim a.project-links-empty {
 	visibility: visible;
@@ -215,7 +215,7 @@ a.textNav {
 #tab3 {
 	display: flex;
 	flex-wrap: wrap;
-	animation: fadein 1.25s;
+	animation: fadein 0.75s;
 }
 @keyframes fadein {
     from { opacity: 0; }

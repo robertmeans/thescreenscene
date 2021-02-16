@@ -157,7 +157,7 @@ $id_count = 1 + $row_count;
         <label>URL
         <input name="urlz" id="urlz" class="edit-input link-url" type="text" placeholder="http://"></label>
         <div class="submit-links">
-          <input type="submit" name="owner-update-link" style="display:none">
+          <!-- <input type="submit" name="owner-update-link" style="display:none"> -->
           <input name="delete" id="delete" class="delete" value="Delete">
           <input name="update" id="update" class="update" value="Update">
          <!--  <a href="#" id="update">Update</a> -->
