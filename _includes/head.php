@@ -33,6 +33,7 @@
 	<?php } // keeping things pretty in the sorcecode
 	?><script src="scripts/jquery-3.5.1.min.js"></script>
   	<script src="scripts/jquery_1-12-1_ui_min.js"></script>
+  	<script src="scripts/jquery-ui_touch-punch.js"></script>
   	<script src="scripts/header-scripts.js?<?php echo time(); ?>"></script>
   
 	<!-- Global site tag (gtag.js) - Google Analytics -->
