@@ -74,7 +74,7 @@ nav ul li {
 .dropdown {
 	display: none;
 	// line-height: 1.25em;
-	padding-top: 0.5em;
+	// padding-top: 0.5em;
 	padding-bottom: 0.5em;
 	// margin-left: 0.5em;
 	margin-bottom: 0em;
@@ -121,7 +121,8 @@ a.projects-dd {
 		}		
 }
 
-a.dda {
+a.dda,
+a.pen {
 	color: #fff;
 	text-decoration: none;
 	font-size: 14px;
@@ -132,7 +133,10 @@ a.dda {
 			background-color: rgba(0,0,0,0.5);
 		}		
 }
-
+a.pen {
+	pointer-events: none;
+	cursor: default;
+}
 
 
 @media screen and (max-width: 800px) {

@@ -104,7 +104,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 <div class="aan-modal-content">
   <div class="aan-modal-header">
     <span class="aan-close" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
-    <h2 id="header-msg">Notes</h2>
+    <h2 id="header-msg">* Notes are not shared within project.</h2>
   </div>
   <div class="aan-modal-wrap">
     <div id="thatll-do" class="aan-modal-body">
@@ -131,7 +131,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     </div><!-- .aan-modal-body -->
   </div><!-- .aan-modal-wrap -->
   <div class="aan-modal-footer">
-    <h3 id="im-watchin">&nbsp;</h3>
+    <h3 id="im-watchin">Only you will see your notes.</h3>
   </div>
 </div><!-- .aan-modal-content -->
 </div><?php // #aan-modal ?>

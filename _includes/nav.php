@@ -33,6 +33,7 @@
 		?>
 		<div class="menuitem">
 			<div class="dropdown">
+				<a class="pen">&nbsp;</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form action="my_projects.php" method="post">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
