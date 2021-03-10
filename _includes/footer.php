@@ -36,26 +36,25 @@ function ewd_copyright($startYear) {
   <div id="email-bob">
     <p class="form-note">You look nice today. <i class="far fa-smile"></i></p>
 
-    <form id="contactForm" onsubmit="submitFooter(); return false;">
+    <form id="contactForm">
     <ul>
       <li>
         <label class="text" for="name">Name</label>
-        <input name="name" type="text" id="sendersname" required maxlength="60">
+        <input name="name" type="text" id="sendersname" maxlength="60">
       </li>
       <li>
         <label class="text" for="email" required>Email</label>
-        <input name="email" type="email" id="email" required maxlength="60">
+        <input name="email" type="email" id="email" maxlength="60">
       </li>
       <li>
         <label class="text" for="comments">Message</label>
-        <textarea name="comments" id="comments" required maxlength="2000"></textarea>
+        <textarea name="comments" id="comments" maxlength="2000"></textarea>
       </li>
       <li>
-        <div class="g-recaptcha" data-theme="dark" data-callback="recaptchaCallback" data-sitekey="6Lf6FzkaAAAAACc1FJorcyy4KxF_iFkEwXFBeArI"></div>
+        <div id="msg"></div>
       </li>
       <li class="send-items">
-        <button id="confirm" disabled>Check Captcha above to enable Send</button>
-        <input id="send" type="submit" class="display" value="Send" disabled> <span id="status"></span>
+        <input id="emailBob" value="Send">
       </li>
     </ul> 
     </form>

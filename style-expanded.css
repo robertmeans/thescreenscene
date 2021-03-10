@@ -668,26 +668,47 @@ footer form#contactForm textarea#comments:focus {
   border-bottom: 1px solid #ccc;
   border-left: transparent;
 }
-footer form#contactForm input#send {
+footer form#contactForm input#emailBob {
   float: left;
   width: 150px;
   padding: 10px;
-  margin: 10px 0;
-  border-radius: 3px;
+  text-align: center;
   border: 1px solid #233851;
-  background: #ccc;
-  color: #000;
+  background-color: #565656;
+  color: #fff;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s ease;
 }
-footer form#contactForm input#send:hover {
-  background: #565656;
+footer form#contactForm input#emailBob:hover {
+  background-color: #82c33a;
   color: #fff;
 }
-footer form#contactForm input#send:active, footer form#contactForm input#send:focus {
-  outline: 0;
+footer form#contactForm input#emailBob:active, footer form#contactForm input#emailBob:focus {
+  outline: none;
   outline-style: 0;
 }
-footer form#contactForm input#send:visited {
-  background: #ccc;
+footer form#contactForm #msg {
+  margin-top: 0.75em;
+  width: 100%;
+}
+footer form#contactForm #msg .alert-warning {
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  padding: 0.75em;
+  font-size: 1em;
+  color: #313131;
+  background-color: #ffdddd;
+  border: 1px solid #ff5a5a;
+}
+footer form#contactForm #msg .alert-success {
+  margin-bottom: 0.5em;
+  border-radius: 5px;
+  padding: 0.75em;
+  font-size: 1em;
+  color: #fff;
+  background-color: #82c33a;
+  border: 1px solid #45661f;
 }
 footer button#confirm {
   display: block;
@@ -707,12 +728,6 @@ footer button#confirm:hover {
 footer button#confirm:active, footer button#confirm:focus {
   outline: 0;
   outline-style: 0;
-}
-footer button.enable-submit {
-  display: none;
-}
-footer .g-recaptcha {
-  margin-top: 10px;
 }
 footer input#send {
   margin-right: 1em;
@@ -741,9 +756,6 @@ footer h2.successmsg {
   width: 100%;
   text-align: center;
   font-size: 1.2em;
-}
-footer .display {
-  display: none;
 }
 footer .footer-link {
   color: inherit;

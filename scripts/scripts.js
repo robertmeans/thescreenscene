@@ -285,28 +285,75 @@ var reorder = [];
 }
 
 // footer_contact_ajax
-function _(id) { return document.getElementById(id); }
-function submitFooter() {
-  _("send").disabled = true;
-  _("status").innerHTML = 'working on it...';
-  var formdata = new FormData();
-  formdata.append("sendersname", _("sendersname").value);
-  formdata.append("email", _("email").value);
-  formdata.append("comments", _("comments").value);
-  var ajax = new XMLHttpRequest();
-  ajax.open("POST", "footer_contact_ajax.php");
-  ajax.onreadystatechange = function() {
-    if(ajax.readyState == 4 && ajax.status == 200) {
-      if(ajax.responseText == "success") {
-        _("contactForm").innerHTML = '<h2 class="successmsg">Thanks '+_("sendersname").value+', your message was sent successfully!</h2>';
-      } else {
-        _("status").innerHTML = ajax.responseText;
-        _("send").disabled = false;
+// function _(id) { return document.getElementById(id); }
+// function submitFooter() {
+//   _("send").disabled = true;
+//   _("status").innerHTML = 'working on it...';
+//   var formdata = new FormData();
+//   formdata.append("sendersname", _("sendersname").value);
+//   formdata.append("email", _("email").value);
+//   formdata.append("comments", _("comments").value);
+//   var ajax = new XMLHttpRequest();
+//   ajax.open("POST", "footer_contact_ajax.php");
+//   ajax.onreadystatechange = function() {
+//     if(ajax.readyState == 4 && ajax.status == 200) {
+//       if(ajax.responseText == "success") {
+//         _("contactForm").innerHTML = '<h2 class="successmsg">Thanks '+_("sendersname").value+', your message was sent successfully!</h2>';
+//       } else {
+//         _("status").innerHTML = ajax.responseText;
+//         _("send").disabled = false;
+//       }
+//     }
+//   }
+//   ajax.send(formdata);
+// }
+
+
+
+// footer ajax contact
+$(document).ready(function() {
+  $('#emailBob').click(function() {
+    //event.preventDefault();
+    $.ajax({
+      dataType: "JSON",
+      url: "contact-process.php",
+      type: "POST",
+      data: $('#contactForm').serialize(),
+      beforeSend: function(xhr) {
+        $('#msg').html('<span>Sending - one moment...</span>');
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response) {
+          console.log(response);
+          if(response['signal'] == 'ok') {
+            $('#contactForm').html('<span>Your message was sent successfully.</span>');
+          } else {
+            $('#msg').html('<div class="alert alert-warning">' + response['msg'] + '</div>');
+          }
+        } 
+      },
+      error: function() {
+        $('#msg').html('<div class="alert alert-warning">There was an error between your IP and the server. Please try again later.</div>');
+      }, 
+      complete: function() {
+        // $('#contact').html('<span>Your message was sent successfully.</span>');
+        // $('#send-success').html('<input name="clozer" id="clozer" class="clozer" value="Close">');
       }
-    }
-  }
-  ajax.send(formdata);
-}
+    })
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
 
 $(document).ready(function() { // 122120856 start
 // Dictionary or Thesaurus on edit_searches.php

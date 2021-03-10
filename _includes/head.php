@@ -46,6 +46,5 @@
 	  gtag('config', 'G-ER0L96WN41');
 	</script>
 	
-	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="scripts/preload.js?<?php echo time(); ?>"></script>
 </head>
