@@ -87,6 +87,21 @@ nav ul li {
 	border-bottom-left-radius: 3px;
 	border-left: 1px solid #757575;
 	cursor: pointer;
+	// max-height: 6em;
+	// overflow-y: scroll;
+	// ::-webkit-scrollbar {
+	// 	width: 5px;
+	// }
+	// ::-webkit-scrollbar-track {
+	// 	background: #000;
+	// }
+	// ::-webkit-scrollbar-thumb {
+	// 	background: #313131;
+	// 	height: 1.5em;
+	// }
+	// ::-webkit-scrollbar-thumb:hover {
+	// 	background: #ccc;
+	// }
 }
 .nav-item {
 	position: relative;
