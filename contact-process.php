@@ -31,7 +31,7 @@ if (is_post_request()) {
 
         //Recipients
         $mail->setFrom($email, $name);
-        $mail->addAddress('browsergadget@gmail.com', 'BrowserGadget Website Contact Form');     // Add a recipient
+        $mail->addAddress(EMAIL, 'BrowserGadget Website Contact Form');     // Add a recipient
         $mail->addReplyTo($email, $name);
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('robertmeans01@gmail.com');
