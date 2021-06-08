@@ -178,6 +178,27 @@ a.logout {
 		background-color: rgba(11,85,150,1);
 	}
 }
+.menuitem {
+		/* width */
+	::-webkit-scrollbar {
+	  width: 5px;
+	}
+
+	/* Track */
+	::-webkit-scrollbar-track {
+	  background: #f1f1f1;
+	}
+
+	/* Handle */
+	::-webkit-scrollbar-thumb {
+	  background: #063055;
+	}
+
+	/* Handle on hover */
+	::-webkit-scrollbar-thumb:hover {
+	  background: #1274cb;
+	}
+}
 // page number tabs
 .tab-links li input {
 	background-color: rgba(0,63,135,1);
