@@ -124,8 +124,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
       <div class="submit-links">
         <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
-        <input name="update-note" id="update-note" class="update" value="Add note">
-        <input name="modify-note" id="modify-note" class="update" value="Modify note">
+        <input type="button" name="update-note" id="update-note" class="update" value="Add note">
+        <input type="button" name="modify-note" id="modify-note" class="update" value="Modify note">
       </div><!-- #submit-links -->
     </form>
     </div><!-- .aan-modal-body -->
