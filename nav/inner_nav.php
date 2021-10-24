@@ -30,13 +30,13 @@
 	<li>
 		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
-			<li>
+ 			<li>
 			<form action="" method="post">
-				<input type="hidden" name="color" value="1">
+				<input type="hidden" name="color" value="3">
 				<input type="hidden" name="shared_with" value="1">
-				<a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
+				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
 			</form>
-			</li>			
+			</li>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
@@ -44,13 +44,13 @@
 				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>
-<?php /* 			<li>
+			<li>
 			<form action="" method="post">
-				<input type="hidden" name="color" value="3">
+				<input type="hidden" name="color" value="1">
 				<input type="hidden" name="shared_with" value="1">
-				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+				<a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
 			</form>
-			</li> */ ?>
+			</li>			
 		</ul>
 	</li>
 	<?php } 
@@ -97,13 +97,13 @@
 	<li>
 		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
-			<li>
+ 			<li>
 			<form action="" method="post">
-				<input type="hidden" name="color" value="1">
+				<input type="hidden" name="color" value="3">
 				<input type="hidden" name="owner" value="1">
-				<a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
+				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
 			</form>
-			</li>			
+			</li>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
@@ -111,13 +111,13 @@
 				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>
-<?php /* 			<li>
+			<li>
 			<form action="" method="post">
-				<input type="hidden" name="color" value="3">
+				<input type="hidden" name="color" value="1">
 				<input type="hidden" name="owner" value="1">
-				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+				<a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
 			</form>
-			</li> */ ?>
+			</li>			
 		</ul>
 	</li>
 	<?php } 

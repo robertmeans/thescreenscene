@@ -73,7 +73,7 @@ switch ($footer_context) {
 
 <?php if (WWW_ROOT == 'http://localhost/browsergadget') { ?>
 <script src="http://localhost:35729/livereload.js"></script>
-<?php } else { } ?>
+<?php } ?>
 
 </body>
 </html>

@@ -288,11 +288,33 @@ div#success-wrap {
   }
 }
 
+@media screen and (max-width: 500px) {
+  footer p.form-note {
+    text-align: center;
+    padding: 0em 0.5em;
+  }
+  footer button#toggle-contact-form {
+      .close-left {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }
+      .close-right {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+      }    
+  }
+}
+
 @media screen and (max-width: 430px) {
   footer {
+    // #email-bob {
+    //   width: 80%;
+    //   max-width: 80%;
+    // }
     form#contactForm {
-      width: 94%;
-      max-width: 420px;
+      width: 96%;
+      max-width: 96%;
+      // max-width: 420px;
       input#sendersname,
       input#email {
         height: 30px;

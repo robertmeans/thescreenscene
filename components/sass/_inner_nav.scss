@@ -49,6 +49,15 @@ ul.inner-nav {
 					border: 1px solid #ccc;
 					transition: all 0.2s ease;
 				}
+				a.classic {
+					background-color: #fff;
+					color: blue;
+					transition: all 0.2s ease;
+					&:hover {
+						background-color: blue;
+						color: #fff;
+					}
+				}
 				a.spring {
 					background-color: rgba(250,250,226,1);
 					background-image: url("_images/floral-pattern.jpg");
