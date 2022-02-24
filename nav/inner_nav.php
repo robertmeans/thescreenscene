@@ -30,6 +30,7 @@
 	<li>
 		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
+			<?php /*
  			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="3">
@@ -37,6 +38,7 @@
 				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
 			</form>
 			</li>
+			*/ ?>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
@@ -59,12 +61,15 @@
 	<li class="project-name">| <span class="attn">EDITING:</span> <a href="my_projects.php" class="project-link"><?= $row['project_name']; ?></a></li>
 
 	<?php } else { ?>
-	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projects</span><?= $row['project_name']; ?></div></a></li>
+
+	<?php /*
+	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projectsz</span><?= $row['project_name']; ?></div></a></li>
+	*/ ?>
+
+	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
 	<?php }
 
-
 	break; // end shared_with navigation | begin owner navigation
-
 
 	case 'owner' :	
 	if ($layout_context != 'homepage') { // begin owner navigation ?>	
@@ -97,6 +102,7 @@
 	<li>
 		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
+			<?php /*
  			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="3">
@@ -104,6 +110,7 @@
 				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
 			</form>
 			</li>
+			*/ ?>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
@@ -132,14 +139,16 @@
 	<li class="project-name">| <span class="attn">DELETE:</span> <a href="my_projects.php" class="project-link"><?= $row['project_name']; ?></a></li> 
 
 	<?php } else { ?>
-	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projects</span><?= $row['project_name']; ?></div></a></li> 
+
+	<?php /*
+	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projectsq</span><?= $row['project_name']; ?></div></a></li> 
+	*/ ?>
+
+	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
+	
 	<?php }
 
-
-
 	break;
-
-
 
 	default : break;
 }

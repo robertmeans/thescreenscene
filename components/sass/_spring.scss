@@ -373,8 +373,31 @@ ul.inner-nav li.project-name span.attn {
 	color: red;
 }
 
+li.project-name a.tabs.tab-links.show-notes {
+	display: inline-block;
+	float: none;
+	margin: 0;
+	input {
+		cursor: pointer;
+		font-size: 1em;
+		border: none;
+		padding: 0px;
+		background-color: transparent;
+		color: #003f87;
+		margin: 0 0 0 0.5em;
+		&:hover {
+			color: #ff5a00;
+		}
+	}
+}
 
-
+ul.inner-nav li.project-name a.tabs.tab-links.show-notes input {
+	color: #003f87;
+	transition: all 0.2s ease;
+	&:hover {
+		color: #ff5a00;
+	}
+}
 
 
 

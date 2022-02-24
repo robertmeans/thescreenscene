@@ -125,6 +125,14 @@ $id_count = 1 + $row_count;
 <?php } ?></li><?php } // end for loop page 3 ?>
 
 </div><!-- #tab3 -->
+
+<div id="tab4" class="tab">
+  <?php if ($row['project_notes'] != '') { echo nl2br($row['project_notes']); } else {
+    echo 'There are no project notes to display';
+  } ?>
+
+</div>
+
 </div><!-- .tab-content -->
 
     </ul><!-- .static-sort -->
