@@ -1,3 +1,4 @@
+# https...
 # Options +MultiViews
 # RewriteEngine on
 
@@ -8,4 +9,3 @@
 # ErrorDocument 401 https://www.browsergadget.com/
 # ErrorDocument 404 https://www.browsergadget.com/
 # ErrorDocument 500 https://www.browsergadget.com/
-

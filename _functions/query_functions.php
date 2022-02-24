@@ -132,15 +132,16 @@ function is_this_project_shared($this_project) {
 
   $result = mysqli_query($db, $sql);
   confirm_result_set($result);
-  return $result;  // returns an assoc. array 
+  return $result;  
 }
+
 
 function show_shared_with_info($user_id, $this_project) { 
 // this is for the owner of the project.
 // who is the project shared with?
   global $db;
 
-  $sql = "SELECT u.first_name, u.last_name, p_u.shared_with, p_u.project_id, p_u.share, p_u.edit ";
+  $sql = "SELECT u.first_name, u.last_name, u.email, p_u.shared_with, p_u.project_id, p_u.share, p_u.edit ";
   $sql .= "FROM users as u ";
   $sql .= "LEFT JOIN project_user as p_u ON u.user_id=p_u.shared_with ";
   $sql .= "WHERE u.user_id=p_u.shared_with ";

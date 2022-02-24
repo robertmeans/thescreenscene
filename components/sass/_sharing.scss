@@ -83,11 +83,13 @@
 			padding: 1em;
 			color: #fff;
 			background-color: rgba(0,0,0,0.6);
+			background-color: #44c073;
 			border: 1px solid #fff;
 			cursor: pointer;
 			transition: all 0.2s ease;
 			&:hover {
 				background-color: rgba(0,0,0,1);
+				background-color: #08df08;
 			}
 		}
 		.share-note {

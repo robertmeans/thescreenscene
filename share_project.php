@@ -170,7 +170,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 			$names[] = "<div class=\"shared-users\">
 							<form class=\"edit-user\" action=\"\" method=\"post\"  
 							onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from project?');\">" 
-								. $row['first_name'] . " " . $row['last_name'] . 
+								. $row['first_name'] . " " . $row['last_name'] . " (" . $row['email'] . ") " .   
 								"<input type=\"hidden\" name=\"delete-shared-user\" value=\"" 
 								. $row['shared_with'] . "\">
 								<div>
