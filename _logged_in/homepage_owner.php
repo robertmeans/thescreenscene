@@ -31,6 +31,7 @@ require '_includes/nav.php'; ?>
   <ul class="tab-links">
     <li <?php if ($row['page_number'] == "1") { echo "class=\"active\""; }  ?> >
       <form id="page_number1" class="ajax" action="project_view_owner.php" method="post">
+      <input type="hidden" id="rememberOpenTab" name="rememberOpenTab">
       <input type="hidden" name="page_number" value="1">
       <input type="submit" name="tab1" value="Page 1">
       </form>
@@ -127,9 +128,13 @@ $id_count = 1 + $row_count;
 </div><!-- #tab3 -->
 
 <div id="tab4" class="tab">
-  <?php if ($row['project_notes'] != '') { echo nl2br($row['project_notes']); } else {
-    echo 'There are no project notes to display';
-  } ?>
+  <?php if (trim($row['project_notes']) != '') { echo nl2br(h($row['project_notes'])); ?>
+    
+  <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
+  <?php } else {
+    echo 'There are no project notes to display'; ?>
+    <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
+  <?php } ?>
 
 </div>
 

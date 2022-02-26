@@ -66,7 +66,7 @@
 	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projectsz</span><?= $row['project_name']; ?></div></a></li>
 	*/ ?>
 
-	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
+	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" id="yotab4" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
 	<?php }
 
 	break; // end shared_with navigation | begin owner navigation
@@ -144,7 +144,7 @@
 	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projectsq</span><?= $row['project_name']; ?></div></a></li> 
 	*/ ?>
 
-	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
+	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" id="yotab4" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
 	
 	<?php }
 

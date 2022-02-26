@@ -408,10 +408,28 @@ $('.tab.active').show();
     var thesetwo = addthis.concat(currentAttrValue);
     // ^^ had to add these two together in JS instead of on the html page
     // because the # was interfering with the Ajax form submission.
+		if ($(this).attr('name') !== 'tab4') { $('#rememberOpenTab').val(thesetwo); }
+    var yothere = $('#rememberOpenTab').val();
 
-    //$('.tabs ' + thesetwo).show().siblings().hide();
-    $('.tabs ' + thesetwo).slideDown(100).siblings().slideUp(100);
-    $(this).closest('li').addClass('active').siblings().removeClass('active');
+    if (($(this).attr('name') === 'tab4') && ($(this).hasClass('noteson'))) {
+    	$(this).removeClass('noteson');
+    	$('#tab4').slideUp(100);
+    	if ($('#rememberOpenTab').val()) {
+    		$(yothere).slideDown();
+    	} else {
+    		$('.tab.active').slideDown(100);
+    	}
+
+    } else if ($('#yotab4').hasClass('noteson')) {
+    	$('#yotab4').removeClass('noteson');
+    	$('.tabs ' + thesetwo).slideDown(100).siblings().slideUp(100);
+	    $(this).closest('li').addClass('active').siblings().removeClass('active');
+    } else {
+    	$(this).addClass('noteson');
+	    $('.tabs ' + thesetwo).slideDown(100).siblings().slideUp(100);
+	    $(this).closest('li').addClass('active').siblings().removeClass('active');
+  	}
+
 	}); // end tab switch
 
 	$('.project-details').hide();

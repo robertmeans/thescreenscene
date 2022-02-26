@@ -227,10 +227,20 @@ a.textNav {
 	flex-wrap: wrap;	
 }
 .tab-content #tab4 {
+	position: relative;
 	width: 100%;
-	// margin-top: 0.5em;
 	line-height: 1.5em;
 	padding: 1em;
+	a.note-edit {
+		position: absolute;
+		top: 1em;
+		right: 1em;
+		color: rgba(255,255,255,0.6);
+		transition: all 0.2s ease;
+		&:hover {
+			color: rgba(255,255,255,1);
+		}
+	}
 }
 
 

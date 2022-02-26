@@ -34,6 +34,7 @@
 		<div class="menuitem">
 			<div class="dropdown">
 				<a class="pen">&nbsp;</a>
+			<a href="my_projects.php" class="dda">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form action="my_projects.php" method="post">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
@@ -42,7 +43,7 @@
 					<a href="#" class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
 				</form>	
 			<?php	} mysqli_free_result($result); ?>
-					<a href="my_projects.php" class="dda">My Projects Page</a>
+					
 			</div>
 			<div class="nav-item">
 				<a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a>
