@@ -260,9 +260,10 @@
   }
   li {
     .sec {
-      display: inline;
+      display: flex;
       text-align: left;
       padding: 0.5em;
+      // background-color: blue;
     }
     .sec.note-url {
       width: 30%;
@@ -557,8 +558,19 @@ a#note-limit {
 
 @media screen and (max-width: 650px) {
   .project-notes li {
+    flex-wrap: wrap;
+    .sec.note-url {
+      width: 80%;
+      order: 1;
+    }
+    .sec.note {
+      width: 100%;
+      order: 3;
+    }
     .sec.manage-note {
       padding: 0.5em 0em;
+      width: 20%;
+      order: 2
     }
   }
 }
