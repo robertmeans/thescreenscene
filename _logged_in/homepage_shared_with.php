@@ -128,14 +128,13 @@ $id_count = 1 + $row_count;
 </div><!-- #tab3 -->
 
 <div id="tab4" class="tab">
-  <?php if (trim($row['project_notes']) != '') { echo nl2br(h($row['project_notes'])); ?>
-    
-  <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
-  <?php } else {
-    echo 'There are no project notes to display'; ?>
-    <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
-  <?php } ?>
-
+<?php 
+if (trim($row['project_notes']) != '') { 
+  echo nl2br(h($row['project_notes'])); 
+} else {
+  echo 'There are no project notes to display'; 
+} 
+?>
 </div>
 
 </div><!-- .tab-content -->
