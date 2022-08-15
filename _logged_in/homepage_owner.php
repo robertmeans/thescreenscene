@@ -127,11 +127,6 @@ $id_count = 1 + $row_count;
 
 </div><!-- #tab3 -->
 
-
-
-
-
-
 <div id="tab4" class="tab">
 
   <span class="note-header">
@@ -145,27 +140,15 @@ $id_count = 1 + $row_count;
   <div id="multi-pass" style="display:none;"></div>
 
   <?php if (trim($row['project_notes']) != '') { ?>
-    <div id="note-portal" class="display-portal">
-      <?php echo nl2br(h($row['project_notes'])); ?>
-    </div>
-
+    <div id="note-portal" class="pop-note-portal display-portal"><?php echo nl2br(h($row['project_notes'])); ?></div>
 
   <?php } else { ?>
 
-    <div id="empty-note-portal" class="display-portal">
-      No notes here.
-    </div>
+    <div id="note-portal" class="empty-note-portal display-portal">This project has nary a note.</div>
     
   <?php } ?>
 
 </div>
-
-
-
-
-
-
-
 
 </div><!-- .tab-content -->
 

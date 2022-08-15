@@ -14,7 +14,7 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
 if (is_post_request()) {
 
   if (isset($_POST['proj-notes'])) {
-    $project_notes      = $_POST['proj-notes'] ?? '';
+    $project_notes      = trim(strip_tags($_POST['proj-notes'])) ?? '';
     $current_project    = $_SESSION['current_project'] ?? '';
 
     global $db;

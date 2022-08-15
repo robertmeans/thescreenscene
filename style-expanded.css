@@ -1801,7 +1801,7 @@ a.textNav:hover {
 .tab-content #tab4 #note-portal .alert-warning {
   width: 100%;
 }
-.tab-content #tab4 #empty-note-portal {
+.tab-content #tab4 .empty-note-portal {
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -1813,7 +1813,7 @@ a.textNav:hover {
   color: rgba(255, 255, 255, 0.6);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
-.tab-content #tab4 #empty-note-portal .alert-warning {
+.tab-content #tab4 .empty-note-portal .alert-warning {
   width: 100%;
 }
 .tab-content #tab4 #note-portal.portal-display {

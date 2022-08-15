@@ -848,13 +848,12 @@ $(document).ready(function() {
  });
 });
 
-
-// begin project note editing from homepage
+// begin Project note editing from homepage (not Add a note but the actual Project notes)
 $(document).ready(function() { // edit icon
   $(document).on('click','i[data-role=edit-portal]',function() {
 
     if ($('#multi-pass').html().length) {
-      /* if this one has already been edited on this screen, the edited version will have been captured and stored in #round2_$id (which treats the breaks differently since js uses \n for a return whereas php uses <br>) so let's use that version. (note: the trim() is redundant here since it's applied before submitting to db in the processing script but wth...) - display on the front end is handled via css -> .sus-notes, .note-reason, #sus-note {white-space: pre-wrap;} in order to preserve spaces *after* the 1st line. */
+      /* if this one has already been edited on this screen, the edited version will have been captured and stored in #multi-pass (which treats the breaks differently since js uses \n for a return whereas php uses <br>) so let's use that version. (note: the trim() is redundant here since it's applied before submitting to db in the processing script but wth...) - display on the front end is handled via css -> .sus-notes, .note-reason, #sus-note {white-space: pre-wrap;} in order to preserve spaces *after* the 1st line. */
       var p_notes = $('#note-portal').html().replaceAll('<br>', '\n').replaceAll('<br><br>', '\n\n').trim();
     } else {
       /* otherwise, this is their first pass at editing this so we're dealing with just the php version of line breaks. */
@@ -862,18 +861,25 @@ $(document).ready(function() { // edit icon
     }
 
     $('#note-portal').addClass('portal-display');
-    $('#note-portal').html('<form id="revise-proj-notes"><textarea id="proj-notes" name="proj-notes" maxlength="1250">'+p_notes+'</textarea></form>');
-
     $('#nei').html('<a data-id="temp-value" data-role="unote" class="sicon"><div class="tooltip"><span class="tooltiptext type">Save Edit</span><i class="far fa-save"></i></div></a> <a data-role="cnote" data-id="tempz-value" class="reason-note rt cicon"><div class="tooltip right"><span class="tooltiptext type">Cancel Edit</span><i class="fas fa-ban"></i></div></a>'); // edit icon replaced with save & cancel
 
+    if ($('.empty-note-portal')[0]) {
+      // here we have coming in an empty note field
+      $('#note-portal').html('<form id="revise-proj-notes"><textarea id="proj-notes" name="proj-notes" maxlength="1250"></textarea></form>');
+    } else {
+      $('#note-portal').html('<form id="revise-proj-notes"><textarea id="proj-notes" name="proj-notes" maxlength="1250">'+p_notes+'</textarea></form>');
+    }
+  
   })
 
-
   $(document).on('click','a[data-role=cnote]',function() { // cancel update
+
     if ($('#multi-pass').html().length) {
       var original_note = $('#multi-pass').html();
-    } else {
+    } else if ($('#first-pass').html().length) {
       var original_note = $('#first-pass').html();
+    } else {
+      var original_note = 'This project has nary a note.';
     }
 
     $('#note-portal').html(original_note);
@@ -881,10 +887,10 @@ $(document).ready(function() { // edit icon
     $('#note-portal').removeClass('portal-display');
   })
 
-
   $(document).on('click','a[data-role=unote]',function() { // save (or update note)
-    // var id = $(this).data('id');
+
     var new_note = $('#proj-notes').val().replaceAll('\n', '<br>').trim();
+    // var new_note = $(new_notez).text();
     
     $.ajax({
       dataType: "JSON",
@@ -899,11 +905,23 @@ $(document).ready(function() { // edit icon
         if(response) {
           // console.log(response);
           if(response['signal'] == 'ok') {
+            var str = $('#proj-notes').val();
+            if (!$('#proj-notes').val() || !str.replace(/\s/g, '').length) {
+              // they submitted an empty textarea
+              $('#nei').html('<a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>');
+              $('#note-portal').removeClass('portal-display');
+              $('#note-portal').addClass('empty-note-portal');
+              $('#note-portal').html('This project has nary a note.');
+              $('#first-pass').html('');
+              $('#multi-pass').html('');
 
-          $('#nei').html('<a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>');
-          $('#note-portal').removeClass('portal-display');
-          $('#note-portal').html(new_note);
-          $('#multi-pass').html(new_note);
+            } else {
+              $('#nei').html('<a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>');
+              $('#note-portal').removeClass('portal-display');
+              $('#note-portal').removeClass('empty-note-portal');
+              $('#note-portal').html(new_note);
+              $('#multi-pass').html(new_note);
+            }
 
           } else {
             $('#note-portal').html('<div class="alert alert-warning ump">' + response['msg'] + '</div>');
