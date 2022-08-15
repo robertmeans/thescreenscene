@@ -11,7 +11,8 @@ $(document).ready(function() {
   }); 
 });
 
-// reset icon at the end of each search field
+// icon at the end of each search field that removes or resets input content
+// click once remove; click again reset
 $(document).ready(function() {
   $(document).on('click','a[data-role=srcr]',function() {
     // "srcr" = search row clear & restore
@@ -132,13 +133,22 @@ $("#showSignupPass").click(function(){
   });
 
 // primary navigation - desktop
-$(document).ready(function () {
-  //Show then hide ddown menu on hover
-  $('.menuitem').hover(function () {
-      $(this).children('.dropdown').stop().slideDown(250);
+$(document).ready(function() {
 
-  }, function () {
-      $(this).children('.dropdown').stop().slideUp(50);
+  // Show then hide ddown menu on hover
+  $('.menuitem').hover(function() {
+    // need field that had focus before hovering over nav
+    // so we can put it back when nav hover is removed
+    // nope... -> var focused = document.activeElement.id;
+    
+      $(this).children('.dropdown').stop().slideDown(250);
+      // $('.nav-ac').focus();
+      // alert(focused);
+
+  }, function() {
+      $(this).children('.dropdown').slideUp(50);
+      // alert(focused);
+      // $(focused).focus();
 
   });
 });
@@ -837,6 +847,79 @@ $(document).ready(function() {
     noteModal.style.display = "none";
  });
 });
+
+
+// begin project note editing from homepage
+$(document).ready(function() { // edit icon
+  $(document).on('click','i[data-role=edit-portal]',function() {
+
+    if ($('#multi-pass').html().length) {
+      /* if this one has already been edited on this screen, the edited version will have been captured and stored in #round2_$id (which treats the breaks differently since js uses \n for a return whereas php uses <br>) so let's use that version. (note: the trim() is redundant here since it's applied before submitting to db in the processing script but wth...) - display on the front end is handled via css -> .sus-notes, .note-reason, #sus-note {white-space: pre-wrap;} in order to preserve spaces *after* the 1st line. */
+      var p_notes = $('#note-portal').html().replaceAll('<br>', '\n').replaceAll('<br><br>', '\n\n').trim();
+    } else {
+      /* otherwise, this is their first pass at editing this so we're dealing with just the php version of line breaks. */
+      var p_notes = $('#note-portal').html().replaceAll('<br>\n', '\n').replaceAll('<br>\n<br>', '\n').trim();
+    }
+
+    $('#note-portal').addClass('portal-display');
+    $('#note-portal').html('<form id="revise-proj-notes"><textarea id="proj-notes" name="proj-notes" maxlength="1250">'+p_notes+'</textarea></form>');
+
+    $('#nei').html('<a data-id="temp-value" data-role="unote" class="sicon"><div class="tooltip"><span class="tooltiptext type">Save Edit</span><i class="far fa-save"></i></div></a> <a data-role="cnote" data-id="tempz-value" class="reason-note rt cicon"><div class="tooltip right"><span class="tooltiptext type">Cancel Edit</span><i class="fas fa-ban"></i></div></a>'); // edit icon replaced with save & cancel
+
+  })
+
+
+  $(document).on('click','a[data-role=cnote]',function() { // cancel update
+    if ($('#multi-pass').html().length) {
+      var original_note = $('#multi-pass').html();
+    } else {
+      var original_note = $('#first-pass').html();
+    }
+
+    $('#note-portal').html(original_note);
+    $('#nei').html('<a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>');
+    $('#note-portal').removeClass('portal-display');
+  })
+
+
+  $(document).on('click','a[data-role=unote]',function() { // save (or update note)
+    // var id = $(this).data('id');
+    var new_note = $('#proj-notes').val().replaceAll('\n', '<br>').trim();
+    
+    $.ajax({
+      dataType: "JSON",
+      url: "edit_project_notes.php",
+      type: "POST",
+      data: $('#revise-proj-notes').serialize(),
+      beforeSend: function(xhr) {
+        // unnecessarily clutters up the (very quick) update process by putting stuff here
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response) {
+          // console.log(response);
+          if(response['signal'] == 'ok') {
+
+          $('#nei').html('<a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>');
+          $('#note-portal').removeClass('portal-display');
+          $('#note-portal').html(new_note);
+          $('#multi-pass').html(new_note);
+
+          } else {
+            $('#note-portal').html('<div class="alert alert-warning ump">' + response['msg'] + '</div>');
+          }
+        } 
+      },
+      error: function() {
+        $('#note-portal').html('<div class="alert alert-warning">There was an error somehow, somewhere and I don\'t think that worked. Refresh this page and try again.</div>');
+      }, 
+      complete: function() {
+      }
+    }) // end ajax
+  }) // end click unote
+
+
+}); // close document ready for project note editing on homepage
 
 // close all modals on click outside modal
 // window.addEventListener("load", function(){

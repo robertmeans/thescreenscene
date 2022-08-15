@@ -173,6 +173,20 @@ a.pen {
 	pointer-events: none;
 	cursor: default;
 }
+.dropdown .nav-ac {
+	-webkit-appearance: none;
+	border: none;
+	background: #313131;
+	font-size: 14px;
+	padding: 7px;
+	color: #fff;
+	margin: 0 0 0.5em 1em;
+	border-bottom: 1px solid rgba(255,255,255,0.4);
+	width: 86%;
+	&:focus {
+		outline: none;
+	}
+}
 
 
 @media screen and (max-width: 800px) {

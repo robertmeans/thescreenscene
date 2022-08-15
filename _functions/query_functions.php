@@ -864,10 +864,6 @@ function validate_project_update($row) {
 
   $errors = [];
 
-  // if ($users['user_id'] == $user_id) {
-  //   $errors['not_yourself'] = "You can't share with yourself.";
-  // }
-
   if (is_blank($row['project_name'])) {
     $errors['project_name'] = "Cannot leave Project Name empty.";
   }

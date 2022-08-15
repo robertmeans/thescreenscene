@@ -127,16 +127,45 @@ $id_count = 1 + $row_count;
 
 </div><!-- #tab3 -->
 
+
+
+
+
+
 <div id="tab4" class="tab">
-  <?php if (trim($row['project_notes']) != '') { echo nl2br(h($row['project_notes'])); ?>
+
+  <span class="note-header">
+    <p class="note-title">Project Notes</p>
+    <span id="nei" class="note-edit-icon">
+      <a class="eicon"><div class="tooltip"><span class="tooltiptext">Edit notes</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>
+    </span>
+
+  </span>
+  <div id="first-pass" style="display:none;"><?= nl2br(h($row['project_notes'])); ?></div>
+  <div id="multi-pass" style="display:none;"></div>
+
+  <?php if (trim($row['project_notes']) != '') { ?>
+    <div id="note-portal" class="display-portal">
+      <?php echo nl2br(h($row['project_notes'])); ?>
+    </div>
+
+
+  <?php } else { ?>
+
+    <div id="empty-note-portal" class="display-portal">
+      No notes here.
+    </div>
     
-  <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
-  <?php } else {
-    echo 'There are no project notes to display'; ?>
-    <a href="edit_project_details.php?id=<?= h($row['id']); ?>" class="note-edit"><div class="tooltip"><span class="tooltiptext">Edit name &amp; notes</span><i class="far fa-edit fa-fw"></i></div></a>
   <?php } ?>
 
 </div>
+
+
+
+
+
+
+
 
 </div><!-- .tab-content -->
 

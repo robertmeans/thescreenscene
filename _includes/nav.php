@@ -33,7 +33,12 @@
 		?>
 		<div class="menuitem">
 			<div class="dropdown">
+
+
 				<a class="pen">&nbsp;</a>
+				<input class="nav-ac" type="text" id="t1">
+
+
 			<a href="my_projects.php" class="dda">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form action="my_projects.php" method="post">

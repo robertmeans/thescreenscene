@@ -1,4 +1,5 @@
 <?php if ($s[0] == null || $s[1] == null || $s[2] == null || $s[3] == null || $s[4] == null) {
+  // $s = search field in db. it's a comma separated array where: 1=google, 2=url, 3=bing, 4=dict/thes, 5=youtube
     require '_includes/search_stack_top_static.php';
 } else { ?>
 <ul id="top-search">
