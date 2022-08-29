@@ -132,14 +132,31 @@ $("#showSignupPass").click(function(){
     return false;
   });
 
-// primary navigation - desktop
+// *NEW: show then hide ddown menu on hover.
+// uses hoverintent: https://briancherne.github.io/jquery-hoverIntent/
+$(document).ready(function() {
+  hiConfig = {
+      sensitivity: 3, // number = sensitivity threshold (must be 1 or higher)
+      interval: 200, // number = milliseconds for onMouseOver polling interval
+      timeout: 100, // number = milliseconds delay before onMouseOut
+      over: function() {
+          $(this).children('.dropdown').stop().slideDown(250);
+           
+      }, // function = onMouseOver callback (REQUIRED)
+      out: function() { $(this).children('.dropdown').slideUp(50);  } // function = onMouseOut callback (REQUIRED)
+  }
+  $('.menuitem').hoverIntent(hiConfig)
+});
+/* used to use this before hoverintent above */
+/* keeping for prosperity                    */
+/* begin comment ---
 $(document).ready(function() {
 
   // Show then hide ddown menu on hover
   $('.menuitem').hover(function() {
     // need field that had focus before hovering over nav
     // so we can put it back when nav hover is removed
-    // nope... -> var focused = document.activeElement.id;
+    // this doesn't work... -> var focused = document.activeElement.id;
     
       $(this).children('.dropdown').stop().slideDown(250);
       // $('.nav-ac').focus();
@@ -152,6 +169,7 @@ $(document).ready(function() {
 
   });
 });
+--- end comment */
 
 /* 	edit_order.php -> only owner can move hyperlinks so
 	there's no shared_with version of this 	*/
