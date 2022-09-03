@@ -568,6 +568,9 @@ ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
   ul.inner-nav li .project-name {
     padding: 8px 0px;
   }
+  ul.inner-nav li > ul > li {
+    padding: 0em 1em;
+  }
 }
 .no-js #loader {
   display: none;
@@ -1836,6 +1839,7 @@ a.textNav:hover {
   white-space: pre-wrap;
   resize: none;
   border: none;
+  font-family: courier;
 }
 .tab-content #tab4 #revise-proj-notes #proj-notes:focus {
   outline: none;

@@ -36,8 +36,8 @@
 
 
 				<a class="pen">&nbsp;</a>
-				<input class="nav-ac" type="text" id="t1">
-
+				<!-- working on autocomplete... -->
+				<!-- <input class="nav-ac" type="text" id="t1"> -->
 
 			<a href="my_projects.php" class="dda">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
@@ -51,7 +51,8 @@
 					
 			</div>
 			<div class="nav-item">
-				<a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a>
+				<!-- <a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a> -->
+				<a class="projects-dd"><i class="fas fa-list-ol"></i> Projects</a>
 			</div>
 		</div>
 		<?php 	break;

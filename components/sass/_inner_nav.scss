@@ -145,9 +145,13 @@ ul.inner-nav {
 		margin: 0;
 		li {
 			padding: 1em 1em 0.6em;
+			// padding: 0em 1em;
 			.project-name {
 				padding: 8px 0px;
 			}
+		}
+		li > ul > li {
+			padding: 0em 1em;
 		}
 	}
 }

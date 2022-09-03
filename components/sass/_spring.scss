@@ -536,6 +536,110 @@ footer {
 footer button#toggle-contact-form:hover {
 	background-color: rgba(0,0,0,0.2);
 }
-  span#status {
-    color: #313131;
-  }
+span#status {
+  color: #313131;
+}
+
+// edit in place
+.tab-content #tab4 {
+	.note-header {
+		display: flex;
+		justify-content: space-between;
+		width: 100%;
+		background-color: rgba(0,63,135,0.8);
+		color: #fff;
+		// margin-top: 0.25em;
+		padding: 0.5em 1em 0.5em 0.5em;
+		p.note-title {
+			padding: 0px;
+			// display: flex;
+			background-color: transparent;
+		}
+		a.eicon {
+			// display: flex;
+			cursor: pointer;
+		}
+		a.sicon {
+			margin-right: 1em;
+			cursor: pointer;
+		}
+		a.cicon {
+			cursor: pointer;
+		}
+		i.fa-edit {
+			color: rgba(255,255,255,0.4);
+			&:hover {
+				color: #fff;
+			}
+		}
+		i.fa-ban {
+			color: #ff6c6c;
+			transform: all 0.2s ease;
+			&:hover {
+				color: #ff0000;
+			}
+		}
+		i.fa-save {
+			color: #79d033;
+			transform: all 0.2s ease;
+			&:hover {
+				color: #73ff02;
+			}
+		}
+	}
+	.display-notes {
+		padding: 0.25em 0.5em;
+	}
+	#note-portal {
+		display: flex;
+		padding: 0.25em;
+		padding: 1em 1em 1.5em;
+		height: 17.75em;
+		overflow-x: hidden;
+		overflow-y: auto;
+		background-color: rgba(255,255,255,0.5);
+		border-bottom: 1px solid rgba(0,0,255,0.2);	
+		.alert-warning {
+			width: 100%;
+		}
+	}
+	.empty-note-portal {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 1em;
+		height: 17.75em;
+		color: rgba(0,0,0,0.6);
+		border-bottom: 1px solid rgba(255,255,255,0.2);
+		.alert-warning {
+			width: 100%;
+		}
+	}	
+	#note-portal.portal-display {
+		padding: 0em;
+	}
+	#revise-proj-notes	{
+		display: flex;
+		width: 100%;
+		font-family: courier;
+		#proj-notes {
+			width: 100%;
+			background-color: rgba(0,0,0,1);
+			color: #fff;
+			font-size: 1.1em;
+			line-height: 1.5em;
+			height: 16em;
+			padding: 0.75em;
+			white-space: pre-wrap;
+			resize: none;
+			border: none;
+			font-family: courier;
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+}
+ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
+	color: #003f87;
+}
