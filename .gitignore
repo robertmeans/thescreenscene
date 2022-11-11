@@ -18,3 +18,4 @@ composer.lock
 .gitattributes
 sftp-config.json
 package-lock.json
+package.json
