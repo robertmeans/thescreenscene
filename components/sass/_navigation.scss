@@ -12,6 +12,9 @@ nav ul {
 		display: flex;
 		justify-content: flex-start;
 		// padding: 0em 0.5em;
+		li.mobile-orient {
+			display: none;
+		}
 }
 nav ul li {
 		margin-right: 4px;
@@ -202,6 +205,12 @@ nav ul {
 	display: flex;
 	justify-content: center;
 	padding: 0px;
+		li.desk-orient {
+			display: none;
+		}
+		li.mobile-orient {
+			display: flex;
+		}
 	}
 nav ul li {
 	display: flex;

@@ -1,20 +1,24 @@
 <nav>
 	<ul id="navtog">
 	<!-- 1st link -->
-	<?php
-	switch ($layout_context) {
-		default :	?><li><a class="logout" href="logout.php"><i class="fas fa-power-off"></i> Exit</a></li><?php 	break;
-	}
-	?>
+	<li class="desk-orient"><a class="logout" href="logout.php"><i class="fas fa-power-off"></i> Exit</a></li>
+
+	<li class="mobile-orient"><a class="logout" href="logout.php"><i class="fas fa-power-off"></i> Exit</a></li>
+
+	<?php if ($layout_context == 'homepage') { ?>
+		<li class="mobile-orient"><a href="my_projects.php" class="logout"><i class="fas fa-list-ol"></i> Projects</a></li>
+	<?php } ?>
+
+
 
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
-		case 'edit_order' 			:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'edit_searches' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
+		case 'edit_order' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
+		case 'edit_searches' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
 		case 'delete_project' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'my_projects' 			:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'share_project' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
+		case 'my_projects' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
+		case 'share_project' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
 		default :	break;
 	}
 	?>
@@ -22,9 +26,9 @@
 	<!-- 3rd link... -->
 	<?php
 	switch ($layout_context) {
-		case 'my_projects' 				:	 	break;
-		case 'home-first-visit' 	:	 	break;
-		case 'no-projects' 	      :	 	break;
+		case 'my_projects' 		:	 	break;
+		case 'home-first-visit' :	 	break;
+		case 'no-projects' 	    :	 	break;
 		// dropdown nav ->
 		default :	?>
 		<?php 
@@ -33,7 +37,6 @@
 		?>
 		<div class="menuitem">
 			<div class="dropdown">
-
 
 				<a class="pen">&nbsp;</a>
 				<!-- working on autocomplete... -->
@@ -54,7 +57,7 @@
 				<!-- <a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a> -->
 				<a class="projects-dd"><i class="fas fa-list-ol"></i> Projects</a>
 			</div>
-		</div>
+		</div> 
 		<?php 	break;
 	}
 	?>
