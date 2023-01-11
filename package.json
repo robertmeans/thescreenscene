@@ -1,7 +1,7 @@
 {
-  "name": "ProjectName-no-spaces",
+  "name": "BrowserGadget",
   "version": "1.0.0",
-  "description": "Description of project",
+  "description": "Browser utility",
   "main": "index.php",
   "author": "Robert Means",
   "devDependencies": {
