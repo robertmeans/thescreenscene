@@ -146,15 +146,42 @@ $id_count = 1 + $row_count;
 
 </div><!-- #tab3 -->
 
+<?php if (($user_id == '1') || ($user_id == '3')) { ?>
+<?php /* if me, then show edit option for notes regardless of whether I am owner or shared_with */ ?>
+<div id="tab4" class="tab">
+
+  <span class="note-header">
+    <p class="note-title">Project Notes</p>
+    <span id="nei" class="note-edit-icon">
+      <a class="eicon"><div class="tooltip"><span class="tooltiptext">Bob's Exception</span><i data-role="edit-portal" class="far fa-edit fa-fw"></i></div></a>
+    </span>
+
+  </span>
+  <div id="first-pass" style="display:none;"><?= nl2br(h($row['project_notes'])); ?></div>
+  <div id="multi-pass" style="display:none;"></div>
+
+  <?php if (trim($row['project_notes']) != '') { ?>
+    <div id="note-portal" class="pop-note-portal display-portal"><?php echo nl2br(h($row['project_notes'])); ?></div>
+
+  <?php } else { ?>
+
+    <div id="note-portal" class="empty-note-portal display-portal">This project has nary a note.</div>
+    
+  <?php } ?>
+
+</div>
+
+<?php } else { ?>
+<?php /* everyone else will not see the edit option if they are the "shared_with" of this project */ ?>
 <div id="tab4" class="tab">
 <?php 
 if (trim($row['project_notes']) != '') { 
 	echo nl2br(h($row['project_notes'])); 
-} else {
-	echo 'There are no project notes to display'; 
-} 
-?>
+} else { ?>
+	<div id="note-portal" class="empty-note-portal display-portal">There are no project notes to display.</div>
+<?php } ?>
 </div>
+<?php } ?>
 
 </div><!-- .tab-content -->
 
