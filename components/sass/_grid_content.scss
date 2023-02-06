@@ -223,18 +223,10 @@ a.textNav {
 }
 .tab-content {
 	width: 100%;
-	display: flex;
+  /* 02.06.23 commented out flex because it was causing the shared_with version to not fill 100% width. man, I noodled with this just long enough to finally give in and just comment out this which seems to work everywhere whereas before if was only working on the owner's version. */
+	// display: flex;
 	flex-wrap: wrap;	
 }
-
-
-
-
-
-
-
-
-
 
 
 // previous notes before
