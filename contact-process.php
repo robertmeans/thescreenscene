@@ -30,7 +30,7 @@ if (is_post_request()) {
 				// email routing set to Remote
 
         //Recipients
-        $mail->setFrom($email, $name);
+        $mail->setFrom(EMAIL, $name);
         $mail->addAddress(EMAIL, 'BrowserGadget Website Contact Form');     // Add a recipient
         $mail->addReplyTo($email, $name);
         // $mail->addCC('cc@example.com');
