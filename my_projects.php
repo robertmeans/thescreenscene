@@ -145,11 +145,12 @@ if ($projects > 0) { //(321)
 
 		<?php echo "Owner: You | Sharing with: ";
 		 // get names ready in case this project is shared
-		 // being shardd with multiple people. add comma between names, remove last one.
-		while ($row3 = mysqli_fetch_assoc($sharing)) { // while we find shared_with results, list them.
-			$names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
-		} echo rtrim(implode(array_unique($names)), ', '); // only share unique names once 
-		?>
+		 // being shared with multiple people. add comma between names, remove last one.
+    while ($row3 = mysqli_fetch_assoc($sharing)) { 
+      $names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
+    } echo rtrim(implode(array_unique($names)), ', '); 
+    unset($names);
+?>
 
 		</div>
 	    <?php if(($row['project_notes']) != "") { ?>
