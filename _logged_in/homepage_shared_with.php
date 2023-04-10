@@ -78,11 +78,10 @@ $id_count = substr("0{$id_count}", -$str_length);
 		<?php if ($row['edit'] == '1') { ?>
 			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
-
-
 <?php  } else {  ?>
 		<span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
+		<a data-target="urlz" class="project-links-empty shim" target="_blank"></a>
 		<?php if ($row['edit'] == '1') { ?>
 			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
