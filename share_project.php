@@ -20,6 +20,22 @@ $current_project = $_GET['id'];
 
 if (is_post_request()) {
 
+  if(isset($_POST['go_to_homepage'])) {
+    $id           = $_SESSION['id']               ;
+    $current_project    = $_POST['current_project']  ?? ''  ;
+
+    $result = update_current_project($id, $current_project);
+
+    if ($result === true) {
+    $_SESSION['current_project'] = $current_project;
+
+      header('location:' . WWW_ROOT);
+    } else {
+    $errors = $result;
+    }
+  }
+
+
 	if (isset($_POST['owner-share-submit'])) {
 
 		$row = [];
@@ -48,8 +64,6 @@ if (is_post_request()) {
 			$errors = $result; 
 		}
 	}
-
-
 
 	if (isset($_POST['sharer-share-submit'])) {
 
@@ -129,6 +143,15 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
 
 		<h1><?= $row['project_name']; ?></h1>
+    <span>
+      <form action="" method="post">
+      <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+      <input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+      <input type="hidden" name="go_to_homepage" value="1">
+
+        <div class="tooltip"><span class="tooltiptext">Home</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
+      </form>
+    </span>
 		<?php echo "<p class=\"owner-txt\">You are the OWNER of this project.</p>"; ?>
 
         <?php if(count($errors) > 0): ?>

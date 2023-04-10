@@ -6,7 +6,20 @@
 	h1 {
 		font-size: 1.8em;
 		margin-bottom: 0.5em;
+    display: inline-block;
 	}
+  span {
+    float: right;
+    padding-right: 0.5em;
+    color: #fff;
+    .tooltip .tooltiptext {
+      width: 75px;
+      margin-left: -37.5px;
+    }
+    a {
+      color: #fff;
+    }
+  }
 	form {
 		display: flex;
 		flex-direction: column;

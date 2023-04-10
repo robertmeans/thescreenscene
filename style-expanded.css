@@ -1740,6 +1740,7 @@ a.textNav:hover {
 }
 .tab-content {
   width: 100%;
+  /* 02.06.23 commented out flex because it was causing the shared_with version to not fill 100% width. man, I noodled with this just long enough to finally give in and just comment out this which seems to work everywhere whereas before if was only working on the owner's version. */
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
@@ -2456,6 +2457,19 @@ a.go:hover {
 .sharing h1 {
   font-size: 1.8em;
   margin-bottom: 0.5em;
+  display: inline-block;
+}
+.sharing span {
+  float: right;
+  padding-right: 0.5em;
+  color: #fff;
+}
+.sharing span .tooltip .tooltiptext {
+  width: 75px;
+  margin-left: -37.5px;
+}
+.sharing span a {
+  color: #fff;
 }
 .sharing form {
   display: -ms-flexbox;
