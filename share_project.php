@@ -222,14 +222,23 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 	if ($row['share'] == "1") { // (0106211755)
 ?>
 		<h1><?= $row['project_name']; ?></h1>
+    <span>
+      <form action="" method="post">
+      <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+      <input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+      <input type="hidden" name="go_to_homepage" value="1">
 
-        <?php if(count($errors) > 0): ?>
-            <div class="alert alert-danger <?php if(isset($errors['successfully_added'])) { echo "success-instead"; } ?>">
-	            <?php foreach($errors as $error): ?>
-	            <li><?php echo $error; ?></li>
-	        	<?php endforeach; ?>
-            </div>
-        <?php endif; ?>
+        <div class="tooltip"><span class="tooltiptext">Home</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
+      </form>
+    </span> 
+
+    <?php if(count($errors) > 0): ?>
+        <div class="alert alert-danger <?php if(isset($errors['successfully_added'])) { echo "success-instead"; } ?>">
+          <?php foreach($errors as $error): ?>
+          <li><?php echo $error; ?></li>
+      	<?php endforeach; ?>
+        </div>
+    <?php endif; ?>
 
 
  	<form action="" method="post">
