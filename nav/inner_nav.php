@@ -76,7 +76,7 @@
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php } 
 
-	if (($layout_context == 'homepage')) { ?>
+	if ($layout_context == 'homepage') { ?>
 	<li>
 		<form id="et-form" action="" method="post">
 			<input type="hidden" id="ownShare" name="ownShare" value="1">
