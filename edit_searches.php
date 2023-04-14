@@ -1,4 +1,4 @@
-<?php $layout_context = "edit_order";
+<?php $layout_context = "edit_searches";
  
 require_once 'config/initialize.php'; 
 

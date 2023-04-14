@@ -6,6 +6,8 @@
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php }
 
+
+
 	if (($row['edit'] == "1") && ($layout_context == 'homepage')) { ?>
 	<li>
 		<form id="et-form" action="" method="post">
@@ -18,7 +20,7 @@
 	</li>
 	<?php }
 
-	if ($layout_context != 'edit_order') { ?>
+	if ($layout_context != 'edit_searches') { ?>
 	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Reorder search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
@@ -71,10 +73,26 @@
 
 	break; // end shared_with navigation | begin owner navigation
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 	case 'owner' :	
 	if ($layout_context != 'homepage') { // begin owner navigation ?>	
 	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
 	<?php } 
+
+
+
 
 	if ($layout_context == 'homepage') { ?>
 	<li>
@@ -88,7 +106,7 @@
 	</li>
 	<?php }
 
-	if ($layout_context != 'edit_order') { ?>
+	if ($layout_context != 'edit_searches') { ?>
 	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Reorder search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
@@ -129,6 +147,9 @@
 	</li>
 	<?php } 
 
+
+
+
 	if ($layout_context == 'edit_hyperlinks') { ?>
 	<li class="project-name">| <span class="attn">EDITING:</span> <a href="my_projects.php" class="project-link"><?= $row['project_name']; ?></a></li>
 
@@ -139,10 +160,6 @@
 	<li class="project-name">| <span class="attn">DELETE:</span> <a href="my_projects.php" class="project-link"><?= $row['project_name']; ?></a></li> 
 
 	<?php } else { ?>
-
-	<?php /*
-	<li class="project-name">| <a href="my_projects.php" class="project-link"><div class="tooltip"><span class="tooltiptext">My Projectsq</span><?= $row['project_name']; ?></div></a></li> 
-	*/ ?>
 
 	<li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" id="yotab4" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
 	
