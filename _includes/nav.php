@@ -14,18 +14,6 @@
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
-		case 'edit_order' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'edit_searches' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'delete_project' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'my_projects' 		:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		case 'share_project' 	:	?><li><a class="logout" href="<?= WWW_ROOT ?>"><i class="fas fa-home"></i> Home</a></li><?php 	break;
-		default :	break;
-	}
-	?>
-
-	<!-- 3rd link... -->
-	<?php
-	switch ($layout_context) {
 		case 'my_projects' 		:	 	break;
 		case 'home-first-visit' :	 	break;
 		case 'no-projects' 	    :	 	break;

@@ -34,6 +34,7 @@ if (is_post_request()) {
 		}
 	}
 
+/*
 	if(isset($_POST['edit_project'])) {
 		$id     			= $_SESSION['id']            		;
 		$current_project   	= $_POST['current_project']  ?? ''	;
@@ -48,7 +49,8 @@ if (is_post_request()) {
 		$errors = $result;
 		}
 	}
-
+*/
+  
 	if(isset($_POST['reorder_searches'])) {
 		$id     			= $_SESSION['id']            		;
 		$current_project   	= $_POST['current_project']  ?? ''	;

@@ -1,4 +1,5 @@
-<?php $layout_context = "edit_order"; 
+<?php $layout_context = "edit_order";
+/* $layout_context was not working above (online) (although it worked locally) up here so I moved it down the page and for some reason it works now. ?! */
 
 require_once 'config/initialize.php';
 
@@ -32,7 +33,10 @@ $r = explode(",",$row['row_order']);
 if ($row['owner_id'] == $user_id) { // only an owner can move bookmarks.
 ?>
 
-<?php $inner_nav_context = "owner"; ?>
+<?php 
+$inner_nav_context = "owner";
+$layout_context = "edit_order"; 
+?>
 <ul class="inner-nav">
   <?php require 'nav/inner_nav.php'; ?>
 </ul>

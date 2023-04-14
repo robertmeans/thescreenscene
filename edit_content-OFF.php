@@ -1,4 +1,4 @@
-<?php $layout_context = "edit_hyperlinks"; 
+<?php // $layout_context = "edit_hyperlinks"; 
 
 require_once 'config/initialize.php';
 

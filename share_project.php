@@ -125,7 +125,9 @@ $row = show_project_to_owner($current_project);
 <?php require '_includes/head.php'; ?>
 <body>
 
-<?php require '_includes/nav.php'; ?>
+<?php 
+$layout_context = "share_project"; 
+require '_includes/nav.php'; ?>
 
 <div id="table-page">
  	<div id="project-wrap">
@@ -141,17 +143,13 @@ $owner = mysqli_num_rows($whos_project);
 if ($owner > 0) { // (0105212030) this is the owner of the project
 ?>
 
+  <?php 
+  $inner_nav_context = "owner";
+  $layout_context = "share_project"; ?>
+  <ul class="inner-nav" style="float:none;margin:0.75em 0em;">
+    <?php require 'nav/inner_nav.php'; ?>
+  </ul>
 
-		<h1><?= $row['project_name']; ?></h1>
-    <span>
-      <form action="" method="post">
-      <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-      <input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-      <input type="hidden" name="go_to_homepage" value="1">
-
-        <div class="tooltip"><span class="tooltiptext">Home</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
-      </form>
-    </span>
 		<?php echo "<p class=\"owner-txt\">You are the OWNER of this project.</p>"; ?>
 
         <?php if(count($errors) > 0): ?>
@@ -221,16 +219,14 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 	$row = show_project_to_shared($current_project, $user_id);
 	if ($row['share'] == "1") { // (0106211755)
 ?>
-		<h1><?= $row['project_name']; ?></h1>
-    <span>
-      <form action="" method="post">
-      <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-      <input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-      <input type="hidden" name="go_to_homepage" value="1">
+  <?php 
+  $inner_nav_context = "shared_with";
+  $layout_context = "share_project"; ?>
+  <ul class="inner-nav" style="float:none;margin:0.75em 0em;">
+    <?php require 'nav/inner_nav.php'; ?>
+  </ul>
 
-        <div class="tooltip"><span class="tooltiptext">Home</span><a href="#" class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
-      </form>
-    </span> 
+  <p class="owner-txt" style="line-height:1.5em;">This project is being SHARED with you. You have been given permission to share with others.</p>
 
     <?php if(count($errors) > 0): ?>
         <div class="alert alert-danger <?php if(isset($errors['successfully_added'])) { echo "success-instead"; } ?>">

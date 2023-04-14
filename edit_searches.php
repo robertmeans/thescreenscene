@@ -1,4 +1,5 @@
-<?php $layout_context = "edit_searches";
+<?php $layout_context = "edit_searches"; 
+/* also - moved $layout_context on 041423 to edit_search_order_shared.php (or _owner.php) bc it wasn't working here all by itself. ?! */
  
 require_once 'config/initialize.php'; 
 

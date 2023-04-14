@@ -72,7 +72,8 @@
 
 <li class="static">
 
-  <?php $inner_nav_context = "owner"; ?>
+  <?php $inner_nav_context = "owner";
+  $layout_context = "edit_searches"; ?>
   <ul class="inner-nav">
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
