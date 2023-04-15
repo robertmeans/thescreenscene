@@ -21,11 +21,12 @@ ul#static-sort {
 }
 .modify-modal-content,
 .aan-modal-content {
-	background-color: rgba(250,240,203,1);
-	background-image: url("_images/floral-pattern.jpg");
-	background-repeat: repeat;
-	background-attachment: fixed;	
-	color: #313131;
+    background-color: #fff;
+    // background-color: rgba(250,240,203,1);
+    // background-image: url("_images/floral-pattern.jpg");
+    // background-repeat: repeat;
+    // background-attachment: fixed;  
+    color: #313131;
 	form p,	
 	label {
 		color: #313131;
@@ -62,10 +63,11 @@ ul#static-sort {
 }
 #theModal {
 	.modal-body {
-		background-color: rgba(250,240,203,1);
-		background-image: url("_images/floral-pattern.jpg");
-		background-repeat: repeat;
-		background-attachment: fixed;	
+    background-color: #fff;
+		// background-color: rgba(250,240,203,1);
+		// background-image: url("_images/floral-pattern.jpg");
+		// background-repeat: repeat;
+		// background-attachment: fixed;	
 		color: #313131;
 		form.edit-link-form input.edit-input {
 			color: #313131;
@@ -285,10 +287,12 @@ ul#sortablesearch li.static {
 #edit-delete-page #edit-wrap #tab1, 
 #edit-delete-page #edit-wrap #tab2, 
 #edit-delete-page #edit-wrap #tab3 {
-	background-color: rgba(250,250,226,1);
-	background-image: url("_images/floral-background-edit.jpg");
-	background-repeat: repeat;
-	background-attachment: fixed;		
+    background-color: #fff;
+    // background-color: rgba(250,240,203,1);
+    // background-image: url("_images/floral-pattern.jpg");
+    // background-repeat: repeat;
+    // background-attachment: fixed;  
+    color: #313131;	
 }
 
 
@@ -411,9 +415,12 @@ ul.inner-nav li.project-name span.attn {
 #edit-content-page #edit-wrap #tab1,
 #edit-content-page #edit-wrap #tab2,
 #edit-content-page #edit-wrap #tab3 {
-			background-image: url("_images/floral-edit.jpg");
-			background-repeat: repeat;
-			background-attachment: fixed;
+    background-color: #fff;
+    // background-color: rgba(250,240,203,1);
+    // background-image: url("_images/floral-pattern.jpg");
+    // background-repeat: repeat;
+    // background-attachment: fixed;  
+    color: #313131;
 }
 // edit hyperlinks
 #edit-content-page #edit-wrap a.project-links,
@@ -512,6 +519,16 @@ footer {
 footer button#toggle-contact-form:hover {
 	background-color: rgba(0,0,0,0.2);
 }
-  span#status {
-    color: #313131;
+span#status {
+  color: #313131;
+}
+ul.inner-nav li.project-name a.tabs.tab-links.show-notes input {
+  color: #003f87;
+  transition: all 0.2s ease;
+  &:hover {
+    color: #ff5a00;
   }
+}
+ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
+  color: #ff5a00;
+}
