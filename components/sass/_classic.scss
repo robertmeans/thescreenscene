@@ -21,16 +21,20 @@ ul#static-sort {
 }
 .modify-modal-content,
 .aan-modal-content {
-    background-color: #fff;
-    // background-color: rgba(250,240,203,1);
-    // background-image: url("_images/floral-pattern.jpg");
-    // background-repeat: repeat;
-    // background-attachment: fixed;  
+    background-color: #fff; 
     color: #313131;
 	form p,	
 	label {
 		color: #313131;
 	}
+}
+#theModal .modal-header,
+#theModal .modal-footer,
+.aan-modal-header,
+.aan-modal-footer,
+.modify-modal-header,
+.modify-modal-footer {
+  background-color: #757575;
 }
 #theModal .modal-body form.edit-link-form input.edit-input {
 	background-color: rgba(98,190,232,0.2);
@@ -64,10 +68,6 @@ ul#static-sort {
 #theModal {
 	.modal-body {
     background-color: #fff;
-		// background-color: rgba(250,240,203,1);
-		// background-image: url("_images/floral-pattern.jpg");
-		// background-repeat: repeat;
-		// background-attachment: fixed;	
 		color: #313131;
 		form.edit-link-form input.edit-input {
 			color: #313131;
@@ -76,10 +76,6 @@ ul#static-sort {
 				color: #fff;
 			}
 		}
-	}
-	.modal-header,
-	.modal-footer {
-		background-color: #2b3d50;
 	}
 }
 
@@ -276,14 +272,15 @@ ul#sortablesearch li.static {
 	}
 }
 #table-page #project-wrap .review-project.active {
-	background-color: #e89e77;
+	// background-color: #e89e77;
+  background-color: #656565;
 	&:hover {
-		background-color: #0099cc;
+		background-color: #8d8d8d;
 	}
 }
 .project-details { // my_projects -> project details background
 	// background-color: rgba(0,153,204,1);
-	background-color: #e89e77;
+	background-color: #ccc;
 }
 
 

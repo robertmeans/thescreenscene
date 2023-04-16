@@ -143,21 +143,37 @@ if ($projects > 0) { //(321)
 	    </li>
 		</ul>
 
-		<div class="shared-with">
 
-		<?php echo "Owner: You | Sharing with: ";
-		 // get names ready in case this project is shared
-		 // being shared with multiple people. add comma between names, remove last one.
+
+    <div class="shared-with">
+
+    <?php echo "Owner: You | Sharing with: ";
+     // get names ready in case this project is shared
+     // being shared with multiple people. add comma between names, remove last one.
     while ($row3 = mysqli_fetch_assoc($sharing)) { 
       $names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
-    } echo rtrim(implode(array_unique($names)), ', '); 
+    } 
+    echo rtrim(implode(array_unique($names)), ', ');
     unset($names);
-?>
+    ?>
 
-		</div>
-	    <?php if(($row['project_notes']) != "") { ?>
-	    	<div class="project-notes"><pre><?= h($row['project_notes']); ?><pre></div><!-- .project-notes -->
-	   	<?php } ?>
+    </div>
+
+
+
+      <?php 
+      if(($row['project_notes']) != "") { ?>
+        <div class="project-notes">
+          <p><?= h($row['project_notes']); ?><p>
+        </div><!-- .project-notes -->
+      <?php } else { ?>
+        <div class="project-notes my-projects-pg">
+          <p>This project has nary a note.</p>
+        </div><!-- .project-notes -->
+      <?php } ?>
+
+
+
 		</div><!-- .project-details -->
 	</li>
 
@@ -223,9 +239,20 @@ if ($projects > 0) { //(321)
 				}  //echo implode(', ', $names);
 			} ?>
 		</div>
-		    <?php if(($row['project_notes']) != "") { ?>
-		    	<div class="project-notes"><pre><?= h($row['project_notes']); ?><pre></div><!-- .project-notes -->
-		   	<?php } ?>
+
+
+      <?php 
+      if(($row['project_notes']) != "") { ?>
+        <div class="project-notes">
+          <p><?= h($row['project_notes']); ?><p>
+        </div><!-- .project-notes -->
+      <?php } else { ?>
+        <div class="project-notes my-projects-pg">
+          <p>This project has nary a note.</p>
+        </div><!-- .project-notes -->
+      <?php } ?>
+
+
 		</div><!-- .project-details -->
 	</li>
 <?php }  //mysqli_free_result($owner); ?>
@@ -268,9 +295,27 @@ if ($projects > 0) { //(321)
 	    	<a href="delete_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
 	    </li>
 		</ul>
-	    <?php if(($row['project_notes']) != "") { ?>
-	    	<div class="project-notes"><pre><?= h($row['project_notes']); ?><pre></div><!-- .project-notes -->
-	   	<?php } ?>
+    <div class="shared-with">
+
+    <?php echo "Owner: You | Not shared";?>
+
+    </div>
+
+
+      <?php 
+      if(($row['project_notes']) != "") { ?>
+        <div class="project-notes">
+          <p><?= h($row['project_notes']); ?><p>
+        </div><!-- .project-notes -->
+      <?php } else { ?>
+        <div class="project-notes my-projects-pg">
+          <p>This project has nary a note.</p>
+        </div><!-- .project-notes -->
+      <?php } ?>
+
+
+
+
 		</div><!-- .project-details -->
 	</li>
 	<?php }  ?>
