@@ -324,6 +324,7 @@ ul#sortablesearch li.static {
 
 .project-greeting {
 	color: #003f87;
+  color: #313131;
 }
 // inner_nav - homepage
 ul.inner-nav li a {
@@ -512,14 +513,19 @@ a#add-note {
 	color: rgba(255,255,255,0.6);
 }
 #edit-deets {
-	background-color: rgba(0,153,204,1);
-	color: #fff;
+	// background-color: rgba(0,153,204,1);
+  background-color: #ccc;
+	color: #636363;
 	.btn-wrap a.cancel-deets {
 		background-color: rgba(11,85,150,1);
 		&:hover {
 			background-color: rgba(15,121,214,1);
 		}
 	}
+  input,
+  textarea {
+    background-color: #d6d6d6;
+  }
 }
 li.google {
 	// background-color: rgba(66,132,247,1);

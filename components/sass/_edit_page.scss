@@ -401,16 +401,20 @@ div#success-wrap {
 	}
 	.btn-wrap {
 		display: flex;
-		justify-content: center;
+		justify-content: flex-end;
 		align-items: center;
+    width: 100%;
+    // max-width: 300px;
+
 		input[type=submit],
 		a.cancel-deets {
 			// display: flex;
 			font-size: 1em;
 			color: #fff;
 			width: 50%;
+      max-width: 150px;
 			margin: 0.75em 0.2em;
-			padding: 1.5em 1em;
+			padding: 1em 1.25em;
 			text-align: center;
 			background-color: rgba(255,255,255,0.2);
 			text-decoration: none;

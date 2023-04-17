@@ -173,27 +173,27 @@ body {
 #wrap {
   width: 100%;
   max-width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 50px;
   height: 100vh;
@@ -252,15 +252,15 @@ nav {
   position: fixed;
   top: 0px;
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   z-index: 100;
 }
@@ -268,15 +268,15 @@ nav {
 nav ul {
   width: 98%;
   max-width: 1050px;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: start;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -moz-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
@@ -289,8 +289,8 @@ nav ul li {
 }
 
 nav ul li i.fa-sign-out-alt {
-  -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -300,10 +300,10 @@ nav ul li i.fa-power-off {
 }
 
 nav ul li a {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   cursor: pointer;
   text-align: center;
@@ -401,10 +401,10 @@ nav ul li a.login:hover {
 a.projects-dd {
   position: absolute;
   top: -1px;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   cursor: pointer;
   text-align: center;
@@ -481,15 +481,15 @@ a.pen {
 
   nav ul {
     width: 100%;
-    display: -ms-flexbox;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: center;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     padding: 0px;
   }
@@ -499,18 +499,18 @@ a.pen {
   }
 
   nav ul li.mobile-orient {
-    display: -ms-flexbox;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
   }
 
   nav ul li {
-    display: -ms-flexbox;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
   }
 
@@ -540,15 +540,15 @@ a.pen {
     width: 100%;
     text-align: center;
     padding: 1em;
-    display: -ms-flexbox;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: center;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 
@@ -582,21 +582,21 @@ a.pen {
 }
 
 ul.inner-nav {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   float: left;
-  -ms-flex-pack: start;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -moz-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin: 0 0 3px 1.5em;
   padding: 5px 0px;
@@ -652,10 +652,10 @@ ul.inner-nav li ul li {
 }
 
 ul.inner-nav li ul li form {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -716,17 +716,17 @@ ul.inner-nav li ul:hover {
   visibility: visible;
   opacity: 1;
   display: block;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -768,8 +768,8 @@ ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
 
 @media screen and (max-width: 650px) {
   ul.tab-links {
-    -ms-flex-pack: distribute;
     -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     width: 100%;
   }
@@ -781,24 +781,24 @@ ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
   ul.tab-links li {
     margin: 0;
     width: 30%;
-    display: -ms-flexbox;
     display: -webkit-box;
     display: -webkit-flex;
     display: -moz-box;
+    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: center;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 
   ul.inner-nav {
-    -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-    -ms-flex-pack: distribute;
     -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
     margin: 0;
   }
@@ -829,20 +829,20 @@ ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
 .preload,
 .preload-manage {
   position: fixed;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: #1d1d1d;
   width: 100%;
@@ -872,10 +872,10 @@ footer {
   text-align: center;
   padding-top: 60px;
   padding-bottom: 80px;
-  -ms-flex: 1;
   -webkit-box-flex: 1;
   -webkit-flex: 1;
   -moz-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
@@ -949,15 +949,15 @@ footer form#contactForm ul li {
 }
 
 footer form#contactForm ul li .send-items {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -1174,20 +1174,20 @@ div#success-wrap {
   width: 100%;
   height: 100%;
   height: 100vh;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   background-color: rgba(0,0,0,0.7);
 }
@@ -1265,27 +1265,27 @@ div#success-wrap span.success-msg {
   left: 0px;
   top: 0px;
   z-index: -999;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -1297,30 +1297,30 @@ div#success-wrap span.success-msg {
   width: 100%;
   height: 100%;
   height: 100vh;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   line-height: 1.5em;
 }
@@ -1331,27 +1331,27 @@ div#success-wrap span.success-msg {
   max-width: 450px;
   padding: 1.2em 2em;
   background-color: transparent;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: rgba(255,255,255,0.06);
   border: 1px solid #fff;
@@ -1361,20 +1361,20 @@ div#success-wrap span.success-msg {
 
 #landing>.visitor1>form .name,
 #landing>form .name {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -1417,11 +1417,6 @@ div#success-wrap span.success-msg {
   transition: background-color 0.2s ease;
 }
 
-#landing>.visitor1>form input:-ms-input-placeholder,
-#landing>form input:-ms-input-placeholder {
-  color: rgba(255,255,255,0.75);
-}
-
 #landing>.visitor1>form input::-webkit-input-placeholder,
 #landing>form input::-webkit-input-placeholder {
   color: rgba(255,255,255,0.75);
@@ -1429,6 +1424,11 @@ div#success-wrap span.success-msg {
 
 #landing>.visitor1>form input::-moz-placeholder,
 #landing>form input::-moz-placeholder {
+  color: rgba(255,255,255,0.75);
+}
+
+#landing>.visitor1>form input:-ms-input-placeholder,
+#landing>form input:-ms-input-placeholder {
   color: rgba(255,255,255,0.75);
 }
 
@@ -1549,20 +1549,20 @@ div#success-wrap span.success-msg {
 
 .rm-wrap {
   cursor: pointer;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 0.5em 1em;
 }
@@ -1802,27 +1802,27 @@ form#logout-form>button {
 }
 
 #register {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -1831,27 +1831,27 @@ form#logout-form>button {
 }
 
 #register>form {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 96%;
   max-width: 500px;
@@ -1935,22 +1935,22 @@ span.yo-email {
 #table-page,
 #edit-content-page,
 #edit-delete-page {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   min-height: 100vh;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -2024,10 +2024,8 @@ span.yo-email {
 #table-page #edit-wrap li.page-divider,
 #edit-content-page #edit-wrap li.page-divider,
 #edit-delete-page #edit-wrap li.page-divider {
-  -ms-flex-preferred-size: 100%;
   -webkit-flex-basis: 100%;
   -ms-flex: 0 1 100%;
-  -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
 }
 
@@ -2070,13 +2068,13 @@ a.testaroo {
 ul#sortable,
 ul#static-sort {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   margin: 1em 0;
 }
@@ -2084,15 +2082,15 @@ ul#static-sort {
 ul#sortable li,
 ul#static-sort li {
   position: relative;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex: 1 0 21%;
   -webkit-box-flex: 1;
   -webkit-flex: 1 0 21%;
   -moz-box-flex: 1;
+  -ms-flex: 1 0 21%;
   flex: 1 0 21%;
   min-width: 25%;
   overflow-wrap: break-word;
@@ -2255,10 +2253,10 @@ li.ea {
 @media screen and (max-width: 750px) {
   ul#sortable li,
   ul#static-sort li {
-    -ms-flex: 1 0 30%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 0 30%;
     -moz-box-flex: 1;
+    -ms-flex: 1 0 30%;
     flex: 1 0 30%;
     min-width: 30%;
   }
@@ -2267,10 +2265,10 @@ li.ea {
 @media screen and (max-width: 620px) {
   ul#sortable li,
   ul#static-sort li {
-    -ms-flex: 1 0 46%;
     -webkit-box-flex: 1;
     -webkit-flex: 1 0 46%;
     -moz-box-flex: 1;
+    -ms-flex: 1 0 46%;
     flex: 1 0 46%;
     min-width: 46%;
   }
@@ -2298,13 +2296,13 @@ a.textNav:hover {
 #tab1,
 #tab2,
 #tab3 {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   -webkit-animation: fadein 0.75s;
   -o-animation: fadein 0.75s;
@@ -2343,8 +2341,8 @@ a.textNav:hover {
 
 .tab-content {
   width: 100%;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -2355,15 +2353,15 @@ a.textNav:hover {
 }
 
 .tab-content #tab4 .note-header {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   width: 100%;
   background-color: rgba(0,0,0,0.3);
@@ -2399,8 +2397,8 @@ a.textNav:hover {
 
 .tab-content #tab4 .note-header i.fa-ban {
   color: #a32b2b;
-  -ms-transform: all 0.2s ease;
   -webkit-transform: all 0.2s ease;
+  -ms-transform: all 0.2s ease;
   -o-transform: all 0.2s ease;
   transform: all 0.2s ease;
 }
@@ -2411,8 +2409,8 @@ a.textNav:hover {
 
 .tab-content #tab4 .note-header i.fa-save {
   color: #2da33a;
-  -ms-transform: all 0.2s ease;
   -webkit-transform: all 0.2s ease;
+  -ms-transform: all 0.2s ease;
   -o-transform: all 0.2s ease;
   transform: all 0.2s ease;
 }
@@ -2426,10 +2424,10 @@ a.textNav:hover {
 }
 
 .tab-content #tab4 #note-portal {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.25em;
   padding: 1em 1em 1.5em;
@@ -2444,20 +2442,20 @@ a.textNav:hover {
 }
 
 .tab-content #tab4 .empty-note-portal {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 1em;
   height: 17.75em;
@@ -2474,10 +2472,10 @@ a.textNav:hover {
 }
 
 .tab-content #tab4 #revise-proj-notes {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   font-family: courier;
@@ -2502,20 +2500,20 @@ a.textNav:hover {
 }
 
 .tab-links {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: start;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -moz-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   float: left;
 }
@@ -2561,8 +2559,8 @@ a.textNav:hover {
 }
 
 .tab-links a i.fa-sign-out-alt {
-  -ms-transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
   -o-transform: rotate(180deg);
   transform: rotate(180deg);
 }
@@ -2609,22 +2607,22 @@ li.active input:hover {
   overflow: auto;
   background-color: #000;
   background-color: rgba(0,0,0,0.4);
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -2729,20 +2727,20 @@ li.active input:hover {
 
 .yt-modal-body,
 .modify-modal-body {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -2854,15 +2852,15 @@ li.active input:hover {
 .modify-modal-body form.edit-link-form .submit-links,
 .modify-modal-body form.modify-note-form .submit-links {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: 0.5em;
 }
@@ -2960,15 +2958,15 @@ li.active input:hover {
 #table-page #table-wrap .visitor {
   width: 100%;
   margin: 1em auto;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -3004,15 +3002,15 @@ li.active input:hover {
 }
 
 #table-page #table-wrap .visitor .visitor2 p#watchvideo a {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   text-decoration: none;
   color: #fff;
@@ -3063,30 +3061,30 @@ form.front-login>h3 {
 #landing.greet-login {
   width: 100%;
   height: auto;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
   line-height: 1.5em;
 }
@@ -3136,8 +3134,8 @@ form.front-login>h3 {
 
 #table-page #table-wrap .visitor p.dm i.dmf {
   margin-right: 1em;
-  -ms-transform: rotate(-20deg);
   -webkit-transform: rotate(-20deg);
+  -ms-transform: rotate(-20deg);
   -o-transform: rotate(-20deg);
   transform: rotate(-20deg);
   color: rgba(0,63,135,0.8);
@@ -3146,8 +3144,8 @@ form.front-login>h3 {
 
 #table-page #table-wrap .visitor p.dm i.dml {
   margin-left: 1em;
-  -ms-transform: rotate(20deg);
   -webkit-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
   -o-transform: rotate(20deg);
   transform: rotate(20deg);
   color: rgba(0,63,135,0.8);
@@ -3162,17 +3160,17 @@ form.front-login>h3 {
   }
 
   #table-page #table-wrap .visitor {
-    -ms-flex-direction: column;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
-    -ms-flex-pack: center;
     -webkit-box-pack: center;
     -webkit-justify-content: center;
     -moz-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
   }
 
@@ -3182,17 +3180,17 @@ form.front-login>h3 {
 }
 
 #table-page #table-wrap .new-intro {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
   padding: 1em 1.5em;
@@ -3209,17 +3207,17 @@ form.front-login>h3 {
   width: 94%;
   max-width: 650px;
   margin: 0em auto 1em;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -3311,22 +3309,22 @@ a.go:hover {
 }
 
 .sharing form {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin-bottom: 1em;
 }
@@ -3449,27 +3447,27 @@ a.go:hover {
 }
 
 .sharing form.remove-self {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-direction: row;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
   -moz-box-orient: horizontal;
   -moz-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
   padding: 0.2em 0.5em;
   background-color: transparent;
@@ -3516,27 +3514,27 @@ a.go:hover {
 }
 
 .sharing form.edit-user {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: row;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
   -moz-box-orient: horizontal;
   -moz-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 0;
   line-height: 1.5em;
@@ -3611,17 +3609,17 @@ a.go:hover {
 }
 
 #sortablesearch li.static {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   padding: 1em;
 }
@@ -3666,13 +3664,13 @@ a.go:hover {
 }
 
 .td-form {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
   width: 100%;
 }
@@ -3755,27 +3753,27 @@ a.td.selected {
 
 #edit-delete-page #delete-form {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -3804,28 +3802,28 @@ a.td.selected {
 }
 
 #edit-delete-page #delete-form .btns {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -ms-flex-direction: row;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
   -moz-box-orient: horizontal;
   -moz-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin: 0.5em;
 }
@@ -3895,20 +3893,20 @@ a.td.selected {
 #edit-order-page {
   height: auto;
   min-height: 100vh;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 3.5em 1em;
   background-image: url("_images/edit-bkg.png");
@@ -4000,20 +3998,20 @@ div#success-wrap {
   width: 100%;
   height: 100%;
   height: 100vh;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   background-color: #000;
 }
@@ -4033,17 +4031,17 @@ div#success-wrap span.success-msg {
 }
 
 #edit-deets {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 98%;
   max-width: 900px;
@@ -4096,21 +4094,22 @@ div#success-wrap span.success-msg {
 }
 
 #edit-deets .btn-wrap {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  justify-content: center;
-  -ms-flex-align: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  width: 100%;
 }
 
 #edit-deets .btn-wrap input[type=submit],
@@ -4118,8 +4117,9 @@ div#success-wrap span.success-msg {
   font-size: 1em;
   color: #fff;
   width: 50%;
+  max-width: 150px;
   margin: 0.75em 0.2em;
-  padding: 1.5em 1em;
+  padding: 1em 1.25em;
   text-align: center;
   background-color: rgba(255,255,255,0.2);
   text-decoration: none;
@@ -4250,20 +4250,20 @@ div#success-wrap span.success-msg {
 }
 
 .modal-body {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -4288,15 +4288,15 @@ div#success-wrap span.success-msg {
 
 .modal-body form.edit-link-form .submit-links {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -4344,13 +4344,13 @@ div#success-wrap span.success-msg {
 #edit-order-page #edit-wrap label,
 #edit-content-page #edit-wrap label,
 #edit-delete-page #edit-wrap label {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -4461,20 +4461,20 @@ div#success-wrap span.success-msg {
 }
 
 #theModal .modal-body {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -4511,13 +4511,13 @@ div#success-wrap span.success-msg {
 
 #theModal .modal-body form.edit-link-form .submit-links {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
   margin: 1em auto;
 }
@@ -4679,20 +4679,20 @@ div#success-wrap span.success-msg {
 
 .aan-modal-body,
 .modify-modal-body {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   height: 100%;
@@ -4798,15 +4798,15 @@ div#success-wrap span.success-msg {
 .modify-modal-body form.edit-link-form .submit-links,
 .modify-modal-body form.modify-note-form .submit-links {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   margin-top: 0.5em;
 }
@@ -4925,36 +4925,36 @@ div#success-wrap span.success-msg {
 .project-notes {
   width: 100%;
   margin-top: 0.2em;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   color: #fff;
 }
 
 .project-notes li {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   margin-bottom: 2px;
@@ -5002,10 +5002,10 @@ div#success-wrap span.success-msg {
 }
 
 .project-notes li .sec {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   text-align: left;
   padding: 0.5em;
@@ -5015,20 +5015,20 @@ div#success-wrap span.success-msg {
   width: 30%;
   padding-left: 1em;
   word-wrap: break-word;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: start;
   -webkit-box-pack: start;
   -webkit-justify-content: flex-start;
   -moz-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -5042,22 +5042,22 @@ div#success-wrap span.success-msg {
 }
 
 .project-notes li .sec.note-url .reorder {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   padding-right: 0.6em;
 }
@@ -5077,15 +5077,15 @@ div#success-wrap span.success-msg {
   background-color: transparent;
   color: rgba(255,255,255,0.8);
   padding: 0em 0.25em;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   text-decoration: none;
 }
@@ -5101,10 +5101,10 @@ div#success-wrap span.success-msg {
 .project-notes li .sec.note {
   width: 60%;
   word-wrap: break-word;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -5140,13 +5140,13 @@ div#success-wrap span.success-msg {
 }
 
 .project-notes li .sec.manage-note {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
   text-align: right;
   width: 10%;
@@ -5183,20 +5183,20 @@ ul#bottom-search.logged li:last-child {
   border-bottom-right-radius: 8px;
   -webkit-border-bottom-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   color: #fff;
   background-color: rgba(255,255,255,0.2);
@@ -5220,8 +5220,6 @@ a#note-limit {
   text-decoration: none;
   margin: 0.5em;
   padding: 0.5em 1em;
-  -webkit-border-radius: 10%;
-  border-radius: 10%;
   background-color: transparent;
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
@@ -5325,15 +5323,15 @@ a#note-limit:hover {
 
 #sortanote li {
   cursor: default;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-bottom: 2px;
   -webkit-border-radius: 3px;
@@ -5419,36 +5417,36 @@ a#note-limit:hover {
 
 @media screen and (max-width: 650px) {
   .project-notes li {
-    -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
     flex-wrap: wrap;
   }
 
   .project-notes li .sec.note-url {
     width: 80%;
-    -ms-flex-order: 1;
     -webkit-box-ordinal-group: 2;
     -webkit-order: 1;
     -moz-box-ordinal-group: 2;
+    -ms-flex-order: 1;
     order: 1;
   }
 
   .project-notes li .sec.note {
     width: 100%;
-    -ms-flex-order: 3;
     -webkit-box-ordinal-group: 4;
     -webkit-order: 3;
     -moz-box-ordinal-group: 4;
+    -ms-flex-order: 3;
     order: 3;
   }
 
   .project-notes li .sec.manage-note {
     padding: 0.5em 0em;
     width: 20%;
-    -ms-flex-order: 2;
     -webkit-box-ordinal-group: 3;
     -webkit-order: 2;
     -moz-box-ordinal-group: 3;
+    -ms-flex-order: 2;
     order: 2;
   }
 }
@@ -5487,21 +5485,21 @@ a#note-limit:hover {
 }
 
 #table-page {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -5518,13 +5516,13 @@ a#note-limit:hover {
 
 #table-page #project-wrap .my-projects form {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
   flex-wrap: wrap;
 }
 
@@ -5554,10 +5552,10 @@ a#note-limit:hover {
   -webkit-transition: all 0.2s ease;
   -o-transition: all 0.2s ease;
   transition: all 0.2s ease;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 
@@ -5586,17 +5584,17 @@ p.owner-txt {
 }
 
 .project-details {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -webkit-flex-direction: column;
   -moz-box-orient: vertical;
   -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   background-color: rgba(255,255,255,0.2);
   padding: 1em;
@@ -5638,12 +5636,12 @@ p.owner-txt {
 }
 
 .project-details .project-notes {
-  -ms-flex-direction: row;
   -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
   -webkit-flex-direction: row;
   -moz-box-orient: horizontal;
   -moz-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
   white-space: pre-line;
   padding: 1.5em;
@@ -5660,6 +5658,11 @@ p.owner-txt {
   white-space: -pre-wrap;
   white-space: -o-pre-wrap;
   word-wrap: break-word;
+}
+
+.project-notes.my-projects-pg p {
+  width: 100%;
+  text-align: center;
 }
 
 a.my-projects {
@@ -5699,20 +5702,20 @@ a.project-links.delete-pg {
 }
 
 .my-projects {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
 }
 
 .searches {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   color: #fff;
 }
@@ -5735,15 +5738,15 @@ a.project-links.delete-pg {
 #reference form,
 #youtube form {
   width: 100%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -5763,10 +5766,10 @@ a.project-links.delete-pg {
 #bing .go,
 #reference .go,
 #youtube .go {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.5em 0em 0.5em 0em;
   margin-right: 8%;
@@ -5777,21 +5780,20 @@ a.project-links.delete-pg {
 #bing .check-group,
 #reference .check-group,
 #youtube .check-group {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-positive: 1;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -moz-box-flex: 1;
   -ms-flex: 1;
   flex-grow: 1;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   height: 100%;
   margin: 0 1em;
@@ -5817,22 +5819,21 @@ a.project-links.delete-pg {
 #youtube .chk-map,
 #youtube .chk-ref,
 #youtube .chk-yt {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-positive: 1;
   -webkit-box-flex: 1;
   -webkit-flex-grow: 1;
   -moz-box-flex: 1;
   -ms-flex: 1;
   flex-grow: 1;
   position: relative;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   width: 50%;
   height: 100%;
@@ -5897,21 +5898,21 @@ a.project-links.delete-pg {
 #reference label,
 #youtube label {
   cursor: pointer;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -5944,15 +5945,15 @@ a.project-links.delete-pg {
 #reference .srs,
 #youtube .srs {
   width: 50%;
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -5990,14 +5991,6 @@ a.project-links.delete-pg {
   border-bottom: 1px solid rgba(255,255,255,0.8);
 }
 
-#google input[type=text]:-ms-input-placeholder,
-#url input[type=text]:-ms-input-placeholder,
-#bing input[type=text]:-ms-input-placeholder,
-#reference input[type=text]:-ms-input-placeholder,
-#youtube input[type=text]:-ms-input-placeholder {
-  color: #a7aaab;
-}
-
 #google input[type=text]::-webkit-input-placeholder,
 #url input[type=text]::-webkit-input-placeholder,
 #bing input[type=text]::-webkit-input-placeholder,
@@ -6011,6 +6004,14 @@ a.project-links.delete-pg {
 #bing input[type=text]::-moz-placeholder,
 #reference input[type=text]::-moz-placeholder,
 #youtube input[type=text]::-moz-placeholder {
+  color: #a7aaab;
+}
+
+#google input[type=text]:-ms-input-placeholder,
+#url input[type=text]:-ms-input-placeholder,
+#bing input[type=text]:-ms-input-placeholder,
+#reference input[type=text]:-ms-input-placeholder,
+#youtube input[type=text]:-ms-input-placeholder {
   color: #a7aaab;
 }
 
@@ -6084,12 +6085,12 @@ a.project-links.delete-pg {
 
 @media screen and (max-width: 500px) {
   .td-form {
-    -ms-flex-direction: column;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
     width: 100%;
   }
@@ -6121,12 +6122,12 @@ a.project-links.delete-pg {
   #bing form,
   #reference form,
   #youtube form {
-    -ms-flex-direction: column;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
 
@@ -6217,12 +6218,12 @@ a.project-links.delete-pg {
   ul#sortablesearch #bing,
   ul#sortablesearch #reference,
   ul#sortablesearch #youtube {
-    -ms-flex-direction: column;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
     -moz-box-orient: vertical;
     -moz-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
 }
@@ -6255,10 +6256,10 @@ ul#sortablesearch li.static {
 }
 
 ul#sortablesearch li.sert {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
 }
 
@@ -6267,15 +6268,15 @@ ul#sortablesearch #url,
 ul#sortablesearch #bing,
 ul#sortablesearch #reference,
 ul#sortablesearch #youtube {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -6294,15 +6295,15 @@ li.url {
   background-color: #545557;
 }
 
-li.url :-ms-input-placeholder {
-  color: #313131;
-}
-
 li.url ::-webkit-input-placeholder {
   color: #313131;
 }
 
 li.url ::-moz-placeholder {
+  color: #313131;
+}
+
+li.url :-ms-input-placeholder {
   color: #313131;
 }
 
@@ -6508,15 +6509,15 @@ ul#static-sort li a.ue:hover {
   color: #003f87;
 }
 
-.sharing form input[type=email]:-ms-input-placeholder {
-  color: rgba(0,63,135,0.6);
-}
-
 .sharing form input[type=email]::-webkit-input-placeholder {
   color: rgba(0,63,135,0.6);
 }
 
 .sharing form input[type=email]::-moz-placeholder {
+  color: rgba(0,63,135,0.6);
+}
+
+.sharing form input[type=email]:-ms-input-placeholder {
   color: rgba(0,63,135,0.6);
 }
 
@@ -6886,10 +6887,6 @@ li.url {
   background-color: #545557;
 }
 
-li.url :-ms-input-placeholder {
-  color: #313131;
-}
-
 li.url ::placeholder {
   color: #313131;
 }
@@ -6930,14 +6927,6 @@ li.youtube {
   background-color: rgba(255,255,255,0.2);
 }
 
-#google input[type=text]:-ms-input-placeholder,
-#url input[type=text]:-ms-input-placeholder,
-#bing input[type=text]:-ms-input-placeholder,
-#reference input[type=text]:-ms-input-placeholder,
-#youtube input[type=text]:-ms-input-placeholder {
-  color: #b9bbbd;
-}
-
 #google input[type=text]::placeholder,
 #url input[type=text]::placeholder,
 #bing input[type=text]::placeholder,
@@ -6959,15 +6948,15 @@ span#status {
 }
 
 .tab-content #tab4 .note-header {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: justify;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
   -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   width: 100%;
   background-color: rgba(0,63,135,0.8);
@@ -7003,8 +6992,8 @@ span#status {
 
 .tab-content #tab4 .note-header i.fa-ban {
   color: #ff6c6c;
-  -ms-transform: all 0.2s ease;
   -webkit-transform: all 0.2s ease;
+  -ms-transform: all 0.2s ease;
   -o-transform: all 0.2s ease;
   transform: all 0.2s ease;
 }
@@ -7015,8 +7004,8 @@ span#status {
 
 .tab-content #tab4 .note-header i.fa-save {
   color: #79d033;
-  -ms-transform: all 0.2s ease;
   -webkit-transform: all 0.2s ease;
+  -ms-transform: all 0.2s ease;
   -o-transform: all 0.2s ease;
   transform: all 0.2s ease;
 }
@@ -7030,10 +7019,10 @@ span#status {
 }
 
 .tab-content #tab4 #note-portal {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 0.25em;
   padding: 1em 1em 1.5em;
@@ -7049,20 +7038,20 @@ span#status {
 }
 
 .tab-content #tab4 .empty-note-portal {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -moz-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
-  -ms-flex-align: center;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 1em;
   height: 17.75em;
@@ -7079,10 +7068,10 @@ span#status {
 }
 
 .tab-content #tab4 #revise-proj-notes {
-  display: -ms-flexbox;
   display: -webkit-box;
   display: -webkit-flex;
   display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   font-family: courier;

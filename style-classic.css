@@ -4099,16 +4099,17 @@ div#success-wrap span.success-msg {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -moz-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  width: 100%;
 }
 
 #edit-deets .btn-wrap input[type=submit],
@@ -4116,8 +4117,9 @@ div#success-wrap span.success-msg {
   font-size: 1em;
   color: #fff;
   width: 50%;
+  max-width: 150px;
   margin: 0.75em 0.2em;
-  padding: 1.5em 1em;
+  padding: 1em 1.25em;
   text-align: center;
   background-color: rgba(255,255,255,0.2);
   text-decoration: none;
@@ -6699,6 +6701,7 @@ ul#sortablesearch li.static {
 
 .project-greeting {
   color: #003f87;
+  color: #313131;
 }
 
 ul.inner-nav li a {
@@ -6874,8 +6877,8 @@ a#add-note:hover {
 }
 
 #edit-deets {
-  background-color: #09c;
-  color: #fff;
+  background-color: #ccc;
+  color: #636363;
 }
 
 #edit-deets .btn-wrap a.cancel-deets {
@@ -6884,6 +6887,11 @@ a#add-note:hover {
 
 #edit-deets .btn-wrap a.cancel-deets:hover {
   background-color: #0f79d6;
+}
+
+#edit-deets input,
+#edit-deets textarea {
+  background-color: #d6d6d6;
 }
 
 li.google {

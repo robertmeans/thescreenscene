@@ -143,13 +143,11 @@ if ($projects > 0) { //(321)
 	    </li>
 		</ul>
 
-
-
     <div class="shared-with">
 
     <?php echo "Owner: You | Sharing with: ";
-     // get names ready in case this project is shared
-     // being shared with multiple people. add comma between names, remove last one.
+    // get names ready in case this project is shared
+    // being shared with multiple people. add comma between names, remove last one.
     while ($row3 = mysqli_fetch_assoc($sharing)) { 
       $names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
     } 
@@ -159,20 +157,16 @@ if ($projects > 0) { //(321)
 
     </div>
 
-
-
-      <?php 
-      if(($row['project_notes']) != "") { ?>
-        <div class="project-notes">
-          <p><?= h($row['project_notes']); ?><p>
-        </div><!-- .project-notes -->
-      <?php } else { ?>
-        <div class="project-notes my-projects-pg">
-          <p>This project has nary a note.</p>
-        </div><!-- .project-notes -->
-      <?php } ?>
-
-
+    <?php 
+    if(($row['project_notes']) != "") { ?>
+      <div class="project-notes">
+        <p><?= h($row['project_notes']); ?><p>
+      </div><!-- .project-notes -->
+    <?php } else { ?>
+      <div class="project-notes my-projects-pg">
+        <p>This project has nary a note.</p>
+      </div><!-- .project-notes -->
+    <?php } ?>
 
 		</div><!-- .project-details -->
 	</li>
@@ -234,24 +228,24 @@ if ($projects > 0) { //(321)
 		$anything_here = mysqli_num_rows($foo);
 
 		if ($anything_here > 0) {
-		while ($row3 = mysqli_fetch_assoc($foo)) { // while we find shared_with results, list them
-				echo ", " . $row3['first_name'] . " " . $row3['last_name'] . " "; 
-				}  //echo implode(', ', $names);
+      while ($row3 = mysqli_fetch_assoc($foo)) { 
+        $names[] = ", " . $row3['first_name'] . " " . $row3['last_name'] . ", ";  
+      } 
+      echo rtrim(implode(array_unique($names)), ', ');
+      unset($names);
 			} ?>
 		</div>
 
-
-      <?php 
-      if(($row['project_notes']) != "") { ?>
-        <div class="project-notes">
-          <p><?= h($row['project_notes']); ?><p>
-        </div><!-- .project-notes -->
-      <?php } else { ?>
-        <div class="project-notes my-projects-pg">
-          <p>This project has nary a note.</p>
-        </div><!-- .project-notes -->
-      <?php } ?>
-
+    <?php 
+    if(($row['project_notes']) != "") { ?>
+      <div class="project-notes">
+        <p><?= h($row['project_notes']); ?><p>
+      </div><!-- .project-notes -->
+    <?php } else { ?>
+      <div class="project-notes my-projects-pg">
+        <p>This project has nary a note.</p>
+      </div><!-- .project-notes -->
+    <?php } ?>
 
 		</div><!-- .project-details -->
 	</li>
@@ -301,20 +295,16 @@ if ($projects > 0) { //(321)
 
     </div>
 
-
-      <?php 
-      if(($row['project_notes']) != "") { ?>
-        <div class="project-notes">
-          <p><?= h($row['project_notes']); ?><p>
-        </div><!-- .project-notes -->
-      <?php } else { ?>
-        <div class="project-notes my-projects-pg">
-          <p>This project has nary a note.</p>
-        </div><!-- .project-notes -->
-      <?php } ?>
-
-
-
+    <?php 
+    if(($row['project_notes']) != "") { ?>
+      <div class="project-notes">
+        <p><?= h($row['project_notes']); ?><p>
+      </div><!-- .project-notes -->
+    <?php } else { ?>
+      <div class="project-notes my-projects-pg">
+        <p>This project has nary a note.</p>
+      </div><!-- .project-notes -->
+    <?php } ?>
 
 		</div><!-- .project-details -->
 	</li>

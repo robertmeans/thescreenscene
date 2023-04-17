@@ -19,7 +19,9 @@ module.exports = function(grunt) {
 		      sourcemap: 'none'
 		    },
 		    files: {
-		      'style-expanded.css': 'components/sass/style.scss'
+		      'style-expanded.css': 'components/sass/style-darkmode.scss', // default is Darkmode
+          'style-spring-expanded.css': 'components/sass/style-spring.scss',
+          'style-classic-expanded.css': 'components/sass/style-classic.scss'
 		    }
 		  },
 		  dist: {
@@ -28,9 +30,9 @@ module.exports = function(grunt) {
 		  		sourcemap: 'none'
 		  	},
 		  	files: {
-		  		// 'style.css': 'components/sass/style.scss' // default is Darkmode
-		  		// 'style-spring.css': 'components/sass/style.scss'
-		  		'style-classic.css': 'components/sass/style.scss'
+		  		'style.css': 'components/sass/style-darkmode.scss', // default is Darkmode
+		  		'style-spring.css': 'components/sass/style-spring.scss',
+		  		'style-classic.css': 'components/sass/style-classic.scss'
 		  	}
 		  }
 		},
