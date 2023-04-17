@@ -30,7 +30,11 @@ module.exports = function(grunt) {
 		  	files: {
 		  		// 'style.css': 'components/sass/style.scss' // default is Darkmode
 		  		// 'style-spring.css': 'components/sass/style.scss'
-		  		'style-classic.css': 'components/sass/style.scss'
+		  		// 'style-classic.css': 'components/sass/style.scss'
+
+          'style.css': 'components/sass/style.scss', // default is Darkmode
+          'style-spring.css': 'components/sass/style-spring.scss',
+          'style-classic.css': 'components/sass/style-classic.scss'
 		  	}
 		  }
 		},

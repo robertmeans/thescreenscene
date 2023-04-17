@@ -256,28 +256,28 @@ ul#sortablesearch li.static {
 
 // project notes
 #table-page #project-wrap .project-details .project-notes {
-	background-color: rgba(255,255,255,0.2)
+	background-color: rgba(255,255,255,0.2);
 }
 
 
 
 // background of my_projects bars 
 #table-page #project-wrap .review-project {
-	background-color: #0099cc;
+  background-color: #59b954;
 	&:hover {
-		background-color: #e89e77;
+		background-color: #0099cc;
 		color: #fff;
 	}
 }
 #table-page #project-wrap .review-project.active {
-	background-color: #e89e77;
+	background-color: #0099cc;
 	&:hover {
-		background-color: #0099cc;
+		background-color: #59b954;
 	}
 }
 .project-details { // my_projects -> project details background
 	// background-color: rgba(0,153,204,1);
-	background-color: #e89e77;
+	background-color: #f78f2d;
 }
 
 
