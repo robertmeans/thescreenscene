@@ -2,7 +2,7 @@
 <html lang="en">
 <!--
 
-	Built with love by EvergreenBob.com
+	♥ Hand coded with love by EvergreenBob.com
 
 -->
 <head>
@@ -26,15 +26,12 @@
   	
 	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Courier+Prime|Roboto|Special+Elite' rel='stylesheet' type='text/css'>
 
-
-	<?php if (isset($_SESSION['color']) && $_SESSION['color'] == "3") { // 1 = Classic
-		?><link rel="stylesheet" href="style-classic.css?<?php echo time(); ?>" type="text/css">
-
-
-	<?php } else if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { // 2 = Spring 
+  <?php if (isset($_SESSION['color']) && $_SESSION['color'] == "3") { 
+		?><link rel="stylesheet" href="style-light.css?<?php echo time(); ?>" type="text/css">
+	<?php } else if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { 
 		?><link rel="stylesheet" href="style-spring.css?<?php echo time(); ?>" type="text/css">
-	<?php } else { // default is Darkmode which is = 1 
-		?><link rel="stylesheet" href="style.css?<?php echo time(); ?>" type="text/css">
+	<?php } else {  
+		?><link rel="stylesheet" href="style-dark.css?<?php echo time(); ?>" type="text/css">
 	<?php } // keeping things pretty in the sorcecode
 	?><script src="scripts/jquery-3.5.1.min.js"></script>
   	<script src="scripts/jquery_1-12-1_ui_min.js"></script>

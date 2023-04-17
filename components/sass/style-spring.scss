@@ -22,9 +22,5 @@
 @import "searches";
 @import "custom";
 
-// color themes
-// default is darkmode: style.css
-
-@import "spring";
-// @import "classic";
-
+@import "Theme-spring";
+/* default is dark which is why there's no Theme-dark. styles for dark are spread across the core .scss files as originally created */

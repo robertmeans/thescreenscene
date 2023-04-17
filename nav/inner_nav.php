@@ -35,7 +35,7 @@
 			<form action="" method="post">
 				<input type="hidden" name="color" value="3">
 				<input type="hidden" name="shared_with" value="1">
-				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Light</a>
 			</form>
 			<li>
 			<form action="" method="post">
@@ -48,7 +48,7 @@
       <form action="" method="post">
         <input type="hidden" name="color" value="1">
         <input type="hidden" name="shared_with" value="1">
-        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
+        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
       </form>
       </li>		
 		</ul>
@@ -105,7 +105,7 @@
       <form action="" method="post">
         <input type="hidden" name="color" value="3">
         <input type="hidden" name="owner" value="1">
-        <a href="#" class="static classic" onclick="$(this).closest('form').submit()">Classic</a>
+        <a href="#" class="static classic" onclick="$(this).closest('form').submit()">Light</a>
       </form>
       </li> 
 			<li>
@@ -119,7 +119,7 @@
       <form action="" method="post">
         <input type="hidden" name="color" value="1">
         <input type="hidden" name="owner" value="1">
-        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark Mode</a>
+        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
       </form>
       </li>      	
 		</ul>
