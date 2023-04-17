@@ -19,7 +19,7 @@ module.exports = function(grunt) {
 		      sourcemap: 'none'
 		    },
 		    files: {
-		      'style-expanded.css': 'components/sass/style.scss'
+		      'style-expanded.css': 'components/sass/style-darkmode.scss'
 		    }
 		  },
 		  dist: {
