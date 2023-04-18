@@ -240,8 +240,9 @@ ul#static-sort a.project-links {
 	// background-color: rgba(0,153,204,1);
 	background-color: #ebf4ff;
 	&:hover {
-		color: #fff;
-		background-color: rgba(0,63,135,1);
+		// color: #fff;
+		// background-color: rgba(0,63,135,1);
+    background-color: #d1d9e3;
 	}
 }
 
@@ -249,6 +250,13 @@ ul#static-sort a.project-links {
 ul#sortablesearch li.static {
 	background-color: rgba(83,171,233,0.24);
 	// color: #fff;
+}
+
+ul#sortable li.pg2 {
+  background-color: #d9d9d9;
+  &:hover {
+    background-color: #bdbdbd;
+  }
 }
 
 // project notes
@@ -285,6 +293,7 @@ ul#sortablesearch li.static {
 #edit-delete-page #edit-wrap #tab2, 
 #edit-delete-page #edit-wrap #tab3 {
     background-color: #fff;
+    background-image: url("_images/edit-bkg-light.png");
     color: #313131;	
 }
 
@@ -320,8 +329,9 @@ ul.inner-nav li a {
 	a i.fa-user-friends,
 	a i.fa-minus-circle {
 		color: #fff;
+    color: #757575;
 			&:hover {
-			color: rgba(0,63,135,1);
+			color: blue;
 		}	
 	}
 	a i.fa-minus-circle:hover {
@@ -338,10 +348,11 @@ ul.inner-nav li a {
 		a i.fa-user-friends,
 		a i.fa-arrows-alt {
 			color: #fff;
+      color: #757575;
 			text-decoration: none;
 			transition: all 0.2s ease;
 			&:hover {
-				color: rgba(0,63,135,1);
+				color: blue;
 			}
 		}
 	}
@@ -492,6 +503,7 @@ a#add-note {
 	}
   input,
   textarea {
+    color: #636363;
     background-color: #d6d6d6;
   }
 }
