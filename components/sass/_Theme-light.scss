@@ -542,11 +542,12 @@ li.youtube {
 		}	
 	}
 	input[type=text] {
-		background-color: rgba(255,255,255,0.2);
+		background-color: rgba(255,255,255,0.5);
 		// color: rgba(49,49,49,1);
-		&::placeholder {
-			color: rgba(185,187,189,1);
-		}
+    color: #313131;
+		// &::placeholder {
+		// 	color: red;
+		// }
 	}
 }
 footer {
