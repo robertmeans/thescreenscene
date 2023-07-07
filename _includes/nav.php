@@ -30,7 +30,7 @@
 				<!-- working on autocomplete... -->
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
 
-			<a href="my_projects.php" class="dda">View Projects Page</a>
+			<a href="my_projects.php" class="dda vpp">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form action="my_projects.php" method="post">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
