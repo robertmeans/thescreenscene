@@ -89,26 +89,45 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
     </div>  
     <div class="sec note">
+      <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
+      <?php
+      if ($row['truncate'] == "1") { ?>
+        <div style="display:none;"><a data-id="trunc_<?= $row['note_id']; ?>">truncate dis note</a></div>
+      <?php } ?>
+        <?php /* After any modifications to notes have been made - this is what will render the notes */ ?>
+        <?php /* section. For first pass see: _includes/search_stack_bottom_member.php */ ?>
         <?php
         if ($row['clipboard'] == "1") { ?>
-          <a href="#" data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
        <?php }
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>" data-target="cb" ><?= $row['note']; ?></p>
+            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
+              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            } else {
+              echo nl2br($row['note']);
+            }
+           ?></p>
         <?php } else { ?>
-            <span class="norm-copy" data-target="cb"><?= $row['note']; ?></span>
+            <span class="norm-copy"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
+              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            } else {
+              echo nl2br($row['note']);
+            } 
+           ?></span>
         <?php }
          ?>
     </div> 
     <div class="sec manage-note">
-      <a href="#" data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
+      <a data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
         <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
-        <a href="#" data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
+        <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
     </div> 
 

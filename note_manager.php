@@ -25,12 +25,12 @@ if (is_post_request()) {
 	$urly         	= $_POST['urly']  ?? ''  ;
 	$note          	= $_POST['note']  ?? ''  ;
 	$clipboard     	= $_POST['clipboard']  ?? ''  ;
+  $truncate       = $_POST['truncate']  ?? ''  ;
 	
-
   global $db;
 
   $sql = "INSERT INTO notes ";
-  $sql .= "(user_id, project_id, name, url, note, sort, clipboard) ";
+  $sql .= "(user_id, project_id, name, url, note, sort, clipboard, truncate) ";
   $sql .= "VALUES ("; 
   $sql .= "'" . $uid . "', ";
   $sql .= "'" . $cp    . "', ";
@@ -38,7 +38,8 @@ if (is_post_request()) {
   $sql .= "'" . db_escape($db, $urly)    . "', ";
   $sql .= "'" . db_escape($db, $note)    . "', ";
   $sql .= "'" . db_escape($db, $sort)    . "', ";
-  $sql .= "'" . $clipboard    . "'";
+  $sql .= "'" . $clipboard    . "', ";
+  $sql .= "'" . $truncate    . "'";
   $sql .= ")";
 
   $result = mysqli_query($db, $sql);
@@ -73,6 +74,7 @@ if (is_post_request()) {
 	$urly         	= $_POST['urly']  ?? ''  ;
 	$note          	= $_POST['note']  ?? ''  ;
 	$clipboard     	= $_POST['clipboard']  ?? ''  ;
+  $truncate      = $_POST['truncate']  ?? ''  ;
 	$nid 						= $_POST['nid'] 	?? ''	 ;
 	
 
@@ -82,7 +84,8 @@ if (is_post_request()) {
   $sql .= "name='" . db_escape($db, h($name))    . "', ";
   $sql .= "url='" . db_escape($db, $urly)    . "', ";
   $sql .= "note='" . db_escape($db, h($note))    . "', ";
-  $sql .= "clipboard='" . $clipboard    . "' ";
+  $sql .= "clipboard='" . $clipboard    . "', ";
+  $sql .= "truncate='" . $truncate    . "' ";
   $sql .= "WHERE note_id='"  . $nid . "' ";
   $sql .= "LIMIT 1";
 

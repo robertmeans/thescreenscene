@@ -373,16 +373,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function() { // 122120856 start
 // Dictionary or Thesaurus on edit_searches.php
 	$('#d').click(function(){
@@ -741,6 +731,7 @@ $(document).ready(function() {
     var urly = $('#aanUrl').val();
     var note = $('#aanNote').val();
     var clipboard = document.getElementById('aanClipboard');
+    var truncate = document.getElementById('aanTruncate');
     var pattern = /^((http|https|ftp):\/\/)/;
 
     if(urly != '') {
@@ -757,10 +748,16 @@ $(document).ready(function() {
       clipboard = "1";
     }
 
+    if(!truncate.checked) {
+      truncate = "0";
+    } else {
+      truncate = "1";
+    }
+
     $.ajax({
       url     : 'note_manager.php',
       method  : 'post',
-      data    : {sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard},
+      data    : {sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
@@ -769,7 +766,8 @@ $(document).ready(function() {
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
-    $('input[type=checkbox]').prop('checked',false);
+    $('input #aanClipboard').prop('checked',false);
+    $('input #aanTruncate').prop('checked',false);
 
     noteModal.style.display = "none";
   });
@@ -791,7 +789,7 @@ $(document).ready(function() {
     }
   });
 
- $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Modal
+ $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Note Modal
   var ida       = $(this).data('id');
   // added a "z_" to this data-id element so the clipboard data-id would be unique
   var id        = ida.substring(2);
@@ -799,12 +797,22 @@ $(document).ready(function() {
   var noten     = $('#z_'+id).find('[data-target="urln"]').text();
   var notes     = $('#z_'+id).find('[data-target="cb"]').text();
   var clipb     = $('#z_'+id).find('a[data-id="'+id+'"]');
+  var trunc     = $('#z_'+id).find('a[data-id="trunc_'+id+'"]');
+
 
   if(clipb.length) { // if clipboard exists
-    $('input[type=checkbox]').prop('checked',true);
+    $('input#aanClipboard').prop('checked',true);
     // clipb = "1";
   } else {
-    $('input[type=checkbox]').prop('checked',false);
+    $('input#aanClipboard').prop('checked',false);
+    // clipb = "0";
+  }
+
+  if(trunc.length) { // if clipboard exists
+    $('input#aanTruncate').prop('checked',true);
+    // clipb = "1";
+  } else {
+    $('input#aanTruncate').prop('checked',false);
     // clipb = "0";
   }
 
@@ -832,10 +840,11 @@ $(document).ready(function() {
     var urly = $('#aanUrl').val();
     var note = $('#aanNote').val();
     var clipboard = document.getElementById('aanClipboard');
+    var truncate = document.getElementById('aanTruncate');
     var pattern = /^((http|https|ftp):\/\/)/;
 
     if(urly != '') {
-      if(!pattern.test(urly)) {
+      if(!pattern.test(urly)) { 
           urly = "http://" + urly;
       }
     } else {
@@ -848,10 +857,16 @@ $(document).ready(function() {
       clipboard = "1";
     }
 
+    if(!truncate.checked) {
+      truncate = "0";
+    } else {
+      truncate = "1";
+    }
+
     $.ajax({
       url     : 'note_manager.php',
       method  : 'post',
-      data    : {name:name, urly:urly, note:note, clipboard:clipboard, nid:nid},
+      data    : {name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate, nid:nid},
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
@@ -860,7 +875,7 @@ $(document).ready(function() {
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
-    $('input[type=checkbox]').prop('checked',false);
+    $('input #aanClipboard').prop('checked',false);
     
     noteModal.style.display = "none";
  });

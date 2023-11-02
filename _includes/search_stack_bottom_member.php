@@ -34,7 +34,7 @@ $max_sort = $max_sort[0] + 1;
 <?php } ?>
 
 <div id="usersnotes">
-<ul <?php if ($notes > 1) { echo "id=\"sortanote\""; } ?> class="project-notes">
+<ul id="<?php if ($notes > 1) { echo 'sortanote'; } ?>" class="project-notes">
 
 <?php 
 $modify_id = 0;
@@ -67,27 +67,51 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <?php } ?>   
         </div>
 
-    </div>  
+    </div>
+    <?php /* First pass - when page first loads - before any additions, modifications, sort, etc. */ ?>
+    <?php /* For code that renders after modifications have been made to this section see in the  */ ?>
+    <?php /* root dir: usernotes.php                                                              */ ?>
     <div class="sec note">
+      <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
+      <?php
+      if ($row['truncate'] == "1") { ?>
+        <div style="display:none;"><a data-id="trunc_<?= $row['note_id']; ?>">truncate dis note</a></div>
+      <?php } ?>
+
         <?php
         if ($row['clipboard'] == "1") { ?>
-          <a href="#" data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
        <?php }
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>" data-target="cb" ><?= $row['note']; ?></p>
+            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
+              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            } else {
+              echo nl2br($row['note']);
+            } 
+           ?></p>
         <?php } else { ?>
-            <span class="norm-copy" data-target="cb"><?= $row['note']; ?></span>
+            <span class="norm-copy"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
+              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            } else {
+              echo nl2br($row['note']);
+            } 
+
+
+           ?></span>
         <?php }
          ?>
     </div> 
+
     <div class="sec manage-note">
-      <a href="#" data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
+      <a data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
-        <a href="#" data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
+        <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
     </div> 
 
@@ -118,10 +142,13 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <label>URL | Makes the name a hyperlink
       <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
 
-      <label>Note | Limit 200 characters
-      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="200" type="text"></textarea></label>
+      <label>Note | Limit 5,000 characters
+      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="5000" type="text"></textarea></label>
 
       <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
+
+      <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 40 characters)</label>
+
       <div class="submit-links">
         <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
         <input type="button" name="update-note" id="update-note" class="update" value="Add note">

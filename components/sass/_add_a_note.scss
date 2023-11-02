@@ -147,6 +147,7 @@
     }
     label.clipboard {
       cursor: pointer;
+      display: block;
     }
     .submit-links {
       width: 100%;
@@ -318,6 +319,12 @@
       width: 60%;
       word-wrap: break-word;
       display: flex;
+      a {
+        cursor: pointer;
+      }
+      p {
+        line-height: 1.5em;
+      }
       a.clipboard {
         float: left;
         margin: 0em 0.5em 0 0;
@@ -353,6 +360,9 @@
       width: 10%;
       min-width: 4em;
       padding-right: 1em;
+      a {
+        cursor: pointer;
+      }
     }
     input {
       outline: none;
@@ -434,8 +444,6 @@ a#note-limit {
   margin-left: -1.3em; 
 }
 
-
-
 #sortanote { 
   list-style-type: none; 
   margin: 0; 
@@ -461,6 +469,11 @@ a#note-limit {
 #sortanote li span { 
   position: absolute; 
   margin-left: -1.3em; 
+}
+#sortanote li span.more {
+  position: relative;
+  margin-left: 1em;
+  font-size: 0.75em;
 }
 #sortanote li .go > input[type=submit],
 #sortanote li input[type=text],
