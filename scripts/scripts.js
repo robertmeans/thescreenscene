@@ -666,22 +666,44 @@ $(document).ready(function() {
     }
     var notecount = notecount2;
 
-    if (notecount == 5) {
+    if (notecount == 0) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
+      $('#im-watchin').html("Your first little note. Aww. :-)");
+    } else if (notecount == 1) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
+      $('#im-watchin').html("&nbsp;");
+    } else if (notecount == 2) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
+      $('#im-watchin').html("&nbsp;");
+    } else if (notecount == 3) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
+      $('#im-watchin').html("&nbsp;");
+    } else if (notecount == 4) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
+      $('#im-watchin').html("&nbsp;");
+    } else if (notecount == 5) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer num5');
       $('#im-watchin').html("You have 5 notes remaining.");
     } else if (notecount == 6) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer');
       $('#im-watchin').html("&nbsp;");
     } else if (notecount == 7) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer num8');
       $('#im-watchin').html("This is note #8. There is a 10 note limit.");
     } else if (notecount == 8) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer num9');
       $('#im-watchin').html("This is note #9. You're a note maniac.");
     } else if (notecount == 9) {
+      $('.aan-modal-footer').attr('class', 'aan-modal-footer num10');
       $('#im-watchin').html("Don't say I didn\'t warn you.");
     } else if (notecount == 10) {
         limitModal.style.display = "block";
         exit();
-    } else {
-
     }
+
+    // reset checkboxes in case they were checked on last modal open
+    $('input#aanClipboard').prop('checked',false);
+    $('input#aanTruncate').prop('checked',false);
 
     modifynote.style.display = "none";
     updatenote.style.display = "block";
@@ -695,7 +717,8 @@ $(document).ready(function() {
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
-    $('input[type=checkbox]').prop('checked',false);
+    $('input#aanClipboard').prop('checked',false);
+    $('input#aanTruncate').prop('checked',false);
 
     noteModal.style.display = "none";
     limitModal.style.display = "none";

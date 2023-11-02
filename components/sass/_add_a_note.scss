@@ -203,6 +203,20 @@
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
 }
+
+.aan-modal-footer.num5 {
+  background-color: #e32626;
+}
+.aan-modal-footer.num8 {
+  background-color: #e32626;
+}
+.aan-modal-footer.num9 {
+  background-color: #e32626;
+}
+.aan-modal-footer.num10 {
+  background-color: #e32626;
+}
+
 .reorder i.fa-arrows-alt {
   color: rgba(255,255,255,0.4);
   &:hover {
@@ -313,8 +327,12 @@
       }
     }
     .sec.note-url.move {
-        padding-left: 0.6em;
-      }
+      padding-left: 0.6em;
+    }
+    .sec.note-url.long,
+    .sec.note-url.move.long {
+      align-self: flex-start;
+    }
     .sec.note {
       width: 60%;
       word-wrap: break-word;
@@ -364,6 +382,12 @@
         cursor: pointer;
       }
     }
+    .sec.manage-note.long,
+    .sec.manage-note.move.long {
+      align-self: flex-start;
+    }
+
+
     input {
       outline: none;
       border: none;
@@ -507,7 +531,14 @@ a#note-limit {
     margin-bottom: 2px;
     border-radius: 3px;
     a {
-      pointer-events: auto; 
+      pointer-events: auto;
+      display: flex; 
+    }
+    a.short {
+      align-items: center;
+    }
+    a.long {
+      align-items: flex-start;
     }
     a.closer {
       pointer-events: auto;

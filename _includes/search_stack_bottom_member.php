@@ -50,7 +50,7 @@ $modify_id = substr("0{$modify_id}", -$str_length);
 if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
 
 <li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>"> 
-    <div class="sec note-url <?php if ($notes > 1) { echo "move"; } ?>">
+    <div class="sec note-url<?php if ($notes > 1) { echo " move"; } if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { echo " long"; } else { echo " short"; } ?>">
 
       <?php if ($notes > 1) { ?>
         <div class="reorder">
@@ -80,7 +80,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
         <?php
         if ($row['clipboard'] == "1") { ?>
-          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static"><i class="far fa-copy fa-fw"></i></a>
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  if (strlen($row['note']) >= 200) { echo " long"; } else { echo " short"; } ?>"><i class="far fa-copy fa-fw"></i></a>
        <?php }
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
             <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
@@ -98,13 +98,12 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
               echo nl2br($row['note']);
             } 
 
-
            ?></span>
         <?php }
          ?>
     </div> 
 
-    <div class="sec manage-note">
+    <div class="sec manage-note<?php  if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { echo " long"; } else { echo " short"; } ?>">
       <a data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
