@@ -1,10 +1,8 @@
 <?php $layout_context = "home-public";
  
 require_once 'config/initialize.php'; 
-
+require '_includes/head.php'; 
 ?>
-
-<?php require '_includes/head.php'; ?>
 <body onLoad="document.google.sr_01.focus();">
 <noscript>
   <style type="text/css">
@@ -26,49 +24,61 @@ require_once 'config/initialize.php';
 <?php // require '_includes/nav.php'; ?>
 
 <div id="table-page">
-
  	<div id="table-wrap">
-
-<?php require '_includes/search_stack_top.php'; ?>
+  <?php require '_includes/search_stack_top.php'; ?>
 
 <div class="tabs visitor">
 
 <div id="landing" class="greet-login visitor1">
 	<!-- <div class="visitor1"> -->
-		<form class="front-login" action="login.php" method="post">
+		<form id="login-form" class="front-login">
 
-		<h3>No account? <a class="log" href="signup.php">Join Here</a></h3>
 
-        <?php if(isset($_SESSION['message'])): ?>
-        <div class="alert <?= $_SESSION['alert-class']; ?>">
-            <?php 
-                echo $_SESSION['message'];
-                unset($_SESSION['message']);
-                unset($_SESSION['alert-class']); 
-            ?>
-        </div><!-- .alert -->
-        <?php endif; ?>
 
-        <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
-        <input type="password" id="password" class="text login-pswd" name="password" placeholder="Password">
 
-        <div class="showpassword-wrap"> 
-            <div id="showLoginPass"><i class="far fa-eye"></i> Show Password</div>
+    <div id="login-alert">
+      <ul id="errors"></ul>
+    </div>
+
+
+		<div id="error-area">No account? <a class="log" href="signup.php">Join Here</a></div>
+
+
+    <input type="hidden" name="login">
+    <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
+    <input type="password" id="password" class="text login-pswd" name="password" placeholder="Password">
+
+    <div class="showpassword-wrap"> 
+        <div id="showLoginPass"><i class="far fa-eye"></i> Show Password</div>
+    </div>
+
+    <input type="checkbox" name="remember_me" id="remember_me">
+    <label for="remember_me" class="rm-checked"> 
+      <div class="rm-wrap">
+        <div class="aa-rm-out">
+          <div class="aa-rm-in"></div>
         </div>
+        <span class="rm-rm">Remember me</span>
+      </div>
+    </label>
 
-        <input type="checkbox" name="remember_me" id="remember_me">
-        <label for="remember_me" class="rm-checked"> 
-            <div class="rm-wrap">
-                <div class="aa-rm-out">
-                    <div class="aa-rm-in"></div>
-                </div>
-                <span class="rm-rm">Remember me</span>
-            </div>
-       </label>
 
-        <input type="submit" name="login" class="submit" value="Login">
 
-        <p class="btm-p"><a class="log" href="forgot_password.php">Forgot password?</a></p>
+
+
+  <div id="toggle-btn">
+    <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
+  </div>
+
+
+
+
+
+
+    <!-- <div id="log-btn"><a id="login" class="login-btn">Login</a></div> -->
+    <!-- <input type="submit" name="login" class="submit" value="Login"> -->
+
+    <p class="btm-p"><a class="log lt" href="signup.php">Create account</a> | <a class="log rt" href="forgot_password.php">Forgot password?</a></p>
 
 		</form>
 	<!-- </div> -->
@@ -76,7 +86,7 @@ require_once 'config/initialize.php';
 
 <div class="visitor2">
 	<h1>BrowserGadget</h1>
-	<p>Stop browsing the Internet like a caveman and upgrade to a Swiss Army homepage.</p>
+	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
 	<p id="watchvideo"><a href="#" class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
 	<ul>
 		<li>Consolidate | Organize</li>

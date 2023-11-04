@@ -154,8 +154,25 @@ if (isset($_POST['submit'])) {
 	}
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // if user clicks on login
-if (isset($_POST['login'])) {
+if (isset($_POST['login_OFF'])) {
 	$firstname = $_POST['firstname'];
 	$password = $_POST['password'];
 
@@ -238,6 +255,29 @@ if (isset($_POST['login'])) {
 		}
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // verify user by token

@@ -252,6 +252,14 @@ p.btm-p {
 p.btm-p.try-again {
 	font-size: 0.8em;
 }
+
+
+
+
+
+
+
+
 #landing-content {
 	width: 96%;
 	max-width: 450px;
@@ -271,12 +279,21 @@ h1.welcome {
 }
 a.log {
 	color: #fff;
-	text-decoration: underline;
+	text-decoration: none;
 	margin-top: 0.5em;
+  transition: all 0.2s ease;
 	&:hover {
-		text-decoration: none;
+		text-decoration: underline;
 	}	
 }
+a.log.lt {
+  margin-right: 0.5em;
+}
+a.log.rt {
+  margin-left: 0.5em;
+}
+
+
 a.logout {
 	color: #fff;
 	text-decoration: none;
@@ -291,6 +308,204 @@ a.welcome-log {
 		text-decoration: underline;
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+#error-area {
+  width: 100%;
+  text-align: left;
+  color: #afafaf;
+  margin-bottom: 1em;
+  a.log {
+    color: yellow;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+#error-area.gone {
+  display: none;
+  margin: 0;
+}
+
+
+#login-form,
+#signup-form,
+#forgotpass-form,
+#resetpass-form {
+  #hidethis {
+    display: none;
+  }
+  a.fp-link {
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    padding: 2px 10px;
+    border: 1px solid transparent;
+    background-color: #cd2b2b;
+    &:hover {
+      text-decoration: none;
+      background-color: transparent;
+      border: 1px solid #fff;
+    }
+  }
+  #login-alert {
+    font-family: 'Courier Prime', monospace; 
+    color: #fff;
+    width: 100%;
+    opacity: 0;
+    text-align: center;
+    border: 1px solid transparent;
+    text-align: left;
+    background-color: rgba(255,255,255,0.6);
+    border-radius: 0px;
+    transition: background-color 1s ease, border-radius 3s ease, border 1.5s ease;
+    ul#errors {
+      margin-top: 0;
+    }
+    ul {
+      margin-left: 20px;
+      li {
+        list-style-type: disc;
+      }
+    }
+  }
+  #login-alert.fade {
+    // background-color: blue;
+    // padding: 20px;
+    // margin-bottom: 1em;
+    // border: 1px solid transparent;
+    // border-radius: 15px;
+  }
+  #login-alert.red {
+    opacity: 1;
+    background-color: #ff4c4c;
+    padding: 20px;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    border: 1px solid #fff;
+  }
+  #login-alert.blue {
+    background-color: #386ab4;
+    padding: 20px;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    border: 1px solid #0f356d;    
+  }
+  #login-alert.orange {
+    background-color: #d08b1f;
+    padding: 20px;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    border: 1px solid #ff9c00;    
+  }
+  #login-alert.green {
+    background-color: #139f19;
+    padding: 20px;
+    margin-bottom: 1em;
+    border-radius: 15px;
+    border: 1px solid #09f514;    
+  }
+  #toggle-btn {
+    display: flex;
+    width: 100%;
+  }
+  .verifying-msg {
+    background-color: #000;
+  }
+  #login-btn,
+  #signup-btn,
+  #forgotpass-btn,
+  #resetpass-btn,
+  .verifying-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border: 1px solid #fff;
+    margin: 0.5em 0 1em;
+    cursor: pointer;
+    box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);
+    transition: all 0.2s ease;
+    &:hover {
+      scale: 0.95;
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.6);
+    }
+    .login-txt {
+      background-color: rgba(0,0,0,0.2);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 2.5em;
+      
+    &:hover {
+        background-color: #000;
+      }
+    }
+    .login-verify {
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      // padding: 10px 20px;
+      height: 2.5em;
+
+    }
+  }
+  // when form is processing - remove
+  // pointer and keep bkg solid (no hover)
+  #toggle-btn .verifying-msg .login-txt,
+  #toggle-btn .verifying-msg .login-txt,
+  #toggle-btn .verifying-msg .login-txt,
+  #toggle-btn .verifying-msg .login-txt {
+    cursor: default;
+    .login-txt {
+      background-color: #000;
+    }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 button.verified,
 a.verified {
 	width: 100%;

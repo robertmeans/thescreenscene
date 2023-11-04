@@ -116,19 +116,130 @@ $("#showLoginPass").click(function(){
 $("#showSignupPass").click(function(){
   var x = document.getElementById("showPassword");
   var y = document.getElementById("showConf");
-    $(this).toggleClass("showPassOn");
+  $(this).toggleClass("showPassOn");
 
-    if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
-        $(this).html('<i class="far fa-eye"></i> Show passwords');
-        x.type = "password";
-        y.type = "password";
+  if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
+      $(this).html('<i class="far fa-eye"></i> Show passwords');
+      x.type = "password";
+      y.type = "password";
+  } else {
+      $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
+      x.type = "text";
+      y.type = "text";
+  }
+  return false;
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+// login begin
+$("#login-form").keyup(function(event) {
+  if (event.keyCode === 13) {
+    $("#login-btn").click();
+  }
+});
+$(document).ready(function() {
+
+  var login_attempts = 0;
+  $(document).on('click','#login-btn', function() {
+    var current_loc = window.location.href;
+
+    // var list = $('li').attr('class');
+
+
+    if (!$('li').hasClass('no-count')) {
+      login_attempts += 1;
     } else {
-        $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
-        x.type = "text";
-        y.type = "text";
-    }
-    return false;
+      login_attempts += 0;
+    }      
+
+
+
+    // alert (login_attempts);
+
+    $.ajax({
+      dataType: "JSON",
+      url: "login-process.php",
+      type: "POST",
+      data: $('#login-form').serialize(),
+      beforeSend: function(xhr) {
+        $('#login-alert').removeClass('red blue orange green'); // reset class every click
+        // $('#errors').html('');
+        $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+
+      },
+      success: function(response) {
+        console.log(response);
+        if(response) {
+          // console.log(response);
+          if(response['signal'] == 'ok') {
+
+            if (current_loc.indexOf("localhost") > -1) {
+              window.location.replace("http://localhost/browsergadget");
+            } else {
+              window.location.replace("https://browsergadget.com");
+            }
+
+          } else {
+            $('#error-area').addClass('gone');
+            // $('#session-msg').html('');
+            $('#login-alert').addClass('fade');
+            $('#login-alert').addClass(response['class']);
+
+            if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("localhost") > -1) {
+              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link" href="http://localhost/browsergadget/forgot_password.php">reset</a> it.</li>');
+            } else if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("browsergadget.com") > -1)  {
+              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link" href="https://browsergadget.com/forgot_password.php">reset</a> it.</li>');
+            } else {
+              $('#errors').html(response['li']);
+            }
+
+            // $('#login-btn').html(response['msg']);
+            $('#toggle-btn').html('<div id="login-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+        $('#login-btn').html(response['msg']);
+      }, 
+      complete: function() {
+
+      }
+    })
+
+
+
+
   });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -118,19 +118,24 @@ $("#showLoginPass").click(function(){
 $("#showSignupPass").click(function(){
   var x = document.getElementById("showPassword");
   var y = document.getElementById("showConf");
-    $(this).toggleClass("showPassOn");
+  $(this).toggleClass("showPassOn");
 
-    if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
-        $(this).html('<i class="far fa-eye"></i> Show passwords');
-        x.type = "password";
-        y.type = "password";
-    } else {
-        $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
-        x.type = "text";
-        y.type = "text";
-    }
-    return false;
-  });
+  if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
+      $(this).html('<i class="far fa-eye"></i> Show passwords');
+      x.type = "password";
+      y.type = "password";
+  } else {
+      $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
+      x.type = "text";
+      y.type = "text";
+  }
+  return false;
+});
+
+
+// login - see scripts-visitor.js
+
+
 
 // *NEW: show then hide ddown menu on hover.
 // uses hoverintent: https://briancherne.github.io/jquery-hoverIntent/
