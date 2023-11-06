@@ -499,11 +499,11 @@ span.more {
   margin-left: 1em;
   font-size: 0.75em; 
 }
-// #sortanote li span.more {
-//   position: relative;
-//   margin-left: 1em;
-//   font-size: 0.75em;
-// }
+#sortanote li span.more {
+  position: relative;
+  margin-left: 1em;
+  font-size: 0.75em;
+}
 #sortanote li .go > input[type=submit],
 #sortanote li input[type=text],
 #sortanote li input[type=checkbox],
