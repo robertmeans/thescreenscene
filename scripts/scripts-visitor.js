@@ -49,43 +49,57 @@ $(document).ready(function() {
 });
 
 // homepage YouTube introduction video
-	var ytvideo = document.getElementById("ytvideo");
-	var watchvideo = document.getElementById("watchvideo");
-	var shutterdown = document.getElementsByClassName("shutterdown")[0];
-	var vid = document.getElementById("foo").getAttribute("src");
+var ytvideo = document.getElementById("ytvideo");
+var watchvideo = document.getElementById("watchvideo");
+var shutterdown = document.getElementsByClassName("shutterdown")[0];
+var vid = document.getElementById("foo").getAttribute("src");
 
-	window.addEventListener("load", function(){
-		watchvideo.onclick = function() {
+window.addEventListener("load", function(){
+	watchvideo.onclick = function() {
 
-			if (document.getElementById("foo").hasAttribute("src")) {
-				ytvideo.style.display = "flex";
-			} else {
-				document.getElementById("foo").setAttribute("src", vid);
-				ytvideo.style.display = "flex";
-			}
+		if (document.getElementById("foo").hasAttribute("src")) {
+			ytvideo.style.display = "flex";
+		} else {
+			document.getElementById("foo").setAttribute("src", vid);
+			ytvideo.style.display = "flex";
+		}
 
-		}
-		shutterdown.onclick = function() {
-			document.getElementById("foo").removeAttribute("src");
-		  ytvideo.style.display = "none";
-		}
-		window.onclick = function(event) {
-		  if (event.target == ytvideo) {
-		  	document.getElementById("foo").removeAttribute("src");
-		    ytvideo.style.display = "none";
-		  }
-		}
-	});
+	}
+	shutterdown.onclick = function() {
+		document.getElementById("foo").removeAttribute("src");
+	  ytvideo.style.display = "none";
+	}
+	window.onclick = function(event) {
+	  if (event.target == ytvideo) {
+	  	document.getElementById("foo").removeAttribute("src");
+	    ytvideo.style.display = "none";
+	  }
+	}
+});
 
 // end homepage YouTube introduction video
 
 // a static link - stop from jumping to top of page
-$('a.static').click(function(e)
-{
-   e.preventDefault();
+$('a.static').click(function(e) {
+  e.preventDefault();
 });
 
-/* sweet rememberme triangle inside circle all css */
+
+$(document).ready(function() {
+
+  $(document).on('click','.create-form', function() {
+    $('#landing').load('signup-insert.php');
+  });
+  $(document).on('click','.log-form', function() {
+    $('#landing').load('login-insert.php');
+  });
+  $(document).on('click','.forgot-form', function() {
+    $('#landing').load('forgot-insert.php');
+  });
+
+});
+
+
 $('input[name="remember_me"]').change(function(){
     if($(this).is(":checked")) {
         $('.aa-rm-out').addClass("checkablue");
@@ -98,9 +112,11 @@ $('input[name="remember_me"]').change(function(){
     }
 });
 
+
+
 /* show passwords */
-$("#showLoginPass").click(function(){
-  var x = document.getElementById("password");
+$("#showLoginPass-home").click(function(){
+  var x = document.getElementById("password-home");
     $(this).toggleClass("showPassOn");
 
     if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide password') {
@@ -112,31 +128,6 @@ $("#showLoginPass").click(function(){
     }
     return false;
   });
-
-$("#showSignupPass").click(function(){
-  var x = document.getElementById("showPassword");
-  var y = document.getElementById("showConf");
-  $(this).toggleClass("showPassOn");
-
-  if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
-      $(this).html('<i class="far fa-eye"></i> Show passwords');
-      x.type = "password";
-      y.type = "password";
-  } else {
-      $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
-      x.type = "text";
-      y.type = "text";
-  }
-  return false;
-});
-
-
-
-
-
-
-
-
 
 
 
@@ -154,18 +145,11 @@ $(document).ready(function() {
   $(document).on('click','#login-btn', function() {
     var current_loc = window.location.href;
 
-    // var list = $('li').attr('class');
-
-
     if (!$('li').hasClass('no-count')) {
       login_attempts += 1;
     } else {
       login_attempts += 0;
     }      
-
-
-
-    // alert (login_attempts);
 
     $.ajax({
       dataType: "JSON",
@@ -174,7 +158,7 @@ $(document).ready(function() {
       data: $('#login-form').serialize(),
       beforeSend: function(xhr) {
         $('#login-alert').removeClass('red blue orange green'); // reset class every click
-        // $('#errors').html('');
+        $('#error-area').removeClass('gone');``
         $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
 
       },
@@ -192,8 +176,6 @@ $(document).ready(function() {
 
           } else {
             $('#error-area').addClass('gone');
-            // $('#session-msg').html('');
-            $('#login-alert').addClass('fade');
             $('#login-alert').addClass(response['class']);
 
             if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("localhost") > -1) {
@@ -204,7 +186,6 @@ $(document).ready(function() {
               $('#errors').html(response['li']);
             }
 
-            // $('#login-btn').html(response['msg']);
             $('#toggle-btn').html('<div id="login-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
           }
         } 
@@ -219,28 +200,8 @@ $(document).ready(function() {
     })
 
 
-
-
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

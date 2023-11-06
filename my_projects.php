@@ -81,11 +81,16 @@ $projects = mysqli_num_rows($any_projects_for_user);
  	<div id="project-wrap">
 
  	<div class="project-greeting"><?php // special version of inner_nav just for this spot ?>
- 		<?= $_SESSION['username']; ?>'s Projects | 
  		<a href="<?= WWW_ROOT ?>" class="my-nav"><div class="tooltip"><span class="tooltiptext">Homepage of last project viewed</span><i class="fas fa-house-user"></i></div></a> 
 
  		<a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square"></i></div></a>
  	</div>
+  <div class="project-greeting">
+    <p class="my-info-h">My account info</p>
+    <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <span class="bold"><?= $_SESSION['lastname']; ?></span></p>
+    <p class="my-info-t">Username: <span class="bold"><?= $_SESSION['username']; ?></span></p>
+    <p class="my-info-t">Email: <span class="bold"><?= $_SESSION['email']; ?></span></p>
+  </div>
 
 <ul class="manage-my-projects">
 <?php 

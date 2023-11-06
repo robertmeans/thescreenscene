@@ -87,54 +87,8 @@ $('a.static').click(function(e) {
    e.preventDefault();
 });
 
-/*  rememberme circle */
-$('input[name="remember_me"]').change(function(){
-    if($(this).is(":checked")) {
-        $('.aa-rm-out').addClass("checkablue");
-        $('.aa-rm-in').addClass("checkaroo");
-        $('.rm-rm').addClass("hot");
-    } else {
-        $('.aa-rm-out').removeClass("checkablue");
-        $('.aa-rm-in').removeClass("checkaroo");
-        $('.rm-rm').removeClass("hot");
-    }
-});
-
-/* show passwords */
-$("#showLoginPass").click(function(){
-  var x = document.getElementById("password");
-    $(this).toggleClass("showPassOn");
-
-    if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide password') {
-        $(this).html('<i class="far fa-eye"></i> Show password');
-        x.type = "password";
-    } else {
-        $(this).html('<i class="far fa-eye-slash"></i> Hide password');
-        x.type = "text";
-    }
-    return false;
-  });
-
-$("#showSignupPass").click(function(){
-  var x = document.getElementById("showPassword");
-  var y = document.getElementById("showConf");
-  $(this).toggleClass("showPassOn");
-
-  if ($.trim($(this).html()) === '<i class="far fa-eye-slash"></i> Hide passwords') {
-      $(this).html('<i class="far fa-eye"></i> Show passwords');
-      x.type = "password";
-      y.type = "password";
-  } else {
-      $(this).html('<i class="far fa-eye-slash"></i> Hide passwords');
-      x.type = "text";
-      y.type = "text";
-  }
-  return false;
-});
-
 
 // login - see scripts-visitor.js
-
 
 
 // *NEW: show then hide ddown menu on hover.

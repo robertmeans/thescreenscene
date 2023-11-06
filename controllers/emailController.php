@@ -8,20 +8,18 @@ use PHPMailer\PHPMailer\Exception;
 require_once 'vendor/autoload.php';
 require_once 'config/constants.php';
 
-function sendVerificationEmail($firstname, $userEmail, $token) {
+function sendVerificationEmail($firstname, $email, $token) {
 
     $mail = new PHPMailer(true);
 
     try {
-        $mail->Host       = 'localhost';
-        $mail->SMTPAuth   = false;
-        $mail->Username   = EMAIL;
-        $mail->Password   = PASSWORD; 
+        
+        mail_config();
 
         //Recipients
-        $mail->setFrom(EMAIL, 'BrowserGadget');
-        $mail->addAddress($userEmail, $firstname);     // Add a recipient
-        $mail->addReplyTo($userEmail);
+        $mail->setFrom('donotreply@browsergadget.com', 'BrowserGadget');
+        $mail->addAddress($email, $firstname);     // Add a recipient
+        $mail->addReplyTo('browsergadget@gmail.com');
         // $mail->addCC('cc@example.com');
         $mail->addBCC('browsergadget@gmail.com');
 
@@ -56,24 +54,22 @@ function sendVerificationEmail($firstname, $userEmail, $token) {
         $mail->send();
 
     } catch (Exception $e) {
-        echo "Email verification ran into a server error. This is no bueno and brings shame to my family. If you are so inclined, please copy and paste this message into an email to: bob@browsergadget.com -- Mailer Error: {$mail->ErrorInfo}";
+        echo "Email verification ran into a server error. This is no bueno and brings shame to my family. If you are so inclined, please copy and paste this message into an email to: browsergadget@gmail.com -- Mailer Error: {$mail->ErrorInfo}";
     }
 }
 
-function sendPasswordResetLink($userEmail, $token) {
+function sendPasswordResetLink($email, $token) {
 
     $mail = new PHPMailer(true);
 
     try {
-        $mail->Host       = 'localhost';
-        $mail->SMTPAuth   = false;
-        $mail->Username   = EMAIL;
-        $mail->Password   = PASSWORD; 
+        
+        mail_config(); 
 
         //Recipients
-        $mail->setFrom(EMAIL, 'BrowserGadget');
-        $mail->addAddress($userEmail);     // Add a recipient
-        $mail->addReplyTo($userEmail);
+        $mail->setFrom('donotreply@browsergadget.com', 'BrowserGadget');
+        $mail->addAddress($email);     // Add a recipient
+        $mail->addReplyTo('donotreply@browsergadget.com');
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('robert@evergreenwebdesign.com');
 
@@ -107,6 +103,6 @@ function sendPasswordResetLink($userEmail, $token) {
     $mail->send();
 
     } catch (Exception $e) {
-        echo "Email verification ran into a server error. This is no bueno and brings shame to my family. If you are so inclined, please copy and paste this message into an email to: bob@browsergadget.com -- Mailer Error: {$mail->ErrorInfo}";
+        echo "Email verification ran into a server error. This is no bueno and brings shame to my family. If you are so inclined, please copy and paste this message into an email to: browsergadget@gmail.com -- Mailer Error: {$mail->ErrorInfo}";
     }
 }

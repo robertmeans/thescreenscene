@@ -26,37 +26,18 @@ if (((isset($_SESSION['verified']) && ($_SESSION['verified'] != "0")) && (!$_SES
 ?>
 
 <?php include '_includes/head.php'; ?>
-
 <body>
 <?php // require '_includes/nav.php'; ?>
 	
 <div id="landing">
-
 	<div id="landing-content">
 
-		<?php if(isset($_SESSION['message'])): ?>
-		<div class="alert <?= $_SESSION['alert-class']; ?>">
-			<?php 
-				echo $_SESSION['message'];
-				unset($_SESSION['message']);
-				unset($_SESSION['alert-class']); 
-			?>
-		</div><!-- .alert -->
-		<?php endif; ?>
-
-		<h1 class="welcome">Welcome<?php if (isset($_SESSION['firstname'])) { echo ' ' . h($_SESSION['firstname']) . ','; } else { echo ','; } ?></h1>
-
-		<?php if(!$_SESSION['verified']): ?>
-			<div class="alert alert-warning">
-				<p>To help keep the riffraff out you need to verify your account. Check your email and click on the link verification that was sent to: <span class="yo-email"><?= $_SESSION['email']; ?></span></p>
-				<p>If you think you are seeing this message in error...</p>
-				<a class="verified" href="login.php">try to log in</a>
-			</div>
-		<?php endif; ?>
-
-		<?php if($_SESSION['verified']): ?>
-		 	<a class="verified" href="/">Let me in already!</a>
-		 <?php endif; ?>
+		<div class="alert alert-warning">
+			<?php /* if (isset($_SESSION['verified'])) { echo 'How is this?'; } */ ?>
+			<p>Something went weird. I really can't imagine how you ended up seeing this. Seriously, I'm only putting this here as a catchall to field whatever bizarro combination of strangeness could possibly result in this being visible.</p>
+			<p>Congratulations?</p>
+		</div>
+	 	<a class="verified" href="/logout.php">Reset your session</a>
 
 	</div><!-- #landing-content -->
 </div><!-- #landing -->

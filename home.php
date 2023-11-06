@@ -6,8 +6,7 @@ require '_includes/head.php';
 <body onLoad="document.google.sr_01.focus();">
 <noscript>
   <style type="text/css">
-    .noscriptwrap {display:none;}
-    .noscriptmsg { display:flex;width:100%;height:100vh;flex-direction:column;justify-content:center;align-items:center;color:#fff;padding:2em;font-size:16px;line-height:1.5em; }
+    .noscriptwrap {display:none;} .noscriptmsg { display:flex;width:100%;height:100vh;flex-direction:column;justify-content:center;align-items:center;color:#fff;padding:2em;font-size:16px;line-height:1.5em; }
   </style>
   <div class="noscriptmsg">
     <p>You don't have javascript enabled.</p>
@@ -30,29 +29,24 @@ require '_includes/head.php';
 <div class="tabs visitor">
 
 <div id="landing" class="greet-login visitor1">
-	<!-- <div class="visitor1"> -->
+
 		<form id="login-form" class="front-login">
-
-
-
 
     <div id="login-alert">
       <ul id="errors"></ul>
     </div>
 
-
-		<div id="error-area">No account? <a class="log" href="signup.php">Join Here</a></div>
-
+		<div id="error-area">No account? <a class="log create-form">Join Here</a></div>
 
     <input type="hidden" name="login">
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
-    <input type="password" id="password" class="text login-pswd" name="password" placeholder="Password">
+    <input type="password" id="password-home" class="text login-pswd" name="password" placeholder="Password">
 
     <div class="showpassword-wrap"> 
-        <div id="showLoginPass"><i class="far fa-eye"></i> Show Password</div>
+        <div id="showLoginPass-home"><i class="far fa-eye"></i> Show Password</div>
     </div>
 
-    <input type="checkbox" name="remember_me" id="remember_me">
+    <input id="remember_me" type="checkbox" name="remember_me">
     <label for="remember_me" class="rm-checked"> 
       <div class="rm-wrap">
         <div class="aa-rm-out">
@@ -62,40 +56,45 @@ require '_includes/head.php';
       </div>
     </label>
 
+    <div id="toggle-btn">
+      <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
+    </div>
 
-
-
-
-  <div id="toggle-btn">
-    <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
-  </div>
-
-
-
-
-
-
-    <!-- <div id="log-btn"><a id="login" class="login-btn">Login</a></div> -->
-    <!-- <input type="submit" name="login" class="submit" value="Login"> -->
-
-    <p class="btm-p"><a class="log lt" href="signup.php">Create account</a> | <a class="log rt" href="forgot_password.php">Forgot password?</a></p>
+    <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>
 
 		</form>
-	<!-- </div> -->
+
 </div>
 
-<div class="visitor2">
-	<h1>BrowserGadget</h1>
-	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
-	<p id="watchvideo"><a href="#" class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
-	<ul>
-		<li>Consolidate | Organize</li>
-    <li>Store bookmarks</li>
-		<li>Share projects</li>
-    <li>Hug strangers</li>
-	</ul>
-  <div class="tooltip dm"><span class="tooltiptext">In case dark isn't your thing</span><p class="dm"><i class="fas fa-star dmf"></i> Foofoo color option inside <i class="fas fa-star dml"></i></p></div>
+
+
+
+<div id="visitor2" class="visitor2">
+  <div class="v2wrap">
+  	<h1>BrowserGadget</h1>
+  	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
+  	<p id="watchvideo"><a href="#/" class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
+  	<ul>
+  		<li>Consolidate | Organize</li>
+      <li>Store bookmarks</li>
+  		<li>Share projects</li>
+      <li>Hug strangers</li>
+  	</ul>
+    <div class="tooltip dm"><span class="tooltiptext">In case dark isn't your thing</span><p class="dm"><i class="fas fa-star dmf"></i> Foofoo color option inside <i class="fas fa-star dml"></i></p></div>
+  </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </div><!-- .tabs .new-intro -->
 

@@ -30,14 +30,11 @@ if (is_post_request() && isset($_POST['login'])) {
   }
 
 
-
-
   if ($li === '') {
 
-
-        if (WWW_ROOT == 'http://localhost/browsergadget') {
-          sleep(2); 
-        }
+    if (WWW_ROOT == 'http://localhost/browsergadget') {
+      sleep(2); 
+    }
 
     // $userQuery = "SELECT * FROM users WHERE username=? LIMIT 2";
     $userQuery = "SELECT * FROM users WHERE LOWER(username) LIKE LOWER(?) LIMIT 2";
@@ -46,7 +43,6 @@ if (is_post_request() && isset($_POST['login'])) {
     $stmt->execute();
 
     $result = $stmt->get_result();
-
     $userCount = $result->num_rows;
     $stmt->close();
 
@@ -55,7 +51,7 @@ if (is_post_request() && isset($_POST['login'])) {
         $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
         $li .= '<li class="no-count">There are multiple users with the first name "' . $username . '". Please use your email address to login.</li>';
         $class = 'orange';
-      } else if (count($errors) === 0) {
+      } else {
 
       // having to accept email or username because of how Apple/ios binds these two
       // in their login management
@@ -67,12 +63,6 @@ if (is_post_request() && isset($_POST['login'])) {
       $result = $stmt->get_result();
       $userCount = $result->num_rows;
       $user = $result->fetch_assoc();
-
-
-
-
-
-
 
       if ($userCount < 1) {
         $signal = 'bad';
@@ -103,15 +93,15 @@ if (is_post_request() && isset($_POST['login'])) {
         } else {
 
           // user is logged in and verified. did they check the rememberme?
-          if (isset($_POST['remember_me'])) {
+          if (isset($_POST['remember_me']) || isset($_POST['remember_me-insert'])) {
             $token = $_SESSION['token'];
             setCookie('token', $token, time() + (1825 * 24 * 60 * 60));
           }
 
-        /*  local testing */   
-        if (WWW_ROOT == 'http://localhost/browsergadget') {
-          sleep(2); 
-        }
+          /*  local testing */   
+          if (WWW_ROOT == 'http://localhost/browsergadget') {
+            sleep(2); 
+          }
 
           // everything checks out -> you're good to go!
           $signal = 'ok';
@@ -125,11 +115,8 @@ if (is_post_request() && isset($_POST['login'])) {
         $class = 'red';
         $count = 'on';
       }
-
-    }
-    
+    } 
   } 
-
 }
 $data = array(
   'signal' => $signal,
