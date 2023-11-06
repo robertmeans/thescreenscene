@@ -1,6 +1,6 @@
 <?php require_once 'config/initialize.php'; ?>
 
-<form id="signup-form">
+<form id="signup-form" method="post">
 
   <div id="signup-alert">
     <ul id="signup-errors"></ul>

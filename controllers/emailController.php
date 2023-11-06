@@ -99,7 +99,7 @@ function sendPasswordResetLink($email, $token) {
         </body>
         </html>';
 
-    $mail->AltBody = 'Please copy and paste this link into your browser address bar to reset your password: https://browsergadget.com/index.php?token=' . $token;
+    $mail->AltBody = 'Please copy and paste this link into your browser address bar to reset your password: https://browsergadget.com/index.php?password-token=' . $token;
     $mail->send();
 
     } catch (Exception $e) {

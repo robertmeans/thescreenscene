@@ -542,7 +542,9 @@ $(document).ready(function() {
     theModal.style.display = "block";
 	});
 
-	var closefp = document.getElementsByClassName("closefp")[0];
+  if (document.getElementsByClassName("closefp").length) {
+	 var closefp = document.getElementsByClassName("closefp")[0];
+  }
 	closefp.onclick = function() {
 	  theModal.style.display = "none";
 	}

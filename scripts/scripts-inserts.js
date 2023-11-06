@@ -47,15 +47,14 @@ $('#showSignupPass-insert').click(function(){
 
 
 
-
-
-
-
 // login begin (insert version)
 $('#login-form-insert').keyup(function(event) {
   if (event.keyCode === 13) {
     $('#login-btn-insert').click();
   }
+});
+$('#login-form-insert').submit(function(e){
+    e.preventDefault();
 });
 $(document).ready(function() {
 
@@ -128,10 +127,13 @@ $('#signup-form').keyup(function(event) {
     $('#signup-btn').click();
   }
 });
+$('#signup-form').submit(function(e){
+    e.preventDefault();
+});
 $(document).ready(function() {
 
   $(document).on('click','#signup-btn', function() {
-    var current_loc = window.location.href;     
+    // var current_loc = window.location.href;     
 
     $.ajax({
       dataType: "JSON",
@@ -170,21 +172,19 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
 // forgot password recovery begin
 $('#forgot-form').keyup(function(event) {
   if (event.keyCode === 13) {
     $('#forgot-btn').click();
+    // alert('click works');
   }
+});
+$('#forgot-form').submit(function(e){
+    e.preventDefault();
 });
 $(document).ready(function() {
 
-  $(document).on('click','#forgot-btn', function() {
-    // var current_loc = window.location.href;     
+  $(document).on('click','#forgot-btn', function(e) {     
 
     $.ajax({
       dataType: "JSON",
@@ -192,8 +192,11 @@ $(document).ready(function() {
       type: "POST",
       data: $('#forgot-form').serialize(),
       beforeSend: function(xhr) {
-        $('#forgot-alert').removeClass('red blue orange green'); // reset class every click
+
         $('#pswd-recovery').removeClass('gone');
+        $('#forgot-alert').removeClass('red blue orange green'); // reset class every click 
+        $('#pswd-recovery').addClass('holup');
+        $('#pswd-recovery').html('<p>Gimme a second...</p>')
         $('#toggle-forgot-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
 
       },
@@ -202,11 +205,12 @@ $(document).ready(function() {
         if(response) {
           // console.log(response);
           if(response['signal'] == 'ok') {
-            // alert('youZZZZZZZZZZZ');
             $('#landing').load('forgotpass-success-insert.php');
 
           } else {
             $('#pswd-recovery').addClass('gone');
+            $('#pswd-recovery').removeClass('holup');
+            
             $('#forgot-alert').addClass(response['class']);
             $('#forgot-errors').html(response['li']);
             $('#toggle-forgot-btn').html('<div id="forgot-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
@@ -223,6 +227,7 @@ $(document).ready(function() {
     })
 
   });
+
 });
 
 

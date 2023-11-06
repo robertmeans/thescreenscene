@@ -37,7 +37,7 @@ if (((isset($_SESSION['verified']) && ($_SESSION['verified'] != "0")) && (!$_SES
 			<p>Something went weird. I really can't imagine how you ended up seeing this. Seriously, I'm only putting this here as a catchall to field whatever bizarro combination of strangeness could possibly result in this being visible.</p>
 			<p>Congratulations?</p>
 		</div>
-	 	<a class="verified" href="/logout.php">Reset your session</a>
+	 	<a class="verified" href="logout.php">Reset your session</a>
 
 	</div><!-- #landing-content -->
 </div><!-- #landing -->

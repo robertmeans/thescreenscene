@@ -7,8 +7,8 @@
 
     <p class="riff">To help keep the riffraff out you need to verify your account. Check your email and click on the link verification that was sent to: 
       <span class="yo-email"><?= $_SESSION['email']; ?></span> 
-    If you think you are seeing this message in error...
-    <a class="verified log-form">try to log in</a></p>
+    Can take a minute or 2...
+    <a class="verified log-form">Close this dialog</a></p>
 
   </div>
 </div>

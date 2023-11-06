@@ -1,5 +1,3 @@
-<?php require_once 'config/initialize.php'; ?>
-
 <div class="success-message">
   <div class="success-area">
 

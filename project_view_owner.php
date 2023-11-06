@@ -5,11 +5,11 @@ require_once 'config/initialize.php';
 // off for local testing
 
 if (!isset($_SESSION['id'])) {
-  header('location: home.php');
+  header('location:' . WWW_ROOT);
   exit();
 }
 if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
-  header('location: home.php');
+  header('location:' . WWW_ROOT);
   exit();
 }
 

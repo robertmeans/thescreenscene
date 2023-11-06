@@ -96,40 +96,27 @@ function verifyUser($token) {
 
 
 
-// // if user clicks on forgot password 
-// if (isset($_POST['forgot-password-zy'])) {
-// 	$email = $_POST['email'];
-
-// 	if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-// 		$errors['email'] = "Email is invalid";
-// 	}
-
-// 	if (empty($email)) {
-// 		$errors['email'] = "Email required";
-// 	}
-
-// 	if (count($errors) == 0) {
-
-// 		$sql = "SELECT * FROM users WHERE email='$email' LIMIT 1";
-// 		$result = mysqli_query($conn, $sql);
-// 		$user = mysqli_fetch_assoc($result);
-// 		$token = $user['email_code'];
-// 		sendPasswordResetLink($email, $token);
-// 		header('location: password_message.php');
-// 		exit(0);
-// 	}
-// }
 
 
 
 
 
+// user has a password-reset token in query string they've presented
+function resetPassword($token) 
+{
+	global $conn;
+	$sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
+	$result = mysqli_query($conn, $sql);
+	$user = mysqli_fetch_assoc($result);
+
+  $_SESSION['firstname'] = $user['first_name'];
+	$_SESSION['email'] = $user['email'];
+  $_SESSION['pr-lemmein'] = 'showmepr';
+	header('location:' . WWW_ROOT);
+	exit();
 
 
-
-
-
-
+}
 
 
 
@@ -137,41 +124,30 @@ function verifyUser($token) {
 
 // if user clicked on the reset password 
 if (isset($_POST['reset-password-btn'])) {
-	$password = $_POST['password'];
-	$passwordConf = $_POST['passwordConf'];
+  $password = $_POST['password'];
+  $passwordConf = $_POST['passwordConf'];
 
-	if (empty($password) || empty($passwordConf)) {
-		$errors['password'] = "Password required";
-	}
+  if (empty($password) || empty($passwordConf)) {
+    $errors['password'] = "Password required";
+  }
 
-	if ($password !== $passwordConf) {
-		$errors['password'] = "Passwords don't match";
-	}
+  if ($password !== $passwordConf) {
+    $errors['password'] = "Passwords don't match";
+  }
 
-	$password = password_hash($password, PASSWORD_DEFAULT);
-	$email = $_SESSION['email'];
+  $password = password_hash($password, PASSWORD_DEFAULT);
+  $email = $_SESSION['email'];
 
-	if(count($errors) == 0) {
-		$sql = "UPDATE users SET password='$password' WHERE email='$email'";
-		$result = mysqli_query($conn, $sql);
-		if ($result) {
-			$_SESSION['message'] = "Your password was changed successfully. You can now login with your new credentials.";
-			$_SESSION['alert-class'] = "pass-reset";
-			header('location: login.php');
-			exit(0);
-		}
-	}
+  if(count($errors) == 0) {
+    $sql = "UPDATE users SET password='$password' WHERE email='$email'";
+    $result = mysqli_query($conn, $sql);
+    if ($result) {
+
+      unset($_SESSION['pr-lemmein']);
+      // $_SESSION['message'] = "Your password was changed successfully. You can now login with your new credentials.";
+      // $_SESSION['alert-class'] = "pass-reset";
+      header('location: login.php');
+      exit(0);
+    }
+  }
 }
-
-function resetPassword($token) 
-{
-	global $conn;
-	$sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
-	$result = mysqli_query($conn, $sql);
-	$user = mysqli_fetch_assoc($result);
-	$_SESSION['email'] = $user['email'];
-	header('location: reset_password.php');
-	exit(0);
-
-}
-

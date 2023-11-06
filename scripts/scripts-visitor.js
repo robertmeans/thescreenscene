@@ -139,6 +139,9 @@ $("#login-form").keyup(function(event) {
     $("#login-btn").click();
   }
 });
+$('#login-form').submit(function(e){
+    e.preventDefault();
+});
 $(document).ready(function() {
 
   var login_attempts = 0;
@@ -179,9 +182,9 @@ $(document).ready(function() {
             $('#login-alert').addClass(response['class']);
 
             if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("localhost") > -1) {
-              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link" href="http://localhost/browsergadget/forgot_password.php">reset</a> it.</li>');
+              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
             } else if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("browsergadget.com") > -1)  {
-              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link" href="https://browsergadget.com/forgot_password.php">reset</a> it.</li>');
+              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
             } else {
               $('#errors').html(response['li']);
             }

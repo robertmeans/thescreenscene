@@ -1,6 +1,6 @@
 <?php require_once 'config/initialize.php'; ?>
 
-<form id="login-form-insert" class="front-login">
+<form id="login-form-insert" class="front-login" method="post">
 
   <div id="login-alert">
     <ul id="errors"></ul>

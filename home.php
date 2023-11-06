@@ -28,9 +28,44 @@ require '_includes/head.php';
 
 <div class="tabs visitor">
 
+
 <div id="landing" class="greet-login visitor1">
 
-		<form id="login-form" class="front-login">
+
+
+
+  <?php if (isset($_SESSION['pr-lemmein'])) { ?>
+
+    <form id="reset-form" class="front-login" method="post">
+
+    <div id="reset-alert">
+      <ul id="reset-errors"></ul>
+    </div>
+
+    <div id="reset-error-area"><?= $_SESSION['firstname']; ?>, Let's set your new password.</div>
+
+    <input type="hidden" name="reset">
+    <input type="password" id="showPassword" class="text" name="password" placeholder="New password">
+    <input type="password" id="showConf" class="text" name="passwordConf" placeholder="Confirm password">
+
+    <div class="showpassword-wrap"> 
+        <div id="showSignupPass"><i class="far fa-eye"></i> Show Passwords</div>
+    </div>
+
+
+    <!-- <input type="submit" name="reset-password-btn" class="submit" value="Reset Password"> -->
+
+    <div id="toggle-reset-btn">
+      <div id="reset-btn"><span class="login-txt"><img src="_images/resetpass.png"></span></div>
+    </div>
+
+    
+
+    </form>
+
+  <?php } else { ?>
+
+		<form id="login-form" class="front-login" method="post">
 
     <div id="login-alert">
       <ul id="errors"></ul>
@@ -64,9 +99,11 @@ require '_includes/head.php';
 
 		</form>
 
+  <?php } ?>
+
+
+
 </div>
-
-
 
 
 <div id="visitor2" class="visitor2">
@@ -83,18 +120,6 @@ require '_includes/head.php';
     <div class="tooltip dm"><span class="tooltiptext">In case dark isn't your thing</span><p class="dm"><i class="fas fa-star dmf"></i> Foofoo color option inside <i class="fas fa-star dml"></i></p></div>
   </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 </div><!-- .tabs .new-intro -->
 

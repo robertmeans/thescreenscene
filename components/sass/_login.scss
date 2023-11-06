@@ -411,7 +411,8 @@ a.welcome-log {
 
 
 
-#error-area {
+#error-area,
+#reset-error-area {
   width: 100%;
   text-align: left;
   color: #afafaf;
@@ -438,6 +439,11 @@ a.welcome-log {
   display: none;
   margin: 0;
 }
+#pswd-recovery.holup {
+  background-color: rgba(0,0,0,0.9);
+  color: #a1a1a1;
+  border: 1px solid rgba(255,255,255,0.4);
+}
 
 
 
@@ -450,12 +456,13 @@ a.welcome-log {
 #signup-form,
 #success-form,
 #forgot-form,
-#resetpass-form {
+#reset-form {
   #hidethis {
     display: none;
   }
   a.fp-link {
     color: #fff;
+    cursor: pointer;
     text-decoration: none;
     transition: all 0.2s ease;
     padding: 2px 10px;
@@ -468,6 +475,7 @@ a.welcome-log {
     }
   }
   #login-alert,
+  #reset-alert,
   #signup-alert,
   #forgot-alert {
     font-family: 'Courier Prime', monospace; 
@@ -487,7 +495,7 @@ a.welcome-log {
     ul#errors,
     ul#signup-errors,
     ul#forgot-errors {
-      margin-top: 0;
+      margin: 0;
     }
     ul {
       margin-left: 20px;
@@ -500,6 +508,7 @@ a.welcome-log {
 
 
   #login-alert,
+  #reset-alert,
   #signup-alert {
     display: none;
   }
@@ -514,7 +523,11 @@ a.welcome-log {
   #forgot-alert.red,
   #forgot-alert.blue,
   #forgot-alert.orange,
-  #forgot-alert.green, {
+  #forgot-alert.green,
+  #reset-alert.red,
+  #reset-alert.blue,
+  #reset-alert.orange,
+  #reset-alert.green, {
     display: block;
     height: auto;
     opacity: 1;
@@ -525,29 +538,34 @@ a.welcome-log {
   }
   #login-alert.red,
   #forgot-alert.red,
-  #signup-alert.red {
+  #signup-alert.red,
+  #reset-alert.red {
     background-color: #ff4c4c;
     border: 1px solid #fff;
   }
   #login-alert.blue,
   #forgot-alert.blue,
-  #signup-alert.blue {
+  #signup-alert.blue,
+  #reset-alert.blue {
     background-color: #386ab4;
     border: 1px solid #0f356d;
   }
   #login-alert.orange,
   #forgot-alert.orange,
-  #signup-alert.orange {
+  #signup-alert.orange,
+  #reset-alert.orange {
     background-color: #d08b1f;
     border: 1px solid #ff9c00;
   }
   #login-alert.green,
   #forgot-alert.green,
-  #signup-alert.green {
+  #signup-alert.green,
+  #reset-alert.green {
     background-color: #139f19;
     border: 1px solid #09f514;
   }
   #toggle-btn,
+  #toggle-reset-btn,
   #toggle-signup-btn,
   #toggle-forgot-btn,
   #toggle-btn-insert {
@@ -558,6 +576,7 @@ a.welcome-log {
     background-color: #000;
   }
   #login-btn,
+  #reset-btn,
   #login-btn-insert,
   #signup-btn,
   #forgot-btn,
@@ -602,6 +621,7 @@ a.welcome-log {
   // when form is processing - remove
   // pointer and keep bkg solid (no hover)
   #toggle-btn .verifying-msg,
+  #toggle-reset-btn .verifying-msg,
   #toggle-signup-btn .verifying-msg,
   #toggle-forgot-btn .verifying-msg,
   #toggle-btn-insert .verifying-msg {
