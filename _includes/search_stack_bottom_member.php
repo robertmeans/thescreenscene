@@ -28,7 +28,7 @@ $max_sort = $max_sort[0] + 1;
 
   <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
   <input type="hidden" name="notecount" data-role="notecount" value="<?= $notes; ?>">
-  <li class="note-edit-pg"><a href="#" id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
+  <li class="note-edit-pg"><a id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 
 </ul>
 <?php } ?>
@@ -149,7 +149,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 40 characters)</label>
 
       <div class="submit-links">
-        <a href="#" class="cancel-close static" data-role="notesClose">Cancel</a>
+        <a class="cancel-close static" data-role="notesClose">Cancel</a>
         <input type="button" name="update-note" id="update-note" class="update" value="Add note">
         <input type="button" name="modify-note" id="modify-note" class="update" value="Modify note">
       </div><!-- #submit-links -->

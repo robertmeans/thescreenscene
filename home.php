@@ -59,7 +59,7 @@ require '_includes/head.php';
     <?php 
       unset($_SESSION['new']); 
     } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'toot') {
-    //  ?>
+    // new user with a partial token (they didn't copy the whole thing or it's corrupted) ?>
 
       <div id="reset-success" class="not">There's no token in the database that matches what you've provided. If you copied &amp; pasted the URL maybe you didn't grab the whole thing?</div>
 

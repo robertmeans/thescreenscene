@@ -11,6 +11,6 @@
     	<div class="chk-yt"></div>
     </div>
 
-    <div class="go"><a href="#" class="go-a static" onclick="$(this).closest('form').submit()">Go</a></div>
+    <div class="go"><a class="go-a static" onclick="$(this).closest('form').submit()">Go</a></div>
 </form> 
 </div><!-- end YouTube -->

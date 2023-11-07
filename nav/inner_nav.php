@@ -13,7 +13,7 @@
 			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
 			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
 			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-			<a href="#" id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
+			<a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
 		</form>
 	</li>
 	<?php }
@@ -29,26 +29,26 @@
   <?php
 	if ($layout_context == 'homepage') { ?>
 	<li>
-		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
+		<a class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
  			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="3">
 				<input type="hidden" name="shared_with" value="1">
-				<a href="#" class="static classic" onclick="$(this).closest('form').submit()">Light</a>
+				<a class="static classic" onclick="$(this).closest('form').submit()">Light</a>
 			</form>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
 				<input type="hidden" name="shared_with" value="1">
-				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
+				<a class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>	
       <li>
       <form action="" method="post">
         <input type="hidden" name="color" value="1">
         <input type="hidden" name="shared_with" value="1">
-        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
+        <a class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
       </form>
       </li>		
 		</ul>
@@ -80,7 +80,7 @@
 			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
 			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
 			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-			<a href="#" id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmark</span><i class="far fa-edit fa-fw"></i></div></a>
+			<a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmark</span><i class="far fa-edit fa-fw"></i></div></a>
 		</form>
 	</li>
 	<?php }
@@ -99,27 +99,27 @@
 
 	if ($layout_context == 'homepage') { ?>
 	<li>
-		<a href="#" class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
+		<a class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>
 		<ul>
       <li>
       <form action="" method="post">
         <input type="hidden" name="color" value="3">
         <input type="hidden" name="owner" value="1">
-        <a href="#" class="static classic" onclick="$(this).closest('form').submit()">Light</a>
+        <a class="static classic" onclick="$(this).closest('form').submit()">Light</a>
       </form>
       </li> 
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
 				<input type="hidden" name="owner" value="1">
-				<a href="#" class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
+				<a class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>	
       <li>
       <form action="" method="post">
         <input type="hidden" name="color" value="1">
         <input type="hidden" name="owner" value="1">
-        <a href="#" class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
+        <a class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
       </form>
       </li>      	
 		</ul>

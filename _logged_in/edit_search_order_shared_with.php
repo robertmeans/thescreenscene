@@ -86,12 +86,12 @@
       <form action="dictionary_thesaurus_02.php" method="post" class="ajax">
         <input type="hidden" name="the_dic" value="1">
 
-          <a href="#" id="d" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?> td static" onclick="$(this).closest('form').submit()"><span id="dict" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><i class="fas fa-check"></i></span> Dictionary</a>
+          <a id="d" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?> td static" onclick="$(this).closest('form').submit()"><span id="dict" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><i class="fas fa-check"></i></span> Dictionary</a>
       </form>
 
       <form action="dictionary_thesaurus_02.php" method="post" class="ajax">
         <input type="hidden" name="the_dic" value="2">
-          <a href="#" id="t" class="<?php if ($row['reference'] == "2") { echo "selected"; } ?> td static" onclick="$(this).closest('form').submit()"><span id="thes" class="<?php if ($row['reference'] == "2") { echo "selected"; } ?>"><i class="fas fa-check"></i></span> Thesaurus</a>
+          <a id="t" class="<?php if ($row['reference'] == "2") { echo "selected"; } ?> td static" onclick="$(this).closest('form').submit()"><span id="thes" class="<?php if ($row['reference'] == "2") { echo "selected"; } ?>"><i class="fas fa-check"></i></span> Thesaurus</a>
       </form>
     </div>           
 

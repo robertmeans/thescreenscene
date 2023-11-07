@@ -23,9 +23,9 @@ $notes = mysqli_num_rows($notes_for_project);
 ?>
 
 <?php if ($notes <= 9) { ?>
-        <li class="note-edit-pg"><a href="#" id="add-note" class="add-a-note static">Add a note</a></li>
+        <li class="note-edit-pg"><a id="add-note" class="add-a-note static">Add a note</a></li>
 <?php } else { ?>
-        <li class="note-edit-pg"><a href="#" id="note-limit" class="add-a-note static">Add a note</a></li>
+        <li class="note-edit-pg"><a id="note-limit" class="add-a-note static">Add a note</a></li>
 <?php } ?>
 
 </ul>
@@ -84,10 +84,10 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
          ?>
     </div> 
     <div class="sec manage-note">
-      <a href="#" id="<?= $modify_id; ?>_modify-note" class="modify-note static"><i class="far fa-edit"></i></a>
+      <a id="<?= $modify_id; ?>_modify-note" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form action="delete_note.php?note=<?= $row['note_id']; ?>" method="post" onsubmit="return confirm('Confirm: Delete note')">
-          <div><a href="#" class="deletenote static" onclick="$(this).closest('form').submit()"><i class="fas fa-minus-circle"></i></a></div>
+          <div><a class="deletenote static" onclick="$(this).closest('form').submit()"><i class="fas fa-minus-circle"></i></a></div>
       </form>
     </div> 
 
@@ -125,7 +125,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <input type="hidden" name="clipboard" value="0">
         <label class="clipboard"><input type="checkbox" name="clipboard" value="1"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
         <div class="submit-links">
-          <a href="#" class="cancel-close static">Cancel</a>
+          <a class="cancel-close static">Cancel</a>
           <input name="update-link" class="update" type="submit" value="Add note">
         </div><!-- #submit-links -->
       </form>
@@ -216,7 +216,7 @@ $note_count++;
         <label class="clipboard"><input type="checkbox" name="clipboard" value="1" <?php if ($row['clipboard'] == 1) { echo 'checked'; } ?>> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
 
         <div class="submit-links">
-          <a href="#" class="closer static">Cancel</a>
+          <a class="closer static">Cancel</a>
           <input name="modify-note" class="update" type="submit" value="Update">
         </div><!-- #submit-links -->
       </form>

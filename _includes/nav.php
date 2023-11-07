@@ -36,7 +36,7 @@
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 
-					<a href="#" class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
+					<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
 				</form>	
 			<?php	} mysqli_free_result($result); ?>
 					

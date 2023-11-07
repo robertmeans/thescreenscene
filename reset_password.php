@@ -1,6 +1,7 @@
 <?php $layout_context = "reset-password"; ?>
 
-<?php if ($_SESSION['pr'] == 'showmepr') { ?>
+<?php if ($_SESSION['pr'] == 'showmepr') { 
+  // they have a password reset token and it checks out  ?>
   <form id="reset-form" class="front-login" method="post">
 
     <div id="reset-alert">
@@ -29,7 +30,8 @@
   <script src="scripts/scripts-inserts.js?<?php echo time(); ?>"></script>
 
 
-  <?php } else { ?>
+  <?php } else { 
+    // they have a password token but it's no bueno  ?>
 
   <div class="success-message">
     <div class="success-area">

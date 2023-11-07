@@ -76,14 +76,14 @@ $id_count = substr("0{$id_count}", -$str_length);
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
 <?php  } else {  ?>
 		<span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" class="project-links-empty shim" target="_blank"></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
 <?php } ?></li><?php } // end for loop page 1 ?>
 
@@ -104,14 +104,14 @@ $id_count = 1 + $row_count;
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
 <?php  } else {  ?>
 		<span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" class="project-links-empty shim" target="_blank"></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
 <?php } ?></li><?php } // end for loop page 2 ?>
 
@@ -132,14 +132,14 @@ $id_count = 1 + $row_count;
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" href="<?php echo h($row[$r[$row_count] . '_url']); ?>" class="project-links" target="_blank"><?php echo h($row[$r[$row_count] . '_text']); ?></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?> 
 <?php  } else {  ?>
 		<span data-target="idcount" style="display:none;"><?php echo $id_count; ?></span>
 		<span data-target="rowid" style="display:none;"><?php echo $r[$row_count]; ?></span>
 		<a data-target="urlz" class="project-links-empty shim" target="_blank"></a>
 		<?php if ($row['edit'] == '1') { ?>
-			<a href="#" data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
+			<a data-role="update" data-id="<?php echo $id_count ?>" class="ue"><i class="fas fa-ellipsis-h fa-fw"></i></a> 
 		<?php } ?>
 <?php } ?></li><?php } // end for loop page 3 ?>
 
@@ -198,7 +198,7 @@ if (trim($row['project_notes']) != '') {
 		<!-- Modal content-->
 		<div class="modal-content">
 			<div class="modal-header">
-				<a href="#" class="static closefp"><i class="fas fa-times-circle"></i></a>
+				<a class="static closefp"><i class="fas fa-times-circle"></i></a>
 				<h4 class="modal-title">Add | Edit | Delete</h4>
 			</div>
 			<div class="modal-body">
@@ -216,7 +216,7 @@ if (trim($row['project_notes']) != '') {
 					<!-- <input type="submit" name="owner-update-link" style="display:none"> -->
 					<input name="delete" id="delete" class="delete" value="Delete">
 					<input name="update" id="update" class="update" value="Update">
-				 <!--  <a href="#" id="update">Update</a> -->
+				 <!--  <a id="update">Update</a> -->
 				</div><!-- #submit-links -->
 			</form>
 			</div>
