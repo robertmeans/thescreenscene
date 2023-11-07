@@ -31,39 +31,9 @@ require '_includes/head.php';
 
 <div id="landing" class="greet-login visitor1">
 
-
-
-
-  <?php if (isset($_SESSION['pr-lemmein'])) { ?>
-
-    <form id="reset-form" class="front-login" method="post">
-
-    <div id="reset-alert">
-      <ul id="reset-errors"></ul>
-    </div>
-
-    <div id="reset-error-area"><?= $_SESSION['firstname']; ?>, Let's set your new password.</div>
-
-    <input type="hidden" name="reset">
-    <input type="password" id="showPassword" class="text" name="password" placeholder="New password">
-    <input type="password" id="showConf" class="text" name="passwordConf" placeholder="Confirm password">
-
-    <div class="showpassword-wrap"> 
-        <div id="showSignupPass"><i class="far fa-eye"></i> Show Passwords</div>
-    </div>
-
-
-    <!-- <input type="submit" name="reset-password-btn" class="submit" value="Reset Password"> -->
-
-    <div id="toggle-reset-btn">
-      <div id="reset-btn"><span class="login-txt"><img src="_images/resetpass.png"></span></div>
-    </div>
-
-    
-
-    </form>
-
-  <?php } else { ?>
+  <?php if (isset($_SESSION['pr'])) { 
+    require 'reset_password.php';
+   } else { ?>
 
 		<form id="login-form" class="front-login" method="post">
 
@@ -71,7 +41,35 @@ require '_includes/head.php';
       <ul id="errors"></ul>
     </div>
 
-		<div id="error-area">No account? <a class="log create-form">Join Here</a></div>
+    <?php if (isset($_SESSION['newpswd'])) { 
+    // they're here with a password-token ?>
+
+      <div id="reset-success">Your password was successfully changed! You can log in with your new credentials</div>
+
+    <?php 
+      unset($_SESSION['newpswd']); 
+    } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'woot') { 
+    // they're here with a token - new user ?>
+
+      <div id="reset-success">
+        <p>Welcome aboard, <?= $_SESSION['firstname']; ?>!</p>
+        <p class="msg">You look nice today. :)</p>
+      </div>
+
+    <?php 
+      unset($_SESSION['new']); 
+    } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'toot') {
+    //  ?>
+
+      <div id="reset-success" class="not">There's no token in the database that matches what you've provided. If you copied &amp; pasted the URL maybe you didn't grab the whole thing?</div>
+
+    <?php 
+      unset($_SESSION['new']); 
+    } else { ?>
+
+		  <div id="error-area">No account? <a class="log create-form">Join Here</a></div>
+
+    <?php } ?>
 
     <input type="hidden" name="login">
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
@@ -101,10 +99,7 @@ require '_includes/head.php';
 
   <?php } ?>
 
-
-
 </div>
-
 
 <div id="visitor2" class="visitor2">
   <div class="v2wrap">

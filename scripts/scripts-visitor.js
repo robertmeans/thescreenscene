@@ -178,6 +178,7 @@ $(document).ready(function() {
             }
 
           } else {
+            if ($('#reset-success').length != 0) { $('#reset-success').addClass('unset'); }
             $('#error-area').addClass('gone');
             $('#login-alert').addClass(response['class']);
 

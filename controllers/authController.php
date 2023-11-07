@@ -68,30 +68,18 @@ function verifyUser($token) {
 			$_SESSION['lastname'] = $user['last_name'];
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['current_project'] = $user['current_project'];
-			// $_SESSION['color'] == "1";
-			$_SESSION['verified'] = 1;
-			// set flash message
-			$_SESSION['message'] = "Your email address was successfully verified! You can now login.";
-			$_SESSION['alert-class'] = "alert-success";
-			$_SESSION['delete-success'] = '0';
+			// $_SESSION['verified'] = 1;
+
+			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);
 			exit();
 		}
 	} else {
-		echo 'User not found';
+		$_SESSION['new'] = "toot";
+    header('location:'. WWW_ROOT);
+    exit();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -109,45 +97,19 @@ function resetPassword($token)
 	$result = mysqli_query($conn, $sql);
 	$user = mysqli_fetch_assoc($result);
 
-  $_SESSION['firstname'] = $user['first_name'];
-	$_SESSION['email'] = $user['email'];
-  $_SESSION['pr-lemmein'] = 'showmepr';
+  if (count($user) > 0) {
+    $_SESSION['firstname'] = $user['first_name'];
+  	$_SESSION['email'] = $user['email'];
+    $_SESSION['pr'] = 'showmepr';
+  } else {
+    $_SESSION['pr'] = 'wrongtoken';
+  }
+
 	header('location:' . WWW_ROOT);
 	exit();
-
-
 }
 
 
 
 
 
-// if user clicked on the reset password 
-if (isset($_POST['reset-password-btn'])) {
-  $password = $_POST['password'];
-  $passwordConf = $_POST['passwordConf'];
-
-  if (empty($password) || empty($passwordConf)) {
-    $errors['password'] = "Password required";
-  }
-
-  if ($password !== $passwordConf) {
-    $errors['password'] = "Passwords don't match";
-  }
-
-  $password = password_hash($password, PASSWORD_DEFAULT);
-  $email = $_SESSION['email'];
-
-  if(count($errors) == 0) {
-    $sql = "UPDATE users SET password='$password' WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
-    if ($result) {
-
-      unset($_SESSION['pr-lemmein']);
-      // $_SESSION['message'] = "Your password was changed successfully. You can now login with your new credentials.";
-      // $_SESSION['alert-class'] = "pass-reset";
-      header('location: login.php');
-      exit(0);
-    }
-  }
-}

@@ -334,7 +334,6 @@ a.welcome-log {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  // background-color: rgba(255,255,255,0.6);
   border: 1px solid #fff;
   box-shadow: 0px 0px 18px 8px rgba(255,255,255,0.18);
   animation: successfadein 2.5s ease-out;
@@ -343,6 +342,12 @@ a.welcome-log {
     text-align: left;
     p {
       margin: 0;
+    }
+    p.nope {
+      padding: 20px;
+      border: 1px solid #f1f1f1;
+      margin-bottom: 1em;
+      border-radius: 15px;
     }
     p.almost {
       text-align: center;
@@ -409,7 +414,28 @@ a.welcome-log {
 
 
 
-
+#table-page #table-wrap .visitor #reset-success {
+  width: 100%;
+  text-align: left;
+  color: #fff;
+  background-color: #3cb34e;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #fff;
+  margin-bottom: 1em;
+  p {
+    margin-bottom: 0.5em;
+  }
+  p.msg {
+    margin-bottom: 0;
+  }
+}
+#table-page #table-wrap .visitor #reset-success.not {
+  background-color: #ff4c4c;
+}
+#reset-success.unset {
+  display: none;
+}
 
 #error-area,
 #reset-error-area {
@@ -435,11 +461,13 @@ a.welcome-log {
   border: 1px solid #415b45;  
 }
 #error-area.gone,
+#reset-error-area.gone,
 #pswd-recovery.gone {
   display: none;
   margin: 0;
 }
-#pswd-recovery.holup {
+#pswd-recovery.holup,
+#reset-error-area.holup {
   background-color: rgba(0,0,0,0.9);
   color: #a1a1a1;
   border: 1px solid rgba(255,255,255,0.4);
@@ -493,6 +521,7 @@ a.welcome-log {
                 border-radius 3s ease-out 1s, 
                 opacity 0.2s ease-out 0.1s;
     ul#errors,
+    ul#reset-errors,
     ul#signup-errors,
     ul#forgot-errors {
       margin: 0;

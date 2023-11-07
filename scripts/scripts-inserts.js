@@ -92,6 +92,8 @@ $(document).ready(function() {
             }
 
           } else {
+            if ($('#reset-success').length != 0) { $('#reset-success').addClass('unset'); }
+            
             $('#error-area').addClass('gone');
             $('#login-alert').addClass(response['class']);
 
@@ -220,6 +222,94 @@ $(document).ready(function() {
       error: function(response) {
         // console.log(response);
         $('#forgot-btn').html(response['msg']);
+      }, 
+      complete: function() {
+
+      }
+    })
+
+  });
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// reset password begin
+$('#reset-form').keyup(function(event) {
+  if (event.keyCode === 13) {
+    $('#reset-btn').click();
+    // alert('click works');
+  }
+});
+$('#reset-form').submit(function(e){
+    e.preventDefault();
+});
+$(document).ready(function() {
+
+  $(document).on('click','#reset-btn', function(e) {     
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "reset-process.php",
+      type: "POST",
+      data: $('#reset-form').serialize(),
+      beforeSend: function(xhr) {
+
+        $('#reset-error-area').removeClass('gone');
+        $('#reset-alert').removeClass('red blue orange green'); // reset class every click 
+        $('#reset-error-area').addClass('holup');
+        $('#reset-error-area').html('<p>Gimme a second...</p>')
+        $('#toggle-reset-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response) {
+          // console.log(response);
+          if(response['signal'] == 'ok') {
+            
+            if (current_loc.indexOf("localhost") > -1) {
+              window.location.replace("http://localhost/browsergadget");
+            } else {
+              window.location.replace("https://browsergadget.com");
+            }
+
+          } else {
+            $('#reset-error-area').addClass('gone');
+            $('#reset-error-area').removeClass('holup');
+            
+            $('#reset-alert').addClass(response['class']);
+            $('#reset-errors').html(response['li']);
+            $('#toggle-reset-btn').html('<div id="reset-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+        $('#reset-btn').html(response['msg']);
       }, 
       complete: function() {
 
