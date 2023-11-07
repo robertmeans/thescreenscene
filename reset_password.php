@@ -23,6 +23,7 @@
       <div id="reset-btn"><span class="login-txt"><img src="_images/resetpass.png"></span></div>
     </div>
 
+    <p class="btm-p try-again">Think you remembered it? <a class="log log-form">Try again</a></p>
   </form>
 
   <script src="scripts/scripts-inserts.js?<?php echo time(); ?>"></script>

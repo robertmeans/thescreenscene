@@ -1,5 +1,7 @@
 <?php require_once 'config/initialize.php'; ?>
 
+<?php if (isset($_SESSION['pr'])) { unset($_SESSION['pr']); } ?>
+
 <form id="login-form-insert" class="front-login" method="post">
 
   <div id="login-alert">

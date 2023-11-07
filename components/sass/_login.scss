@@ -469,8 +469,13 @@ a.welcome-log {
 #pswd-recovery.holup,
 #reset-error-area.holup {
   background-color: rgba(0,0,0,0.9);
+  padding: 20px;
   color: #a1a1a1;
   border: 1px solid rgba(255,255,255,0.4);
+}
+#table-page #table-wrap #pswd-recovery.holup p,
+#table-page #table-wrap #reset-error-area.holup p {
+  margin-bottom: 0;
 }
 
 
