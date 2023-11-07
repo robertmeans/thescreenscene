@@ -27,7 +27,6 @@ if (((isset($_SESSION['verified']) && ($_SESSION['verified'] != "0")) && (!$_SES
 
 <?php include '_includes/head.php'; ?>
 <body>
-<?php // require '_includes/nav.php'; ?>
 	
 <div id="landing">
 	<div id="landing-content">

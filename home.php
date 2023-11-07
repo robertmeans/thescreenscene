@@ -16,11 +16,7 @@ require '_includes/head.php';
 </noscript>
 <div class="noscriptwrap">
 
-<div class="preload">
-<!-- <p>centered content on page</p> -->
-</div>
-
-<?php // require '_includes/nav.php'; ?>
+<?php preload_config($layout_context); ?>
 
 <div id="table-page">
  	<div id="table-wrap">

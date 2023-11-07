@@ -20,7 +20,7 @@ $current_project = $_SESSION['current_project'];
 require '_includes/head.php';
 ?>
 <body>
-<div class="preload"></div>
+<?php preload_config($layout_context); ?>
 <?php require '_includes/nav.php'; ?>
 
 <div id="table-page">

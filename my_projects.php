@@ -74,7 +74,7 @@ $projects = mysqli_num_rows($any_projects_for_user);
 ?>
 <?php require '_includes/head.php'; ?>
 <body>
-	<div class="preload"></div>
+<?php preload_config($layout_context); ?>
 <?php require '_includes/nav.php'; ?>
 
 <div id="table-page">

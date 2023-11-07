@@ -17,7 +17,7 @@ $s    = explode(",",$row['search_order']);
 	if ($s[0] == "4") { ?><body onLoad="clearForms(); document.reference.sr_04.focus(); document.urlField.address.value='http\://';"><?php }
 	if ($s[0] == "5") { ?><body onLoad="clearForms(); document.youtube.sr_05.focus(); document.urlField.address.value='http\://';"><?php } ?>
 
-<div class="preload"></div>
+<?php preload_config($layout_context); ?>
 
 <?php // primary navigation
 require '_includes/nav.php'; ?>

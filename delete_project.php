@@ -30,7 +30,7 @@ $result = delete_project($current_project, $vamoose);
 <?php require '_includes/head.php'; ?>
 
 <body>
-<div class="preload"></div>
+<?php preload_config($layout_context); ?>
 <?php require '_includes/nav.php'; ?>
 
 <?php // sortable ul from: https://jqueryui.com/sortable ?>

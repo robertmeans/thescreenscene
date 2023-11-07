@@ -36,7 +36,7 @@ if (is_post_request()) {
 
 <?php require '_includes/head.php'; ?>
 <body>
-<div class="preload"><!-- <p>centered content on page</p> --></div>
+<?php preload_config($layout_context); ?>
 
 <?php require '_includes/nav.php'; ?>
 

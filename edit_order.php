@@ -20,7 +20,7 @@ $user_id = $_SESSION['id'];
 <?php require '_includes/head.php'; ?>
 
 <body>
-<div class="preload"></div>
+<?php preload_config($layout_context); ?>
 
 <?php require '_includes/nav.php'; ?>
 

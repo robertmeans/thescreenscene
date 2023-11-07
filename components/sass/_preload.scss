@@ -7,31 +7,93 @@
   left: 100px; 
   top: 0; 
 }
-.preload,
-.preload-manage {
+.preload {
   position: fixed;
-  // left: 0px;
-  // top: -33px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
-  background-color: rgba(29,29,29,1);
+  align-items: center; 
   width: 100%;
-  height: 100%;
   height: 100vh;
-  z-index: 4567891;
-  // background: url(_images/preload-06.gif) center no-repeat #1d1d1d;
-  & > p {
-    font-family: 'Caveat', cursive;
-    font-size: 3em;
-    color: #fff;
-  }
+  z-index: 4567891; 
+  img {
+    width: 90%;
+    /* preloadflow.gif is only 390 x 390 */
+    max-width: 350px;
+  }  
 }
-@media screen and (max-width: 600px) {
-  .preload,
-  .preload-manage {
-    & > p {
-      font-size: 2em;
+.preload.dark {
+  background-color: #2a2826;
+}
+.preload.light {
+  background-color: #fff;
+  background-color: #f1f1f1;
+  .loader {
+    position: relative;
+    width: 100%;
+    max-width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
+    animation: animate 1.2s linear infinite;
+  }
+
+  @keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
   }
+
+  .loader span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: linear-gradient(#f07e6e, #84cdfa, #5ad1cd);
+  }
+
+  .loader span:nth-child(1) {
+    filter: blur(5px);
+  }
+
+  .loader span:nth-child(2) {
+    filter: blur(10px);
+  }
+
+  .loader span:nth-child(3) {
+    filter: blur(25px);
+  }
+
+  .loader span:nth-child(4) {
+    filter: blur(50px);
+  }
+
+  .loader:after {
+    content: '';
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: #f1f1f1;
+    border: solid white 10px;
+    border-radius: 50%;
+  }
 }
+.preload.spring {
+  background-color: #f7e2bf;
+  background-image: url("_images/floral-pattern.jpg");
+  background-repeat: repeat;
+  img {
+    width: 90%;
+    /* preloadspring.gif is only 399 x 399 */
+    max-width: 350px;
+  }  
+}
+
+
+
+

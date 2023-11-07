@@ -11,7 +11,7 @@ require '_includes/head.php';
   $s = array(0=>"1", 1=>"2", 2=>"3", 3=>"4", 4=>"5");
   $row['reference'] = "1";
 ?>
-  <div class="preload"><!-- <p>centered content on page</p> --></div>
+<?php preload_config($layout_context); ?>
 
 <?php require '_includes/nav.php'; ?>
   <div id="table-page">
