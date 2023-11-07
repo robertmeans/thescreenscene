@@ -46,9 +46,6 @@ function remember_me()
 remember_me(); 
 
 
-
-
-
 // verify user by token
 function verifyUser($token) {
  
@@ -82,13 +79,6 @@ function verifyUser($token) {
 }
 
 
-
-
-
-
-
-
-
 // user has a password-reset token in query string they've presented
 function resetPassword($token) 
 {
@@ -108,8 +98,4 @@ function resetPassword($token)
 	header('location:' . WWW_ROOT);
 	exit();
 }
-
-
-
-
 

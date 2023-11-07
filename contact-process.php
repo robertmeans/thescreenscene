@@ -23,15 +23,11 @@ if (is_post_request()) {
 
     try { 
 
-        $mail->Host       = 'localhost';
-        $mail->SMTPAuth   = false;
-        $mail->Username   = EMAIL;
-        $mail->Password   = PASSWORD; 
-				// email routing set to Remote
+        mail_config();
 
         //Recipients
-        $mail->setFrom(EMAIL, $name);
-        $mail->addAddress(EMAIL, 'BrowserGadget Website Contact Form');     // Add a recipient
+        $mail->setFrom('donotreply@browsergadget.com', $name);
+        $mail->addAddress('browsergadget@gmail.com', 'BrowserGadget Website Contact Form');     // Add a recipient
         $mail->addReplyTo($email, $name);
         // $mail->addCC('cc@example.com');
         // $mail->addBCC('robertmeans01@gmail.com');
