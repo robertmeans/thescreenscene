@@ -4,13 +4,9 @@
 	<li class="desk-orient"><a class="logout" href="logout.php"><i class="fas fa-power-off"></i> Exit</a></li>
 
 	<li class="mobile-orient"><a class="logout" href="logout.php"><i class="fas fa-power-off"></i> Exit</a></li>
-
 	<?php if ($layout_context == 'homepage') { ?>
 		<li class="mobile-orient"><a href="my_projects.php" class="logout"><i class="fas fa-list-ol"></i> Projects</a></li>
 	<?php } ?>
-
-
-
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
@@ -25,21 +21,17 @@
 		?>
 		<div class="menuitem">
 			<div class="dropdown">
-
 				<a class="pen">&nbsp;</a>
 				<!-- working on autocomplete... -->
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
-
 			<a href="my_projects.php" class="dda vpp">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form action="my_projects.php" method="post">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-
-					<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
+				<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
 				</form>	
-			<?php	} mysqli_free_result($result); ?>
-					
+			<?php	} mysqli_free_result($result); ?>	
 			</div>
 			<div class="nav-item">
 				<!-- <a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a> -->
@@ -49,6 +41,5 @@
 		<?php 	break;
 	}
 	?>
-
 	</ul>
 </nav>

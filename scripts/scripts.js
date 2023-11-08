@@ -271,57 +271,43 @@ var reorder = [];
 	});
 }
 
-// footer_contact_ajax
-// function _(id) { return document.getElementById(id); }
-// function submitFooter() {
-//   _("send").disabled = true;
-//   _("status").innerHTML = 'working on it...';
-//   var formdata = new FormData();
-//   formdata.append("sendersname", _("sendersname").value);
-//   formdata.append("email", _("email").value);
-//   formdata.append("comments", _("comments").value);
-//   var ajax = new XMLHttpRequest();
-//   ajax.open("POST", "footer_contact_ajax.php");
-//   ajax.onreadystatechange = function() {
-//     if(ajax.readyState == 4 && ajax.status == 200) {
-//       if(ajax.responseText == "success") {
-//         _("contactForm").innerHTML = '<h2 class="successmsg">Thanks '+_("sendersname").value+', your message was sent successfully!</h2>';
-//       } else {
-//         _("status").innerHTML = ajax.responseText;
-//         _("send").disabled = false;
-//       }
-//     }
-//   }
-//   ajax.send(formdata);
-// }
 
-
-
-// footer ajax contact
+// footer contact
+$("#contactForm").keyup(function(event) {
+  if (event.keyCode === 13) {
+    $("#emailBob").click();
+  }
+});
+$('#contactForm').submit(function(e){
+    e.preventDefault();
+});
 $(document).ready(function() {
-  $('#emailBob').click(function() {
-    //event.preventDefault();
+  $(document).on('click','#emailBob', function() {
     $.ajax({
       dataType: "JSON",
       url: "contact-process.php",
       type: "POST",
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {
-        $('#msg').html('<span>Sending - one moment...</span>');
+        $('#msg').removeClass('show');
+        $('#emailBob-btn').html('<div class="sending-holup">Sending - one moment...</div>');
       },
       success: function(response) {
         // console.log(response);
         if(response) {
           console.log(response);
           if(response['signal'] == 'ok') {
-            $('#contactForm').html('<span>Your message was sent successfully.</span>');
+            $('#msg').removeClass('show');
+            $('#contactForm').html('<div class="success">Your message was sent successfully.</div>');
           } else {
-            $('#msg').html('<div class="alert alert-warning">' + response['msg'] + '</div>');
+            $('#msg').addClass('show');
+            $('#errorli').html(response['li']);
+            $('#emailBob-btn').html('<div id="emailBob">Send</div>');
           }
         } 
       },
       error: function() {
-        $('#msg').html('<div class="alert alert-warning">There was an error between your IP and the server. Please try again later.</div>');
+        $('#errorli').html('<li>There was an error between your IP and the server. Please try again later.</li>');
       }, 
       complete: function() {
         // $('#contact').html('<span>Your message was sent successfully.</span>');
@@ -447,13 +433,13 @@ $(document).on('click','#textbox',function() {
 $(document).ready(function() {
   $("#email-bob").hide();
   $("#toggle-contact-form").click(function(){
-      $(this).toggleClass("active").next().slideToggle(600);
+    $(this).toggleClass("active").next().slideToggle(600);
 
-      if ($.trim($(this).text()) === 'close') {
-          $(this).html('<i class="fa fa-star" aria-hidden="true"></i><span class="tiny-mobile">&nbsp;&nbsp;</span> comments | questions | suggestions <span class="tiny-mobile">&nbsp;&nbsp;</span><i class="fa fa-star" aria-hidden="true"></i>');
-      } else {
-          $(this).html('<i class="fa fa-times-circle close-left" aria-hidden="true"></i> close <i class="fa fa-times-circle close-right" aria-hidden="true"></i>');
-      }
+    if ($.trim($(this).text()) === 'close') {
+      $(this).html('<i class="fa fa-star" aria-hidden="true"></i><span class="tiny-mobile">&nbsp;&nbsp;</span> comments | questions | suggestions <span class="tiny-mobile">&nbsp;&nbsp;</span><i class="fa fa-star" aria-hidden="true"></i>');
+    } else {
+      $(this).html('<i class="fa fa-times-circle close-left" aria-hidden="true"></i> close <i class="fa fa-times-circle close-right" aria-hidden="true"></i>');
+    }
     return false;
   });
 });

@@ -36,7 +36,8 @@ function ewd_copyright($startYear) {
   <div id="email-bob">
     <p class="form-note">You look nice today. <i class="far fa-smile"></i></p>
 
-    <form id="contactForm">
+    <form id="contactForm" method="post">
+    <input type="hidden" name="contactbob">
     <ul>
       <li>
         <label class="text" for="name">Name</label>
@@ -48,14 +49,16 @@ function ewd_copyright($startYear) {
       </li>
       <li>
         <label class="text" for="comments">Message</label>
-        <textarea name="comments" id="comments" maxlength="2000"></textarea>
+        <textarea name="message" id="message" maxlength="2000"></textarea>
       </li>
       <li>
-        <div id="msg"></div>
+        <div id="msg">
+          <ul id="errorli"></ul>
+        </div>
       </li>
-      <li class="send-items">
-        <input id="emailBob" value="Send">
-      </li>
+      <div id="emailBob-btn">
+        <div id="emailBob">Send</div>
+      </div>
     </ul> 
     </form>
 

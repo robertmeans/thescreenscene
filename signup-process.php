@@ -6,7 +6,6 @@ $signal = '';
 $msg = '';
 $li = '';
 $class = '';
-$msg_txt = '';
 
 // if user clicks on login
 if (is_post_request() && isset($_POST['signup'])) {
@@ -106,7 +105,7 @@ if (is_post_request() && isset($_POST['signup'])) {
   if ($li === '') {
 
     if (WWW_ROOT == 'http://localhost/browsergadget') {
-      sleep(2); 
+      sleep(1); 
     }
 
     $emailQuery = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
@@ -125,7 +124,7 @@ if (is_post_request() && isset($_POST['signup'])) {
       $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
       $li .= '<li class="no-count">Email already exists</li>';
       $class = 'orange';
-    } else if (count($errors) === 0) {
+    } else {
 
       $password = password_hash($password, PASSWORD_DEFAULT);
       $token = bin2hex(random_bytes(50));
@@ -135,24 +134,21 @@ if (is_post_request() && isset($_POST['signup'])) {
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ssssdss', $firstname, $firstname, $lastname, $email, $verified, $token, $password);
 
-      if ($stmt-> execute()) {
-        // login user
+      if ($stmt->execute()) {
+        
         $user_id = $conn->insert_id;
-        $_SESSION['id'] = $user_id;
-        $_SESSION['username'] = $username;
+
+        // $_SESSION['id'] = $user_id;
+        // $_SESSION['username'] = $username;
         $_SESSION['firstname'] = $firstname;
         $_SESSION['email'] = $email;
 
         if (WWW_ROOT != 'http://localhost/browsergadget') {
-          sendVerificationEmail($firstname, $email, $token);
+          sendVerificationEmail($firstname, $lastname, $email, $token);
+        } else {
+          sleep(3);
         }
 
-        /*  local testing */   
-        if (WWW_ROOT == 'http://localhost/browsergadget') {
-          sleep(2); 
-        }
-
-        // everything checks out -> you're good to go!
         $signal = 'ok';
 
       } else {
@@ -170,7 +166,6 @@ $data = array(
   'signal' => $signal,
   'msg' => $msg,
   'li' => $li,
-  'class' => $class,
-  'msg_txt' => $msg_txt
+  'class' => $class
 );
 echo json_encode($data);

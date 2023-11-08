@@ -1,7 +1,4 @@
 
-
-
-
 $('input[name="remember_me-insert"]').change(function(){
     if($(this).is(":checked")) {
         $('.aa-rm-out').addClass("checkablue");
@@ -28,7 +25,36 @@ $('#showLoginPass').click(function(){
     return false;
   });
 
-$('#showSignupPass-insert').click(function(){
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+$('#showSignupPass').click(function(){
   var x = document.getElementById('showPassword');
   var y = document.getElementById('showConf');
   $(this).toggleClass('showPassOn');
@@ -44,6 +70,77 @@ $('#showSignupPass-insert').click(function(){
   }
   return false;
 });
+
+
+
+// signup begin
+$('#signup-form').keyup(function(event) {
+  if (event.keyCode === 13) {
+    $('#signup-btn').click();
+  }
+});
+$('#signup-form').submit(function(e){
+    e.preventDefault();
+});
+$(document).ready(function() {
+
+  $(document).on('click','#signup-btn', function() {    
+
+    $.ajax({
+      dataType: "JSON",
+      url: "signup-process.php",
+      type: "POST",
+      data: $('#signup-form').serialize(),
+      beforeSend: function(xhr) {
+        $('#toggle-signup-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+      },
+      success: function(response) {
+        console.log('a ' + response);
+        if(response) {
+          console.log('b ' + response);
+          if(response['signal'] == 'ok') {
+            $('#landing').load('signup-success-insert.php');
+
+          } else {
+            $('#signup-alert').addClass(response['class']);
+            $('#signup-errors').html(response['li']);
+            $('#toggle-signup-btn').html('<div id="signup-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+          }
+        } 
+      },
+      error: function(response) {
+        console.log('c ' + response);
+        $('#toggle-signup-btn').html(response['msg']);
+      }, 
+      complete: function(response) {
+        console.log('d ' + response);
+      }
+    })
+
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -123,56 +220,6 @@ $(document).ready(function() {
 
 
 
-// signup begin
-$('#signup-form').keyup(function(event) {
-  if (event.keyCode === 13) {
-    $('#signup-btn').click();
-  }
-});
-$('#signup-form').submit(function(e){
-    e.preventDefault();
-});
-$(document).ready(function() {
-
-  $(document).on('click','#signup-btn', function() {
-    // var current_loc = window.location.href;     
-
-    $.ajax({
-      dataType: "JSON",
-      url: "signup-process.php",
-      type: "POST",
-      data: $('#signup-form').serialize(),
-      beforeSend: function(xhr) {
-        $('#toggle-signup-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
-
-      },
-      success: function(response) {
-        // console.log(response);
-        if(response) {
-          // console.log(response);
-          if(response['signal'] == 'ok') {
-            $('#landing').load('signup-success-insert.php');
-
-          } else {
-            $('#signup-alert').addClass(response['class']);
-            $('#signup-errors').html(response['li']);
-            $('#toggle-signup-btn').html('<div id="signup-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-          }
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-        $('#signup-btn').html(response['msg']);
-      }, 
-      complete: function() {
-
-      }
-    })
-
-  });
-});
-
-
 
 // forgot password recovery begin
 $('#forgot-form').keyup(function(event) {
@@ -231,28 +278,6 @@ $(document).ready(function() {
   });
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

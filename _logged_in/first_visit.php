@@ -24,7 +24,7 @@ require '_includes/head.php';
   <p>Projects are the heart of this website. There's a lot going on here. If you haven't already watched the introduction video (link also available on the login page), you can always find a quick overview there.</p>
     <form id="first-project" action="" method="post">
     <?php // ^^ submits to home_logged_in and processed by: create_new_project($row, $user_id); ?>
-        <?php if(count($errors) > 0): ?>
+        <?php if(isset($errors) && count($errors) > 0): ?>
             <div class="alert alert-danger">
                 <?php foreach($errors as $error): ?>
                 <li><?php echo $error; ?></li>

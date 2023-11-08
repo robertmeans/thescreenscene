@@ -85,7 +85,7 @@ footer {
       text-align: center;
       
     }
-    textarea#comments {
+    textarea#message {
       height: 6em;
       width: 100%;
       max-width: 650px;
@@ -97,7 +97,7 @@ footer {
     }
     input#sendersname,
     input#email,
-    textarea#comments {
+    textarea#message {
       background-color: rgba(255,255,255,0.2);
       color: #fff;
       outline: none;
@@ -122,53 +122,79 @@ footer {
         border-left: transparent;        
       }
     } 
-    input#emailBob {
-      // display: inline-block;
-      float: left;
-      width: 150px;
-      padding: 10px;
-      // margin: 10px 0;
+    #emailBob,
+    .sending-holup {
+      width: 100%;
+      padding: 20px;
+      font-size: 1em;
+      margin-top: 0.25em;
       text-align: center;
       // border-radius: 3px;
-      border: 1px solid #233851;
-      background-color: #565656;
+      border: 1px solid #fff;
+      background-color: rgba(255,255,255,0.1);
+      box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);
       color: #fff;
       cursor: pointer;
-      outline: none;
       transition: all 0.2s ease;
       &:hover {
-        background-color: #82c33a;
-        color: #fff;
+        box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.6);
+        scale: 0.95;
+        // color: #fff;
       }
       &:active, &:focus {
         outline: none;
         outline-style: 0;
       }     
     }
-
-    #msg {
-      margin-top: 0.75em;
-      width: 100%;
-      .alert-warning {
-        margin-bottom: 0.5em;
-        border-radius: 5px;
-        padding: 0.75em;
-        font-size: 1em;
-        color: #313131;
-        background-color: #ffdddd;
-        border: 1px solid #ff5a5a;
-      }
-      .alert-success {
-        margin-bottom: 0.5em;
-        border-radius: 5px;
-        padding: 0.75em;
-        font-size: 1em;
-        color: #fff;
-        background-color: #82c33a;
-        border: 1px solid #45661f;
+    .sending-holup {
+      background-color: #000;
+      color: #fff;
+      box-shadow: none;
+      cursor: default;
+      &:hover {
+        scale: 1;
       }
     }
 
+    #msg {
+      margin-bottom: 1em;
+      border-radius: 15px;
+      padding: 20px;
+      font-family: 'Courier Prime', monospace;
+      color: #fff;
+      border: 1px solid #fff;
+      text-align: left; 
+      background-color: #ff4c4c;
+      display: none;
+    }
+    #msg.show {
+      display: block;
+      .red {
+        background-color: #ff4c4c;
+      }
+      .green {
+        background-color: #82c33a;
+      }
+      #errorli {
+        margin: 0;
+        padding: 5px 20px;
+        li {
+          list-style-type: disc;
+          line-height: 1.5em;
+        }
+      }
+    }
+    .success {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #82c33a;
+      color: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      border: 1px solid #fff;
+    }
   }
 
   button#confirm {

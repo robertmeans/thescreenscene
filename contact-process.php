@@ -1,65 +1,67 @@
 <?php
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+require_once 'config/initialize.php';
 
-require_once '_functions/functions.php';
-require_once 'vendor/autoload.php';
-require_once 'config/constants.php';
+$signal = '';
+$msg = '';
+$li = '';
+$class = '';
+$msg_txt = '';
 
-	$name = trim($_POST['name']);
-	$email = trim($_POST['email']);
-	$message = trim($_POST['comments']);
+if (is_post_request() && isset($_POST['contactbob'])) {
+  $name = trim($_POST['name']);
+  $email = trim($_POST['email']);
+  $message = trim($_POST['message']);
 
-if (is_post_request()) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(10); }
 
-	if($name && $email && $message) {
+  // validation
+  if (empty($name)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">What\'s your name?</li>';
+    $class = 'red';
+  }
 
-		if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  if (empty($email)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">What\'s your email?</li>';
+    $class = 'red';
+  } 
 
+  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email is no bueno. Check it for errors.</li>';
+    $class = 'red';
+  }
 
-    $mail = new PHPMailer(true);
+  if (empty($message)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Don\'t send me an empty message! :/</li>';
+    $class = 'red';
+  }
 
-    try { 
+  if ($li === '') {
 
-        mail_config();
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
 
-        //Recipients
-        $mail->setFrom('donotreply@browsergadget.com', $name);
-        $mail->addAddress('browsergadget@gmail.com', 'BrowserGadget Website Contact Form');     // Add a recipient
-        $mail->addReplyTo($email, $name);
-        // $mail->addCC('cc@example.com');
-        // $mail->addBCC('robertmeans01@gmail.com');
+    if (WWW_ROOT != 'http://localhost/browsergadget') {
+      emailBob($name, $email, $message);
+    }
 
-        // Content
-        $mail->isHTML(true);
-        $mail->Subject = 'Email from BrowserGadget Website';
-        $mail->Body    =  'Name: ' . $name . '<br>Email: ' . $email . '<br><hr><br>' . nl2br($message);
+    $signal = 'ok';
 
-        $mail->send();
-		    // echo 'Message has been sent';
-		    $signal = 'ok';
-		    $msg =  'Message sent successfully';
-	    } catch (Exception $e) {
-	        $signal = 'bad';
-	        $msg = 'Mail Error: ' {$mail->ErrorInfo};
-	    }
-
-		} else {
-		  $signal = 'bad';
-		  $msg = 'Invalid email address. Please fix.';
-		}
-
-	} else {
-		$signal = 'bad';
-		$msg = 'Please fill in all the fields.';
-	}
+  }
 
 }
 	$data = array(
 		'signal' => $signal,
-		'msg' => $msg
+		'msg' => $msg, 
+    'li' => $li,
+    'class' => $class
 	);
 	echo json_encode($data);
 

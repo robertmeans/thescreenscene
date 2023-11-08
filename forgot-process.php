@@ -28,9 +28,7 @@ if (is_post_request() && isset($_POST['forgotpass'])) {
 
   if ($li === '') {
 
-    if (WWW_ROOT == 'http://localhost/browsergadget') {
-      sleep(2); 
-    }
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
 
     $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
     $stmt = $conn->prepare($sql);

@@ -158,9 +158,11 @@
 				background-color: rgba(0,0,0,0.2);
 			}
 		}
-		& > input.login-pswd {
+		& > .login-pswd,
+        #showPassword,
+        #showConf {
 			margin-bottom: 0.5em;
-			letter-spacing: 2px;
+			letter-spacing: 3px;
 		}
 	}
 }
@@ -660,6 +662,10 @@ a.welcome-log {
   #toggle-forgot-btn .verifying-msg,
   #toggle-btn-insert .verifying-msg {
     cursor: default;
+    box-shadow: none;
+    &:hover {
+      scale: 1;
+    }
     .login-txt {
       background-color: #000;
     }

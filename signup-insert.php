@@ -19,7 +19,7 @@
   <input type="password" id="showConf" class="text" name="passwordConf" placeholder="Confirm password">
 
   <div class="showpassword-wrap"> 
-      <div id="showSignupPass-insert"><i class="far fa-eye"></i> Show Passwords</div>
+      <div id="showSignupPass"><i class="far fa-eye"></i> Show Passwords</div>
   </div>
 
 
