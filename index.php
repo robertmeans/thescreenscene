@@ -13,7 +13,7 @@ if (isset($_GET['password-token'])) {
 	resetPassword($passwordToken);
 }
 
-if (!isset($_SESSION['verified'])) {
+if (!isset($_SESSION['verified']) || isset($_SESSION['new'])) {
 	require 'home.php';
 	exit;
 }
