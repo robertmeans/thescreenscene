@@ -273,14 +273,14 @@ var reorder = [];
 
 
 // footer contact
-$("#contactForm").keyup(function(event) {
-  if (event.keyCode === 13) {
-    $("#emailBob").click();
-  }
-});
-$('#contactForm').submit(function(e){
-    e.preventDefault();
-});
+// $("#contactForm").keyup(function(event) {
+//   if (event.keyCode === 13) {
+//     $("#emailBob").click();
+//   }
+// });
+// $('#contactForm').submit(function(e){
+//     e.preventDefault();
+// });
 $(document).ready(function() {
   $(document).on('click','#emailBob', function() {
     $.ajax({

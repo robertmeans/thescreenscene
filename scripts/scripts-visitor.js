@@ -159,7 +159,7 @@ $(document).ready(function() {
       data: $('#login-form').serialize(),
       beforeSend: function(xhr) {
         $('#login-alert').removeClass('red blue orange green'); // reset class every click
-        $('#error-area').removeClass('gone');``
+        $('#error-area').removeClass('gone');
         $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
 
       },
@@ -221,14 +221,14 @@ $(document).ready(function() {
     return false;
   });
 });
-$("#contactForm").keyup(function(event) {
-  if (event.keyCode === 13) {
-    $("#emailBob").click();
-  }
-});
-$('#contactForm').submit(function(e){
-    e.preventDefault();
-});
+// $("#contactForm").keyup(function(event) {
+//   if (event.keyCode === 13) {
+//     $("#emailBob").click();
+//   }
+// });
+// $('#contactForm').submit(function(e){
+//     e.preventDefault();
+// });
 $(document).ready(function() {
   $(document).on('click','#emailBob', function() {
     $.ajax({
