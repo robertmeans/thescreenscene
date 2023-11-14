@@ -144,8 +144,8 @@ function emailBob($name, $email, $message) {
     // Content
     $mail->isHTML(true);
     $mail->Subject = 'BrowserGadget: comments | questions | suggestions';
-    $mail->Body    =  'Name: ' . $name . '<br>Email: ' . $email . '<br><hr><br>' . nl2br($message);
-    $mail->AltBody = 'Name: ' . $name . '<br>Email: ' . $email . '<br><hr><br>' . nl2br($message); 
+    $mail->Body    =  'Name: ' . $name . '<br>Email: ' . $email . '<br><br><hr><br>' . nl2br($message);
+    $mail->AltBody = 'Name: ' . $name . '<br>Email: ' . $email . '<br><br><hr><br>' . nl2br($message); 
 
   $mail->send();
 

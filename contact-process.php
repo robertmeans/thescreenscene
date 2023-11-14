@@ -13,7 +13,7 @@ if (is_post_request() && isset($_POST['contactbob'])) {
   $email = trim($_POST['email']);
   $message = trim($_POST['message']);
 
-  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(10); }
+  // if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(3); }
 
   // validation
   if (empty($name)) {
@@ -46,7 +46,7 @@ if (is_post_request() && isset($_POST['contactbob'])) {
 
   if ($li === '') {
 
-    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
+    // if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
 
     if (WWW_ROOT != 'http://localhost/browsergadget') {
       emailBob($name, $email, $message);

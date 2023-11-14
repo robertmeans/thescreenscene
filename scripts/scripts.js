@@ -290,7 +290,7 @@ $(document).ready(function() {
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {
         $('#msg').removeClass('show');
-        $('#emailBob-btn').html('<div class="sending-holup">Sending - one moment...</div>');
+        $('#emailBob-btn').html('<div class="sending-holup"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
       },
       success: function(response) {
         // console.log(response);
