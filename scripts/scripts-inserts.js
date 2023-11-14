@@ -92,7 +92,7 @@ $(document).ready(function() {
       type: "POST",
       data: $('#signup-form').serialize(),
       beforeSend: function(xhr) {
-        $('#toggle-signup-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+        $('#toggle-signup-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
       },
       success: function(response) {
         console.log('a ' + response);
@@ -173,7 +173,7 @@ $(document).ready(function() {
       beforeSend: function(xhr) {
         $('#login-alert').removeClass('red blue orange green'); // reset class every click
         $('#error-area').removeClass('gone');
-        $('#toggle-btn-insert').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+        $('#toggle-btn-insert').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
 
       },
       success: function(response) {
@@ -246,7 +246,7 @@ $(document).ready(function() {
         $('#forgot-alert').removeClass('red blue orange green'); // reset class every click 
         $('#pswd-recovery').addClass('holup');
         $('#pswd-recovery').html('<p>Gimme a second...</p>')
-        $('#toggle-forgot-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+        $('#toggle-forgot-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
 
       },
       success: function(response) {
@@ -307,7 +307,7 @@ $(document).ready(function() {
         $('#reset-alert').removeClass('red blue orange green'); // reset class every click 
         $('#reset-error-area').addClass('holup');
         $('#reset-error-area').html('<p>Gimme a second...</p>')
-        $('#toggle-reset-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+        $('#toggle-reset-btn').html('<div class="verifying-msg"><span class="login-txt<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
 
       },
       success: function(response) {

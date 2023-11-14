@@ -14,6 +14,8 @@ if (is_post_request() && isset($_POST['login'])) {
   $username = $_POST['firstname'];
   $password = $_POST['password'];
 
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
+
   // validation
   if (empty($username)) {
     $signal = 'bad';
@@ -32,9 +34,7 @@ if (is_post_request() && isset($_POST['login'])) {
 
   if ($li === '') {
 
-    if (WWW_ROOT == 'http://localhost/browsergadget') {
-      sleep(2); 
-    }
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
 
     // $userQuery = "SELECT * FROM users WHERE username=? LIMIT 2";
     $userQuery = "SELECT * FROM users WHERE LOWER(username) LIKE LOWER(?) LIMIT 2";

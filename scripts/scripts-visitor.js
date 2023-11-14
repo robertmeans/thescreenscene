@@ -160,7 +160,7 @@ $(document).ready(function() {
       beforeSend: function(xhr) {
         $('#login-alert').removeClass('red blue orange green'); // reset class every click
         $('#error-area').removeClass('gone');
-        $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><img src="_images/verifying.gif"></span></div>');
+        $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
 
       },
       success: function(response) {
@@ -238,7 +238,7 @@ $(document).ready(function() {
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {
         $('#msg').removeClass('show');
-        $('#emailBob-btn').html('<div class="sending-holup">Sending - one moment...</div>');
+        $('#emailBob-btn').html('<div class="sending-holup"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
       },
       success: function(response) {
         // console.log(response);
