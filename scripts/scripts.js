@@ -298,7 +298,7 @@ $(document).ready(function() {
           console.log(response);
           if(response['signal'] == 'ok') {
             $('#msg').removeClass('show');
-            $('#contactForm').html('<div class="success">Your message was sent successfully.</div>');
+            $('#contactForm').html('<div class="success">Your message was sent successfully.</div><div id="emailBob-btn-insert"><div class="reset-contact">Reset</div></div>');
           } else {
             $('#msg').addClass('show');
             $('#errorli').html(response['li']);
@@ -316,6 +316,14 @@ $(document).ready(function() {
     })
   });
 });
+$(document).ready(function() {
+  $(document).on('click','.reset-contact', function() {
+    $('#contactForm').load('contact-insert.php');
+  });
+});
+
+
+
 
 
 $(document).ready(function() { // 122120856 start

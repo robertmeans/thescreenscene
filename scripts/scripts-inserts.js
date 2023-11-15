@@ -33,27 +33,6 @@ $('#showLoginPass').click(function(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $('#showSignupPass').click(function(){
   var x = document.getElementById('showPassword');
   var y = document.getElementById('showConf');
@@ -119,23 +98,6 @@ $(document).ready(function() {
 
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -346,3 +308,39 @@ $(document).ready(function() {
 });
 
 
+
+// footer contact - insert version
+// $(document).ready(function() {
+//   $(document).on('click','#emailBob', function() {
+//     $.ajax({
+//       dataType: "JSON",
+//       url: "contact-process.php",
+//       type: "POST",
+//       data: $('#contactForm').serialize(),
+//       beforeSend: function(xhr) {
+//         $('#msg').removeClass('show');
+//         $('#emailBob-btn').html('<div class="sending-holup"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+//       },
+//       success: function(response) {
+//         // console.log(response);
+//         if(response) {
+//           console.log(response);
+//           if(response['signal'] == 'ok') {
+//             $('#msg').removeClass('show');
+//             $('#contactForm').html('<div class="success">Your message was sent successfully.</div>');
+//           } else {
+//             $('#msg').addClass('show');
+//             $('#errorli').html(response['li']);
+//             $('#emailBob-btn').html('<div id="emailBob">Send</div>');
+//           }
+//         } 
+//       },
+//       error: function() {
+//         $('#errorli').html('<li>There was an error between your IP and the server. Please try again later.</li>');
+//       }, 
+//       complete: function() {
+
+//       }
+//     })
+//   });
+// });
