@@ -261,29 +261,31 @@ ul#sortable li.pg2 {
 
 // project notes
 #table-page #project-wrap .project-details .project-notes {
-	background-color: rgba(255,255,255,0.2)
+	background-color: rgba(255,255,255,0.2);
+  border: 1px solid #ccc;
 }
 
 
 
 // background of my_projects bars 
 #table-page #project-wrap .review-project {
-	background-color: #8d8d8d;
+	background-color: #ebf4ff;
+  color: #003f87;
 	&:hover {
-		background-color: #656565;
-		color: #fff;
+		background-color: #d1d9e3;
+		color: #003f87;
 	}
 }
 #table-page #project-wrap .review-project.active {
 	// background-color: #e89e77;
-  background-color: #656565;
+  background-color: #ebf4ff;
 	&:hover {
-		background-color: #8d8d8d;
+		background-color: #d1d9e3;
 	}
 }
 .project-details { // my_projects -> project details background
 	// background-color: rgba(0,153,204,1);
-	background-color: #ccc;
+	background-color: #fff;
 }
 
 
@@ -312,13 +314,11 @@ ul#sortable li.pg2 {
 
 .project-greeting {
 	color: #003f87;
-  color: #313131;
 }
 // inner_nav - homepage
 ul.inner-nav li a {
 	color: #003f87;
 	&:hover {
-		color: #038700; // green
 		color: #ff5a00; // orange
 
 	}
@@ -328,10 +328,9 @@ ul.inner-nav li a {
 	a i.fa-info-circle,
 	a i.fa-user-friends,
 	a i.fa-minus-circle {
-		color: #fff;
-    color: #757575;
+    color: #003f87;
 			&:hover {
-			color: blue;
+			color: #ff5a00;
 		}	
 	}
 	a i.fa-minus-circle:hover {
@@ -347,12 +346,11 @@ ul.inner-nav li a {
 		a i.fa-info-circle,
 		a i.fa-user-friends,
 		a i.fa-arrows-alt {
-			color: #fff;
-      color: #757575;
+      color: #003f87;
 			text-decoration: none;
 			transition: all 0.2s ease;
 			&:hover {
-				color: blue;
+				color: #ff5a00;
 			}
 		}
 	}
@@ -376,9 +374,9 @@ ul.inner-nav li.project-name span.attn {
 .tab-links a,
 .tab-links a.project-link,
 #table-page #project-wrap a.my-nav  {
-	color: rgba(0,63,135,1);
+	color: #003f87;
 	&:hover {
-		//color: rgba(0,63,135,1);
+		color: #ff5a00;
 	}
 }
 .tab-links a.project-link:hover {
