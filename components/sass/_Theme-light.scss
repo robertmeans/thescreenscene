@@ -248,7 +248,7 @@ ul#static-sort a.project-links {
 
 // static section on edit_searches.php
 ul#sortablesearch li.static {
-	background-color: rgba(83,171,233,0.24);
+	background-color: #fff;
 	// color: #fff;
 }
 
@@ -295,7 +295,7 @@ ul#sortable li.pg2 {
 #edit-delete-page #edit-wrap #tab2, 
 #edit-delete-page #edit-wrap #tab3 {
     background-color: #fff;
-    background-image: url("_images/edit-bkg-light.png");
+    background-image: none;
     color: #313131;	
 }
 
@@ -428,15 +428,15 @@ ul#static-sort a.project-links.edit-shim {
 ul#bottom-search.logged li:last-child {
   // entire row
 	// background-color: rgba(251,190,113,1);
-  background-color: #bcc3cc;
+  background-color: #ebf4ff;
 }
 a#add-note {
   // just the button
-  color: #4d5054;
-  background-color: #d3dbe5;
+  color: #003f87;
+  background-color: transparent;
   &:hover {
-    color: #fff;
-    background-color: #a4aab3;
+    color: #003f87;
+    background-color: #d1d9e3;
   }
 }
 
@@ -454,44 +454,49 @@ a#add-note {
     color: #a0cd6f;
   }
 }
+.project-notes li:nth-child(even) .sec.note a.clipboard {
+  color: #9e9e9e;
+  &:hover {
+    color: #a0cd6f;
+  }
+}
 .project-notes li .sec.note-url a.note-link {
   color: #636363;
 }
 #sortanote li a.note-link,
 .project-notes li .sec.note .norm-copy
  {
-  // color: #313131;
-  color: inherit;
+  color: #757575;
 }
-// .project-notes li:nth-child(odd) a.modify-note,
-// .project-notes li:nth-child(odd) a.deletenote {
-//   color: #ccc;
-// }
 .project-notes li:nth-child(odd) a.modify-note:hover {
   color: #757575;
 }
 
 .project-notes li:nth-child(even) {
-	background-color: #7e7f82;	
+	background-color: #ebf4ff;
+  color: #757575;	
   .reorder i.fa-arrows-alt,
   a.modify-note,
   a.deletenote {
-    color: #9c9da1;
+    color: #757575;
   }
   a.deletenote:hover {
     color: #ff5656;
   }
+  a.modify-note:hover {
+    color: #313131;
+  }
 }
 .project-notes {
-  color: inherit;
+  color: #a7a7a7;
 }
 
-.project-notes li a.deletenote {
-	color: rgba(255,255,255,0.6);
-}
-.project-notes li:nth-child(even) a.deletenote {
-	color: rgba(255,255,255,0.6);
-}
+// .project-notes li a.deletenote {
+// 	color: rgba(255,255,255,0.6);
+// }
+// .project-notes li:nth-child(even) a.deletenote {
+// 	color: #ccc;
+// }
 #edit-deets {
 	// background-color: rgba(0,153,204,1);
   background-color: #ccc;
@@ -569,4 +574,15 @@ ul.inner-nav li.project-name a.tabs.tab-links.show-notes input {
 }
 ul.inner-nav li.project-name a.tabs.tab-links.show-notes .noteson {
   color: #ff5a00;
+}
+a.td {
+  background-color: #ebf4ff;
+  color: #003f87;
+  &:hover {
+    color: #fff;
+    background-color: #82c33a;
+  }
+  &.selected {
+    color: #fff;
+  }
 }
