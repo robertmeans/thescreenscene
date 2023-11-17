@@ -21,7 +21,7 @@ require '_includes/head.php';
 <div class="tabs new-intro">
   <p>Welcome <?= $_SESSION['username']; ?>,</p>
   <p>You don't have any projects. Let's get started!</p>
-  <p>Projects are the heart of this website. There's a lot going on here. If you haven't already watched the introduction video (link also available on the login page), you can always find a quick overview there.</p>
+  <p>All you need is a name for your project and you can change it anytime.</p>
     <form id="first-project" action="" method="post">
     <?php // ^^ submits to home_logged_in and processed by: create_new_project($row, $user_id); ?>
         <?php if(isset($errors) && count($errors) > 0): ?>
@@ -46,4 +46,6 @@ require '_includes/head.php';
 <?php require '_includes/search_stack_bottom.php'; ?>
 </div><!-- #table-wrap -->
 </div><!-- #table-page -->
+
+<?php // require '_includes/yt-intro-modal.php'; ?>
 <?php require '_includes/footer.php'; ?>

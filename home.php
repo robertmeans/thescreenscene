@@ -49,7 +49,6 @@ require '_includes/head.php';
 
       <div id="reset-success">
         <p>Welcome aboard, <?= $_SESSION['firstname']; ?>!</p>
-        <p class="msg">You look nice today. :)</p>
       </div>
 
     <?php 
@@ -101,7 +100,7 @@ require '_includes/head.php';
   <div class="v2wrap">
   	<h1>BrowserGadget</h1>
   	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
-  	<p id="watchvideo"><a href="#/" class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
+  	<p id="watchvideo"><a class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
   	<ul>
   		<li>Consolidate | Organize</li>
       <li>Store bookmarks</li>
@@ -121,28 +120,7 @@ require '_includes/head.php';
 
 </div><!-- .noscriptwrap -->
 
-<div id="ytvideo" class="yt-modal">
-
-<div class="yt-modal-content">
-  <div class="yt-modal-header">
-    <span class="yt-close shutterdown" onclick="stopVideo(this.getAttribute('vdoId'))" vdoId ="yvideo"><i class="fas fa-times-circle"></i></span>
-    <h2>BrowserGadget | Better Browsing Awaits</h2>
-  </div>
-
-  <div class="yt-modal-wrap">
-      <div class="yt-modal-body">
-
-      <iframe id="foo" class="yvideo" width="100%" max-width="820" height="462" src="https://www.youtube.com/embed/yTVijw7oZT8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-      </div><!-- .yt-modal-body -->
-
-  </div><!-- .yt-modal-wrap -->
-  <div class="yt-modal-footer">
-    <h3>&nbsp;</h3>
-  </div>
-
-</div><!-- .yt-modal-content -->
-</div><?php // #yt-modal ?>
+<?php require '_includes/yt-intro-modal.php'; ?>
 
 <?php $footer_context = "visitor"; ?>
 <?php require '_includes/footer.php'; ?>
