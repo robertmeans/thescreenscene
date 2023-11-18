@@ -47,5 +47,4 @@ require '_includes/head.php';
 </div><!-- #table-wrap -->
 </div><!-- #table-page -->
 
-<?php // require '_includes/yt-intro-modal.php'; ?>
 <?php require '_includes/footer.php'; ?>

@@ -868,9 +868,12 @@ function validate_project_update($row) {
     $errors['project_name'] = "Cannot leave Project Name empty.";
   }
 
+  if (has_length_greater_than($row['project_notes'], 1500)) {
+    $errors['project_notes'] = "Contain the beast! Project notes cannot exceed 1,500 characters.";
+  }
+
   return $errors; 
 }
-
 
 
 function is_blank($value) {

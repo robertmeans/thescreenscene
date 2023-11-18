@@ -48,7 +48,7 @@ $row = mysqli_fetch_assoc($any_projects_for_user);
     <?php if ($projects < 3 || $row['admin'] == 1) { ?>
     <form name="new" action="" method="post">
 
-        <?php if(count($errors) > 0): ?>
+        <?php if($errors): ?>
             <div class="alert alert-danger">
                 <?php foreach($errors as $error): ?>
                 <li><?php echo $error; ?></li>
