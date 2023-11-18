@@ -11,10 +11,6 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
 	exit();
 }
 
-if (isset($_GET['ds'])) {
-	echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
-}
-
 $user_id = $_SESSION['id'];
 
 if (is_post_request()) {
@@ -34,22 +30,6 @@ if (is_post_request()) {
 		}
 	}
 
-/*
-	if(isset($_POST['edit_project'])) {
-		$id     			= $_SESSION['id']            		;
-		$current_project   	= $_POST['current_project']  ?? ''	;
-
-		$result = update_current_project($id, $current_project);
-
-		if ($result === true) {
-		$_SESSION['current_project'] = $current_project;
-
-			header('location: edit_content.php');
-		} else {
-		$errors = $result;
-		}
-	}
-*/
   
 	if(isset($_POST['reorder_searches'])) {
 		$id     			= $_SESSION['id']            		;
@@ -96,6 +76,12 @@ $projects = mysqli_num_rows($any_projects_for_user);
 <?php 
 // find out if user has any projects they manage
 if ($projects > 0) { //(321)
+
+  if (isset($_SESSION['ds']) && $_SESSION['ds'] == 'ds-success') {
+    echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
+    unset($_SESSION['ds']); 
+  }
+
 	while ($row = mysqli_fetch_assoc($any_projects_for_user)) { //(123) while this user has projects, list them. 
 		$this_project = $row['project_id'];
 		$sharing = show_shared_with_info($user_id, $this_project);

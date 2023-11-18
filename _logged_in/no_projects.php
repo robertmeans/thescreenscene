@@ -4,16 +4,25 @@ if (isset($row['color'])) { // booyeah!
   $_SESSION['color'] = $row['color'];
 }
 require '_includes/head.php';
+
 ?>
 
-<body <?= "onLoad=\"document.google.q.focus();\""; ?>>
+<body onLoad="document.google.q.focus();">
 <?php // set default values for search rows
-  $s = array(0=>"1", 1=>"2", 2=>"3", 3=>"4", 4=>"5");
-  $row['reference'] = "1";
-?>
-<?php preload_config($layout_context); ?>
+$s = array(0=>"1", 1=>"2", 2=>"3", 3=>"4", 4=>"5");
+$row['reference'] = "1";
 
-<?php require '_includes/nav.php'; ?>
+preload_config($layout_context); 
+
+// they got here via a very circuitous route that ultimately started with deleting their only project.
+if (isset($_SESSION['ds']) && $_SESSION['ds'] == 'ds-success') {
+  echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
+  unset($_SESSION['ds']);
+}
+
+require '_includes/nav.php'; 
+?>
+
   <div id="table-page">
   <div id="table-wrap">
 <?php require '_includes/search_stack_top.php'; ?>

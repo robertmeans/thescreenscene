@@ -81,11 +81,6 @@ function build_projects_navigation($user_id) {
 
 
 
-
-
-
-
-
 function find_users_projects($user_id) { // 12.29.20 rewritten
   global $db;
   // solution learned at: https://www.youtube.com/watch?v=2HVMiPPuPIM&ab_channel=JoeyBlue
@@ -785,7 +780,7 @@ function update_row_order($current_project, $row) {
 function delete_project($current_project, $vamoose) {
   global $db;
 
-  $errors = validate_delete($vamoose);
+  $errors = validate_delete($vamoose); 
   if (!empty($errors)) {
     return $errors;
   }  
@@ -799,12 +794,12 @@ function delete_project($current_project, $vamoose) {
   if($result) {
     // send back to my_projects.php with ds=1 in 
     // order to allow $_GET to echo a success msg
-    header('location: my_projects.php?ds=1');
-  } else {
-    // delete failed
-    mysqli_error($db);
-    db_disconnect($db);
+    $_SESSION['ds'] = 'ds-success';
+    header('location: my_projects.php');
     exit;
+  } else {
+    $errors = mysqli_error($db);
+    return $errors;
   }
 }
 

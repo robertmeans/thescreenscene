@@ -331,7 +331,7 @@ input.updateSort {
 	}
 }
 
-div#success-wrap {
+#success-wrap {
   box-sizing: border-box;
   position: fixed;
   top: 0;
@@ -345,13 +345,13 @@ div#success-wrap {
   align-items: center;
   justify-content: center;
   background-color: rgba(0,0,0,008);
-  span.success-msg {
+  .success-msg {
     box-sizing: border-box;
     padding: 50px;
     text-align: center;
     font-size: 1.2em;
     line-height: 1.5em;
-    background-color: rgba(34,51,87,0.9);
+    background-color: #3eab3c;
     color: #fff;
     width: 80%;
     max-width: 400px; 

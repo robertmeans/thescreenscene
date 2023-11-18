@@ -1,7 +1,7 @@
 // JavaScript Document
 setTimeout(function() {
   $("#success-wrap").fadeOut(750);
-}, 500);
+}, 1250);
 
 // add class to all li's with empty anchors in order to collapse
 // those rows and keep things tight.

@@ -15,14 +15,13 @@ $current_project = $_GET['id'];
 $user_id = $_SESSION['id'];
 
 if (is_post_request()) {
-$vamoose  = $_POST['vamoose']   ?? '';
+  $vamoose  = $_POST['vamoose']   ?? '';
 
-$result = delete_project($current_project, $vamoose);
-    if ($result === true) {
-      
-    } else {
-      $errors = $result;
-    }
+  $result = delete_project($current_project, $vamoose);
+
+  if ($result !== true) {
+    $errors = $result;
+  }
 }
 
 ?>
@@ -39,14 +38,13 @@ $result = delete_project($current_project, $vamoose);
 <?php
 $row = show_project($current_project);
 
-if ($row['owner_id'] == $_SESSION['id']) { 
-?>
+if (isset($row['owner_id']) && $row['owner_id'] == $_SESSION['id']) {  ?>
 <p class="delete-title">Delete <?= $row['project_name'] ?></p>
 
 <form id="delete-form" action="" method="post">
   <p>Type "Delete" and click Delete</p>
 
-    <?php if(count($errors) > 0): ?>
+    <?php if($errors): ?>
         <div class="alert alert-danger">
             <?php foreach($errors as $error): ?>
             <li><?php echo $error; ?></li>
