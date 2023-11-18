@@ -420,6 +420,116 @@ $('.tab.active').show();
   });
 }); // // 122120856 end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// new project begin
+// $("#new-project-form").keyup(function(event) {
+//   if (event.keyCode === 13) {
+//     $("#new-project-btn").click();
+//   }
+// });
+// $('#new-project-form').submit(function(e){
+//     e.preventDefault();
+// });
+$(document).ready(function() {
+
+  var login_attempts = 0;
+  $(document).on('click','#new-project-btn', function() {
+    var current_loc = window.location.href;
+
+    if (!$('li').hasClass('no-count')) {
+      login_attempts += 1;
+    } else {
+      login_attempts += 0;
+    }      
+
+    $.ajax({
+      dataType: "JSON",
+      url: "new-project-process.php",
+      type: "POST",
+      data: $('#new-project-form').serialize(),
+      beforeSend: function(xhr) {
+        $('#login-alert').removeClass('red blue orange green'); // reset class every click
+        $('#error-area').removeClass('gone');
+        $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
+
+      },
+      success: function(response) {
+        console.log(response);
+        if(response) {
+          // console.log(response);
+          if(response['signal'] == 'ok') {
+
+            if (current_loc.indexOf("localhost") > -1) {
+              window.location.replace("http://localhost/browsergadget");
+            } else {
+              window.location.replace("https://browsergadget.com");
+            }
+
+          } else {
+
+            $('#errors').html(response['li']);
+            $('#toggle-btn').html('<div id="login-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+        $('#login-btn').html(response['msg']);
+      }, 
+      complete: function() {
+
+      }
+    })
+
+  });
+});
+// new project end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // allow formatting in project notes
 $(document).on('click','#textbox',function() {
   document.getElementById('textbox').addEventListener('keydown', function(e) {
@@ -436,7 +546,7 @@ $(document).on('click','#textbox',function() {
       this.selectionEnd = start + 1;
     }
   });
-})
+});
 
 $(document).ready(function() {
   $("#email-bob").hide();

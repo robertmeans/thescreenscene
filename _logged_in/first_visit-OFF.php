@@ -1,10 +1,9 @@
-<?php $layout_context = "no-projects";
+<?php $layout_context = "home-first-visit"; 
 
 if (isset($row['color'])) { // booyeah!
   $_SESSION['color'] = $row['color'];
 }
 require '_includes/head.php';
-
 ?>
 
 <body onLoad="document.google.q.focus();">
@@ -12,13 +11,13 @@ require '_includes/head.php';
 $s = array(0=>"1", 1=>"2", 2=>"3", 3=>"4", 4=>"5");
 $row['reference'] = "1";
 
-preload_config($layout_context); 
+preload_config($layout_context);
 
-// they got here via a very circuitous route that ultimately started with deleting their only project.
-if (isset($_SESSION['ds']) && $_SESSION['ds'] == 'ds-success') {
-  echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
-  unset($_SESSION['ds']);
-}
+
+
+
+
+
 
 require '_includes/nav.php'; 
 ?>
@@ -28,12 +27,12 @@ require '_includes/nav.php';
 <?php require '_includes/search_stack_top.php'; ?>
 
 <div class="tabs new-intro">
-  <p>Hello <?= $_SESSION['username']; ?>,</p>
-  <p>You don't have any projects. The last project you were viewing has been deleted and there are no others to choose from.</p>
-  <p>Time to start a new one.</p>
+  <p>Welcome <?= $_SESSION['username']; ?>,</p>
+  <p>You don't have any projects. Let's get started!</p>
+  <p>All you need is a name for your project and you can change it anytime.</p>
     <form id="first-project" action="" method="post">
-
-        <?php if(count($errors) > 0): ?>
+    <?php // ^^ submits to home_logged_in and processed by: create_new_project($row, $user_id); ?>
+        <?php if(isset($errors) && $errors): ?>
             <div class="alert alert-danger">
                 <?php foreach($errors as $error): ?>
                 <li><?php echo $error; ?></li>

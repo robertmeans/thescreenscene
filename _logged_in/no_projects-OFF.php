@@ -1,39 +1,8 @@
-<?php $layout_context = "new-project";
-
-require_once 'config/initialize.php';
+<?php $layout_context = "no-projects";
 
 if (isset($row['color'])) { // booyeah!
   $_SESSION['color'] = $row['color'];
 }
-if (!isset($_SESSION['id'])) {
-  header('location:' . WWW_ROOT);
-  exit();
-}
-if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
-  header('location:' . WWW_ROOT);
-  exit();
-}
-
-$user_id = $_SESSION['id'];
-
-if (is_post_request() && isset($_POST['project_name'])) {
-
-$row = [];
-// $row['user_id']       = $_SESSION['id'];
-$row['project_name']  = $_POST['project_name']  ?? '' ;
-$row['project_notes'] = $_POST['project_notes']  ?? ''  ;
-$row['share']         = '1' ?? '' ;
-$row['edit']          = '1' ?? '' ;
-
-$result = create_new_project($row, $user_id);
-
-  if ($result === true) {
-
-  } else {
-    $errors = $result;
-  }
-}
-
 require '_includes/head.php';
 ?>
 
@@ -73,17 +42,22 @@ if ($projects < 10 || $row['admin'] == 1) {
   <?php } else if (isset($_SESSION['no-projects'])) { ?>
 
     <p>Hello <?= $_SESSION['username']; ?>,</p>
-    <p>You don't have any projects. The last project you were viewing was deleted and there are no others to choose from. Time to start a new one.</p>
+    <p>You don't have any projects. The last project you were viewing has been deleted and there are no others to choose from.</p>
+    <p>Time to start a new one.</p>
 
   <?php } else { ?>
     <p>Start a new project:</p>
   <?php } ?>
 
-    <form id="new-project-form" method="post">
+    <form id="first-project" action="" method="post">
 
-    <div id="login-alert">
-      <ul id="errors"></ul>
-    </div>
+        <?php if(isset($errors) && $errors): ?>
+            <div class="alert alert-danger">
+                <?php foreach($errors as $error): ?>
+                <li><?php echo $error; ?></li>
+            <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
 
       <p>Name your first project | Limit 30 characters</p>
       <input type="text" class="first-project-name" name="project_name" maxlength="30" value="<?php if (isset($_POST['project_name'])) { echo $_POST['project_name']; } ?>">
@@ -91,10 +65,7 @@ if ($projects < 10 || $row['admin'] == 1) {
       <p>Project Notes | Limit 1,500 characters</p>
       <textarea id="textbox" name="project_notes" maxlength="1500"><?php if (isset($_POST['project_notes'])) { echo $_POST['project_notes']; } ?></textarea>
 
-      <!-- <input type="submit" class="first-submit" name="first_project" value="Go!"> -->
-      <div id="toggle-btn">
-        <div id="new-project-btn"><span class="login-txt">Start new project</span></div>
-      </div>
+      <input type="submit" class="first-submit" name="first_project" value="Go!">
 
     </form>
 

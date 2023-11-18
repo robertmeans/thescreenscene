@@ -17,9 +17,7 @@ if (is_post_request()) {
 
   $result = create_new_project($row, $user_id);
 
-    if ($result === true) {
-
-    } else {
+    if ($result !== true) {
       $errors = $result;
     }
   }
@@ -72,11 +70,14 @@ if ($current_project != "0") { // not a brand new member
       require '_logged_in/current_project_not_found.php';
 
     } else { // they have no projects and their last was deleted since last visit
-      require '_logged_in/no_projects.php';
+      $_SESSION['no-projects'] = 'no-projects';
+      header('location:' . WWW_ROOT . '/new_project.php' );
+      exit;
     }
   }
 } else { // brand new member - first visit
-
-  require '_logged_in/first_visit.php';
+  $_SESSION['first-project'] = 'first-project';
+  header('location:' . WWW_ROOT . '/new_project.php' );
+  exit;
 
 }

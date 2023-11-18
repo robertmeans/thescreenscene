@@ -45,10 +45,12 @@ function create_new_project($row, $user_id) { // 12.29.20 - rewrote with multipl
       // project_user table then change the current_project in the
       // session and send them to the homepage with their new project
 
+      if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
+      if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
       $_SESSION['current_project'] = $new_id;
       header('location:' . WWW_ROOT );
-      
-      } else {
+      exit;
+    } else {
       echo mysqli_error($db);
       db_disconnect($db);
       exit;

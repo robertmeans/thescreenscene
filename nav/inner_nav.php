@@ -19,7 +19,7 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Reorder search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if (($row['share'] == "1") && ($layout_context != 'share_project')) { ?>
@@ -86,7 +86,7 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Reorder search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>
