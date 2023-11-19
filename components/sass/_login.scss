@@ -234,7 +234,20 @@
 .rm-rm.hot {
 	color: rgba(150,255,0,1);
 }
-
+label[for='remember_me']:hover {
+  .aa-rm-out {
+    border: 2px solid blue;
+    background-color: #fff;
+  }
+  .aa-rm-in {
+    border: 4px solid red;
+    padding: 3px;
+    background-color: #fff;    
+  }
+  .rm-rm {
+    // color: #fff;
+  }
+}
 
 
 /* Change the white to any color ;) */
@@ -626,7 +639,6 @@ a.welcome-log {
     background-color: #000;
   }
   #login-btn,
-  #new-project-btn,
   #reset-btn,
   #login-btn-insert,
   #signup-btn,

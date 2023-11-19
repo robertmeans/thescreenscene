@@ -19,14 +19,14 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+	<li><a id="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if (($row['share'] == "1") && ($layout_context != 'share_project')) { ?>
 	<li><a href="share_project.php?id=<?= $row['project_id']; ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
 	<?php } ?>
 
-  <li><a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+  <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
 
   <?php
 	if ($layout_context == 'homepage') { ?>
@@ -82,24 +82,24 @@
 			<input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
 			<input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
 			<input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-			<a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmark</span><i class="far fa-edit fa-fw"></i></div></a>
+			<a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Edit bookmarks</span><i class="far fa-edit fa-fw"></i></div></a>
 		</form>
 	</li>
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a href="edit_searches.php"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+	<li><a id="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>
-	<li><a href="edit_order.php"><div class="tooltip"><span class="tooltiptext">Rearrange bookmarks</span><i class="fas fa-arrows-alt fa-fw"></i></div></a></li>
+	<li><a id="eo-link"><div class="tooltip"><span class="tooltiptext">Rearrange bookmarks</span><i class="fas fa-arrows-alt fa-fw"></i></div></a></li>
 	<?php }
 
   if ($layout_context != 'share_project') { ?>
 	<li><a href="share_project.php?id=<?= $row['project_id']; ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
   <?php } ?>
 
-  <li><a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+  <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
 
   <?php
 	if ($layout_context == 'homepage') { ?>

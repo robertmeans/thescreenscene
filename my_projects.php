@@ -38,9 +38,10 @@ if (is_post_request()) {
 		$result = update_current_project($id, $current_project);
 
 		if ($result === true) {
-		$_SESSION['current_project'] = $current_project;
+		  $_SESSION['current_project'] = $current_project;
+      $_SESSION['organize'] = 'anothern';
 
-			header('location: edit_searches.php');
+			header('location:' . WWW_ROOT);
 		} else {
 		$errors = $result;
 		}
@@ -57,7 +58,7 @@ $projects = mysqli_num_rows($any_projects_for_user);
 <?php preload_config($layout_context); ?>
 <?php require '_includes/nav.php'; ?>
 
-<div id="table-page">
+<div id="table-page" class="my-projects">
  	<div id="project-wrap">
 
  	<div class="project-greeting"><?php // special version of inner_nav just for this spot ?>
@@ -120,7 +121,7 @@ if ($projects > 0) { //(321)
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search field</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
@@ -191,7 +192,7 @@ if ($projects > 0) { //(321)
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search field</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <?php if ($row['share'] == "1") { ?>
@@ -267,7 +268,7 @@ if ($projects > 0) { //(321)
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search field</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>

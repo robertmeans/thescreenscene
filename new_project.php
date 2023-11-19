@@ -1,7 +1,7 @@
 <?php
-// one day, figure out why this needs to be directly above require '_includes/head.php'
-// it is otherwise not enduring until it gets there - ?! 
-// $layout_context = 'new-project';
+/* 
+one day, figure out why $layout_context needs to be directly above "require '_includes/head.php'" it is otherwise not enduring until it gets there - ?! 
+*/ 
 
 require_once 'config/initialize.php';
 
@@ -74,10 +74,18 @@ if ($projects < 10 || $row['admin'] == 1) {
       <p>Project Notes | Limit 1,500 characters</p>
       <textarea id="textbox" name="project_notes" maxlength="1500"><?php if (isset($_POST['project_notes'])) { echo $_POST['project_notes']; } ?></textarea>
 
-      <!-- <input type="submit" class="first-submit" name="first_project" value="Go!"> -->
-      <div id="toggle-btn">
+  <?php if (isset($_SESSION['cancel-option'])) { ?>
+      <input type="hidden" id="can-opt" name="can-opt" value="off">
+      <div id="np-toggle-btn">
         <div id="new-project-btn"><span class="login-txt">Start new project</span></div>
       </div>
+
+    <?php } else { ?>
+      <div id="np-toggle-btn" class="cancel">
+        <a id="new-project-cancel-btn" class="cncl" href="<?= WWW_ROOT ?>"><span class="login-txt">Cancel</span></a>
+        <div id="new-project-btn" class="cncl"><span class="login-txt">Start new project</span></div>
+      </div>
+    <?php } ?>
 
     </form>
 

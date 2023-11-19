@@ -135,7 +135,7 @@ require '_includes/nav.php'; ?>
 
 	<?php 
 
-		if ((($row['owner_id'] || $row['shared_with']) == $user_id) && $row['share'] == "1") { ?>
+		if ($row != NULL && ((($row['owner_id'] || $row['shared_with']) == $user_id) && $row['share'] == "1")) { ?>
 
 <?php
 $whos_project = owner_or_shared_with($current_project, $user_id);
@@ -160,7 +160,6 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
             </div>
         <?php endif; ?>
 
-
  	<form action="" method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
  		
@@ -169,8 +168,6 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
  		<p>Select the privliges for this user</p>
 
  		<label for="edit" class="edit"><input id="edit" type="checkbox" class="edit" name="edit" value="1"><div class="echeckon"><i class="fas fa-check"></i></div> Add, edit or delete links in this project.</label>
-
-
 
  		<label for="share" class="share"><input id="share" type="checkbox" class="share" name="share" value="1"><div class="scheckon"><i class="fas fa-check"></i></div> Share this project, and these permissions, with others.</label>
 

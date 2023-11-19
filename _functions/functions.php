@@ -1,21 +1,35 @@
 <?php
 
-function preload_config($layout_context) {
-  /* including argument in case I ever want to work with it in the future   */
-  /* this way I'm forced to make sure $layout_context exists on every page  */
-  /* this function is included.                                             */
+function preload_config($layout_context) { 
+  $no_preload = array('new-project', 'edit_searches', 'edit_order');
+
   if (!isset($_SESSION['color'])) {
-    echo '<div class="preload dark"><img src="_images/preloadflow.gif"></div>';
+    if (in_array($layout_context, $no_preload)) {
+      echo '<div class="preload dark"></div>';
+    } else {
+      echo '<div class="preload dark"><img src="_images/preloadflow.gif"></div>';
+    }
   } else {
     if ($_SESSION['color'] == '1') {
-      echo '<div class="preload dark"><img src="_images/preloadflow.gif"></div>';
+      if (in_array($layout_context, $no_preload)) { 
+        echo '<div class="preload dark"></div>';
+      } else {
+        echo '<div class="preload dark"><img src="_images/preloadflow.gif"></div>';
+      }  
     } else if ($_SESSION['color'] == '2') {
-      echo '<div class="preload spring"><img src="_images/preloadspring.gif"></div>';
+      if (in_array($layout_context, $no_preload)) { 
+        echo '<div class="preload spring"></div>';
+      } else {
+        echo '<div class="preload spring"><img src="_images/preloadspring.gif"></div>';
+      }     
     } else if ($_SESSION['color'] == '3') {
-      echo '<div class="preload light"><div class="loader"><span></span><span></span><span></span><span></span></div></div>';
+      if (in_array($layout_context, $no_preload)) { 
+        echo '<div class="preload light"></div>';
+      } else {
+        echo '<div class="preload light"><div class="loader"><span></span><span></span><span></span><span></span></div></div>';
+      }      
     }
-  }
-  
+  } 
 }
 
 function u($string="") {
