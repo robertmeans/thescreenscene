@@ -26,6 +26,8 @@
 	<li><a href="share_project.php?id=<?= $row['project_id']; ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
 	<?php } ?>
 
+  <li><a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+
   <?php
 	if ($layout_context == 'homepage') { ?>
 	<li>
@@ -95,8 +97,11 @@
 
   if ($layout_context != 'share_project') { ?>
 	<li><a href="share_project.php?id=<?= $row['project_id']; ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
-  <?php }
+  <?php } ?>
 
+  <li><a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+
+  <?php
 	if ($layout_context == 'homepage') { ?>
 	<li>
 		<a class="static"><div class="tooltip"><span class="tooltiptext">Color theme</span><i class="fas fa-fill-drip fa-fw"></i></div></a>

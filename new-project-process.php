@@ -1,20 +1,14 @@
 <?php
 require_once 'config/initialize.php';
 
-$user_id = $_SESSION['id'];
-
 $signal = '';
-$msg = '';
 $li = '';
 $class = '';
-$password_txt = '';
-$msg_txt = '';
-$count = '';
 
 // if user clicks on login
 if (is_post_request() && isset($_POST['project_name'])) {
+  $user_id = $_SESSION['id'];
   $row = [];
-  // $row['user_id']       = $_SESSION['id'];
   $row['project_name']  = $_POST['project_name']  ?? '' ;
   $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
   $row['share']         = '1' ?? '' ;
@@ -25,14 +19,12 @@ if (is_post_request() && isset($_POST['project_name'])) {
   // validation
   if (empty($row['project_name'])) {
     $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
     $li .= '<li class="no-count">Cannot leave Project Name empty.</li>';
     $class = 'red'; 
   }
 
   if (has_length_greater_than($row['project_notes'], 1500)) {
     $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
     $li .= '<li class="no-count">Contain the beast! Project notes cannot exceed 1,500 characters.</li>';
     $class = 'red';
   }
@@ -85,14 +77,12 @@ if (is_post_request() && isset($_POST['project_name'])) {
         $signal = 'ok';
       } else {
         $signal = 'bad';
-        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
         $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
         $class = 'red';
         db_disconnect($db);
       } 
     } else {
       $signal = 'bad';
-      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
       $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
       $class = 'red';
       db_disconnect($db);
@@ -102,11 +92,7 @@ if (is_post_request() && isset($_POST['project_name'])) {
 }
 $data = array(
   'signal' => $signal,
-  'msg' => $msg,
   'li' => $li,
-  'class' => $class,
-  'password_txt' => $password_txt,
-  'msg_txt' => $msg_txt,
-  'count' => $count
+  'class' => $class
 );
 echo json_encode($data);
