@@ -1,69 +1,5 @@
 <?php
 
-function create_new_project($row, $user_id) { // 12.29.20 - rewrote with multiple inserts
-  global $db;
-
-    $errors = validate_project_update($row); 
-    if (!empty($errors)) {
-      return $errors;
-    }
-
-  // start by creating a new project with user_id = the user's ID
-  $one = "INSERT INTO projects ";
-  $one .= "(project_name, project_notes) ";
-  $one .= "VALUES ("; 
-  $one .= "'" . db_escape($db, $row['project_name'])    . "', ";
-  $one .= "'" . db_escape($db, $row['project_notes'])    . "'";
-  $one .= ")";
-
-  // we're going to grab the last id assigned for the project just
-  // created and insert it as the project_id in the project_user table
-  $two = "INSERT INTO project_user ";
-  $two .= "(owner_id, share, edit, project_id) ";
-  $two .= "VALUES (";
-  $two .= "'" . db_escape($db, $user_id) . "', ";
-  $two .= "'" . db_escape($db, $row['share']) . "', ";
-  $two .= "'" . db_escape($db, $row['edit']) . "', ";
-  $two .= "LAST_INSERT_ID()";
-  $two .= ")"; 
-
-  // running the 1st query to create a new project
-  $result1 = mysqli_query($db, $one);
-
-  if ($result1 === true) { // if the project was successfully created
-
-    // grab that new project id, assign it to a variable $new_id
-    // and put it in the users table as this users current_project
-    $new_id = mysqli_insert_id($db);
-    update_users_current_project($new_id, $user_id);
-
-    // and run the next query which adds this project to the 
-    // project_user table
-    $result = mysqli_query($db, $two);
-
-    if ($result) { // if the project is successfully added to the 
-      // project_user table then change the current_project in the
-      // session and send them to the homepage with their new project
-
-      if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
-      if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
-      $_SESSION['current_project'] = $new_id;
-      header('location:' . WWW_ROOT );
-      exit;
-    } else {
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    } 
-  } else {
-    echo mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
-}
-
-
-
 function build_projects_navigation($user_id) { 
   global $db;
   $sql = "SELECT p_u.owner_id, p_u.shared_with, p_u.project_id, p.project_name "; 
@@ -78,9 +14,6 @@ function build_projects_navigation($user_id) {
   confirm_result_set($result);  
   return $result;  
 }
-
-
-
 
 
 function find_users_projects($user_id) { // 12.29.20 rewritten

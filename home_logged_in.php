@@ -71,13 +71,15 @@ if ($current_project != "0") { // not a brand new member
 
     } else { // they have no projects and their last was deleted since last visit
       $_SESSION['no-projects'] = 'no-projects';
-      header('location:' . WWW_ROOT . '/new_project.php' );
-      exit;
+      require 'new_project.php';
+      // header('location:' . WWW_ROOT . '/new_project.php' );
+      // exit;
     }
   }
 } else { // brand new member - first visit
   $_SESSION['first-project'] = 'first-project';
-  header('location:' . WWW_ROOT . '/new_project.php' );
-  exit;
+  require 'new_project.php';
+  // header('location:' . WWW_ROOT . '/new_project.php' );
+  // exit;
 
 }

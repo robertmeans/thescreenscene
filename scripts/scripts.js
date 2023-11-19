@@ -448,14 +448,14 @@ $('.tab.active').show();
 
 
 // new project begin
-// $("#new-project-form").keyup(function(event) {
-//   if (event.keyCode === 13) {
-//     $("#new-project-btn").click();
-//   }
-// });
-// $('#new-project-form').submit(function(e){
-//     e.preventDefault();
-// });
+$("#new-project-form").keyup(function(event) {
+  if (event.keyCode === 13) {
+    $("#new-project-btn").click();
+  }
+});
+$('#new-project-form').submit(function(e){
+    e.preventDefault();
+});
 $(document).ready(function() {
 
   var login_attempts = 0;
@@ -474,8 +474,8 @@ $(document).ready(function() {
       type: "POST",
       data: $('#new-project-form').serialize(),
       beforeSend: function(xhr) {
-        $('#login-alert').removeClass('red blue orange green'); // reset class every click
-        $('#error-area').removeClass('gone');
+        $('#new-project-alert').removeClass('red'); // reset class every click
+        // $('#error-area').removeClass('gone');
         $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
 
       },
@@ -492,9 +492,9 @@ $(document).ready(function() {
             }
 
           } else {
-
-            $('#errors').html(response['li']);
-            $('#toggle-btn').html('<div id="login-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+            $('#new-project-alert').addClass('red');
+            $('#new-project-errors').html(response['li']);
+            $('#toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
           }
         } 
       },

@@ -491,7 +491,8 @@ a.welcome-log {
 #signup-form,
 #success-form,
 #forgot-form,
-#reset-form {
+#reset-form,
+#new-project-form {
   #hidethis {
     display: none;
   }
@@ -510,6 +511,7 @@ a.welcome-log {
     }
   }
   #login-alert,
+  #new-project-alert,
   #reset-alert,
   #signup-alert,
   #forgot-alert {
@@ -539,11 +541,21 @@ a.welcome-log {
         list-style-type: disc;
       }
     }
+    ul#new-project-errors {
+      li {
+        line-height: 1.25em;
+        margin-bottom: 0.5em;
+      }
+      li:last-of-type {
+        margin-bottom: 0;
+      }
+    }
   }
 
 
 
   #login-alert,
+  #new-project-alert,
   #reset-alert,
   #signup-alert {
     display: none;
@@ -552,6 +564,7 @@ a.welcome-log {
   #login-alert.blue,
   #login-alert.orange,
   #login-alert.green,
+  #new-project-alert.red,
   #signup-alert.red,
   #signup-alert.blue,
   #signup-alert.orange,
@@ -573,6 +586,7 @@ a.welcome-log {
     animation: errorfade 1.5s ease-out;
   }
   #login-alert.red,
+  #new-project-alert.red,
   #forgot-alert.red,
   #signup-alert.red,
   #reset-alert.red {
@@ -611,7 +625,8 @@ a.welcome-log {
   .verifying-msg {
     background-color: #000;
   }
-  #login-btn
+  #login-btn,
+  #new-project-btn,
   #reset-btn,
   #login-btn-insert,
   #signup-btn,

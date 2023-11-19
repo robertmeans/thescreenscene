@@ -26,8 +26,12 @@
   	
 	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Courier+Prime|Roboto|Special+Elite' rel='stylesheet' type='text/css'>
 
-  <?php if (isset($_SESSION['color']) && $_SESSION['color'] == "3") { 
+  <?php if ($layout_context == 'new-project') { 
+    ?><link rel="stylesheet" href="style-dark.css?<?php echo time(); ?>" type="text/css">
+
+  <?php } else if (isset($_SESSION['color']) && $_SESSION['color'] == "3") { 
 		?><link rel="stylesheet" href="style-light.css?<?php echo time(); ?>" type="text/css">
+
 	<?php } else if (isset($_SESSION['color']) && $_SESSION['color'] == "2") { 
 		?><link rel="stylesheet" href="style-spring.css?<?php echo time(); ?>" type="text/css">
 	<?php } else {  

@@ -1,10 +1,10 @@
-<?php $layout_context = "new-project";
+<?php
+// one day, figure out why this needs to be directly above require '_includes/head.php'
+// it is otherwise not enduring until it gets there - ?! 
+// $layout_context = 'new-project';
 
 require_once 'config/initialize.php';
 
-if (isset($row['color'])) { // booyeah!
-  $_SESSION['color'] = $row['color'];
-}
 if (!isset($_SESSION['id'])) {
   header('location:' . WWW_ROOT);
   exit();
@@ -16,24 +16,7 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
 
 $user_id = $_SESSION['id'];
 
-if (is_post_request() && isset($_POST['project_name'])) {
-
-$row = [];
-// $row['user_id']       = $_SESSION['id'];
-$row['project_name']  = $_POST['project_name']  ?? '' ;
-$row['project_notes'] = $_POST['project_notes']  ?? ''  ;
-$row['share']         = '1' ?? '' ;
-$row['edit']          = '1' ?? '' ;
-
-$result = create_new_project($row, $user_id);
-
-  if ($result === true) {
-
-  } else {
-    $errors = $result;
-  }
-}
-
+$layout_context = 'new-project';
 require '_includes/head.php';
 ?>
 
@@ -81,8 +64,8 @@ if ($projects < 10 || $row['admin'] == 1) {
 
     <form id="new-project-form" method="post">
 
-    <div id="login-alert">
-      <ul id="errors"></ul>
+    <div id="new-project-alert">
+      <ul id="new-project-errors"></ul>
     </div>
 
       <p>Name your first project | Limit 30 characters</p>
