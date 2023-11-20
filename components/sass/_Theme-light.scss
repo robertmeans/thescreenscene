@@ -441,6 +441,7 @@ a#add-note {
 }
 
 .project-notes li:nth-child(odd) {
+  color: #757575;
 	background-color: #fff;
   .reorder i.fa-arrows-alt,
   a.modify-note,
@@ -454,9 +455,12 @@ a#add-note {
     color: #a0cd6f;
   }
 }
-// .project-notes li .sec.note-url a.note-link {
-//   color: red;
-// }
+.project-notes li .sec.note-url a.note-link {
+  color: #003f87;
+  // &:hover {
+  //   color: #a0cd6f;
+  // }
+}
 #sortanote li a.note-link {
   color: #003f87;
 }
