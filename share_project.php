@@ -1,122 +1,30 @@
 <?php $layout_context = "share_project";
 
 require_once 'config/initialize.php';
-// require_once '_includes/session.php';
 
-// off for local testing
+// if (!isset($_SESSION['id'])) {
+//   header('location:' . WWW_ROOT);
+// 	exit();
+// }
+// if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
+//   header('location:' . WWW_ROOT);
+// 	exit();
+// }
 
-if (!isset($_SESSION['id'])) {
-  header('location:' . WWW_ROOT);
-	exit();
-}
-if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
-  header('location:' . WWW_ROOT);
-	exit();
-}
+// $user_id = $_SESSION['id'];
 
-$user_id = $_SESSION['id'];
-$id = $_GET['id'];
-$current_project = $_GET['id'];
+// if (isset($_POST['project_id'])) {
+//   $id                             = $_POST['project_id'];
+//   $current_project                = $_POST['project_id'];
+//   $_SESSION['share-project-id']   = $_POST['project_id'];
+// } else if (isset($_SESSION['share-project-id'])) {
+//   $id               = $_SESSION['share-project-id'];
+//   $current_project  = $_SESSION['share-project-id'];
+// }
 
-if (is_post_request()) {
+// $id = $_SESSION['share-project-id'];
+// $current_project = $_SESSION['share-project-id'];
 
-  if(isset($_POST['go_to_homepage'])) {
-    $id           = $_SESSION['id']               ;
-    $current_project    = $_POST['current_project']  ?? ''  ;
-
-    $result = update_current_project($id, $current_project);
-
-    if ($result === true) {
-    $_SESSION['current_project'] = $current_project;
-
-      header('location:' . WWW_ROOT);
-    } else {
-    $errors = $result;
-    }
-  }
-
-
-	if (isset($_POST['owner-share-submit'])) {
-
-		$row = [];
-		$row['user_id'] 	= $user_id;
-		$row['project_name'] = $_POST['project_name'];
-		$row['users_email'] = $_POST['user_email'];
-
-		$share = $_POST['share'] ?? '0';
-		$edit = $_POST['edit'] ?? '0';
-
-		//$role 	= $_POST['role']; // because $row[] gets repurposed in share_project() - below
-
-		$result = owner_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
-
-		if ($result === true) { // INSERT was a success - everything validated and user was added to 
-								// project. let's add a happy little personalized success message
-								// just to keep things over the top, of couse.
-
-			$users_email = $_POST['user_email'];
-			$user = find_user_by_email($users_email);
-
-		  	$errors = [];
-		    $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
-
-		} else { 
-			$errors = $result; 
-		}
-	}
-
-	if (isset($_POST['sharer-share-submit'])) {
-
-		$row = [];
-		$row['user_id'] 	= $user_id;
-		$row['project_name'] = $_POST['project_name'];
-		$row['users_email'] = $_POST['user_email'];
-		$share = $_POST['share'] ?? '0';
-		$edit = $_POST['edit'] ?? '0';
-
-		// $role	= $_POST['role']; // because $row[] gets repurposed in share_project() - below
-
-		$result = sharer_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
-
-		if ($result === true) { // INSERT was a success - everything validated and user was added to 
-								// project. let's add a happy little personalized success message
-								// just to keep things over the top, of couse.
-
-			$users_email = $_POST['user_email'];
-			$user = find_user_by_email($users_email);
-
-		  	$errors = [];
-		    $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
-
-		} else { 
-			$errors = $result; 
-		}
-	}
-
-	if (isset($_POST['delete'])) {
-		$remove_this_user = $_POST['delete-shared-user']   ?? '';
-		// $from_this_project = $_POST['']  ?? '';
-
-		$result = remove_shared_user($id, $remove_this_user);
-	    if ($result === true) {
-	      
-	    } else {
-	      //$errors = $result; 
-	    }
-	}
-
-	if (isset($_POST['remove-self'])) {
-		$remove_this_user = $_POST['delete-shared-user']   ?? '';
-		// $from_this_project = $_POST['']  ?? '';
-
-		$result = remove_me($id, $remove_this_user);
-	    if ($result === true) {
-	      
-	    } else {
-	      //$errors = $result; 
-	    }
-	}
-}
 
 $row = show_project_to_owner($current_project);
 
@@ -162,6 +70,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
  	<form action="" method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
+    <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
  		<input type="email" name="user_email" class="<?php if(isset($errors['email_error'])) { echo "email-error"; } ?>" placeholder="Email address of user with whom to share">
 
@@ -192,6 +101,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 								"<input type=\"hidden\" name=\"delete-shared-user\" value=\"" 
 								. $row['shared_with'] . "\">
 								<div>
+                <input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\">
 								<input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\">
 								</div>
 							</form>
@@ -236,6 +146,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
  	<form action="" method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
+    <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
  		<input type="email" name="user_email" class="<?php if(isset($errors['email_error'])) { echo "email-error"; } ?>" placeholder="Email address of user with whom to share">
 
@@ -263,6 +174,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 	echo "<h2 class=\"edit-share\">Project Users</h2>";
 	?>
 	<form action="" class="remove-self" method="post" onsubmit="return confirm('Confirm: Remove yourself from <?= $row['project_name']; ?>?')">
+    <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
 		<p class="mep">Me</p>
 		<input type="hidden" name="delete-shared-user" value="<?= $user_id; ?>">
 		<input type="submit" name="remove-self" value="Leave this project">
@@ -271,7 +183,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 	if ($result > 1) {
 		$sharing = show_shared_with_info($user_id, $this_project);
 		while ($row = mysqli_fetch_assoc($sharing)) { 
-			$names[] = "<div class=\"shared-users\"><form class=\"edit-user\" action=\"\" method=\"post\" onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from this project?');\">" . $row['first_name'] . " " . $row['last_name'] . "<input type=\"hidden\" name=\"delete-shared-user\" value=\"" . $row['shared_with'] . "\"><input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\">" . "</form></div>";
+			$names[] = "<div class=\"shared-users\"><form class=\"edit-user\" action=\"\" method=\"post\" onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from this project?');\">" . $row['first_name'] . " " . $row['last_name'] . "<input type=\"hidden\" name=\"delete-shared-user\" value=\"" . $row['shared_with'] . "\"><input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\"><input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\"></form></div>";
 		} 
 
 		if ($names) {

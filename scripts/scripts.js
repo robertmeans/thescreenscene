@@ -271,7 +271,6 @@ var reorder = [];
 	});
 }
 
-
 // footer contact
 // $("#contactForm").keyup(function(event) {
 //   if (event.keyCode === 13) {
@@ -321,9 +320,6 @@ $(document).ready(function() {
     $('#contactForm').load('contact-insert.php');
   });
 });
-
-
-
 
 
 $(document).ready(function() { // 122120856 start
@@ -499,12 +495,30 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // inner_nav navigation links begin
 $(document).ready(function() {
 
-
-
-  // organize search fields
+  // edit_searches.php (Organize search fields)
   $(document).on('click','#osf-link', function() {
     var current_loc = window.location.href;
 
@@ -521,17 +535,13 @@ $(document).ready(function() {
           } else {
             window.location.replace("https://browsergadget.com");
           }
-
-
         } else {
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget/new_project.php");
           } else {
             window.location.replace("https://browsergadget.com/new_project.php");
           }
-
         }
-
       },
       error: function(response) {
         // console.log(response);
@@ -543,14 +553,7 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-  // edit order
+  // edit_order.php (Rearrange book marks)
   $(document).on('click','#eo-link', function() {
     var current_loc = window.location.href;
 
@@ -560,30 +563,25 @@ $(document).ready(function() {
       type: "POST",
       data: 'fun',
       success: function(response) {
-        console.log(response);
+        // console.log(response);
         if(response == 'ok') {
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget");
           } else {
             window.location.replace("https://browsergadget.com");
           }
-
-
         } else {
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget/new_project.php");
           } else {
             window.location.replace("https://browsergadget.com/new_project.php");
           }
-
         }
-
       },
       error: function(response) {
         // console.log(response);
       }, 
       complete: function() {
-
       }
     })
   });
@@ -596,7 +594,59 @@ $(document).ready(function() {
 
 
 
-  // new project
+
+
+
+
+
+
+
+
+  // share_project.php (Share project)
+  $(document).on('click','#sp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "set-session-sp.php",
+      type: "POST",
+      data: $('#sp-form').serialize(),
+      success: function(response) {
+        // console.log(response);
+        if(response == 'ok') {
+          // console.log(response);
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          alert('Something went awry. Will you please report this at the bottom of this page through the contact form so I can fix it? Reference ID: 1120230947');
+        }
+      },
+      error: function() {
+        alert('Something went awry. Will you please report this at the bottom of this page through the contact form so I can fix it? Reference ID: 1120230948');
+      }, 
+      complete: function() {
+
+      }
+    })
+
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+  // new_project.php (Start a new project)
   $(document).on('click','#np-link', function() {
     var current_loc = window.location.href;
 
@@ -613,26 +663,25 @@ $(document).ready(function() {
           } else {
             window.location.replace("https://browsergadget.com");
           }
-
-
         } else {
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget/new_project.php");
           } else {
             window.location.replace("https://browsergadget.com/new_project.php");
           }
-
         }
-
       },
       error: function(response) {
         // console.log(response);
       }, 
       complete: function() {
-
       }
     })
   });
+
+
+
+
 
 
 });
@@ -1191,7 +1240,6 @@ $(document).ready(function() { // edit icon
       }
     }) // end ajax
   }) // end click unote
-
 
 }); // close document ready for project note editing on homepage
 

@@ -7,7 +7,7 @@ $current_project = $_SESSION['current_project'];
 
 if (is_post_request()) {
 
-  if (isset($_POST['project_name'])) {
+  if (isset($_POST['project_notes'])) {
 
   $row = [];
   $row['project_name']  = $_POST['project_name']  ?? '' ;
@@ -49,6 +49,143 @@ if (is_post_request()) {
     $errors = $result;
     }
   }
+
+
+
+  if(isset($_POST['go_to_homepage'])) {
+    $id           = $_SESSION['id']               ;
+    $current_project    = $_POST['current_project']  ?? ''  ;
+
+    $result = update_current_project($id, $current_project);
+
+    if ($result === true) {
+      $_SESSION['current_project'] = $current_project;
+
+      unset($_SESSION['organize']);
+      unset($_SESSION['order']);
+      unset($_SESSION['share-project']);
+      unset($_SESSION['another-proj']);
+
+      header('location:' . WWW_ROOT);
+    } else {
+    $errors = $result;
+    }
+  }
+
+
+
+
+
+
+
+
+
+  /* begin processing for share_project.php */
+    if (isset($_POST['project_id'])) {
+      $id                             = $_POST['project_id'];
+      $current_project                = $_POST['project_id'];
+      $_SESSION['share-project-id']   = $_POST['project_id'];
+    } else if (isset($_SESSION['share-project-id'])) {
+      $id               = $_SESSION['share-project-id'];
+      $current_project  = $_SESSION['share-project-id'];
+    }
+  
+  if (isset($_POST['owner-share-submit'])) {
+
+    $row = [];
+    $row['user_id']   = $user_id;
+    $row['project_name'] = $_POST['project_name'];
+    $row['users_email'] = $_POST['user_email'];
+
+    $share = $_POST['share'] ?? '0';
+    $edit = $_POST['edit'] ?? '0';
+
+    //$role   = $_POST['role']; // because $row[] gets repurposed in share_project() - below
+
+    $result = owner_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
+
+    if ($result === true) { // INSERT was a success - everything validated and user was added to 
+                // project. let's add a happy little personalized success message
+                // just to keep things over the top, of couse.
+
+      $users_email = $_POST['user_email'];
+      $user = find_user_by_email($users_email);
+
+      $errors = [];
+      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
+
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+    } else { 
+      $errors = $result; 
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+    }
+  }
+
+  if (isset($_POST['sharer-share-submit'])) {
+
+    $row = [];
+    $row['user_id']   = $user_id;
+    $row['project_name'] = $_POST['project_name'];
+    $row['users_email'] = $_POST['user_email'];
+    $share = $_POST['share'] ?? '0';
+    $edit = $_POST['edit'] ?? '0';
+
+    // $role  = $_POST['role']; // because $row[] gets repurposed in share_project() - below
+
+    $result = sharer_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
+
+    if ($result === true) { // INSERT was a success - everything validated and user was added to 
+                // project. let's add a happy little personalized success message
+                // just to keep things over the top, of couse.
+
+      $users_email = $_POST['user_email'];
+      $user = find_user_by_email($users_email);
+
+      $errors = [];
+      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
+
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+    } else { 
+      $errors = $result;
+      $_SESSION['share-project-id'] = $_POST['project_id']; 
+    }
+  }
+
+  if (isset($_POST['delete'])) {
+    $remove_this_user = $_POST['delete-shared-user']   ?? '';
+    // $from_this_project = $_POST['']  ?? '';
+
+    $result = remove_shared_user($id, $remove_this_user);
+      if ($result === true) {
+        $_SESSION['share-project-id'] = $_POST['project_id'];
+      } else {
+        //$errors = $result; 
+      }
+  }
+
+  if (isset($_POST['remove-self'])) {
+    $remove_this_user = $_POST['delete-shared-user']   ?? '';
+    // $from_this_project = $_POST['']  ?? '';
+
+    $result = remove_me($id, $remove_this_user);
+      if ($result === true) {
+        
+      } else {
+        //$errors = $result; 
+      }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 }
 ?>
 
@@ -57,33 +194,79 @@ if ($current_project != "0") { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
-    if (isset($_SESSION['another-proj'])) {
-      unset($_SESSION['another-proj']); 
-      require 'new_project.php';
 
-    } else if (isset($_SESSION['organize'])) {
+
+    if (isset($_SESSION['organize'])) {
+      /* tooltip = 'Organize search fields' */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']); 
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
+      /* tooltip = 'Rearrange bookmarks' */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
+
+
+
+
+
+
+
+
+      } else if (isset($_SESSION['share-project'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['share-project']);
+      require 'share_project.php';
+
+
+
+
+
+
+    } else if (isset($_SESSION['another-proj'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['another-proj']); 
+      require 'new_project.php';
 
     } else {
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
-    if (isset($_SESSION['another-proj'])) {
-      unset($_SESSION['another-proj']);
-      require 'new_project.php';
 
-    } else if (isset($_SESSION['organize'])) {
+    if (isset($_SESSION['organize'])) {
+      /* tooltip = 'Organize search fields' */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']);
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
+      /* tooltip = 'Rearrange bookmarks' */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
+
+
+
+    } else if (isset($_SESSION['share-project'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['share-project']);
+      require 'share_project.php';
+
+
+
+
+
+
+    } else if (isset($_SESSION['another-proj'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['another-proj']);
+      require 'new_project.php';
 
     } else { 
       require '_logged_in/homepage_owner.php';
