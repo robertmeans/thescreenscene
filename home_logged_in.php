@@ -57,33 +57,65 @@ if ($current_project != "0") { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
-    if (isset($_SESSION['another-proj'])) {
-      unset($_SESSION['another-proj']); 
-      require 'new_project.php';
-
-    } else if (isset($_SESSION['organize'])) {
+    if (isset($_SESSION['organize'])) {
+      /* tooltip = 'Organize search fields' */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']); 
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
+      /* tooltip = 'Rearrange bookmarks' */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
+
+
+
+      // } else if (isset($_SESSION['share-project'])) {
+      // /* tooltip = 'Start a new project' */
+      // /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      // unset($_SESSION['share-project']);
+      // require 'share_project.php';
+
+
+
+    } else if (isset($_SESSION['another-proj'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['another-proj']); 
+      require 'new_project.php';
 
     } else {
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
-    if (isset($_SESSION['another-proj'])) {
-      unset($_SESSION['another-proj']);
-      require 'new_project.php';
-
-    } else if (isset($_SESSION['organize'])) {
+    if (isset($_SESSION['organize'])) {
+      /* tooltip = 'Organize search fields' */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']);
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
+      /* tooltip = 'Rearrange bookmarks' */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
+
+
+
+    // } else if (isset($_SESSION['share-project'])) {
+    //   /* tooltip = 'Start a new project' */
+    //   /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+    //   unset($_SESSION['share-project']);
+    //   require 'share_project.php';
+
+
+
+    } else if (isset($_SESSION['another-proj'])) {
+      /* tooltip = 'Start a new project' */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      unset($_SESSION['another-proj']);
+      require 'new_project.php';
 
     } else { 
       require '_logged_in/homepage_owner.php';

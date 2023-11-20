@@ -504,7 +504,7 @@ $(document).ready(function() {
 
 
 
-  // organize search fields
+  // edit_searches.php (tooltip: Organize search fields)
   $(document).on('click','#osf-link', function() {
     var current_loc = window.location.href;
 
@@ -550,7 +550,7 @@ $(document).ready(function() {
 
 
 
-  // edit order
+  // edit_order.php (tooltip: Rearrange book marks)
   $(document).on('click','#eo-link', function() {
     var current_loc = window.location.href;
 
@@ -596,7 +596,7 @@ $(document).ready(function() {
 
 
 
-  // new project
+  // new_project.php (tooltip: Start a new project)
   $(document).on('click','#np-link', function() {
     var current_loc = window.location.href;
 
