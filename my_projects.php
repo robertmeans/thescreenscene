@@ -19,7 +19,12 @@ $projects = mysqli_num_rows($any_projects_for_user);
  	<div id="project-wrap">
 
  	<div class="project-greeting"><?php // special version of inner_nav just for this spot ?>
- 		<a href="<?= WWW_ROOT ?>" class="my-nav"><div class="tooltip"><span class="tooltiptext">Homepage of last project viewed</span><i class="fas fa-house-user"></i></div></a> 
+    <form class="gth" method="post">
+      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+      <input type="hidden" name="current_project" value="<?= $_SESSION['current_project']; ?>">
+      <input type="hidden" name="go_to_homepage" value="1">
+      <a class="gotohomepage" class="my-nav"><div class="tooltip"><span class="tooltiptext">Homepage of last project viewed</span><i class="fas fa-house-user"></i></div></a>
+    </form> 
 
  		<a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square"></i></div></a>
  	</div>
@@ -66,21 +71,16 @@ if ($projects > 0) { //(321)
 			<li>
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
+        <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="reorder_searches" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+        <input type="hidden" name="organizesearchfields" value="1">
+        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
@@ -140,23 +140,18 @@ if ($projects > 0) { //(321)
 
 		<ul class="inner-nav project-pg">
 			<li>
-				<form action="" method="post">
+				<form method="post">
+        <input type="hidden" name="user_id" value="<?= $user_id; ?>">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
+        <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
-				<form action="" method="post">
+				<form method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="reorder_searches" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+        <input type="hidden" name="organizesearchfields" value="1">
+        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <?php if ($row['share'] == "1") { ?>
@@ -221,22 +216,19 @@ if ($projects > 0) { //(321)
 		<?php /* nav for YOU owner -> not shared with anyone */ ?>
 		<ul class="inner-nav project-pg">
 			<li>
-				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+				<form method="post">
+				<input type="hidden" name="user_id" value="<?= $user_id; ?>">
+        <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
-				<form action="" method="post">
+				<form method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="reorder_searches" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+        <input type="hidden" name="organizesearchfields" value="1">
+        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>

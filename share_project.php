@@ -70,20 +70,35 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
 	if ($result > 0) {
 		$sharing = show_shared_with_info($user_id, $this_project);
-		while ($row = mysqli_fetch_assoc($sharing)) { 
-			$names[] = "<div class=\"shared-users\">
-							<form class=\"edit-user\" action=\"\" method=\"post\"  
-							onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from project?');\">" 
-								. $row['first_name'] . " " . $row['last_name'] . " (" . $row['email'] . ") " .   
-								"<input type=\"hidden\" name=\"delete-shared-user\" value=\"" 
-								. $row['shared_with'] . "\">
-								<div>
-                <input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\">
-								<input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\">
-								</div>
-							</form>
-						</div>";
-		} 
+
+    while ($row = mysqli_fetch_assoc($sharing)) { 
+      $names[] = '<div class="shared-users">
+              <form class="edit-user" action="" method="post"  
+              onsubmit="return confirm(\'Confirm: Remove ' . $row['first_name'] . ' ' . $row['last_name'] . ' from project?\');">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' .  '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
+                <div>
+                <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
+                <input type="submit" class="remove" name="delete" value="Remove">
+                </div>
+              </form>
+            </div>';
+    } 
+
+    // original rewritten with single quotes on 11.21.23
+		// while ($row = mysqli_fetch_assoc($sharing)) { 
+		// 	$names[] = "<div class=\"shared-users\">
+		// 					<form class=\"edit-user\" action=\"\" method=\"post\"  
+		// 					onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from project?');\">" 
+		// 						. $row['first_name'] . " " . $row['last_name'] . " (" . $row['email'] . ") " .   
+		// 						"<input type=\"hidden\" name=\"delete-shared-user\" value=\"" 
+		// 						. $row['shared_with'] . "\">
+		// 						<div>
+    //             <input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\">
+		// 						<input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\">
+		// 						</div>
+		// 					</form>
+		// 				</div>";
+		// } 
+
 
 		if ($names) {
 			echo "<h2 class=\"edit-share\">Project Users</h2>";
@@ -159,9 +174,23 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 	<?php
 	if ($result > 1) {
 		$sharing = show_shared_with_info($user_id, $this_project);
-		while ($row = mysqli_fetch_assoc($sharing)) { 
-			$names[] = "<div class=\"shared-users\"><form class=\"edit-user\" action=\"\" method=\"post\" onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from this project?');\">" . $row['first_name'] . " " . $row['last_name'] . "<input type=\"hidden\" name=\"delete-shared-user\" value=\"" . $row['shared_with'] . "\"><input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\"><input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\"></form></div>";
-		} 
+
+    while ($row = mysqli_fetch_assoc($sharing)) { 
+      $names[] = '<div class="shared-users">
+              <form class="edit-user" action="" method="post"  
+              onsubmit="return confirm(\'Confirm: Remove ' . $row['first_name'] . ' ' . $row['last_name'] . ' from project?\');">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' .  '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
+                <div>
+                <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
+                <input type="submit" class="remove" name="delete" value="Remove">
+                </div>
+              </form>
+            </div>';
+          }
+
+    // rewritten with single quotes on 11.21.23
+		// while ($row = mysqli_fetch_assoc($sharing)) { 
+		// 	$names[] = "<div class=\"shared-users\"><form class=\"edit-user\" action=\"\" method=\"post\" onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from this project?');\">" . $row['first_name'] . " " . $row['last_name'] . "<input type=\"hidden\" name=\"delete-shared-user\" value=\"" . $row['shared_with'] . "\"><input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\"><input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\"></form></div>";
+		// } 
 
 		if ($names) {
 			// echo "<h2 class=\"edit-share\">Edit Users</h2>";

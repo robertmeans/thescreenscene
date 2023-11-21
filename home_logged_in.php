@@ -5,6 +5,9 @@ require_once 'config/initialize.php';
 $user_id = $_SESSION['id'];
 
 
+
+
+
 if (isset($_SESSION['share-project-id'])) {
   $current_project = $_SESSION['share-project-id'];
 } else if (isset($_POST['change_project_id'])) {
@@ -16,10 +19,21 @@ if (isset($_SESSION['share-project-id'])) {
 }
 
 
+
+
+
+
+
+
+
 if (is_post_request()) {
+
+
+
+
+
  
   if (isset($_POST['project_notes'])) {
-
   $row = [];
   $row['project_name']  = $_POST['project_name']  ?? '' ;
   $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
@@ -33,33 +47,32 @@ if (is_post_request()) {
     }
   }
 
-  if(isset($_POST['owner'])) {
-
-    $color = $_POST['color']  ?? ''  ;
-
-    $result = project_colormode_owner($user_id, $color, $current_project);
-
+  if(isset($_POST['color'])) {
+    $color = $_POST['color'];
+    if (isset($_POST['owner'])) {
+      $result = project_colormode_owner($user_id, $color, $current_project);
+    } else {
+      $result = project_colormode_shared_with($user_id, $color, $current_project);
+    }
     if ($result === true) {
-
       header('location:' . WWW_ROOT);
     } else {
-    $errors = $result;
+      $errors = $result;
     }
   }
 
-  if(isset($_POST['shared_with'])) {
 
-    $color = $_POST['color']  ?? ''  ;
 
-    $result = project_colormode_shared_with($user_id, $color, $current_project);
 
-    if ($result === true) {
 
-      header('location:' . WWW_ROOT);
-    } else {
-    $errors = $result;
-    }
-  }
+
+
+
+
+
+
+
+
 
 
   /* begin processing for share_project.php */
@@ -130,21 +143,19 @@ if (is_post_request()) {
     }
   }
 
-  if (isset($_POST['delete'])) {
-    $remove_this_user = $_POST['delete-shared-user']   ?? '';
-    // $from_this_project = $_POST['']  ?? '';
+  if (isset($_POST['delete-shared-user'])) {
+    $remove_this_user = $_POST['delete-shared-user'];
 
     $result = remove_shared_user($id, $remove_this_user);
       if ($result === true) {
-        $_SESSION['share-project-id'] = $_POST['project_id'];
+        // $_SESSION['share-project-id'] = $_POST['project_id'];
       } else {
         //$errors = $result; 
       }
   }
 
   if (isset($_POST['remove-self'])) {
-    $remove_this_user = $_POST['delete-shared-user']   ?? '';
-    // $from_this_project = $_POST['']  ?? '';
+    $remove_this_user = $_POST['delete-shared-user'];
 
     $result = remove_me($id, $remove_this_user);
       if ($result === true) {

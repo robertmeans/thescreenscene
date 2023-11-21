@@ -518,6 +518,46 @@ $(document).ready(function() {
 // inner_nav navigation links begin
 $(document).ready(function() {
 
+
+
+
+  // Homepage link - DONE
+  $(document).on('click', '.gotohomepage', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          console.log('fart');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+
   // my_projects.php: 'View Projects Page' - from Dropdown navigation
   $(document).on('click','#vpp-link', function() {
     var current_loc = window.location.href;
@@ -554,16 +594,15 @@ $(document).ready(function() {
 
 
 
-
-  // edit_searches.php (Organize search fields)
+  // edit_searches.php (Organize search fields) - DONE
   $(document).on('click','.osf-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
-      url: "set-session-osf.php",
+      url: "_form-processing.php",
       type: "POST",
-      data: 'fun',
+      data: $(this).closest('form').serialize(),
       success: function(response) {
         console.log(response);
         if(response == 'ok') {
@@ -574,20 +613,32 @@ $(document).ready(function() {
           }
         } else {
           if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
+            window.location.replace("http://localhost/browsergadget");
           } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
+            window.location.replace("https://browsergadget.com");
           }
         }
       },
       error: function(response) {
-        // console.log(response);
+        console.log(response);
       }, 
       complete: function() {
 
       }
     })
   });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -873,11 +924,12 @@ $(document).ready(function() {
 	});
 
   if (document.getElementsByClassName("closefp").length) {
-	 var closefp = document.getElementsByClassName("closefp")[0];
+    var closefp = document.getElementsByClassName("closefp")[0];
+    closefp.onclick = function() {
+      theModal.style.display = "none";
+    }
   }
-	closefp.onclick = function() {
-	  theModal.style.display = "none";
-	}
+	
 
 	$('#update').click(function() {
 		var id 		= $('#idcount').val();

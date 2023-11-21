@@ -26,10 +26,11 @@
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
 			<a id="vpp-link" class="dda vpp">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
-				<form action="" method="post">
+				<form method="post">
+        <input type="hidden" name="user_id" value="<?= $user_id; ?>">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-				<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
+				<a class="gotohomepage dda"><?= $rowg['project_name'] ?></a>
 				</form>	
 			<?php	} mysqli_free_result($result); ?>	
 			</div>

@@ -3,7 +3,14 @@
 	case 'shared_with' :
 
 	if ($layout_context != 'homepage') { ?>	
-	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
+	<li>
+    <form class="gth" method="post">
+      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" name="go_to_homepage" value="1">
+      <a class="gotohomepage"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php }
 
 	if (($row['edit'] == "1") && ($layout_context == 'homepage')) { ?>
@@ -19,8 +26,12 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-  <form style="display:none;"><input type="hidden" name="project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+  <li>
+    <form method="post">
+      <input type="hidden" name="organizesearchfields" value="1">
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php }
 
 	if (($row['share'] == "1") && ($layout_context != 'share_project')) { ?>
@@ -38,20 +49,17 @@
  			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="3">
-				<input type="hidden" name="shared_with" value="1">
 				<a class="static classic" onclick="$(this).closest('form').submit()">Light</a>
 			</form>
 			<li>
 			<form action="" method="post">
 				<input type="hidden" name="color" value="2">
-				<input type="hidden" name="shared_with" value="1">
 				<a class="static spring" onclick="$(this).closest('form').submit()">Spring</a>
 			</form>
 			</li>	
       <li>
       <form action="" method="post">
         <input type="hidden" name="color" value="1">
-        <input type="hidden" name="shared_with" value="1">
         <a class="static darkmode" onclick="$(this).closest('form').submit()">Dark</a>
       </form>
       </li>		
@@ -74,7 +82,14 @@
 	case 'owner' :	
 
 	if ($layout_context != 'homepage') { // begin owner navigation ?>	
-	<li><a href="<?= WWW_ROOT ?>"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a></li>
+	<li>
+    <form class="gth" method="post">
+      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" name="go_to_homepage" value="1">
+      <a class="gotohomepage"><div class="tooltip"><span class="tooltiptext">Homepage of this project</span><i class="fas fa-house-user fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php } 
 
 	if ($layout_context == 'homepage') { ?>
@@ -90,8 +105,13 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-  <form style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+  
+	<li>
+    <form method="post">
+      <input type="hidden" name="organizesearchfields" value="1">
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>

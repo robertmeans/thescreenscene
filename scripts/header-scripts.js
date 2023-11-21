@@ -89,11 +89,29 @@ function submitURLFieldForm() {
     resetForm();
     return false;
 }
-window.onload = function() {
-    resetForm();
-}
-function resetForm() {
-    var address = document.getElementsByName('address')[0];
-    address.focus();
-    address.value = "http://";
-}
+// window.onload = function() {
+//     resetForm();
+// }
+
+
+
+  if (document.getElementsByName('address').length) {
+    window.onload = function() {
+      resetForm();
+    }
+    var closefp = document.getElementsByClassName("closefp")[0];
+    function resetForm() {
+        var address = document.getElementsByName('address')[0];
+        address.focus();
+        address.value = "http://";
+    }
+  }
+
+
+
+
+// function resetForm() {
+//     var address = document.getElementsByName('address')[0];
+//     address.focus();
+//     address.value = "http://";
+// }
