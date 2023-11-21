@@ -24,9 +24,9 @@
 				<a class="pen">&nbsp;</a>
 				<!-- working on autocomplete... -->
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
-			<a href="my_projects.php" class="dda vpp">View Projects Page</a>
+			<a id="vpp-link" class="dda vpp">View Projects Page</a>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
-				<form action="my_projects.php" method="post">
+				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 				<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>

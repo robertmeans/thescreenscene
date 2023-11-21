@@ -3,10 +3,21 @@
 require_once 'config/initialize.php';
 
 $user_id = $_SESSION['id'];
-$current_project = $_SESSION['current_project'];
+
+
+if (isset($_SESSION['share-project-id'])) {
+  $current_project = $_SESSION['share-project-id'];
+} else if (isset($_POST['change_project_id'])) {
+  $current_project = $_POST['change_project_id'];
+} else if (isset($_POST['current_project'])) {
+  $current_project = $_POST['current_project'];  
+} else { 
+  $current_project = $_SESSION['current_project'];
+}
+
 
 if (is_post_request()) {
-
+ 
   if (isset($_POST['project_notes'])) {
 
   $row = [];
@@ -51,45 +62,13 @@ if (is_post_request()) {
   }
 
 
-
-  if(isset($_POST['go_to_homepage'])) {
-    $id           = $_SESSION['id']               ;
-    $current_project    = $_POST['current_project']  ?? ''  ;
-
-    $result = update_current_project($id, $current_project);
-
-    if ($result === true) {
-      $_SESSION['current_project'] = $current_project;
-
-      unset($_SESSION['organize']);
-      unset($_SESSION['order']);
-      unset($_SESSION['share-project']);
-      unset($_SESSION['another-proj']);
-
-      header('location:' . WWW_ROOT);
-    } else {
-    $errors = $result;
-    }
-  }
-
-
-
-
-
-
-
-
-
   /* begin processing for share_project.php */
-    if (isset($_POST['project_id'])) {
-      $id                             = $_POST['project_id'];
-      $current_project                = $_POST['project_id'];
-      $_SESSION['share-project-id']   = $_POST['project_id'];
-    } else if (isset($_SESSION['share-project-id'])) {
-      $id               = $_SESSION['share-project-id'];
-      $current_project  = $_SESSION['share-project-id'];
-    }
+  if (isset($_POST['project_id'])) {
+    $id = $_POST['project_id'];
+  }
   
+  // $current_project  = $_POST['project_id'];
+
   if (isset($_POST['owner-share-submit'])) {
 
     $row = [];
@@ -175,17 +154,6 @@ if (is_post_request()) {
       }
   }
 
-
-
-
-
-
-
-
-
-
-
-
 }
 ?>
 
@@ -195,8 +163,13 @@ if ($current_project != "0") { // not a brand new member
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 
+    if (isset($_SESSION['view-proj-pg'])) {
+      /* Main dropdown nav = 'View Projects Page' */
+      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: #vpp-link */
+      unset($_SESSION['view-proj-pg']); 
+      require 'my_projects.php';
 
-    if (isset($_SESSION['organize'])) {
+    } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
       /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']); 
@@ -208,23 +181,11 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
-
-
-
-
-
-
-
-      } else if (isset($_SESSION['share-project'])) {
+    } else if (isset($_SESSION['share-project']) || isset($_POST['project_id'])) {
       /* tooltip = 'Start a new project' */
       /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
-
-
-
-
-
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */
@@ -237,7 +198,13 @@ if ($current_project != "0") { // not a brand new member
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
 
-    if (isset($_SESSION['organize'])) {
+    if (isset($_SESSION['view-proj-pg'])) {
+      /* Main dropdown nav = 'View Projects Page' */
+      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: #vpp-link */
+      unset($_SESSION['view-proj-pg']); 
+      require 'my_projects.php';
+
+    } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
       /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
       unset($_SESSION['organize']);
@@ -249,18 +216,11 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
-
-
-    } else if (isset($_SESSION['share-project'])) {
+    } else if (isset($_SESSION['share-project']) || isset($_POST['project_id'])) {
       /* tooltip = 'Start a new project' */
       /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
-
-
-
-
-
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */

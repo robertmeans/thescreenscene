@@ -518,8 +518,45 @@ $(document).ready(function() {
 // inner_nav navigation links begin
 $(document).ready(function() {
 
+  // my_projects.php: 'View Projects Page' - from Dropdown navigation
+  $(document).on('click','#vpp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "set-session-vpp.php",
+      type: "POST",
+      data: 'fun',
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget/new_project.php");
+          } else {
+            window.location.replace("https://browsergadget.com/new_project.php");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+
+
   // edit_searches.php (Organize search fields)
-  $(document).on('click','#osf-link', function() {
+  $(document).on('click','.osf-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
@@ -551,6 +588,11 @@ $(document).ready(function() {
       }
     })
   });
+
+
+
+
+
 
 
   // edit_order.php (Rearrange book marks)
@@ -603,14 +645,14 @@ $(document).ready(function() {
 
 
   // share_project.php (Share project)
-  $(document).on('click','#sp-link', function() {
+  $(document).on('click','.sp-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
       url: "set-session-sp.php",
       type: "POST",
-      data: $('#sp-form').serialize(),
+      data: $(this).closest('form').serialize(),
       success: function(response) {
         // console.log(response);
         if(response == 'ok') {

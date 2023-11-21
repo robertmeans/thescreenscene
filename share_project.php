@@ -2,29 +2,6 @@
 
 require_once 'config/initialize.php';
 
-// if (!isset($_SESSION['id'])) {
-//   header('location:' . WWW_ROOT);
-// 	exit();
-// }
-// if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
-//   header('location:' . WWW_ROOT);
-// 	exit();
-// }
-
-// $user_id = $_SESSION['id'];
-
-// if (isset($_POST['project_id'])) {
-//   $id                             = $_POST['project_id'];
-//   $current_project                = $_POST['project_id'];
-//   $_SESSION['share-project-id']   = $_POST['project_id'];
-// } else if (isset($_SESSION['share-project-id'])) {
-//   $id               = $_SESSION['share-project-id'];
-//   $current_project  = $_SESSION['share-project-id'];
-// }
-
-// $id = $_SESSION['share-project-id'];
-// $current_project = $_SESSION['share-project-id'];
-
 
 $row = show_project_to_owner($current_project);
 

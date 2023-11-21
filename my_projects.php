@@ -2,51 +2,8 @@
 
 require_once 'config/initialize.php';
 
-if (!isset($_SESSION['id'])) {
-	header('location:' . WWW_ROOT);
-	exit();
-}
-if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
-	header('location:' . WWW_ROOT);
-	exit();
-}
 
 $user_id = $_SESSION['id'];
-
-if (is_post_request()) {
-
-	if(isset($_POST['go_to_homepage'])) {
-		$id     			= $_SESSION['id']            		;
-		$current_project   	= $_POST['current_project']  ?? ''	;
-
-		$result = update_current_project($id, $current_project);
-
-		if ($result === true) {
-		$_SESSION['current_project'] = $current_project;
-
-			header('location:' . WWW_ROOT);
-		} else {
-		$errors = $result;
-		}
-	}
-
-  
-	if(isset($_POST['reorder_searches'])) {
-		$id     			= $_SESSION['id']            		;
-		$current_project   	= $_POST['current_project']  ?? ''	;
-
-		$result = update_current_project($id, $current_project);
-
-		if ($result === true) {
-		  $_SESSION['current_project'] = $current_project;
-      $_SESSION['organize'] = 'anothern';
-
-			header('location:' . WWW_ROOT);
-		} else {
-		$errors = $result;
-		}
-	}
-}
 
 ?>
 <?php
@@ -64,7 +21,7 @@ $projects = mysqli_num_rows($any_projects_for_user);
  	<div class="project-greeting"><?php // special version of inner_nav just for this spot ?>
  		<a href="<?= WWW_ROOT ?>" class="my-nav"><div class="tooltip"><span class="tooltiptext">Homepage of last project viewed</span><i class="fas fa-house-user"></i></div></a> 
 
- 		<a href="new_project.php" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square"></i></div></a>
+ 		<a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square"></i></div></a>
  	</div>
   <div class="project-greeting">
     <p class="my-info-h">My account info</p>
@@ -109,6 +66,7 @@ if ($projects > 0) { //(321)
 			<li>
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 
@@ -119,16 +77,20 @@ if ($projects > 0) { //(321)
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
 	    	<a href="edit_project_details.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
 	    </li>
 	    <li>
-	    	<a href="share_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+	    	<form method="post">
+          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+          <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+        </form>
 	    </li>
 	    <li>
 	    	<a href="delete_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
@@ -181,6 +143,7 @@ if ($projects > 0) { //(321)
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 
 					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
@@ -190,14 +153,18 @@ if ($projects > 0) { //(321)
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <?php if ($row['share'] == "1") { ?>
 	    <li>
-	    	<a href="share_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+	    	<form method="post">
+          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+          <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+        </form>
 	    </li>
 			<?php } ?>
 		</ul>
@@ -266,16 +233,20 @@ if ($projects > 0) { //(321)
 				<form action="" method="post">
 				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
+        <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
 				<input type="hidden" name="reorder_searches" value="1">
 
-					<div class="tooltip"><span class="tooltiptext">Reorder search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
+					<div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
 	    	<a href="edit_project_details.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
 	    </li>
 	    <li>
-	    	<a href="share_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+        <form method="post">
+          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+	    	  <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+        </form>
 	    </li>
 	    <li>
 	    	<a href="delete_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>

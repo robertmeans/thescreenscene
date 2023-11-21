@@ -19,12 +19,13 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a id="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+  <form style="display:none;"><input type="hidden" name="project_id" value="<?= $row['project_id']; ?>"></form>
+	<li><a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if (($row['share'] == "1") && ($layout_context != 'share_project')) { ?>
-  <form id="sp-form" style="display:none;"><input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a id="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
+  <form id="sp-form" style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
+	<li><a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
 	<?php } ?>
 
   <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
@@ -89,7 +90,8 @@
 	<?php }
 
 	if ($layout_context != 'edit_searches') { ?>
-	<li><a id="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
+  <form style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
+	<li><a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a></li>
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>
@@ -97,8 +99,8 @@
 	<?php }
 
   if ($layout_context != 'share_project') { ?>
-  <form id="sp-form" style="display:none;"><input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a id="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
+  <form style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
+	<li><a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
   <?php } ?>
 
   <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>

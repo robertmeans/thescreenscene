@@ -2,7 +2,10 @@
 require_once 'config/initialize.php';
 
 $_SESSION['share-project'] = 'anothern';
-$_SESSION['share-project-id'] = $_POST['project_id'];
+
+if (isset($_POST['change_project_id'])) {
+  $_SESSION['share-project-id'] = $_POST['change_project_id'];
+}
 
 $signal = 'ok';
 
