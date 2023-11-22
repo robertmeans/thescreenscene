@@ -149,6 +149,8 @@ if (is_post_request()) {
 
   // from edit_project_details.php (Submit button)
   if (isset($_POST['submitdeets'])) {
+    $li = '';
+    $class = '';
     $current_project = $_SESSION['current_project'];
     $row = [];
     $row['project_name']     = $_POST['project_name'];
@@ -156,34 +158,50 @@ if (is_post_request()) {
 
     // validation
     if (empty($row['project_name'])) {
+      if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
       $signal = 'bad';
       $li .= '<li class="no-count">Cannot leave Project Name empty.</li>';
       $class = 'red'; 
     }
 
+    if (has_length_greater_than($row['project_notes'], 1500)) {
+      $signal = 'bad';
+      $li .= '<li class="no-count">Contain the beast! Project notes cannot exceed 1,500 characters.</li>';
+      $class = 'red';
+    }
 
 
 
   if ($li === '') {
 
     global $db;
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
 
     $result = update_project_deets($current_project, $row);
 
     if ($result === true) {
-
       $_SESSION['view-proj-pg'] = 'anothern';
       $signal = 'ok';
-      echo json_encode($signal);
 
       } else {
         $signal = 'bad';
-        $li .= '<li class="no-count">Something\'s no bueno. Please try again. You may have to wait a minute as this could indicate an error on the server which is certainly being investigated.</li>';
-        $class = 'red'; 
+        $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
+        $class = 'red';
+        db_disconnect($db);
       } 
-    }
+    } 
+
+
+      $data = array(
+      'signal' => $signal,
+      'li' => $li,
+      'class' => $class
+    );
+    echo json_encode($data);
+
 
   }
+
   
 
 

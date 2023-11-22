@@ -46,7 +46,7 @@ if ($row['owner_id'] == $user_id) { ?>
   <textarea id="textbox" name="project_notes" maxlength="1500"><?= $row['project_notes']; ?></textarea>
   
   <!-- <div class="btn-wrap"> -->
-  <div class="epd-toggle-btn">
+  <div id="epd-toggle-btn">
     <a href="my_projects.php" class="cancel-deets">Cancel</a><a class="submit-deets">Submit</a>
   </div>
 

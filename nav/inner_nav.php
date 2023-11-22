@@ -51,6 +51,19 @@
     </form>  
   </li>
 
+
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="viewprojectspage" value="yo">
+      <a class="viewprojectspage"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol"></i></div></a>
+    </form>  
+  </li>
+
+
+
+
+
+
   <?php
 	if ($layout_context == 'homepage') { ?>
 	<li>
@@ -149,6 +162,17 @@
       <a class="np-link my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a>
     </form>    
   </li>
+
+
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="viewprojectspage" value="yo">
+      <a class="viewprojectspage"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol"></i></div></a>
+    </form>  
+  </li>
+
+
+
 
   <?php
 	if ($layout_context == 'homepage') { ?>

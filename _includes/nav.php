@@ -10,7 +10,7 @@
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
-		case 'my_projects' 		:	 	break;
+		// case 'my_projects' 		:	 	break;
 		case 'home-first-visit' :	 	break;
 		case 'no-projects' 	    :	 	break;
 		// dropdown nav ->

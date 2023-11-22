@@ -399,9 +399,10 @@ input.updateSort {
 		border: 1px solid rgba(255,255,255,0.3);
 		border-radius: 8px;
 	}
-	.btn-wrap {
+	.btn-wrap,
+  #epd-toggle-btn {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
     width: 100%;
     // max-width: 300px;
@@ -412,8 +413,8 @@ input.updateSort {
 			// display: flex;
 			font-size: 1em;
 			color: #fff;
-			width: 50%;
-      max-width: 150px;
+			width: 48%;
+      // max-width: 150px;
 			margin: 0.75em 0.2em;
 			padding: 1em 1.25em;
 			text-align: center;

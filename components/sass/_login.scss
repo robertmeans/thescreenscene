@@ -692,7 +692,8 @@ a.welcome-log {
   #toggle-reset-btn .verifying-msg,
   #toggle-signup-btn .verifying-msg,
   #toggle-forgot-btn .verifying-msg,
-  #toggle-btn-insert .verifying-msg {
+  #toggle-btn-insert .verifying-msg,
+  #epd-toggle-btn .verifying-msg {
     cursor: default;
     box-shadow: none;
     &:hover {

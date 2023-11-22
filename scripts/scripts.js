@@ -444,8 +444,6 @@ $('.tab.active').show();
 
 
 
-
-
 // inner_nav navigation links begin
 $(document).ready(function() {
 
@@ -668,31 +666,26 @@ $(document).ready(function() {
       beforeSend: function(xhr) {
         $('#epd-alert').removeClass('red'); // reset class every click
         $('#epd-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-
       },
-
-
       success: function(response) {
         console.log(response);
-        if(response == 'ok') {
+        if(response['signal'] == 'ok') {
+          // alert('success');
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget");
           } else {
             window.location.replace("https://browsergadget.com");
           }
         } else {
-
           $('#epd-alert').addClass('red');
           $('#epd-errors').html(response['li']);
 
-          $('#epd-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+          $('#epd-toggle-btn').html('<a href="my_projects.php" class="cancel-deets">Cancel</a><a class="submit-deets">Try again</a>');
 
         }
-
-
       },
       error: function(response) {
-        // console.log(response);
+        console.log(response);
       }, 
       complete: function() {
       }
@@ -820,20 +813,6 @@ $(document).ready(function() {
   });
 
 // new project end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
