@@ -92,12 +92,14 @@
 			border-top: 1px solid rgba(231,74,66,1);
 			border-bottom: 1px solid rgba(231,74,66,1);
 		}
-		input[type=submit] {
+		input[type=submit],
+    .shareproject {
 			width: 100%;
 			margin: 1em 0 0.5em;
 			font-size: 1em;
 			padding: 1em;
 			color: #fff;
+      text-align: center;
 			background-color: rgba(0,0,0,0.6);
 			background-color: #44c073;
 			border: 1px solid #fff;

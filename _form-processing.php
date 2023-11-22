@@ -170,35 +170,31 @@ if (is_post_request()) {
       $class = 'red';
     }
 
+    if ($li === '') {
 
+      global $db;
+      if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
 
-  if ($li === '') {
+      $result = update_project_deets($current_project, $row);
 
-    global $db;
-    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+      if ($result === true) {
+        $_SESSION['view-proj-pg'] = 'anothern';
+        $signal = 'ok';
 
-    $result = update_project_deets($current_project, $row);
-
-    if ($result === true) {
-      $_SESSION['view-proj-pg'] = 'anothern';
-      $signal = 'ok';
-
-      } else {
-        $signal = 'bad';
-        $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
-        $class = 'red';
-        db_disconnect($db);
+        } else {
+          $signal = 'bad';
+          $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
+          $class = 'red';
+          db_disconnect($db);
+        } 
       } 
-    } 
 
-
-      $data = array(
-      'signal' => $signal,
-      'li' => $li,
-      'class' => $class
-    );
-    echo json_encode($data);
-
+  $data = array(
+    'signal' => $signal,
+    'li' => $li,
+    'class' => $class
+  );
+  echo json_encode($data);
 
   }
 
@@ -207,6 +203,124 @@ if (is_post_request()) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ******************* Shared stuff ************************ */
+  if (isset($_POST['owner-share-submit'])) {
+    // need to set these 5 vars - find out where they came from originally
+    $user_id = '';
+    $id = '';
+    $share = '';
+    $edit = '';
+    $current_project = '';
+
+    $row = [];
+    $row['user_id']   = $user_id;
+    $row['project_name'] = $_POST['project_name'];
+    $row['users_email'] = $_POST['user_email'];
+
+    $share = $_POST['share'] ?? '0';
+    $edit = $_POST['edit'] ?? '0';
+
+    //$role   = $_POST['role']; // because $row[] gets repurposed in share_project() - below
+
+    $result = owner_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
+
+    if ($result === true) { // INSERT was a success - everything validated and user was added to 
+                // project. let's add a happy little personalized success message
+                // just to keep things over the top, of couse.
+
+      $users_email = $_POST['user_email'];
+      $user = find_user_by_email($users_email);
+
+      $errors = [];
+      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
+
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+      $_SESSION['share-project'] = 'anothern';
+        $signal = 'ok';
+        echo json_encode($signal);
+    } else { 
+      $errors = $result; 
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+      $_SESSION['share-project'] = 'anothern';
+        $signal = '1551 fix this';
+        echo json_encode($signal);
+    }
+  }
+
+  if (isset($_POST['sharer-share-submit'])) {
+
+    $row = [];
+    $row['user_id']   = $user_id;
+    $row['project_name'] = $_POST['project_name'];
+    $row['users_email'] = $_POST['user_email'];
+    $share = $_POST['share'] ?? '0';
+    $edit = $_POST['edit'] ?? '0';
+
+    // $role  = $_POST['role']; // because $row[] gets repurposed in share_project() - below
+
+    $result = sharer_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
+
+    if ($result === true) { // INSERT was a success - everything validated and user was added to 
+                // project. let's add a happy little personalized success message
+                // just to keep things over the top, of couse.
+
+      $users_email = $_POST['user_email'];
+      $user = find_user_by_email($users_email);
+
+      $errors = [];
+      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
+
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+      $_SESSION['share-project'] = 'anothern';
+        $signal = 'ok';
+        echo json_encode($signal);
+
+    } else { 
+      $errors = $result;
+      $_SESSION['share-project-id'] = $_POST['project_id'];
+      $_SESSION['share-project'] = 'anothern'; 
+        $signal = '1552 fix this';
+        echo json_encode($signal);
+
+    }
+  }
+
+  if (isset($_POST['delete-shared-user'])) {
+    $remove_this_user = $_POST['delete-shared-user'];
+
+    $result = remove_shared_user($id, $remove_this_user);
+      if ($result === true) {
+        $_SESSION['share-project'] = 'anothern';
+      } else {
+        //$errors = $result; 
+      }
+  }
+
+  if (isset($_POST['remove-self'])) {
+    $remove_this_user = $_POST['delete-shared-user'];
+
+    $result = remove_me($id, $remove_this_user);
+      if ($result === true) {
+        $_SESSION['share-project'] = 'anothern';
+      } else {
+        //$errors = $result; 
+      }
+  }
 
 
 

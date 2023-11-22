@@ -10,7 +10,6 @@ $current_project = $_SESSION['current_project'];
 if (is_post_request()) {
 
 
-
   // if (isset($_POST['project_notes'])) {
   // $row = [];
   // $row['project_name']  = $_POST['project_name']  ?? '' ;
@@ -39,98 +38,12 @@ if (is_post_request()) {
     }
   }
 
-
-
-
   /* begin processing for share_project.php */
   if (isset($_POST['project_id'])) { 
     $id = $_POST['project_id'];
   }
   
   // $current_project  = $_POST['project_id'];
-
-  if (isset($_POST['owner-share-submit'])) {
-
-    $row = [];
-    $row['user_id']   = $user_id;
-    $row['project_name'] = $_POST['project_name'];
-    $row['users_email'] = $_POST['user_email'];
-
-    $share = $_POST['share'] ?? '0';
-    $edit = $_POST['edit'] ?? '0';
-
-    //$role   = $_POST['role']; // because $row[] gets repurposed in share_project() - below
-
-    $result = owner_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
-
-    if ($result === true) { // INSERT was a success - everything validated and user was added to 
-                // project. let's add a happy little personalized success message
-                // just to keep things over the top, of couse.
-
-      $users_email = $_POST['user_email'];
-      $user = find_user_by_email($users_email);
-
-      $errors = [];
-      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
-
-      $_SESSION['share-project-id'] = $_POST['project_id'];
-    } else { 
-      $errors = $result; 
-      $_SESSION['share-project-id'] = $_POST['project_id'];
-    }
-  }
-
-  if (isset($_POST['sharer-share-submit'])) {
-
-    $row = [];
-    $row['user_id']   = $user_id;
-    $row['project_name'] = $_POST['project_name'];
-    $row['users_email'] = $_POST['user_email'];
-    $share = $_POST['share'] ?? '0';
-    $edit = $_POST['edit'] ?? '0';
-
-    // $role  = $_POST['role']; // because $row[] gets repurposed in share_project() - below
-
-    $result = sharer_share_project($row, $user_id, $id, $share, $edit, $current_project); // validate & execute
-
-    if ($result === true) { // INSERT was a success - everything validated and user was added to 
-                // project. let's add a happy little personalized success message
-                // just to keep things over the top, of couse.
-
-      $users_email = $_POST['user_email'];
-      $user = find_user_by_email($users_email);
-
-      $errors = [];
-      $errors['successfully_added'] = "You have successfully added " . $user['first_name'] . " " . $user['last_name'] . " to the project \"" . $row['project_name'] . ".\"";
-
-      $_SESSION['share-project-id'] = $_POST['project_id'];
-    } else { 
-      $errors = $result;
-      $_SESSION['share-project-id'] = $_POST['project_id']; 
-    }
-  }
-
-  if (isset($_POST['delete-shared-user'])) {
-    $remove_this_user = $_POST['delete-shared-user'];
-
-    $result = remove_shared_user($id, $remove_this_user);
-      if ($result === true) {
-        // $_SESSION['share-project-id'] = $_POST['project_id'];
-      } else {
-        //$errors = $result; 
-      }
-  }
-
-  if (isset($_POST['remove-self'])) {
-    $remove_this_user = $_POST['delete-shared-user'];
-
-    $result = remove_me($id, $remove_this_user);
-      if ($result === true) {
-        
-      } else {
-        //$errors = $result; 
-      }
-  }
 
 }
 ?>

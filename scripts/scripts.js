@@ -753,6 +753,56 @@ $(document).ready(function() {
 
 
 
+  // share_project
+  $(document).on('click','.shareproject', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   $(document).on('click','#new-project-btn', function() {
     var current_loc = window.location.href;
@@ -813,6 +863,39 @@ $(document).ready(function() {
   });
 
 // new project end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

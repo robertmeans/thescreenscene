@@ -45,7 +45,7 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
             </div>
         <?php endif; ?>
 
- 	<form action="" method="post">
+ 	<form method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
     <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
@@ -59,7 +59,9 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
  		<div class="share-note">Note: Only an owner of a project can rename or delete their project no matter what permissions are shared here. Default permissions are VIEW ONLY.</div>
 
- 		<input type="submit" name="owner-share-submit" value="Share">
+ 		<!-- <input type="submit" name="owner-share-submit" value="Share"> -->
+    <input type="hidden" name="owner-share-submit" value="yo">
+    <a class="shareproject">Share</a>
 
  	</form>
 
@@ -154,7 +156,9 @@ if ($owner > 0) { // (0105212030) this is the owner of the project
 
  		<div class="share-note">Note: Only an owner of a project can rename or delete their project no matter what permissions are shared here. Default permissions are VIEW ONLY.</div>
 
- 		<input type="submit" name="sharer-share-submit" value="Share">
+ 		<!-- <input type="submit" name="sharer-share-submit" value="Share"> -->
+    <input type="hidden" name="sharer-share-submit" value="yo">
+    <a class="shareproject">Share</a>
 
  	</form>
 
