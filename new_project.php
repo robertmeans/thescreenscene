@@ -82,7 +82,11 @@ if ($projects < 10 || $row['admin'] == 1) {
 
     <?php } else { ?>
       <div id="np-toggle-btn" class="cancel">
-        <a id="new-project-cancel-btn" class="cncl" href="<?= WWW_ROOT ?>"><span class="login-txt">Cancel</span></a>
+        <form class="gth" method="post">
+          <input type="hidden" name="startanewproject" value="yo">
+          <input type="hidden" name="newprojcancelbtn" value="yo">
+          <a class="np-link cncl"><span class="login-txt">Cancel</span></a>
+        </form>
         <div id="new-project-btn" class="cncl"><span class="login-txt">Start new project</span></div>
       </div>
     <?php } ?>

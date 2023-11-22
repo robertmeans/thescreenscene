@@ -154,3 +154,23 @@ a.go {
 		text-decoration: none;
 	}
 }
+
+a.np-link.cncl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 48%;
+  border: 1px solid #fff;
+  margin: 0.5em 0 1em;
+  cursor: pointer;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);
+  transition: all 0.2s ease;
+  &:hover {
+    color: #fff;
+    text-decoration: none;
+    scale: 0.95;
+      box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.6);
+  }
+}

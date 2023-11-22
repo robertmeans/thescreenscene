@@ -417,76 +417,7 @@ $('.tab.active').show();
 }); // // 122120856 end
 
 
-// new project begin
-$("#new-project-form").keyup(function(event) {
-  if (event.keyCode === 13) {
-    $("#new-project-btn").click();
-  }
-});
-$('#new-project-form').submit(function(e){
-    e.preventDefault();
-});
-$(document).ready(function() {
 
-  $(document).on('click','#new-project-btn', function() {
-    var current_loc = window.location.href;
-
-    if (document.getElementById('can-opt')) {
-      var cancel = 'off';
-    } else {
-      var cancel = 'on';
-    }     
-
-    $.ajax({
-      dataType: "JSON",
-      url: "new-project-process.php",
-      type: "POST",
-      data: $('#new-project-form').serialize(),
-      beforeSend: function(xhr) {
-        $('#new-project-alert').removeClass('red'); // reset class every click
-        $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-
-      },
-      success: function(response) {
-        console.log(response);
-        if(response) {
-          // console.log(response);
-          if(response['signal'] == 'ok') {
-
-            if (current_loc.indexOf("localhost") > -1) {
-              window.location.replace("http://localhost/browsergadget");
-            } else {
-              window.location.replace("https://browsergadget.com");
-            }
-
-          } else {
-            $('#new-project-alert').addClass('red');
-            $('#new-project-errors').html(response['li']);
-
-            if (cancel == 'off') {
-              $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-            } else {
-              if (current_loc.indexOf("localhost") > -1) {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              } else {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              }
-            }
-          }
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-        $('#login-btn').html(response['msg']);
-      }, 
-      complete: function() {
-
-      }
-    })
-
-  });
-});
-// new project end
 
 
 
@@ -696,24 +627,51 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-  // new_project.php (Start a new project)
-  $(document).on('click','#np-link', function() {
+  // new_project.php (inner_nav.php & new_project.php: 'Start a new project') - DONE
+  $(document).on('click','.np-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
-      url: "set-session-np.php",
+      url: "_form-processing.php",
       type: "POST",
-      data: 'fun',
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // from edit_project_details.php -> Submit button
+  $(document).on('click','.submit-deets', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#epd-alert').removeClass('red'); // reset class every click
+        $('#epd-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
+
+      },
+
+
       success: function(response) {
         console.log(response);
         if(response == 'ok') {
@@ -723,12 +681,15 @@ $(document).ready(function() {
             window.location.replace("https://browsergadget.com");
           }
         } else {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
-          } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
-          }
+
+          $('#epd-alert').addClass('red');
+          $('#epd-errors').html(response['li']);
+
+          $('#epd-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+
         }
+
+
       },
       error: function(response) {
         // console.log(response);
@@ -737,6 +698,153 @@ $(document).ready(function() {
       }
     })
   });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // edit_project_details.php (from my_projects.php: 'Project name & notes')
+  $(document).on('click','.epd-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(document).on('click','#new-project-btn', function() {
+    var current_loc = window.location.href;
+
+    if (document.getElementById('can-opt')) {
+      var cancel = 'off';
+    } else {
+      var cancel = 'on';
+    }     
+
+    $.ajax({
+      dataType: "JSON",
+      url: "new-project-process.php",
+      type: "POST",
+      data: $('#new-project-form').serialize(),
+      beforeSend: function(xhr) {
+        $('#new-project-alert').removeClass('red'); // reset class every click
+        $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
+
+      },
+      success: function(response) {
+        console.log(response);
+        if(response) {
+          // console.log(response);
+          if(response['signal'] == 'ok') {
+
+            if (current_loc.indexOf("localhost") > -1) {
+              window.location.replace("http://localhost/browsergadget");
+            } else {
+              window.location.replace("https://browsergadget.com");
+            }
+
+          } else {
+            $('#new-project-alert').addClass('red');
+            $('#new-project-errors').html(response['li']);
+
+            if (cancel == 'off') {
+              $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+            } else {
+              if (current_loc.indexOf("localhost") > -1) {
+                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+              } else {
+                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+              }
+            }
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+        $('#login-btn').html(response['msg']);
+      }, 
+      complete: function() {
+
+      }
+    })
+
+  });
+
+// new project end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

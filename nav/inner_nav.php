@@ -43,7 +43,13 @@
   </li>
 	<?php } ?>
 
-  <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="startanewproject" value="yo">
+      <input type="hidden" name="inner_nav" value="yo">
+      <a class="np-link my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a>
+    </form>  
+  </li>
 
   <?php
 	if ($layout_context == 'homepage') { ?>
@@ -136,7 +142,13 @@
   </li>
   <?php } ?>
 
-  <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="startanewproject" value="yo">
+      <input type="hidden" name="inner_nav" value="yo">
+      <a class="np-link my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a>
+    </form>    
+  </li>
 
   <?php
 	if ($layout_context == 'homepage') { ?>

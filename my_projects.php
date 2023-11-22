@@ -18,21 +18,20 @@ $projects = mysqli_num_rows($any_projects_for_user);
 <div id="table-page" class="my-projects">
  	<div id="project-wrap">
 
- 	<div class="project-greeting"><?php // special version of inner_nav just for this spot ?>
-    <form class="gth" method="post">
-      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-      <input type="hidden" name="current_project" value="<?= $_SESSION['current_project']; ?>">
-      <input type="hidden" name="go_to_homepage" value="1">
-      <a class="gotohomepage" class="my-nav"><div class="tooltip"><span class="tooltiptext">Homepage of last project viewed</span><i class="fas fa-house-user"></i></div></a>
-    </form> 
-
- 		<a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square"></i></div></a>
- 	</div>
   <div class="project-greeting">
-    <p class="my-info-h">My account info</p>
-    <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <span class="bold"><?= $_SESSION['lastname']; ?></span></p>
-    <p class="my-info-t">Username: <span class="bold"><?= $_SESSION['username']; ?></span></p>
-    <p class="my-info-t">Email: <span class="bold"><?= $_SESSION['email']; ?></span></p>
+    <div>
+      <p class="my-info-h">My account info</p>
+      <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <span class="bold"><?= $_SESSION['lastname']; ?></span></p>
+      <p class="my-info-t">Username: <span class="bold"><?= $_SESSION['username']; ?></span></p>
+      <p class="my-info-t">Email: <span class="bold"><?= $_SESSION['email']; ?></span></p>
+    </div>
+    <div>
+      <form class="gth" method="post">
+        <input type="hidden" name="startanewproject" value="yo">
+        <input type="hidden" name="my_projects" value="yo">
+        <a class="np-link"><i class="far fa-plus-square"></i> Start a new project</a>
+      </form>
+    </div>
   </div>
 
 <ul class="manage-my-projects">
@@ -77,14 +76,31 @@ if ($projects > 0) { //(321)
         </form>
 			</li>
 			<li>
-				<form action="" method="post">
+				<form method="post">
   				<input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <input type="hidden" name="organizesearchfields" value="1">
           <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
-	    	<a href="edit_project_details.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+
+
+
+        <form method="post">
+          <input type="hidden" name="editprojectdetails">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <a class="epd-link"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+        </form>
+
+	    	
+
+
+
+
+
+
+
+
 	    </li>
 	    <li>
 	    	<form method="post">
@@ -233,7 +249,11 @@ if ($projects > 0) { //(321)
 				</form>
 			</li>
 	    <li>
-	    	<a href="edit_project_details.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+        <form method="post">
+          <input type="hidden" name="editprojectdetails">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <a class="epd-link"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+        </form>
 	    </li>
 	    <li>
         <form method="post">

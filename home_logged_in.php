@@ -11,19 +11,19 @@ if (is_post_request()) {
 
 
 
-  if (isset($_POST['project_notes'])) {
-  $row = [];
-  $row['project_name']  = $_POST['project_name']  ?? '' ;
-  $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
-  $row['share']         = '1' ?? '' ;
-  $row['edit']          = '1' ?? '' ;
+  // if (isset($_POST['project_notes'])) {
+  // $row = [];
+  // $row['project_name']  = $_POST['project_name']  ?? '' ;
+  // $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
+  // $row['share']         = '1' ?? '' ;
+  // $row['edit']          = '1' ?? '' ;
 
-  $result = create_new_project($row, $user_id);
+  // $result = create_new_project($row, $user_id);
 
-    if ($result !== true) {
-      $errors = $result;
-    }
-  }
+  //   if ($result !== true) {
+  //     $errors = $result;
+  //   }
+  // }
 
   if(isset($_POST['color'])) {
     $color = $_POST['color'];
@@ -38,8 +38,6 @@ if (is_post_request()) {
       $errors = $result;
     }
   }
-
-
 
 
 
@@ -145,70 +143,115 @@ if ($current_project != "0") { // not a brand new member
 
     if (isset($_SESSION['view-proj-pg'])) {
       /* Main dropdown nav = 'View Projects Page' */
-      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: #vpp-link */
+      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
-      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: .osf-link */
       unset($_SESSION['organize']); 
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
       /* tooltip = 'Rearrange bookmarks' */
-      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: .eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
     } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
-      unset($_SESSION['another-proj']); 
-      require 'new_project.php';
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      if (isset($_SESSION['newprojectcancelbtn'])) { 
 
-    } else {
+        if (isset($_SESSION['backtohomepage'])) { 
+          unset($_SESSION['newprojectcancelbtn']);
+          unset($_SESSION['backtohomepage']);
+          unset($_SESSION['another-proj']);
+          require '_logged_in/homepage_shared_with.php';
+          // exit; 
+        }
+        if (isset($_SESSION['backtomyprojects'])) {
+          unset($_SESSION['newprojectcancelbtn']); 
+          unset($_SESSION['backtomyprojects']);
+          unset($_SESSION['another-proj']); 
+          require 'my_projects.php';
+          // exit; 
+        }
+      } else {
+        unset($_SESSION['another-proj']);
+        require 'new_project.php';
+      }
+
+    } else if (isset($_SESSION['editprojectdetails'])) {
+      unset($_SESSION['editprojectdetails']);
+      require 'edit_project_details.php';
+
+    } else { 
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
 
     if (isset($_SESSION['view-proj-pg'])) {
       /* Main dropdown nav = 'View Projects Page' */
-      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: #vpp-link */
+      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
-      /* session set in: set-session-osf.php | click event _scripts/scripts.js: #osf-link */
+      /* session set in: set-session-osf.php | click event _scripts/scripts.js: .osf-link */
       unset($_SESSION['organize']);
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
       /* tooltip = 'Rearrange bookmarks' */
-      /* session set in: set-session-eo.php | click event _scripts/scripts.js: #eo-link */
+      /* session set in: set-session-eo.php | click event _scripts/scripts.js: .eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
     } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
-      unset($_SESSION['another-proj']);
-      require 'new_project.php';
+      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      if (isset($_SESSION['newprojectcancelbtn'])) { 
+
+        if (isset($_SESSION['backtohomepage'])) { 
+          unset($_SESSION['newprojectcancelbtn']);
+          unset($_SESSION['backtohomepage']);
+          unset($_SESSION['another-proj']);
+          require '_logged_in/homepage_owner.php';
+          // exit; 
+        }
+        if (isset($_SESSION['backtomyprojects'])) {
+          unset($_SESSION['newprojectcancelbtn']); 
+          unset($_SESSION['backtomyprojects']);
+          unset($_SESSION['another-proj']); 
+          require 'my_projects.php';
+          // exit; 
+        }
+      } else {
+        unset($_SESSION['another-proj']);
+        require 'new_project.php';
+      }
+
+    } else if (isset($_SESSION['editprojdeets'])) {
+      unset($_SESSION['editprojdeets']);
+      require 'edit_project_details.php';
 
     } else { 
+      // default to
       require '_logged_in/homepage_owner.php';
     }
 

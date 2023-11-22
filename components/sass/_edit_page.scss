@@ -407,7 +407,8 @@ input.updateSort {
     // max-width: 300px;
 
 		input[type=submit],
-		a.cancel-deets {
+		a.cancel-deets,
+    a.submit-deets {
 			// display: flex;
 			font-size: 1em;
 			color: #fff;
@@ -422,7 +423,8 @@ input.updateSort {
 			cursor: pointer;
 			line-height: 1em;
 		}
-		input[type=submit] {
+		input[type=submit],
+    a.submit-deets {
 			background-color: rgba(130,195,58,1);
 			border: none;
 			transition: all 0.2s ease;

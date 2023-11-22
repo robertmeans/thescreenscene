@@ -3,26 +3,6 @@ $layout_context = "index";
 
 require_once 'config/initialize.php';
 
-// if (is_post_request()) {
-
-
-	// if(isset($_POST['reorder_searches'])) {
-	// 	$id     			= $_SESSION['id']            		;
-	// 	$current_project   	= $_POST['change_project_id']  ?? ''	;
-
-	// 	$result = update_current_project($id, $current_project);
-
-	// 	if ($result === true) {
-	// 	  $_SESSION['current_project'] = $current_project;
-  //     $_SESSION['organize'] = 'anothern';
-
-	// 		header('location:' . WWW_ROOT);
-	// 	} else {
-	// 		$errors = $result;
-	// 	}
-	// }
-
-// }
 
 if (isset($_GET['token'])) {
 	$token = $_GET['token'];
