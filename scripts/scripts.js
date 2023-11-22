@@ -558,15 +558,15 @@ $(document).ready(function() {
 
 
 
-  // my_projects.php: 'View Projects Page' - from Dropdown navigation
-  $(document).on('click','#vpp-link', function() {
+  // my_projects.php: 'View Projects Page' - from Dropdown navigation - DONE
+  $(document).on('click','.viewprojectspage', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
-      url: "set-session-vpp.php",
+      url: "_form-processing.php",
       type: "POST",
-      data: 'fun',
+      data: $(this).closest('form').serialize(),
       success: function(response) {
         console.log(response);
         if(response == 'ok') {
@@ -577,9 +577,9 @@ $(document).ready(function() {
           }
         } else {
           if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
+            window.location.replace("http://localhost/browsergadget");
           } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
+            window.location.replace("https://browsergadget.com");
           }
         }
       },
@@ -629,32 +629,15 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // edit_order.php (Rearrange book marks)
-  $(document).on('click','#eo-link', function() {
+// edit_order.php (Rearrange book marks) - DONE
+  $(document).on('click','.eo-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
-      url: "set-session-eo.php",
+      url: "_form-processing.php",
       type: "POST",
-      data: 'fun',
+      data: $(this).closest('form').serialize(),
       success: function(response) {
         // console.log(response);
         if(response == 'ok') {
@@ -680,28 +663,13 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // share_project.php (Share project)
+  // share_project.php (Share project) - DONE
   $(document).on('click','.sp-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
-      url: "set-session-sp.php",
+      url: "_form-processing.php",
       type: "POST",
       data: $(this).closest('form').serialize(),
       success: function(response) {
@@ -724,8 +692,6 @@ $(document).ready(function() {
 
       }
     })
-
-
   });
 
 

@@ -3,7 +3,15 @@ require_once 'config/initialize.php';
 
 if (is_post_request()) {
 
-  // go to homepage
+  // go to 'View Projects Page' from main navigation
+  if(isset($_POST['viewprojectspage'])) {
+    $_SESSION['view-proj-pg'] = 'anothern';
+    $signal = 'ok';
+    echo json_encode($signal);
+  }
+
+
+  // Go to homepage - works everywhere
   if(isset($_POST['go_to_homepage'])) {
     $id = $_POST['user_id'];
     $current_project = $_POST['current_project'];
@@ -18,7 +26,7 @@ if (is_post_request()) {
   }
 
 
-  // Organize search fields - for nav/inner_nav.php
+  // 'Organize search fields' -> edit_searches.php 
   if(isset($_POST['organizesearchfields'])) {
 
     if (isset($_POST['current_project'])) {
@@ -40,6 +48,45 @@ if (is_post_request()) {
       echo json_encode($signal);
     } 
   } 
+
+
+  // 'Rearrange bookmarks' -> edit_order.php
+  if(isset($_POST['rearrangebookmarks'])) {
+    $_SESSION['order'] = 'anothern';
+    $signal = 'ok';
+    echo json_encode($signal);
+  }
+
+
+
+  // 'Share project' -> share_project.php 
+  if(isset($_POST['shareproject'])) {
+
+    if (isset($_POST['current_project'])) {
+      $id = $_SESSION['id']               ;
+      $current_project = $_POST['current_project'];
+      $result = update_current_project($id, $current_project);
+
+      if ($result === true) {
+        $_SESSION['current_project'] = $current_project;
+        $_SESSION['share-project'] = 'anothern';
+
+        $signal = 'ok';
+        echo json_encode($signal); 
+      }
+
+    } else {
+      $_SESSION['share-project'] = 'anothern';
+      $signal = 'ok';
+      echo json_encode($signal);
+    } 
+  } 
+
+
+
+
+
+
 
 
 

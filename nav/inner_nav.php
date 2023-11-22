@@ -27,7 +27,7 @@
 
 	if ($layout_context != 'edit_searches') { ?>
   <li>
-    <form method="post">
+    <form class="gth" method="post">
       <input type="hidden" name="organizesearchfields" value="1">
       <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
     </form>
@@ -35,8 +35,12 @@
 	<?php }
 
 	if (($row['share'] == "1") && ($layout_context != 'share_project')) { ?>
-  <form id="sp-form" style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
+	<li>
+    <form method="post">
+      <input type="hidden" name="shareproject" value="yo">
+      <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php } ?>
 
   <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>
@@ -107,7 +111,7 @@
 	if ($layout_context != 'edit_searches') { ?>
   
 	<li>
-    <form method="post">
+    <form class="gth" method="post">
       <input type="hidden" name="organizesearchfields" value="1">
       <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
     </form>
@@ -115,12 +119,21 @@
 	<?php }
 
 	if ($layout_context != 'edit_order') { ?>
-	<li><a id="eo-link"><div class="tooltip"><span class="tooltiptext">Rearrange bookmarks</span><i class="fas fa-arrows-alt fa-fw"></i></div></a></li>
+	<li>
+    <form class="gth" method="post">
+      <input type="hidden" name="rearrangebookmarks" value="1">
+      <a class="eo-link"><div class="tooltip"><span class="tooltiptext">Rearrange bookmarks</span><i class="fas fa-arrows-alt fa-fw"></i></div></a>
+    </form>
+  </li>
 	<?php }
 
   if ($layout_context != 'share_project') { ?>
-  <form style="display:none;"><input type="hidden" name="change_project_id" value="<?= $row['project_id']; ?>"></form>
-	<li><a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a></li>
+  <li>
+    <form method="post">
+      <input type="hidden" name="shareproject" value="yo">
+      <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
+    </form>
+  </li>
   <?php } ?>
 
   <li><a id="np-link" class="my-nav"><div class="tooltip"><span class="tooltiptext">Start a new project</span><i class="far fa-plus-square fa-fw"></i></div></a></li>

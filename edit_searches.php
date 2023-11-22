@@ -1,5 +1,5 @@
-<?php $layout_context = "edit_searches"; 
-/* also - moved $layout_context on 041423 to edit_search_order_shared.php (or _owner.php) bc it wasn't working here all by itself. ?! */
+<?php 
+$layout_context = "edit_searches"; 
  
 require_once 'config/initialize.php'; 
 
@@ -13,18 +13,10 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
 }
 
 $user_id = $_SESSION['id'];
+$current_project = $_SESSION['current_project'];
 
-if (isset($_SESSION['organize']) && isset($_SESSION['organize-this-project'])) {
-  $current_project = $_SESSION['organize-this-project'];
-} else {
-  $current_project = $_SESSION['current_project'];
-}
-
-
-
-?>
-<?php
 require '_includes/head.php';
+
 ?>
 <body>
 <?php preload_config($layout_context); ?>

@@ -69,31 +69,32 @@ if ($projects > 0) { //(321)
 		<?php /* nav for YOU owner -> sharing with others */ ?> 
 		<ul class="inner-nav project-pg">
 			<li>
-				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="current_project_name" value="<?= h($row['project_name']); ?>">
-				<input type="hidden" name="go_to_homepage" value="1">
-        <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="static" onclick="$(this).closest('form').submit()"><i class="fas fa-home fa-fw"></i></a></div>
-				</form>
+        <form method="post">
+          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="go_to_homepage" value="1">
+          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
+        </form>
 			</li>
 			<li>
 				<form action="" method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-        <input type="hidden" name="organizesearchfields" value="1">
-        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
+  				<input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="organizesearchfields" value="1">
+          <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
-	    	<a href="edit_project_details.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+	    	<a href="edit_project_details.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
 	    </li>
 	    <li>
 	    	<form method="post">
-          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="shareproject" value="yo">
           <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
 	    <li>
-	    	<a href="delete_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+	    	<a href="delete_project.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
 	    </li>
 		</ul>
 
@@ -142,14 +143,14 @@ if ($projects > 0) { //(321)
 			<li>
 				<form method="post">
         <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+				<input type="hidden" name="current_project" value="<?= $row['id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
         <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
 				<form method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+				<input type="hidden" name="current_project" value="<?= $row['id']; ?>">
         <input type="hidden" name="organizesearchfields" value="1">
         <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
@@ -157,7 +158,8 @@ if ($projects > 0) { //(321)
 	    <?php if ($row['share'] == "1") { ?>
 	    <li>
 	    	<form method="post">
-          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="shareproject" value="yo">
           <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
@@ -217,31 +219,31 @@ if ($projects > 0) { //(321)
 		<ul class="inner-nav project-pg">
 			<li>
 				<form method="post">
-				<input type="hidden" name="user_id" value="<?= $user_id; ?>">
-        <input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
-				<input type="hidden" name="go_to_homepage" value="1">
-
-					<div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
+  				<input type="hidden" name="user_id" value="<?= $user_id; ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+  				<input type="hidden" name="go_to_homepage" value="1">
+          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gotohomepage"><i class="fas fa-home fa-fw"></i></a></div>
 				</form>
 			</li>
 			<li>
 				<form method="post">
-				<input type="hidden" name="current_project" value="<?= h($row['id']); ?>">
+				<input type="hidden" name="current_project" value="<?= $row['id']; ?>">
         <input type="hidden" name="organizesearchfields" value="1">
         <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
 				</form>
 			</li>
 	    <li>
-	    	<a href="edit_project_details.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
+	    	<a href="edit_project_details.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
 	    </li>
 	    <li>
         <form method="post">
-          <input type="hidden" name="change_project_id" value="<?= h($row['id']); ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="shareproject" value="yo">
 	    	  <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
 	    <li>
-	    	<a href="delete_project.php?id=<?= h($row['id']); ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+	    	<a href="delete_project.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
 	    </li>
 		</ul>
     <div class="shared-with">

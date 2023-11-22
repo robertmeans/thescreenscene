@@ -3,26 +3,7 @@
 require_once 'config/initialize.php';
 
 $user_id = $_SESSION['id'];
-
-
-
-
-
-if (isset($_SESSION['share-project-id'])) {
-  $current_project = $_SESSION['share-project-id'];
-} else if (isset($_POST['change_project_id'])) {
-  $current_project = $_POST['change_project_id'];
-} else if (isset($_POST['current_project'])) {
-  $current_project = $_POST['current_project'];  
-} else { 
-  $current_project = $_SESSION['current_project'];
-}
-
-
-
-
-
-
+$current_project = $_SESSION['current_project'];
 
 
 
@@ -30,9 +11,6 @@ if (is_post_request()) {
 
 
 
-
-
- 
   if (isset($_POST['project_notes'])) {
   $row = [];
   $row['project_name']  = $_POST['project_name']  ?? '' ;
@@ -66,17 +44,8 @@ if (is_post_request()) {
 
 
 
-
-
-
-
-
-
-
-
-
   /* begin processing for share_project.php */
-  if (isset($_POST['project_id'])) {
+  if (isset($_POST['project_id'])) { 
     $id = $_POST['project_id'];
   }
   
@@ -192,7 +161,7 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
-    } else if (isset($_SESSION['share-project']) || isset($_POST['project_id'])) {
+    } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
       /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
       unset($_SESSION['share-project']);
@@ -227,7 +196,7 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
-    } else if (isset($_SESSION['share-project']) || isset($_POST['project_id'])) {
+    } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
       /* session set in: set-session-np.php | click event _scripts/scripts.js: #np-link */
       unset($_SESSION['share-project']);

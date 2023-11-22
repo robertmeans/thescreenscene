@@ -5,6 +5,9 @@ BrowserGadget updates
 	
 2. 	dropdown nav: type to search / auto filter
 
+3. 	replace New Project button on My Projects page with a button (replace the icon)
+
+4. 	pretty up edit_project_details.php page
 
 
 
@@ -12,6 +15,5 @@ BrowserGadget updates
 
 
 
-
-http://localhost/browsergadget/index.php?token=cf329b00824bcc37fb7fc7ec21350a89080131bdbf0c56cfdaae3c8291ee543e818d09c4ba34ca1094a5b26f8dfc73181658
+http://localhost/browsergadget/index.php?token=2dd849e05ee048bf41de722557a6e96977a828305c08543d68126b0d723ea5d42d5d9418cd71820bcba44a532b9467b85b43
 

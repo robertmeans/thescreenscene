@@ -24,7 +24,7 @@
 				<a class="pen">&nbsp;</a>
 				<!-- working on autocomplete... -->
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
-			<a id="vpp-link" class="dda vpp">View Projects Page</a>
+			<form method="post"><input type="hidden" name="viewprojectspage" value="yo"><a class="dda vpp viewprojectspage">View Projects Page</a></form>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form method="post">
         <input type="hidden" name="user_id" value="<?= $user_id; ?>">
