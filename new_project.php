@@ -58,7 +58,14 @@ if ($projects < 10 || $row['admin'] == 1) {
     <p>Hello <?= $_SESSION['username']; ?>,</p>
     <p>You don't have any projects. The last project you were viewing was deleted and there are no others to choose from. Time to start a new one.</p>
 
-  <?php } else { ?>
+  <?php } else { 
+  $inner_nav_context = "owner";
+  $layout_context = "new_project"; ?>
+  <ul class="inner-nav" style="float:none;margin:-1em 0em 1em;">
+    <?php require 'nav/inner_nav.php'; ?>
+  </ul>
+ 
+
     <p>Start a new project:</p>
   <?php } ?>
 

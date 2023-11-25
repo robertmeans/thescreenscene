@@ -6,7 +6,6 @@ $user_id = $_SESSION['id'];
 $current_project = $_SESSION['current_project'];
 
 
-
 if (is_post_request()) {
 
 
@@ -46,9 +45,8 @@ if (is_post_request()) {
   // $current_project  = $_POST['project_id'];
 
 }
-?>
 
-<?php
+
 if ($current_project != "0") { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 

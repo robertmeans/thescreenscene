@@ -444,14 +444,14 @@ $('.tab.active').show();
 
 
 
-// inner_nav navigation links begin
+// navigation links begin and forms begin
 $(document).ready(function() {
 
 
 
 
-  // Homepage link - DONE
-  $(document).on('click', '.gotohomepage', function() {
+  // Homepage link from: inner_nav.php + my_projects.php + nav.php - DONE
+  $(document).on('click', '.gth-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
@@ -487,8 +487,8 @@ $(document).ready(function() {
 
 
 
-  // my_projects.php: 'View Projects Page' - from Dropdown navigation - DONE
-  $(document).on('click','.viewprojectspage', function() {
+  // my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE
+  $(document).on('click','.vpp-link', function() {
     var current_loc = window.location.href;
 
     $.ajax({
@@ -523,7 +523,7 @@ $(document).ready(function() {
 
 
 
-  // edit_searches.php (Organize search fields) - DONE
+  // edit_searches.php (Organize search fields: link) - DONE
   $(document).on('click','.osf-link', function() {
     var current_loc = window.location.href;
 
@@ -558,7 +558,7 @@ $(document).ready(function() {
   });
 
 
-// edit_order.php (Rearrange book marks) - DONE
+// edit_order.php (Rearrange book marks: link) - DONE
   $(document).on('click','.eo-link', function() {
     var current_loc = window.location.href;
 
@@ -592,7 +592,7 @@ $(document).ready(function() {
   });
 
 
-  // share_project.php (Share project) - DONE
+  // share_project.php (Share project: nav link; not actual share project form (see below)) - DONE
   $(document).on('click','.sp-link', function() {
     var current_loc = window.location.href;
 
@@ -603,7 +603,7 @@ $(document).ready(function() {
       data: $(this).closest('form').serialize(),
       success: function(response) {
         // console.log(response);
-        if(response == 'ok') {
+        if (response == 'ok') {
           // console.log(response);
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget");
@@ -619,75 +619,6 @@ $(document).ready(function() {
       }, 
       complete: function() {
 
-      }
-    })
-  });
-
-
-
-  // new_project.php (inner_nav.php & new_project.php: 'Start a new project') - DONE
-  $(document).on('click','.np-link', function() {
-    var current_loc = window.location.href;
-
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
-      success: function(response) {
-        console.log(response);
-        if(response == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
-  });
-
-
-  // from edit_project_details.php -> Submit button
-  $(document).on('click','.submit-deets', function() {
-    var current_loc = window.location.href;
-
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
-
-      beforeSend: function(xhr) {
-        $('#epd-alert').removeClass('red'); // reset class every click
-        $('#epd-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-      },
-      success: function(response) {
-        console.log(response);
-        if(response['signal'] == 'ok') {
-          // alert('success');
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
-        } else {
-          $('#epd-alert').addClass('red');
-          $('#epd-errors').html(response['li']);
-
-          $('#epd-toggle-btn').html('<a href="my_projects.php" class="cancel-deets">Cancel</a><a class="submit-deets">Try again</a>');
-
-        }
-      },
-      error: function(response) {
-        console.log(response);
-      }, 
-      complete: function() {
       }
     })
   });
@@ -732,6 +663,89 @@ $(document).ready(function() {
     })
   });
 
+  // edit_project_details.php 'Cancel' button
+  $(document).on('click','.cancel-deets', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: ({ 'cancel-deets' : 'cancel' }),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+  // from edit_project_details.php, also used as new_project.php Submit button
+  $(document).on('click','.submit-deets', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          // alert('success');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('red');
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="cancel cancel-deets">Cancel</a><a class="submit submit-deets">Try again</a>');
+
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -762,15 +776,72 @@ $(document).ready(function() {
       url: "_form-processing.php",
       type: "POST",
       data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+        $('#user-email').removeClass('red');
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+
       success: function(response) {
         console.log(response);
         if(response['signal'] == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
+          $('#user-email').removeClass('red');
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#user-email').val('');
+
+          $('label.edit').removeClass("checked");
+          $('.echeckon').removeClass("showcheck");
+          $('label.share').removeClass("checked");
+          $('.scheckon').removeClass("showcheck");
+
+          $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
+          $('#shared-list').html(response['shared_names']);
         } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#user-email').addClass(response['eclass']);
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+  // share_project.php -> remove shared user
+  $(document).on('click','.removeshareduser', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        // alert(this.data);
+        //return confirm('Confirm: Remove' + data[username] + ' from project?');
+      },
+          
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          $('#message').addClass('green');
+          $('#msg-ul').html(response['li']);
+
+          // $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
+          $('#shared-list').html(response['shared_names']);
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
           
         } 
       },
@@ -798,10 +869,32 @@ $(document).ready(function() {
 
 
 
+  // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE
+  $(document).on('click','.np-link', function() {
+    var current_loc = window.location.href;
 
-
-
-
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
 
 
   $(document).on('click','#new-project-btn', function() {
@@ -875,46 +968,7 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-});
-// inner_nav navigation links end
+}); // navigation links begin and forms
 
 
 

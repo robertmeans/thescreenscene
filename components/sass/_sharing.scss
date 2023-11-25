@@ -86,30 +86,35 @@
 			&:focus {
 				outline: none;
 			}
+      &.red {
+        background-color: rgba(255,0,0,0.2);
+        border-top: 1px solid red;
+        border-bottom: 1px solid red;
+      }
 		}
 		input[type=email].email-error {
 			// background-color: rgba(255,0,0,0.2);
 			border-top: 1px solid rgba(231,74,66,1);
 			border-bottom: 1px solid rgba(231,74,66,1);
 		}
-		input[type=submit],
-    .shareproject {
-			width: 100%;
-			margin: 1em 0 0.5em;
-			font-size: 1em;
-			padding: 1em;
-			color: #fff;
-      text-align: center;
-			background-color: rgba(0,0,0,0.6);
-			background-color: #44c073;
-			border: 1px solid #fff;
-			cursor: pointer;
-			transition: all 0.2s ease;
-			&:hover {
-				background-color: rgba(0,0,0,1);
-				background-color: #08df08;
-			}
-		}
+		// input[type=submit],
+    // .shareproject {
+		// 	width: 100%;
+		// 	margin: 1em 0 0.5em;
+		// 	font-size: 1em;
+		// 	padding: 1em;
+		// 	color: #fff;
+    //   text-align: center;
+		// 	background-color: rgba(0,0,0,0.6);
+		// 	background-color: #44c073;
+		// 	border: 1px solid #fff;
+		// 	cursor: pointer;
+		// 	transition: all 0.2s ease;
+		// 	&:hover {
+		// 		background-color: rgba(0,0,0,1);
+		// 		background-color: #08df08;
+		// 	}
+		// }
 		.share-note {
 			border: 1px dotted #ccc;
 			padding: 1.5em;
@@ -165,16 +170,17 @@
 		    }
 		}
 	}
-	.shared-users {
-		// line-height: 1.5em;
-		width: 100%;
-		background-color: transparent;
-		padding: 0.2em 0.5em;
-		transition: all 0.2s ease;
-		&:hover {
-			background-color: rgba(0,0,0,0.3);
-		}
-	}	
+	// .shared-users {
+	// 	// line-height: 1.5em;
+	// 	width: 100%;
+	// 	background-color: transparent;
+	// 	padding: 0.2em 0.5em;
+	// 	transition: all 0.2s ease;
+	// 	&:hover {
+	// 		background-color: rgba(0,0,0,0.3);
+	// 	}
+	// }	
+
 	form.edit-user {
 		display: flex;
 		flex-direction: row;
@@ -197,5 +203,42 @@
 			}
 		}
 	}
+}
+
+.removeshareduser {
+  display: flex;
+  padding: 0.5em 1em;
+  border: 1px solid transparent;
+  background-color: rgba(0,0,0,0.8);
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0); 
+  transition: all 0.1s ease; 
+  &:hover {
+    border: 1px solid #fff;
+    background-color: #000;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+#shared-list {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  li {
+    padding: 0em 0em 0em 1em;
+  }
+  li:nth-child(odd) {
+    background-color: rgba(0,0,0,0.3);
+  }
+  li:nth-child(even) {
+    background-color: transparent;
+    .removeshareduser {
+      background-color: transparent;
+    }
+  }
 }
 

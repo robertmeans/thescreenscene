@@ -34,10 +34,15 @@ if ($row['owner_id'] == $user_id) { ?>
 
 <form id="epd-form" method="post">
   <input type="hidden" name="submitdeets" value="yo">
-
+<!--
     <div id="epd-alert">
       <ul id="epd-errors"></ul>
     </div>
+-->
+    <div id="message"> 
+      <ul id="msg-ul"></ul>
+    </div>
+
 
   <p>Rename project | Limit 30 characters</p>
   <input type="text" name="project_name" id="p-name" maxlength="30" value="<?= $row['project_name']; ?>">
@@ -46,8 +51,8 @@ if ($row['owner_id'] == $user_id) { ?>
   <textarea id="textbox" name="project_notes" maxlength="1500"><?= $row['project_notes']; ?></textarea>
   
   <!-- <div class="btn-wrap"> -->
-  <div id="epd-toggle-btn">
-    <a href="my_projects.php" class="cancel-deets">Cancel</a><a class="submit-deets">Submit</a>
+  <div id="buttons">
+    <a class="cancel cancel-deets">Cancel</a><a class="submit submit-deets">Submit</a>
   </div>
 
 </form>
