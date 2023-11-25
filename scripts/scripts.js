@@ -778,7 +778,7 @@ $(document).ready(function() {
       data: $(this).closest('form').serialize(),
 
       beforeSend: function(xhr) {
-        $('#message').removeClass('red'); // reset class every click
+        $('#message').removeAttr('class'); // reset class every click
         $('#user-email').removeClass('red');
         $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
       },
@@ -825,14 +825,14 @@ $(document).ready(function() {
       data: $(this).closest('form').serialize(),
 
       beforeSend: function(xhr) {
-        // alert(this.data);
+        $('#message').removeAttr('class');
         //return confirm('Confirm: Remove' + data[username] + ' from project?');
       },
           
       success: function(response) {
         console.log(response);
         if(response['signal'] == 'ok') {
-          $('#message').addClass('green');
+          $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
 
           // $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
@@ -854,6 +854,37 @@ $(document).ready(function() {
   });
 
 
+
+  $(document).on('click','.removeme', function() {
+    var current_loc = window.location.href;
+    var project_name = $('#project_name').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        confirm('Confirm: Remove yourself from ' + project_name + '?');
+      },    
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
 
 
 
@@ -956,8 +987,6 @@ $(document).ready(function() {
   });
 
 // new project end
-
-
 
 
 

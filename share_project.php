@@ -58,6 +58,10 @@ require '_includes/head.php'; ?>
 
  	</form>
 
+      <div class="shared-users">
+        <h2 class="edit-share">Project Users</h2>
+        <ul id="shared-list" class="shared-list">
+
 <?php
 	$this_project = $row['project_id'];
 	$is_it_shared = is_this_project_shared($this_project);
@@ -69,31 +73,30 @@ require '_includes/head.php'; ?>
 
     while ($row = mysqli_fetch_assoc($sharing)) { 
       $names[] = '<li><form class="edit-user" method="post">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' . '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
-                <div>
-                <input type="hidden" id="fullname" name="fullname" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">
-                <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
-                <input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">
-                <input type="hidden" id="username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">
-                <a class="removeshareduser">Remove</a>
-                </div>
-              </form></li>'; 
+        <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
+        <input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">
+        <input type="hidden" id="username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">
+        <a class="rsu removeshareduser">Remove</a>
+      </form></li>'; 
     } 
 
 		if ($names) { ?>
-      <div class="shared-users">
-  			<h2 class="edit-share">Project Users</h2>
-        <ul id="shared-list" class="shared-list">
-  		    <?php	echo implode($names); ?>
+  		  <?php	echo implode($names); ?>
+	   <?php } 
+	} else { ?> 
+      <li class="alone">Just me</li>
+  <?php } ?>
         </ul>
       </div>
 
-	   <?php } 
-	} 
 
 
 
 
-} else { // this is someone who the project is shared with
+
+
+<?php } else { 
+  /* this is someone who the project is shared with */
 	$row = show_project_to_shared($current_project, $user_id);
 	if ($row['share'] == "1") { // (0106211755)
 ?>
@@ -106,16 +109,11 @@ require '_includes/head.php'; ?>
 
   <p class="owner-txt" style="line-height:1.5em;">This project is being SHARED with you. You have been given permission to share with others.</p>
 
-<!--     <?php if(count($errors) > 0): ?>
-        <div class="alert alert-danger <?php if(isset($errors['successfully_added'])) { echo "success-instead"; } ?>">
-          <?php foreach($errors as $error): ?>
-          <li><?php echo $error; ?></li>
-      	<?php endforeach; ?>
-        </div>
-    <?php endif; ?> -->
+  <div id="message"> 
+    <ul id="msg-ul"></ul>
+  </div>
 
-
- 	<form action="" method="post">
+ 	<form method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
     <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
@@ -133,53 +131,61 @@ require '_includes/head.php'; ?>
 
  		<div class="share-note">Note: Only an owner of a project can rename or delete their project no matter what permissions are shared here. Default permissions are VIEW ONLY.</div>
 
- 		<!-- <input type="submit" name="sharer-share-submit" value="Share"> -->
     <input type="hidden" name="sharer-share-submit" value="yo">
-    <a class="shareproject">Share</a>
+    <!-- <a class="shareproject">Share</a> -->
+    <div id="buttons">
+      <a class="shareproject submit full-width">Share</a>
+    </div>
+
+
 
  	</form>
+
+  <div class="shared-users">
+    <h2 class="edit-share">Project Users</h2>
+    <ul id="shared-list" class="shared-list">
+
 
 <?php
 	$this_project = $row['project_id'];
 	$is_it_shared = is_this_project_shared($this_project);
 	$result = mysqli_num_rows($is_it_shared); // did we find any shared results? if so...
 
-	echo "<h2 class=\"edit-share\">Project Users</h2>";
 	?>
-	<form action="" class="remove-self" method="post" onsubmit="return confirm('Confirm: Remove yourself from <?= $row['project_name']; ?>?')">
-    <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
-		<p class="mep">Me</p>
-		<input type="hidden" name="delete-shared-user" value="<?= $user_id; ?>">
-		<input type="submit" name="remove-self" value="Leave this project">
-	</form>
+	<li>
+    <form class="edit-user remove-self" method="post"> 
+      <div>Me</div>
+      <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
+      <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
+      <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+      <input type="hidden" name="delete-shared-user" value="<?= $user_id; ?>">
+      <a class="rsu removeme">Leave</a>
+    </form>
+  </li>
 	<?php
 	if ($result > 1) {
 		$sharing = show_shared_with_info($user_id, $this_project);
 
     while ($row = mysqli_fetch_assoc($sharing)) { 
-      $names[] = '<div class="shared-users">
-              <form class="edit-user" action="" method="post"  
-              onsubmit="return confirm(\'Confirm: Remove ' . $row['first_name'] . ' ' . $row['last_name'] . ' from project?\');">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' .  '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
-                <div>
+      $names[] = '<li><form class="edit-user" method="post">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' .  '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
                 <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
-                <input type="submit" class="remove" name="delete" value="Remove">
-                </div>
-              </form>
-            </div>';
+                <a class="rsu removeshareduser">Remove</a>
+              </form></li>';
           }
 
-    // rewritten with single quotes on 11.21.23
-		// while ($row = mysqli_fetch_assoc($sharing)) { 
-		// 	$names[] = "<div class=\"shared-users\"><form class=\"edit-user\" action=\"\" method=\"post\" onsubmit=\"return confirm('Confirm: Remove " . $row['first_name'] . " " . $row['last_name'] . " from this project?');\">" . $row['first_name'] . " " . $row['last_name'] . "<input type=\"hidden\" name=\"delete-shared-user\" value=\"" . $row['shared_with'] . "\"><input type=\"submit\" class=\"remove\" name=\"delete\" value=\"Remove\"><input type=\"hidden\" id=\"project_id\" name=\"project_id\" value=\"" .  $row['project_id'] . "\"></form></div>";
-		// } 
+
 
 		if ($names) {
-			// echo "<h2 class=\"edit-share\">Edit Users</h2>";
-			echo implode($names);
-		} else {
+			echo implode($names); 
+  } else { ?> 
+      <li class="alone">Just me</li>
+  <?php } ?>
 
-		} 
-	}
+
+<?php	} ?>
+        </ul>
+      </div><!-- 1125231548 -->
+<?php
 } else { // (0106211755)
     echo "<p class=\"query-tinkerer\">The content you are seeking is not for you. Shield your eyes and run away!</p>";
     } 

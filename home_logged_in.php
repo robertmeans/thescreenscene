@@ -8,21 +8,6 @@ $current_project = $_SESSION['current_project'];
 
 if (is_post_request()) {
 
-
-  // if (isset($_POST['project_notes'])) {
-  // $row = [];
-  // $row['project_name']  = $_POST['project_name']  ?? '' ;
-  // $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
-  // $row['share']         = '1' ?? '' ;
-  // $row['edit']          = '1' ?? '' ;
-
-  // $result = create_new_project($row, $user_id);
-
-  //   if ($result !== true) {
-  //     $errors = $result;
-  //   }
-  // }
-
   if(isset($_POST['color'])) {
     $color = $_POST['color'];
     if (isset($_POST['owner'])) {
@@ -38,9 +23,9 @@ if (is_post_request()) {
   }
 
   /* begin processing for share_project.php */
-  if (isset($_POST['project_id'])) { 
-    $id = $_POST['project_id'];
-  }
+  // if (isset($_POST['project_id'])) { 
+  //   $id = $_POST['project_id'];
+  // }
   
   // $current_project  = $_POST['project_id'];
 
@@ -54,31 +39,31 @@ if ($current_project != "0") { // not a brand new member
 
     if (isset($_SESSION['view-proj-pg'])) {
       /* Main dropdown nav = 'View Projects Page' */
-      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: .vpp-link */
+      /* click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
-      /* session set in: set-session-osf.php | click event _scripts/scripts.js: .osf-link */
+      /* click event _scripts/scripts.js: .osf-link */
       unset($_SESSION['organize']); 
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
       /* tooltip = 'Rearrange bookmarks' */
-      /* session set in: set-session-eo.php | click event _scripts/scripts.js: .eo-link */
+      /* click event _scripts/scripts.js: .eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
     } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      /* click event _scripts/scripts.js: .np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      /* click event _scripts/scripts.js: .np-link */
       if (isset($_SESSION['newprojectcancelbtn'])) { 
 
         if (isset($_SESSION['backtohomepage'])) { 
@@ -96,6 +81,9 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
+        // if (isset($_SESSION['newprojectcancelbtn'])) { unset($_SESSION['newprojectcancelbtn']); }
+        // if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
+        // if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
@@ -111,31 +99,31 @@ if ($current_project != "0") { // not a brand new member
 
     if (isset($_SESSION['view-proj-pg'])) {
       /* Main dropdown nav = 'View Projects Page' */
-      /* session set in: set-session-vpp.php | click event _scripts/scripts.js: .vpp-link */
+      /* click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
       /* tooltip = 'Organize search fields' */
-      /* session set in: set-session-osf.php | click event _scripts/scripts.js: .osf-link */
+      /* click event _scripts/scripts.js: .osf-link */
       unset($_SESSION['organize']);
       require 'edit_searches.php';
 
     } else if (isset($_SESSION['order'])) {
       /* tooltip = 'Rearrange bookmarks' */
-      /* session set in: set-session-eo.php | click event _scripts/scripts.js: .eo-link */
+      /* click event _scripts/scripts.js: .eo-link */
       unset($_SESSION['order']); 
       require 'edit_order.php';
 
     } else if (isset($_SESSION['share-project'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      /* click event _scripts/scripts.js: .np-link */
       unset($_SESSION['share-project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
       /* tooltip = 'Start a new project' */
-      /* session set in: set-session-np.php | click event _scripts/scripts.js: .np-link */
+      /* click event _scripts/scripts.js: .np-link */
       if (isset($_SESSION['newprojectcancelbtn'])) { 
 
         if (isset($_SESSION['backtohomepage'])) { 
@@ -153,6 +141,9 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
+        // if (isset($_SESSION['newprojectcancelbtn'])) { unset($_SESSION['newprojectcancelbtn']); }
+        // if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
+        // if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
