@@ -1,0 +1,71 @@
+
+1.
+Homepage
+tooltip =   'Go to homepage'
+trigger =   .gth-link 
+refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly
+
+
+2.
+Organize Search Fields (Google, URL, Bing, Reference, YouTube)
+tooltip =   'Organize search fields'
+trigger =   .osf-link 
+goes to:    edit_searches.php
+by using:   $_SESSION['organize'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+3.
+Rearrange Bookmarks [drag & drop hyperlinks around]
+tooltip =	'Rearrange bookmarks'
+trigger = 	.eo-link
+goes to:	edit_order.php
+by using:	$_SESSION['order'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+4.
+Share Project
+tooltip = 	'Share project'
+trigger =	.sp-link
+goes to:	share_project.php
+by using:	$_SESSION['share-project'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+5.
+New Project
+tooltip =	'Start a new project'
+trigger =	.np-link
+goes to:	new_project.php
+by using:	$_SESSION['another-proj'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+6.
+My Projects Page
+tooltip =	'Projects page'
+trigger =	.vpp-link
+goes to:	my_projects.php
+by using:	$_SESSION['view-proj-pg'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+7.
+Project Info
+tooltip =	'Project name & notes'
+trigger =	.epd-link
+goes to:	edit_project_details.php
+by using:	$_SESSION['editprojdeets'];
+found only in my_projects.php
+
+
+8.
+Delete Project
+tooltip =	'Delete project'
+trigger =	.dp-link
+goes to:	delete_project.php
+by using:	$_SESSION['deleteproject']
+found only in my_projects.php
+
+

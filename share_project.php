@@ -132,12 +132,10 @@ require '_includes/head.php'; ?>
  		<div class="share-note">Note: Only an owner of a project can rename or delete their project no matter what permissions are shared here. Default permissions are VIEW ONLY.</div>
 
     <input type="hidden" name="sharer-share-submit" value="yo">
-    <!-- <a class="shareproject">Share</a> -->
+
     <div id="buttons">
       <a class="shareproject submit full-width">Share</a>
     </div>
-
-
 
  	</form>
 

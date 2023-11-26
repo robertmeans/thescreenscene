@@ -15,7 +15,6 @@ function build_projects_navigation($user_id) {
   return $result;  
 }
 
-
 function find_users_projects($user_id) { // 12.29.20 rewritten
   global $db;
   // solution learned at: https://www.youtube.com/watch?v=2HVMiPPuPIM&ab_channel=JoeyBlue
@@ -33,16 +32,6 @@ function find_users_projects($user_id) { // 12.29.20 rewritten
   return $result;  
 }
 
-
-
-
-
-
-
-
-
-
-
 function update_color($user_id, $current_project) { 
   global $db;
 
@@ -59,20 +48,6 @@ function update_color($user_id, $current_project) {
   $row = mysqli_fetch_assoc($result);
   return $row;  
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -232,32 +207,6 @@ function project_colormode_shared_with($user_id, $color, $current_project) { // 
     }  
 }
 
-// function add_note($row, $url) {
-//   global $db;
-
-//   $sql = "INSERT INTO notes ";
-//   $sql .= "(user_id, project_id, name, url, note, sort, clipboard) ";
-//   $sql .= "VALUES ("; 
-//   $sql .= "'" . $row['user_id'] . "', ";
-//   $sql .= "'" . db_escape($db, $row['project_id'])    . "', ";
-//   $sql .= "'" . db_escape($db, $row['name'])    . "', ";
-//   $sql .= "'" . db_escape($db, $url)    . "', ";
-//   $sql .= "'" . db_escape($db, $row['note'])    . "', ";
-//   $sql .= "'" . db_escape($db, $row['sort'])    . "', ";
-//   $sql .= "'" . $row['clipboard']    . "'";
-//   $sql .= ")";
-
-//   $result = mysqli_query($db, $sql);
-//   // echo $sql;  
-//   if ($result) {
-//     return true;
-//   } else {
-//     echo mysqli_error($db);
-//     db_disconnect($db);
-//     exit;
-//   }
-// }
-
 function modify_note($row, $this_note, $url) {
   global $db;
 
@@ -292,25 +241,6 @@ function find_project_notes($user_id, $current_project) {
   confirm_result_set($result);  
   return $result; // returns an assoc. array    
 }
-
-// function delete_note($note_id) {
-//   global $db;
- 
-//   $sql = "DELETE FROM notes ";
-//   $sql .= "WHERE note_id='" . $note_id . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-
-//   if($result) {
-//     header('location:' . WWW_ROOT);
-//   } else {
-//     // delete failed
-//     mysqli_error($db);
-//     db_disconnect($db);
-//     exit;
-//   }
-// }
 
 
 // 1222202024
@@ -348,178 +278,6 @@ function does_user_have_a_single_project($user_id) {
   return $result;
 }
 
-
-
-
-
-
-// function owner_share_project($row, $user_id, $id, $share, $edit, $current_project) { // coming in $row = $_POST values
-//   global $db;
-//   $email = $row['users_email'];
-
-//   $errors = validate_share($row); // just making sure email field is not empty
-//   if (!empty($errors)) {          // if not, keep going...
-//     return $errors;
-//   }
-
-//   $sql = "SELECT * FROM users WHERE "; // making sure email actually exists in db
-//   $sql .= "email='" . db_escape($db, $row['users_email']) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   confirm_result_set($result);
-//   $row = mysqli_fetch_assoc($result); // assigning users table content to the specific
-//                                       // user whose email has been entered
-
-//     if (isset($row['email']) && ($row['user_id'] != $user_id)) { // email exists and does not
-//       // belong to the user submitting the request.
-//       $share_with = $row['user_id']; // here's the user's id whose email was just submitted.
-//       // let's make sure they don't already have this project shared with them.
-
-//       $sql = "SELECT p_u.project_id, p_u.shared_with, p_u.owner_id, u.* ";
-//       $sql .= "FROM project_user as p_u ";
-//       $sql .= "LEFT JOIN users as u ON u.user_id=p_u.shared_with "; // needs to prevent being shared with same user multiple times.
-//       $sql .= "WHERE p_u.project_id='" . db_escape($db, $id) . "' ";
-//       $sql .= "AND (p_u.shared_with='" . db_escape($db, $share_with) . "' ";
-//       $sql .= "OR p_u.owner_id='" . db_escape($db, $share_with) . "') ";
-//       $sql .= "LIMIT 1";
-
-//       $result = mysqli_query($db, $sql);
-//       confirm_result_set($result);
-//       $row2 = mysqli_fetch_assoc($result); // assign value of user that was found to 
-//                                            // new var '$row2' so it does not interfere w/$row
-
-//       if ($result) { // send user's info to validation to throw personalized error
-
-//         $errors = validate_unique($row2);
-//         if (!empty($errors)) {
-//         return $errors;
-
-//       } else {
-//         // keep going, everything good so far. user is unique and does not have the
-//         // project shared with them already.
-//         $sql = "INSERT INTO project_user ";
-//         $sql .= "(project_id, owner_id, shared_with, share, edit) ";
-//         $sql .= "VALUES ("; 
-//         $sql .= "'" . db_escape($db, $current_project)    . "', ";
-//         $sql .= "'" . db_escape($db, $user_id) . "', ";
-//         $sql .= "'" . db_escape($db, $share_with) . "', ";
-//         $sql .= "'" . db_escape($db, $share) . "', ";
-//         $sql .= "'" . db_escape($db, $edit) . "'";
-//         $sql .= ")";
-
-//         $result = mysqli_query($db, $sql);
-//         if ($result) {
-//           return true;
-//         } else {
-//           echo mysqli_error($db);
-//           db_disconnect($db);
-//           exit;
-//         }
-//       }
-//     }
-//   } else {
-//     $errors = validate_email($email, $row, $user_id);
-//     if (!empty($errors)) {
-//       return $errors;
-//     }
-//   }
-// }
-
-// function sharer_share_projectzzzz($row, $user_id, $id, $share, $edit, $current_project) { // coming in $row = $_POST values
-//   global $db;
-//   $email = $row['users_email'];
-
-//   $errors = validate_share($row); // just making sure email field is not empty
-//   if (!empty($errors)) {          // if not, keep going...
-//     return $errors;
-//   }
-
-
-//   $sql = "SELECT * FROM project_user WHERE ";
-//   $sql .= "shared_with='" . db_escape($db, $user_id) . "' ";
-//   $sql .= "AND project_id='" . db_escape($db, $current_project) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   $result = mysqli_query($db, $sql);
-//   confirm_result_set($result);
-//   $last_check = mysqli_fetch_assoc($result);
-
-//   if (isset($last_check['shared_with'])) { // one last check to make sure this user wasn't removed from
-//                                     // project before trying to share it (since they've been logged
-//                                     // in to the share_projects.php page)
-
-//     $sql = "SELECT * FROM users WHERE "; // making sure email actually exists in db
-//     $sql .= "email='" . db_escape($db, $row['users_email']) . "' ";
-//     $sql .= "LIMIT 1";
-
-//     $result = mysqli_query($db, $sql);
-//     confirm_result_set($result);
-//     $row = mysqli_fetch_assoc($result); // assigning users table content to the specific
-//                                         // user whose email has been entered
-
-//       if (isset($row['email']) && ($row['user_id'] != $user_id)) { // email exists and does not
-//         // belong to the user submitting the request.
-//         $share_with = $row['user_id']; // here's the user's id whose email was just submitted.
-//         // let's make sure they don't already have this project shared with them.
-
-//         $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, u.* ";
-//         $sql .= "FROM project_user as p_u ";
-//         $sql .= "LEFT JOIN users as u ON u.user_id=p_u.owner_id "; // needs to prevent being shared with owner.
-//         $sql .= "WHERE p_u.project_id='" . db_escape($db, $id) . "' ";
-//         $sql .= "AND (p_u.shared_with='" . db_escape($db, $share_with) . "' ";
-//         $sql .= "OR p_u.owner_id='" . db_escape($db, $share_with) . "') ";
-//         $sql .= "LIMIT 1";
-
-//         $result = mysqli_query($db, $sql);
-//         confirm_result_set($result);
-//         $row2 = mysqli_fetch_assoc($result); // assign value of user that was found to 
-//                                              // new var '$row2' so it does not interfere w/$row
-
-//         if ($result) { // send user's info to validation to throw personalized error
-
-//           $errors = validate_unique_from_shared($row2);
-//           if (!empty($errors)) {
-//           return $errors;
-
-//         } else {
-//           // keep going, everything good so far. user is unique and does not have the
-//           // project shared with them already.
-//           $sql = "INSERT INTO project_user ";
-//           $sql .= "(project_id, owner_id, shared_with, share, edit) ";
-//           $sql .= "VALUES ("; 
-//           $sql .= "'" . db_escape($db, $current_project)    . "', ";
-//           $sql .= "'" . db_escape($db, $user_id) . "', ";
-//           $sql .= "'" . db_escape($db, $share_with) . "', ";
-//           $sql .= "'" . db_escape($db, $share) . "', ";
-//           $sql .= "'" . db_escape($db, $edit) . "'";
-//           $sql .= ")";
-
-//           $result = mysqli_query($db, $sql);
-//           if ($result) {
-//             return true;
-//           } else {
-//             echo mysqli_error($db);
-//             db_disconnect($db);
-//             exit;
-//           }
-//         }
-//       }
-//     } else {
-//       $errors = validate_email($email, $row, $user_id);
-//       if (!empty($errors)) {
-//         return $errors;
-//       }
-//     }
-
-//   } else {
-//     $errors = user_removed();
-//     if (!empty($errors)) {
-//       return $errors;
-//     }
-//   }
-
-// }
 
 function user_removed() {
   $errors = [];
@@ -760,32 +518,6 @@ function update_row_order($current_project, $row) {
     }  
 }
 
-function delete_project($current_project, $vamoose) {
-  global $db;
-
-  $errors = validate_delete($vamoose); 
-  if (!empty($errors)) {
-    return $errors;
-  }  
-
-  $sql = "DELETE FROM projects ";
-  $sql .= "WHERE id='" . $current_project . "' ";
-  $sql .= "LIMIT 1";
-
-  $result = mysqli_query($db, $sql);
-
-  if($result) {
-    // send back to my_projects.php with ds=1 in 
-    // order to allow $_GET to echo a success msg
-    $_SESSION['ds'] = 'ds-success';
-    header('location: my_projects.php');
-    exit;
-  } else {
-    $errors = mysqli_error($db);
-    return $errors;
-  }
-}
-
 function remove_shared_user($id, $remove_this_user) {
   global $db; 
 
@@ -820,16 +552,16 @@ function remove_me($id, $remove_this_user) {
 }
 
 
-function validate_delete($vamoose) {
+// function validate_delete($vamoose) {
 
-  $errors = [];
+//   $errors = [];
 
-  if ($vamoose !== "Delete") {
-    $errors['row_order'] = "You've got to type \"Delete\" (capital \"D\") just like it says. We don't want any accidental deletions around here.";
-  }
+//   if ($vamoose !== "Delete") {
+//     $errors['row_order'] = "You've got to type \"Delete\" (capital \"D\") just like it says. We don't want any accidental deletions around here.";
+//   }
 
-  return $errors; 
-}
+//   return $errors; 
+// }
 
 function validate_project_update($row) {
 

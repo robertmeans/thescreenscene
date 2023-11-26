@@ -83,24 +83,11 @@ if ($projects > 0) { //(321)
 				</form>
 			</li>
 	    <li>
-
-
-
         <form method="post">
           <input type="hidden" name="editprojectdetails">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="epd-link"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
         </form>
-
-	    	
-
-
-
-
-
-
-
-
 	    </li>
 	    <li>
 	    	<form method="post">
@@ -109,9 +96,14 @@ if ($projects > 0) { //(321)
           <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
-	    <li>
-	    	<a href="delete_project.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
-	    </li>
+      <li>
+        <form method="post">
+          <input type="hidden" name="deleteproject" value="yo">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <a class="dp-link"><div class="tooltip"><span class="tooltiptext">Delete Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+        </form>
+      </li>
+
 		</ul>
 
     <div class="shared-with">
@@ -262,9 +254,14 @@ if ($projects > 0) { //(321)
 	    	  <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
-	    <li>
-	    	<a href="delete_project.php?id=<?= $row['id']; ?>"><div class="tooltip"><span class="tooltiptext">Delete project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
-	    </li>
+      <li>
+        <form method="post">
+          <input type="hidden" name="deleteproject" value="yo">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <a class="dp-link"><div class="tooltip"><span class="tooltiptext">Delete Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+        </form>
+      </li>
+
 		</ul>
     <div class="shared-with">
 

@@ -5,9 +5,13 @@ BrowserGadget updates
 	
 2. 	dropdown nav: type to search / auto filter
 
-3. 	replace New Project button on My Projects page with a button (replace the icon)
-
 4. 	pretty up edit_project_details.php page
+
+5. 	fix footer contact on delete_project.php
+
+
+
+
 
 
 open to start where you left off on the laptop:

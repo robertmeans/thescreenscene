@@ -255,14 +255,14 @@
 		font-size: 2em;
 		margin-bottom: 0.5em; 
 	}
-	ul {
-		list-style: disc;
-		margin-top: 1em;
-		li {
-			margin-left: 1em;
-			line-height: 1.5em;
-		}
-	}
+}
+ul.perks {
+  list-style: disc;
+  margin-top: 1em;
+  li {
+    margin-left: 1em;
+    line-height: 1.5em;
+  }
 }
 #landing.greet-login {
 	width: 100%;

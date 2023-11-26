@@ -6,7 +6,6 @@ $user_id = $_SESSION['id'];
 $current_project = $_SESSION['current_project'];
 
 if (is_post_request()) {
-
   if(isset($_POST['color'])) {
     $color = $_POST['color'];
     if (isset($_POST['owner'])) {
@@ -20,14 +19,6 @@ if (is_post_request()) {
       $errors = $result;
     }
   }
-
-  /* begin processing for share_project.php */
-  // if (isset($_POST['project_id'])) { 
-  //   $id = $_POST['project_id'];
-  // }
-  
-  // $current_project  = $_POST['project_id'];
-
 }
 
 if ($current_project != "0") { // not a brand new member
@@ -87,7 +78,11 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['editprojectdetails']);
       require 'edit_project_details.php';
 
-    } else { 
+    } else if (isset($_SESSION['deleteproject'])) {
+      unset($_SESSION['deleteproject']);
+      require 'delete_project.php';
+
+    } else {
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
@@ -144,7 +139,11 @@ if ($current_project != "0") { // not a brand new member
       unset($_SESSION['editprojdeets']);
       require 'edit_project_details.php';
 
-    } else { 
+    } else if (isset($_SESSION['deleteproject'])) {
+      unset($_SESSION['deleteproject']);
+      require 'delete_project.php';
+
+    } else {
       // default to
       require '_logged_in/homepage_owner.php';
     }

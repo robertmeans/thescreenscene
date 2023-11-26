@@ -4,8 +4,8 @@
 
 <form id="login-form-insert" class="front-login" method="post">
 
-  <div id="login-alert">
-    <ul id="errors"></ul>
+  <div id="message-insert"> 
+    <ul id="msg-ul-insert"></ul>
   </div>
 
   <div id="error-area">No account? <a class="log create-form">Join Here</a></div>
@@ -28,8 +28,8 @@
     </div>
   </label>
 
-  <div id="toggle-btn-insert">
-    <div id="login-btn-insert"><span class="login-txt"><img src="_images/login.png"></span></div>
+  <div id="buttons-insert" class="login">
+    <a class="submit login-btn-insert full-width">Login</a>
   </div>
 
   <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>

@@ -33,13 +33,9 @@ require '_includes/head.php';
 
 		<form id="login-form" class="front-login" method="post">
 
-    <div id="login-alert">
-      <ul id="errors"></ul>
+    <div id="message"> 
+      <ul id="msg-ul"></ul>
     </div>
-
-<!--   <div id="message"> 
-    <ul id="msg-ul"></ul>
-  </div> -->
 
 
     <?php if (isset($_SESSION['newpswd'])) { 
@@ -75,7 +71,7 @@ require '_includes/head.php';
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
     <input type="password" id="password-home" class="text login-pswd" name="password" placeholder="Password">
 
-    <div class="showpassword-wrap"> 
+    <div class="showpassword-wrap">  
         <div id="showLoginPass-home"><i class="far fa-eye"></i> Show Password</div>
     </div>
 
@@ -89,13 +85,9 @@ require '_includes/head.php';
       </div>
     </label>
 
-    <!-- <div id="toggle-btn">
-      <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
-    </div> -->
-    <div id="buttons">
-      <a class="shareproject submit full-width">Login</a>
+    <div id="buttons" class="login">
+      <a class="submit login-btn full-width">Login</a>
     </div>
-
 
     <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>
 
@@ -110,7 +102,7 @@ require '_includes/head.php';
   	<h1>BrowserGadget</h1>
   	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
   	<p id="watchvideo"><a class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
-  	<ul>
+  	<ul class="perks">
   		<li>Consolidate | Organize</li>
       <li>Store bookmarks</li>
   		<li>Share projects</li>

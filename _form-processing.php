@@ -3,15 +3,150 @@ require_once 'config/initialize.php';
 
 if (is_post_request()) {
 
-  // 'View Projects Page' link
-  if (isset($_POST['viewprojectspage'])) {
-    $_SESSION['view-proj-pg'] = 'anothern';
-    $signal = 'ok';
-    echo json_encode($signal);
+// if user clicks on login
+if (isset($_POST['login'])) {
+  $signal = '';
+  $msg = '';
+  $li = '';
+  $class = '';
+  $password_txt = '';
+  $msg_txt = '';
+  $count = '';
+
+  $username = $_POST['firstname'];
+  $password = $_POST['password'];
+
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
+
+  // validation
+  if (empty($username)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">First name or email required</li>';
+    $class = 'red';
+  }
+
+  if (empty($password)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Please enter your password</li>';
+    $class = 'red';
   }
 
 
-  // 'Go to homepage' link - works everywhere
+  if ($li === '') {
+
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(0.5); }
+
+    // $userQuery = "SELECT * FROM users WHERE username=? LIMIT 2";
+    $userQuery = "SELECT * FROM users WHERE LOWER(username) LIKE LOWER(?) LIMIT 2";
+    $stmt = $conn->prepare($userQuery);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+    $userCount = $result->num_rows;
+    $stmt->close();
+
+      if ($userCount > 1) {
+        $signal = 'bad';
+        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $li .= '<li class="no-count">There are multiple users with the first name "' . $username . '". Please use your email address to login.</li>';
+        $class = 'orange';
+      } else {
+
+      // having to accept email or username because of how Apple/ios binds these two
+      // in their login management
+      // $sql = "SELECT * FROM users WHERE email=? OR username=? LIMIT 1";
+      $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param('ss', $username, $username);
+      $stmt->execute();
+      $result = $stmt->get_result();
+      $userCount = $result->num_rows;
+      $user = $result->fetch_assoc();
+
+      if ($userCount < 1) {
+        $signal = 'bad';
+        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $li .= '<li class="no-count">That user does not exist</li>';
+        $class = 'red';
+      } else if ($userCount == 1 && password_verify($password, $user['password'])) {
+        // login success
+      $_SESSION['id'] = $user['user_id'];
+      $_SESSION['username'] = $user['username'];
+      $_SESSION['firstname'] = $user['first_name'];
+      $_SESSION['lastname'] = $user['last_name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['verified'] = $user['active'];
+      $_SESSION['admin'] = $user['admin'];
+      $_SESSION['current_project'] = $user['current_project'];
+      $_SESSION['token'] = $user['email_code'];
+      $_SESSION['message'] = '';
+      $_SESSION['delete-success'] = '0';
+
+        // you're not verified yet -> go see a msg telling you we're waiting for
+        // email verification
+        if (($user['active']) === 0) {
+          $signal = 'bad';
+          $msg = '<span class="login-txt"><img src="_images/login.png"></span>';
+          $li .= '<li class="no-count">Email has not been verified</li>';
+          $class = 'blue';
+        } else {
+
+          // user is logged in and verified. did they check the rememberme?
+          if (isset($_POST['remember_me']) || isset($_POST['remember_me-insert'])) {
+            $token = $_SESSION['token'];
+            setCookie('token', $token, time() + (1825 * 24 * 60 * 60));
+          }
+
+          /*  local testing */   
+          if (WWW_ROOT == 'http://localhost/browsergadget') {
+            sleep(0.5); 
+          }
+
+          // everything checks out -> you're good to go!
+          $signal = 'ok';
+        }
+
+      } else {
+        // the combination of stuff you typed doesn't match anything in the db
+        $signal = 'bad';
+        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $li .= '<li class="count">Wrong credential combination. (note: password is case sensitive.)</li>';
+        $class = 'red';
+        $count = 'on';
+      }
+    } 
+  } 
+  $data = array(
+    'signal' => $signal,
+    'msg' => $msg,
+    'li' => $li,
+    'class' => $class,
+    'password_txt' => $password_txt,
+    'msg_txt' => $msg_txt,
+    'count' => $count
+  );
+  echo json_encode($data);
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*  link handler
+    tooltip =   'Go to homepage'
+    trigger =   .gth-link 
+    refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly */
   if (isset($_POST['go_to_homepage'])) {
     $id = $_POST['user_id'];
     $current_project = $_POST['current_project'];
@@ -25,8 +160,12 @@ if (is_post_request()) {
     } 
   }
 
-
-  // 'Organize search fields' link -> edit_searches.php 
+/*  link handler
+    tooltip =   'Organize search fields' | (Google, URL, Bing, Reference, YouTube)
+    trigger =   .osf-link 
+    goes to:    edit_searches.php
+    by using:   $_SESSION['organize'] = 'anothern';
+    found in both: nav/inner_nav.php & my_projects.php */ 
   if (isset($_POST['organizesearchfields'])) {
 
     if (isset($_POST['current_project'])) {
@@ -51,17 +190,25 @@ if (is_post_request()) {
     } 
   } 
 
-
-  // 'Rearrange bookmarks' link -> edit_order.php
+/*  link handler
+    Rearrange Bookmarks [drag & drop hyperlinks around]
+    tooltip = 'Rearrange bookmarks'
+    trigger =   .eo-link
+    goes to:  edit_order.php
+    by using: $_SESSION['order'] = 'anothern';
+    found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['rearrangebookmarks'])) {
     $_SESSION['order'] = 'anothern';
     $signal = 'ok';
     echo json_encode($signal);
   }
 
-
-
-  // 'Share project' link -> share_project.php 
+/*  link handler
+    tooltip =   'Share project'
+    trigger = .sp-link
+    goes to:  share_project.php
+    by using: $_SESSION['share-project'] = 'anothern';
+    found in both: nav/inner_nav.php & my_projects.php */ 
   if (isset($_POST['shareproject'])) {
 
     if (isset($_POST['current_project'])) {
@@ -86,9 +233,12 @@ if (is_post_request()) {
     } 
   } 
 
-
-
-  // 'Start a new project' link to get to -> new_project.php
+/*  link handler
+    tooltip = 'Start a new project'
+    trigger = .np-link
+    goes to:  new_project.php
+    by using: $_SESSION['another-proj'] = 'anothern';
+    found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['startanewproject'])) {
 
     if (isset($_POST['inner_nav'])) {
@@ -113,8 +263,24 @@ if (is_post_request()) {
     
   }
 
+/*  link handler
+    tooltip = 'Projects page'
+    trigger = .vpp-link
+    goes to:  my_projects.php
+    by using: $_SESSION['view-proj-pg'] = 'anothern';
+    found in both: nav/inner_nav.php & my_projects.php */
+  if (isset($_POST['viewprojectspage'])) {
+    $_SESSION['view-proj-pg'] = 'anothern';
+    $signal = 'ok';
+    echo json_encode($signal);
+  }
 
-  // 'Project name & notes' (edit_project_details.php). trigger in: my_projects.php: .epd-link
+/*  link handler
+    tooltip = 'Project name & notes'
+    trigger = .epd-link
+    goes to:  edit_project_details.php
+    by using: $_SESSION['editprojdeets'];
+    found only in my_projects.php */
   if (isset($_POST['editprojectdetails'])) {
 
     $id = $_SESSION['id'];
@@ -130,6 +296,81 @@ if (is_post_request()) {
       $signal = 'ok';
       echo json_encode($signal);
     }
+
+  }
+
+/*  link handler
+    Delete Project
+    tooltip = 'Delete project'
+    trigger =   .dp-link
+    goes to:  delete_project.php
+    by using: $_SESSION['deleteproject'] = 'anothern';
+    found only in my_projects.php */
+  if (isset($_POST['deleteproject'])) {
+    $id = $_SESSION['id'];               ;
+    $current_project = $_POST['current_project'];
+    $result = update_current_project($id, $current_project);
+
+    if ($result === true) {
+      $row = update_color($id, $current_project);
+      $_SESSION['color'] = $row['color'];
+      $_SESSION['current_project'] = $current_project;
+      $_SESSION['deleteproject'] = 'anothern';
+
+      $signal = 'ok';
+      echo json_encode($signal); 
+    }
+  }
+
+
+/* Delete button on delete_project.php page - conditions have been met to allow deletion. */
+  if (isset($_POST['vamoose'])) {
+
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+    global $db;
+
+    $li = '';
+    $class = '';
+    $current_project = $_SESSION['current_project'];
+    $vamoose  = $_POST['vamoose'];
+ 
+    // validation
+    if (empty($vamoose)) {
+      $signal = 'bad';
+      $li .= '<li>You\'ll need to type, "Delete" in order to proceed.</li>';
+      $class = 'red';
+    }
+    if (!empty($vamoose) && $vamoose !== 'Delete') {
+      $signal = 'bad';
+      $li .= '<li>You\'ve got to type "Delete" (capital "D") just like it says. We don\'t want any accidental deletions around here.</li>';
+      $class = 'red';
+    }
+
+    if ($li === '') {
+
+      $sql = "DELETE FROM projects ";
+      $sql .= "WHERE id='" . $current_project . "' ";
+      $sql .= "LIMIT 1";
+
+      $result = mysqli_query($db, $sql);
+
+      if ($result !== true) {
+        $_SESSION['ds'] = 'ds-success';
+        $_SESSION['view-proj-pg'] = 'anothern';
+        $signal = 'ok';
+      } else {
+        $signal = 'bad';
+        $li .= '<li>' . mysqli_error($db) . '</li>';
+        $class = 'red';
+      }
+
+    } // if ($li === '')
+  $data = array(
+    'signal' => $signal,
+    'li' => $li,
+    'class' => $class
+  );
+  echo json_encode($data);
 
   }
 
@@ -611,17 +852,40 @@ if (is_post_request()) {
 
 
   if (isset($_POST['remove_me'])) {
+    global $db;
+
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
+    $li = '';
+    $class = '';
     $id = $_POST['project_id'];
-    $remove_this_user = $_POST['remove_me'];
+    $remove_this_user = $_POST['remove_me']; 
 
-    $result = remove_me($id, $remove_this_user);
-      if ($result === true) {
+    $sql = "DELETE FROM project_user ";
+    $sql .= "WHERE project_id='" . $id . "' ";
+    $sql .= "AND shared_with='" . $remove_this_user . "' ";
+    $sql .= "LIMIT 1";
 
+    $result = mysqli_query($db, $sql);
 
-        $_SESSION['view-proj-pg'] = 'anothern';
-        $signal = 'ok';
-        echo json_encode($signal);
-      }
+    if ($result === true) {
+      if (isset($_SESSION['share-project'])) { unset($_SESSION['share-project']); }
+      $_SESSION['view-proj-pg'] = 'anothern';
+      $signal = 'ok';
+    } else {
+
+      $_SESSION['view-proj-pg'] = 'anothern';
+      $li .= '<li>' . mysqli_error($db) . '</li>';
+      $class = 'red';
+      $signal = 'bad';
+    }
+    $data = array(
+      'signal' => $signal,
+      'li' => $li,
+      'class' => $class
+    );
+    echo json_encode($data);
+
   }
 
 

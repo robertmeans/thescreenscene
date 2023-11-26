@@ -592,6 +592,54 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// delete_project.php (Delete project: nav link; not delete project form (see below)) - DONE
+  $(document).on('click','.dp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(), 
+      success: function(response) {
+        // console.log(response);
+        if (response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
   // share_project.php (Share project: nav link; not actual share project form (see below)) - DONE
   $(document).on('click','.sp-link', function() {
     var current_loc = window.location.href;
@@ -663,7 +711,7 @@ $(document).ready(function() {
     })
   });
 
-  // edit_project_details.php 'Cancel' button
+  /* edit_project_details.php 'Cancel' button */
   $(document).on('click','.cancel-deets', function() {
     var current_loc = window.location.href;
 
@@ -731,6 +779,45 @@ $(document).ready(function() {
     })
   });
 
+  // delete_project.php | delete project - form processing
+  $(document).on('click','.delete-my-project', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST", 
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('delete-page');
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#buttons').html('<a class="cancel cancel-deets">Never mind</a><a class="submit delete-my-project">Try again?</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
 
 
 
@@ -767,7 +854,14 @@ $(document).ready(function() {
 
 
 
-  // share_project
+
+
+
+
+
+
+
+  // share_project | share project - form processing
   $(document).on('click','.shareproject', function() {
     var current_loc = window.location.href;
 
@@ -855,7 +949,7 @@ $(document).ready(function() {
 
 
 
-  $(document).on('click','.removeme', function() {
+  $(document).on('click','.removeme', function() { 
     var current_loc = window.location.href;
     var project_name = $('#project_name').val();
 
@@ -866,16 +960,24 @@ $(document).ready(function() {
       data: $(this).closest('form').serialize(),
 
       beforeSend: function(xhr) {
+        $('#message').removeAttr('class'); // reset class every click
+        $('#user-email').removeClass('red');
         confirm('Confirm: Remove yourself from ' + project_name + '?');
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+
       },    
       success: function(response) {
         console.log(response);
-        if(response == 'ok') {
+        if(response['signal'] == 'ok') {
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget");
           } else {
             window.location.replace("https://browsergadget.com");
           }
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');     
         }
       },
       error: function(response) {

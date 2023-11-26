@@ -134,7 +134,7 @@ var x = document.getElementById("password-home");
 // login begin
 $("#login-form").keyup(function(event) {
   if (event.keyCode === 13) {
-    $("#login-btn").click();
+    $(".login-btn-insert").click();
   }
 });
 $('#login-form').submit(function(e){
@@ -143,7 +143,7 @@ $('#login-form').submit(function(e){
 $(document).ready(function() {
 
   var login_attempts = 0;
-  $(document).on('click','#login-btn', function() {
+  $(document).on('click','.login-btn-insert', function() {
     var current_loc = window.location.href;
 
     if (!$('li').hasClass('no-count')) {
@@ -154,13 +154,13 @@ $(document).ready(function() {
 
     $.ajax({
       dataType: "JSON",
-      url: "login-process.php",
+      url: "_form-processing.php",
       type: "POST",
       data: $('#login-form').serialize(),
       beforeSend: function(xhr) {
-        $('#login-alert').removeClass('red blue orange green'); // reset class every click
+        $('#message').removeClass('red blue orange green'); // reset class every click
         $('#error-area').removeClass('gone');
-        $('#toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
 
       },
       success: function(response) {
@@ -178,23 +178,23 @@ $(document).ready(function() {
           } else {
             if ($('#reset-success').length != 0) { $('#reset-success').addClass('unset'); }
             $('#error-area').addClass('gone');
-            $('#login-alert').addClass(response['class']);
+            $('#message').addClass(response['class']);
 
             if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("localhost") > -1) {
-              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
+              $('#msg-ul').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
             } else if ((response['count'] == 'on') && login_attempts >= 3 && current_loc.indexOf("browsergadget.com") > -1)  {
-              $('#errors').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
+              $('#msg-ul').html(response['li'] + '<li>You\'ve entered the wrong password ' + login_attempts + ' times now. Don\'t forget, you can always <a class="fp-link forgot-form">reset</a> it.</li>');
             } else {
-              $('#errors').html(response['li']);
+              $('#msg-ul').html(response['li']);
             }
 
-            $('#toggle-btn').html('<div id="login-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+            $('#buttons').html('<a class="submit login-btn full-width">Try again</a>');
           }
         } 
       },
       error: function(response) {
         // console.log(response);
-        $('#login-btn').html(response['msg']);
+        $('.login-btn').html(response['msg']);
       }, 
       complete: function() {
 

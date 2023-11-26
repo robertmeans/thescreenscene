@@ -78,7 +78,17 @@
 .search-instructions {
 	width: 100%;
 	padding: 2em;
-
+  ol {
+    margin: 0 1em 1em;
+    li {
+      list-style-type: decimal;
+      line-height: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    li:last-of-type {
+      margin-bottom: 0;
+    }
+  }
 	p {
 		line-height: 1.5em;
 		margin-bottom: 1em;
@@ -92,6 +102,7 @@
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
+  max-width: 500px;
 	form {
 		width: 50%;
 	}
@@ -119,9 +130,19 @@ a.td {
 	width: 96%;
 	display: block;
 	text-decoration: none;
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0);
+  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);  
 	transition: all 0.2s ease;
 	&:hover {
 		text-decoration: none;
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    transform: scale(0.95);
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.6);    
 		background-color: rgba(115,209,8,1);
 	}
 }

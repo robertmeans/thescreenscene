@@ -198,11 +198,11 @@
 
 <?php } if ($layout_context == 'edit_order') { ?>
 
-	<li class="project-name">| <span class="attn">Drag &amp; Drop:</span> <a href="my_projects.php" class="project-link" style="pointer-events:none;cursor:default;"><?= $row['project_name']; ?></a></li> 
+	<li class="project-name">| <span class="attn">Drag &amp; Drop:</span> <a class="project-link" style="pointer-events:none;cursor:default;"><?= $row['project_name']; ?></a></li> 
 
 <?php } else if ($layout_context == 'delete_project') { ?>
 
-	<li class="project-name">| <span class="attn">DELETE:</span> <a href="my_projects.php" class="project-link" style="pointer-events:none;cursor:default;"><?= $row['project_name']; ?></a></li> 
+	<li class="project-name">| <span class="attn">DELETE:</span> <a class="project-link" style="pointer-events:none;cursor:default;"><?= $row['project_name']; ?></a></li> 
 
 <?php } else if ($layout_context == 'homepage') { ?>
 
