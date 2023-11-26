@@ -10,7 +10,23 @@ BrowserGadget updates
 4. 	pretty up edit_project_details.php page
 
 
+open to start where you left off on the laptop:
+_custom.scss
 
+
+index.php
+share_project.php : 35
+home_logged_in
+home.php : 35
+
+login-process.php -> move to _form-processing.php ? at least consolidate into 1 _login-processing... or mabe rename to 
+	_processing-forms.php
+	_processing-login.php
+	
+_form-processing.php
+scripts/scripts-visitor.js : 135
+scripts/scripts.js : 771
+_errors.txt
 
 
 

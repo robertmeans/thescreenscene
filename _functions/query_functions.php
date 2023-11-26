@@ -816,14 +816,7 @@ function remove_me($id, $remove_this_user) {
 
   $result = mysqli_query($db, $sql);
 
-  if($result) {
-    header('location: my_projects.php');
-  } else {
-    // delete failed
-    mysqli_error($db);
-    db_disconnect($db);
-    exit;
-  }
+  return $result;
 }
 
 

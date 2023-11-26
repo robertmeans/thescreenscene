@@ -5,7 +5,6 @@ require_once 'config/initialize.php';
 $user_id = $_SESSION['id'];
 $current_project = $_SESSION['current_project'];
 
-
 if (is_post_request()) {
 
   if(isset($_POST['color'])) {
@@ -30,7 +29,6 @@ if (is_post_request()) {
   // $current_project  = $_POST['project_id'];
 
 }
-
 
 if ($current_project != "0") { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
@@ -81,9 +79,6 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
-        // if (isset($_SESSION['newprojectcancelbtn'])) { unset($_SESSION['newprojectcancelbtn']); }
-        // if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
-        // if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
@@ -141,9 +136,6 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
-        // if (isset($_SESSION['newprojectcancelbtn'])) { unset($_SESSION['newprojectcancelbtn']); }
-        // if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
-        // if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
@@ -163,7 +155,30 @@ if ($current_project != "0") { // not a brand new member
 
     if ($has_project > 0) { 
       // they have at least 1 project but their last was deleted since last visit
+
+     if (isset($_SESSION['view-proj-pg'])) {
+      unset($_SESSION['view-proj-pg']); 
+      require 'my_projects.php';
+
+     } else if (isset($_SESSION['another-proj'])) {
+
+      if (isset($_SESSION['newprojectcancelbtn'])) { 
+
+        if (isset($_SESSION['backtomyprojects'])) {
+          if (isset($_SESSION['newprojectcancelbtn'])) { unset($_SESSION['newprojectcancelbtn']); } 
+          if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); } 
+          if (isset($_SESSION['another-proj'])) { unset($_SESSION['another-proj']); } 
+          require 'my_projects.php';
+          // exit; 
+        }
+      } else {
+        unset($_SESSION['another-proj']);
+        require 'new_project.php';
+      }
+
+     } else {
       require '_logged_in/current_project_not_found.php';
+     }
 
     } else { 
       // they have no projects and their last was deleted since last visit

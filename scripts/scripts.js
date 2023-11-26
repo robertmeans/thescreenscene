@@ -879,7 +879,7 @@ $(document).ready(function() {
         }
       },
       error: function(response) {
-        // console.log(response);
+        console.log(response);
       }, 
       complete: function() {
       }

@@ -37,6 +37,11 @@ require '_includes/head.php';
       <ul id="errors"></ul>
     </div>
 
+<!--   <div id="message"> 
+    <ul id="msg-ul"></ul>
+  </div> -->
+
+
     <?php if (isset($_SESSION['newpswd'])) { 
     // they're here with a password-token ?>
 
@@ -84,9 +89,13 @@ require '_includes/head.php';
       </div>
     </label>
 
-    <div id="toggle-btn">
+    <!-- <div id="toggle-btn">
       <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
+    </div> -->
+    <div id="buttons">
+      <a class="shareproject submit full-width">Login</a>
     </div>
+
 
     <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>
 

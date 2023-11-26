@@ -3,7 +3,7 @@ require_once 'config/initialize.php';
 
 if (is_post_request()) {
 
-  // go to 'View Projects Page' link from main navigation
+  // 'View Projects Page' link
   if (isset($_POST['viewprojectspage'])) {
     $_SESSION['view-proj-pg'] = 'anothern';
     $signal = 'ok';
@@ -610,8 +610,9 @@ if (is_post_request()) {
 
 
 
-  if (isset($_POST['delete-shared-user'])) {
-    $remove_this_user = $_POST['delete-shared-user'];
+  if (isset($_POST['remove_me'])) {
+    $id = $_POST['project_id'];
+    $remove_this_user = $_POST['remove_me'];
 
     $result = remove_me($id, $remove_this_user);
       if ($result === true) {

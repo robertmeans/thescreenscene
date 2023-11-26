@@ -158,7 +158,7 @@ require '_includes/head.php'; ?>
       <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
       <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
       <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
-      <input type="hidden" name="delete-shared-user" value="<?= $user_id; ?>">
+      <input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
       <a class="rsu removeme">Leave</a>
     </form>
   </li>
