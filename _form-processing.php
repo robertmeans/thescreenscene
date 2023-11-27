@@ -3,8 +3,174 @@ require_once 'config/initialize.php';
 
 if (is_post_request()) {
 
+// sign-up
+if (isset($_POST['signup'])) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
+  $signal = '';
+  $msg = '';
+  $li = '';
+  $class = '';
+
+  $username = $_POST['firstname'];
+  $firstname = $_POST['firstname'];
+  $lastname = $_POST['lastname'];
+  $email = strtolower($_POST['email']);
+  $password = $_POST['password'];
+  $passwordConf = $_POST['passwordConf'];
+
+  // validation
+  if (empty($firstname)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">First name required</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($firstname)) && (strlen($firstname) > 16)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Keep first name 16 characters or less</li>';
+    $class = 'red';
+  } 
+
+  if (empty($lastname)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Last name required</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($lastname)) && (strlen($lastname) > 16)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Keep last name 16 characters or less</li>';
+    $class = 'red';
+  }
+
+  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email is invalid</li>';
+    $class = 'red';
+  }
+
+  if (empty($email)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email required</li>';
+    $class = 'red';
+  }
+
+  if (empty($password)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Password required</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($password)) && (strlen($password) <= 3)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Password needs at least 4 characters</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($password)) && (strlen($password) > 50)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Keep your password under 50 characters</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($password)) && (empty($passwordConf))) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Confirm password</li>';
+    $class = 'red';
+  }
+
+  if ((empty($password)) && (empty(!$passwordConf))) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Type same password in both fields</li>';
+    $class = 'red';
+  } 
+
+  if ( ((!empty($password)) && (empty(!$passwordConf)))  &&   ($password !== $passwordConf)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Passwords don\'t match</li>';
+    $class = 'red';
+  }
+
+  if ($li === '') {
+
+    $emailQuery = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
+    $stmt = $conn->prepare($emailQuery);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+
+    /* updated to PHP v7.2 on GoDaddy and unchecked mysqli and checked nd_mysqli */
+    /* in order to get this command to work */
+    $result = $stmt->get_result();
+    $userCount = $result->num_rows;
+    $stmt->close();
+
+    if ($userCount > 0) {
+      $signal = 'bad';
+      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+      $li .= '<li class="no-count">Email already exists</li>';
+      $class = 'orange';
+    } else {
+
+      $password = password_hash($password, PASSWORD_DEFAULT);
+      $token = bin2hex(random_bytes(50));
+      $verified = false;
+
+      $sql = "INSERT INTO users (username, first_name, last_name, email, active, email_code, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param('ssssdss', $firstname, $firstname, $lastname, $email, $verified, $token, $password);
+
+      if ($stmt->execute()) {
+        
+        $user_id = $conn->insert_id;
+
+        // $_SESSION['id'] = $user_id;
+        // $_SESSION['username'] = $username;
+        $_SESSION['firstname'] = $firstname;
+        $_SESSION['email'] = $email;
+
+        if (WWW_ROOT != 'http://localhost/browsergadget') {
+          sendVerificationEmail($firstname, $lastname, $email, $token);
+        }
+
+        $signal = 'ok';
+
+      } else {
+        $signal = 'bad';
+        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $li .= '<li class="no-count">Database error: failed to register. Server could be undergoing a reboot. Please give it a minute and try again.</li>';
+        $class = 'red';
+        // make sure you have mySQL error turned on - 1st line
+        // of database.php - to troubleshoot if you're seeing this message.
+      }
+    }
+  } 
+  $data = array(
+    'signal' => $signal,
+    'msg' => $msg,
+    'li' => $li,
+    'class' => $class
+  );
+  echo json_encode($data);
+
+}
+
 // if user clicks on login
 if (isset($_POST['login'])) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
   $signal = '';
   $msg = '';
   $li = '';
@@ -15,8 +181,6 @@ if (isset($_POST['login'])) {
 
   $username = $_POST['firstname'];
   $password = $_POST['password'];
-
-  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
 
   // validation
   if (empty($username)) {
@@ -35,8 +199,6 @@ if (isset($_POST['login'])) {
 
 
   if ($li === '') {
-
-    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(0.5); }
 
     // $userQuery = "SELECT * FROM users WHERE username=? LIMIT 2";
     $userQuery = "SELECT * FROM users WHERE LOWER(username) LIKE LOWER(?) LIMIT 2";
@@ -100,11 +262,6 @@ if (isset($_POST['login'])) {
             setCookie('token', $token, time() + (1825 * 24 * 60 * 60));
           }
 
-          /*  local testing */   
-          if (WWW_ROOT == 'http://localhost/browsergadget') {
-            sleep(0.5); 
-          }
-
           // everything checks out -> you're good to go!
           $signal = 'ok';
         }
@@ -132,16 +289,133 @@ if (isset($_POST['login'])) {
 
 }
 
+// forgot password
+if (isset($_POST['forgotpass'])) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
 
+  $signal = '';
+  $msg = '';
+  $li = '';
+  $class = '';
+  $msg_txt = '';
+  $email = $_POST['forgotemail'];
 
+  // validation
+  if (empty($email)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email required. It\'s the only thing here for Pete\'s sake.</li>';
+    $class = 'red';
+  } 
 
+  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email is invalid</li>';
+    $class = 'red';
+  }
 
+  if ($li === '') {
 
+    $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $userCount = $result->num_rows;
+    $user = $result->fetch_assoc();
+    
+    if ($userCount === 1) {
 
+      $token = $user['email_code'];
 
+      if (WWW_ROOT != 'http://localhost/browsergadget') {
+        sendPasswordResetLink($email, $token);
+      }
 
+      $signal = 'ok';
 
+      } else {
 
+      $signal = 'bad';
+      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+      $li .= '<li class="no-count">There is no one here with that email address.</li>';
+      $class = 'red';
+    }
+
+  } 
+  $data = array(
+    'signal' => $signal,
+    'msg' => $msg,
+    'li' => $li,
+    'class' => $class,
+    'msg_txt' => $msg_txt
+  );
+  echo json_encode($data);
+
+}
+
+// reset password 
+if (isset($_POST['reset'])) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
+  $signal = '';
+  $msg = '';
+  $li = '';
+  $class = '';
+  $msg_txt = '';
+  $password = $_POST['password'];
+  $passwordConf = $_POST['passwordConf'];
+
+  // validation
+  if (empty($password) || empty($passwordConf)) {
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Enter new password in both fields.</li>';
+    $class = 'red';
+  }
+
+  if ((!empty($password) && !empty($passwordConf)) && $password !== $passwordConf) {
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Passwords do not match.</li>';
+    $class = 'red';
+  }
+
+   if ($li === '') {
+
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    $email = $_SESSION['email'];
+
+    $sql = "UPDATE users SET password='$password' WHERE email='$email'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result) {
+      unset($_SESSION['pr']);
+
+      $signal = 'ok';
+    } else {
+
+      $signal = 'bad';
+      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+      $li .= '<li class="no-count">Something did not go right.</li>';
+      $class = 'red';
+
+    }
+
+  }
+  $data = array(
+    'signal' => $signal,
+    'msg' => $msg,
+    'li' => $li,
+    'class' => $class,
+    'msg_txt' => $msg_txt
+  );
+  echo json_encode($data);
+
+}
 
 /*  link handler
     tooltip =   'Go to homepage'
@@ -240,27 +514,31 @@ if (isset($_POST['login'])) {
     by using: $_SESSION['another-proj'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['startanewproject'])) {
-
+    /* can only leave this page to either home or my_projects.php so only 2 exit strategies are needed for 'Cancel' */
     if (isset($_POST['inner_nav'])) {
+      /* they clicked on .np-link from inner_nav.php - Start a session with 'backtohomepage' in case they hit the 'Cancel' btn so that we can get them back to homepage */
       $_SESSION['another-proj'] = 'anothern';
       $_SESSION['backtohomepage'] = 'yo';
       $signal = 'ok';
       echo json_encode($signal);
 
     } else if (isset($_POST['my_projects'])) {
+      /* they clicked on .np-link from my_projects.php - Start a session with 'backtomyprojects' in case they hit the 'Cancel' btn */
       $_SESSION['another-proj'] = 'anothern';
       $_SESSION['backtomyprojects'] = 'yo';
       $signal = 'ok';
       echo json_encode($signal);
 
-    } else if (isset($_POST['newprojcancelbtn'])) {
+    } 
+    
+  }
+/* one more cancel for edit_project_details.php. see above for complete details on all this. */  
+  if (isset($_POST['cancelprojectdetails'])) {
       $_SESSION['another-proj'] = 'anothern';
-      $_SESSION['newprojectcancelbtn'] = 'yo';
+      $_SESSION['newprojectcancelbtn'] = 'yo';  
 
       $signal = 'ok';
-      echo json_encode($signal); 
-    }
-    
+      echo json_encode($signal);     
   }
 
 /*  link handler
@@ -281,7 +559,7 @@ if (isset($_POST['login'])) {
     goes to:  edit_project_details.php
     by using: $_SESSION['editprojdeets'];
     found only in my_projects.php */
-  if (isset($_POST['editprojectdetails'])) {
+  if (isset($_POST['editthesedetails'])) {
 
     $id = $_SESSION['id'];
     $current_project = $_POST['current_project'];
@@ -291,6 +569,7 @@ if (isset($_POST['login'])) {
       $row = update_color($id, $current_project);
       $_SESSION['color'] = $row['color'];
       $_SESSION['current_project'] = $current_project;
+      $_SESSION['backtomyprojects'] = 'yo';
       $_SESSION['editprojdeets'] = 'anothern';
 
       $signal = 'ok';
@@ -321,6 +600,152 @@ if (isset($_POST['login'])) {
       echo json_encode($signal); 
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// new_project.php - create a new project
+if (isset($_POST['create-new-project'])) {
+  $signal = '';
+  $li = '';
+  $class = '';
+
+  $user_id = $_SESSION['id'];
+  $row = [];
+  $row['project_name']  = $_POST['project_name']  ?? '' ;
+  $row['project_notes'] = $_POST['project_notes']  ?? ''  ;
+  $row['share']         = '1' ?? '' ;
+  $row['edit']          = '1' ?? '' ;
+
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
+  // validation
+  if (empty($row['project_name'])) {
+    $signal = 'bad';
+    $li .= '<li class="no-count">Cannot leave Project Name empty.</li>';
+    $class = 'red'; 
+  }
+
+  if (has_length_greater_than($row['project_notes'], 1500)) {
+    $signal = 'bad';
+    $li .= '<li class="no-count">Contain the beast! Project notes cannot exceed 1,500 characters.</li>';
+    $class = 'red';
+  }
+
+  if ($li === '') {
+
+    global $db;
+
+    // start by creating a new project with user_id = the user's ID
+    $one = "INSERT INTO projects ";
+    $one .= "(project_name, project_notes) ";
+    $one .= "VALUES ("; 
+    $one .= "'" . db_escape($db, $row['project_name'])    . "', ";
+    $one .= "'" . db_escape($db, $row['project_notes'])    . "'";
+    $one .= ")";
+
+    // we're going to grab the last id assigned for the project just
+    // created and insert it as the project_id in the project_user table
+    $two = "INSERT INTO project_user ";
+    $two .= "(owner_id, share, edit, project_id) ";
+    $two .= "VALUES (";
+    $two .= "'" . db_escape($db, $user_id) . "', ";
+    $two .= "'" . db_escape($db, $row['share']) . "', ";
+    $two .= "'" . db_escape($db, $row['edit']) . "', ";
+    $two .= "LAST_INSERT_ID()";
+    $two .= ")"; 
+
+    // running the 1st query to create a new project
+    $result1 = mysqli_query($db, $one);
+
+    if ($result1 === true) { // if the project was successfully created
+
+      // grab that new project id, assign it to a variable $new_id
+      // and put it in the users table as this users current_project
+      $new_id = mysqli_insert_id($db);
+      update_users_current_project($new_id, $user_id);
+
+      // and run the next query which adds this project to the 
+      // project_user table
+      $result = mysqli_query($db, $two);
+
+      if ($result) { // if the project is successfully added to the 
+        // project_user table then change the current_project in the
+        // session and send them to the homepage with their new project
+
+        if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
+        if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
+        if (isset($_SESSION['cancel-option'])) { unset($_SESSION['cancel-option']); }
+        $_SESSION['current_project'] = $new_id;
+
+        $signal = 'ok';
+      } else {
+        $signal = 'bad';
+        $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
+        $class = 'red';
+        db_disconnect($db);
+      } 
+    } else {
+      $signal = 'bad';
+      $li .= '<li class="no-count">'. mysqli_error($db) . '</li>';
+      $class = 'red';
+      db_disconnect($db);
+    }
+
+  } // if ($li === '')
+  $data = array(
+    'signal' => $signal,
+    'li' => $li,
+    'class' => $class
+  );
+  echo json_encode($data);
+  
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Delete button on delete_project.php page - conditions have been met to allow deletion. */
@@ -435,8 +860,6 @@ if (isset($_POST['login'])) {
   } // if (isset($_POST['submitdeets']))
 
   
-
-
 
 
 /* ******************* share project stuff ************************ */

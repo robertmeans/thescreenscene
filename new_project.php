@@ -65,15 +65,15 @@ if ($projects < 10 || $row['admin'] == 1) {
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
  
-
     <p>Start a new project:</p>
   <?php } ?>
 
     <form id="new-project-form" method="post">
+      <input type="hidden" name="create-new-project" method="post">
 
-    <div id="new-project-alert">
-      <ul id="new-project-errors"></ul>
-    </div>
+      <div id="message">
+        <div id="msg-ul"></div>
+      </div>
 
       <p>Name your first project | Limit 30 characters</p>
       <input type="text" class="first-project-name" name="project_name" maxlength="30" value="<?php if (isset($_POST['project_name'])) { echo $_POST['project_name']; } ?>">
@@ -88,17 +88,19 @@ if ($projects < 10 || $row['admin'] == 1) {
       </div>
 
     <?php } else { ?>
-      <div id="np-toggle-btn" class="cancel">
-        <form class="gth" method="post">
-          <input type="hidden" name="startanewproject" value="yo">
-          <input type="hidden" name="newprojcancelbtn" value="yo">
-          <a class="np-link cncl"><span class="login-txt">Cancel</span></a>
-        </form>
-        <div id="new-project-btn" class="cncl"><span class="login-txt">Start new project</span></div>
-      </div>
+
+  <div id="buttons">
+    <a class="cancel cancel-new-project">Cancel</a><a class="submit createnewproject">Submit</a>
+  </div>
+
     <?php } ?>
 
     </form>
+    <form id="new-project-cancel-btn" method="post">
+      <input type="hidden" name="cancelprojectdetails" value="yo">
+      <input type="hidden" name="newprojectcancelbtn" value="yo">
+    </form>
+
 
 
   <?php } else { ?>

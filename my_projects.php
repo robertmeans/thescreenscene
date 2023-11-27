@@ -84,7 +84,7 @@ if ($projects > 0) { //(321)
 			</li>
 	    <li>
         <form method="post">
-          <input type="hidden" name="editprojectdetails">
+          <input type="hidden" name="editthesedetails" value="yo">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="epd-link"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
         </form>
@@ -242,7 +242,7 @@ if ($projects > 0) { //(321)
 			</li>
 	    <li>
         <form method="post">
-          <input type="hidden" name="editprojectdetails">
+          <input type="hidden" name="editthesedetails" value="yo">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="epd-link"><div class="tooltip"><span class="tooltiptext">Project name &amp; notes</span><i class="fas fa-info-circle fa-fw"></i></div></a>
         </form>

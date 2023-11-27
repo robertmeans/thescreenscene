@@ -418,36 +418,8 @@ $('.tab.active').show();
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // navigation links begin and forms begin
 $(document).ready(function() {
-
-
 
 
   // Homepage link from: inner_nav.php + my_projects.php + nav.php - DONE
@@ -486,7 +458,6 @@ $(document).ready(function() {
   });
 
 
-
   // my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE
   $(document).on('click','.vpp-link', function() {
     var current_loc = window.location.href;
@@ -520,7 +491,6 @@ $(document).ready(function() {
       }
     })
   });
-
 
 
   // edit_searches.php (Organize search fields: link) - DONE
@@ -591,26 +561,6 @@ $(document).ready(function() {
     })
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // delete_project.php (Delete project: nav link; not delete project form (see below)) - DONE
   $(document).on('click','.dp-link', function() {
     var current_loc = window.location.href;
@@ -637,7 +587,6 @@ $(document).ready(function() {
       }
     })
   });
-
 
 
   // share_project.php (Share project: nav link; not actual share project form (see below)) - DONE
@@ -670,18 +619,6 @@ $(document).ready(function() {
       }
     })
   });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // edit_project_details.php (from my_projects.php: 'Project name & notes')
@@ -740,7 +677,7 @@ $(document).ready(function() {
     })
   });
 
-  // from edit_project_details.php, also used as new_project.php Submit button
+  // from edit_project_details.php
   $(document).on('click','.submit-deets', function() {
     var current_loc = window.location.href;
 
@@ -820,45 +757,40 @@ $(document).ready(function() {
   });
 
 
+  // 'Cancel' new project
+  $(document).on('click','.cancel-new-project', function() { 
+    var current_loc = window.location.href;
 
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $('#new-project-cancel-btn').serialize(),
 
+      success: function(response) {
+        console.log(response);
+        if (response == 'ok') {
+          // alert('success');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('red');
+          $('#msg-ul').html('Something went wrong. May be a server thing. You can try again but if it still doesn\'t work you will need to try later');
 
+          $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit submit-deets">Try again</a>');
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
 
 
   // share_project | share project - form processing
@@ -989,19 +921,6 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE
   $(document).on('click','.np-link', function() {
     var current_loc = window.location.href;
@@ -1030,7 +949,47 @@ $(document).ready(function() {
   });
 
 
-  $(document).on('click','#new-project-btn', function() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(document).on('click','.new-project-btn', function() {
     var current_loc = window.location.href;
 
     if (document.getElementById('can-opt')) {
@@ -1043,7 +1002,7 @@ $(document).ready(function() {
       dataType: "JSON",
       url: "new-project-process.php",
       type: "POST",
-      data: $('#new-project-form').serialize(),
+      data: $('.new-project-form').serialize(),
       beforeSend: function(xhr) {
         $('#new-project-alert').removeClass('red'); // reset class every click
         $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
@@ -1091,6 +1050,75 @@ $(document).ready(function() {
 // new project end
 
 
+  // from new_project.php
+  $(document).on('click','.createnewproject', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          // alert('success');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('red');
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit createnewproject">Try again</a>');
+
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1100,31 +1128,6 @@ $(document).ready(function() {
 
 
 }); // navigation links begin and forms
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

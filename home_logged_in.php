@@ -30,6 +30,10 @@ if ($current_project != "0") { // not a brand new member
       /* Main dropdown nav = 'View Projects Page' */
       /* click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
+      /* clear session if they went to new_project.php but then clicked the 'My Projects' link */
+      if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
+      if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
+
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
@@ -54,8 +58,9 @@ if ($current_project != "0") { // not a brand new member
       /* tooltip = 'Start a new project' */
       /* click event _scripts/scripts.js: .np-link */
       if (isset($_SESSION['newprojectcancelbtn'])) { 
-
-        if (isset($_SESSION['backtohomepage'])) { 
+        /* they clicked on the 'Cancel' button, but from where? ... */
+        if (isset($_SESSION['backtohomepage'])) {
+        /* they clicked on 'Cancel' from new_project.php having originally gotten here via the .np-link in inner_nav.php. there are only 2 options to leave new_project.php: home or my_projects.php and they didn't get here via my_projects.php so... */ 
           unset($_SESSION['newprojectcancelbtn']);
           unset($_SESSION['backtohomepage']);
           unset($_SESSION['another-proj']);
@@ -63,6 +68,7 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
         if (isset($_SESSION['backtomyprojects'])) {
+          /* they clicked 'Cancel' from new_project.php but had a session var set from having used the link 'Start a new project' from my_projects.php. send them back to my_projects.php */
           unset($_SESSION['newprojectcancelbtn']); 
           unset($_SESSION['backtomyprojects']);
           unset($_SESSION['another-proj']); 
@@ -70,12 +76,13 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
+        /* default - they want to create a new project. no 'Cancel' btn shenanigans involved here. */
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
 
-    } else if (isset($_SESSION['editprojectdetails'])) {
-      unset($_SESSION['editprojectdetails']);
+    } else if (isset($_SESSION['editprojdeets'])) {
+      unset($_SESSION['editprojdeets']);
       require 'edit_project_details.php';
 
     } else if (isset($_SESSION['deleteproject'])) {
@@ -83,6 +90,9 @@ if ($current_project != "0") { // not a brand new member
       require 'delete_project.php';
 
     } else {
+      /* clear session if they went to new_project.php but then clicked the home link */
+      if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
+      if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
@@ -91,6 +101,10 @@ if ($current_project != "0") { // not a brand new member
       /* Main dropdown nav = 'View Projects Page' */
       /* click event _scripts/scripts.js: .vpp-link */
       unset($_SESSION['view-proj-pg']); 
+      /* clear session if they went to new_project.php but then clicked the 'My Projects' link */
+      if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
+      if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
+
       require 'my_projects.php';
 
     } else if (isset($_SESSION['organize'])) {
@@ -115,8 +129,9 @@ if ($current_project != "0") { // not a brand new member
       /* tooltip = 'Start a new project' */
       /* click event _scripts/scripts.js: .np-link */
       if (isset($_SESSION['newprojectcancelbtn'])) { 
-
+        /* they clicked on the 'Cancel' button, but from where? ... */
         if (isset($_SESSION['backtohomepage'])) { 
+          /* they clicked on 'Cancel' from new_project.php having originally gotten here via the .np-link in inner_nav.php. there are only 2 options to leave new_project.php: home or my_projects.php and they didn't get here via my_projects.php so... */
           unset($_SESSION['newprojectcancelbtn']);
           unset($_SESSION['backtohomepage']);
           unset($_SESSION['another-proj']);
@@ -124,6 +139,7 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
         if (isset($_SESSION['backtomyprojects'])) {
+          /* they clicked 'Cancel' from new_project.php but had a session var set from having used the link 'Start a new project' from my_projects.php. send them back to my_projects.php */
           unset($_SESSION['newprojectcancelbtn']); 
           unset($_SESSION['backtomyprojects']);
           unset($_SESSION['another-proj']); 
@@ -131,6 +147,7 @@ if ($current_project != "0") { // not a brand new member
           // exit; 
         }
       } else {
+        /* default - they want to create a new project. no 'Cancel' btn shenanigans involved here. */
         unset($_SESSION['another-proj']);
         require 'new_project.php';
       }
@@ -144,7 +161,9 @@ if ($current_project != "0") { // not a brand new member
       require 'delete_project.php';
 
     } else {
-      // default to
+      /* clear session if they went to new_project.php but then clicked the home link */
+      if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
+      if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
       require '_logged_in/homepage_owner.php';
     }
 

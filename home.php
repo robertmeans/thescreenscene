@@ -38,34 +38,26 @@ require '_includes/head.php';
     </div>
 
 
-    <?php if (isset($_SESSION['newpswd'])) { 
-    // they're here with a password-token ?>
-
-      <div id="reset-success">Your password was successfully changed! You can log in with your new credentials</div>
-
-    <?php 
-      unset($_SESSION['newpswd']); 
-    } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'woot') { 
-    // they're here with a token - new user ?>
+<?php if (isset($_SESSION['new']) && $_SESSION['new'] == 'woot') { 
+    /*  they're here with a token - new user */ ?>
 
       <div id="reset-success">
         <p>Welcome aboard, <?= $_SESSION['firstname']; ?>!</p>
       </div>
 
-    <?php 
+<?php 
       unset($_SESSION['new']); 
     } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'toot') {
-    // new user with a partial token (they didn't copy the whole thing or it's corrupted) ?>
+    /* new user with a partial token (they didn't copy the whole thing or it's corrupted) */ ?>
 
       <div id="reset-success" class="not">There's no token in the database that matches what you've provided. If you copied &amp; pasted the URL maybe you didn't grab the whole thing?</div>
 
-    <?php 
-      unset($_SESSION['new']); 
+<?php unset($_SESSION['new']); 
     } else { ?>
 
 		  <div id="error-area">No account? <a class="log create-form">Join Here</a></div>
 
-    <?php } ?>
+<?php } ?>
 
     <input type="hidden" name="login">
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
@@ -86,14 +78,14 @@ require '_includes/head.php';
     </label>
 
     <div id="buttons" class="login">
-      <a class="submit login-btn full-width">Login</a>
+      <a class="submit login login-btn full-width">Login</a>
     </div>
 
     <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>
 
 		</form>
 
-  <?php } ?>
+<?php } ?>
 
 </div>
 

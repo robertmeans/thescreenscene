@@ -88,13 +88,13 @@ $('a.static').click(function(e) {
 $(document).ready(function() {
 
   $(document).on('click','.create-form', function() {
-    $('#landing').load('signup-insert.php');
+    $('#landing').load('_insert-signup.php');
   });
   $(document).on('click','.log-form', function() {
-    $('#landing').load('login-insert.php');
+    $('#landing').load('_insert-login.php');
   });
   $(document).on('click','.forgot-form', function() {
-    $('#landing').load('forgot-insert.php');
+    $('#landing').load('_insert-forgotpass.php');
   });
 
 });
@@ -134,7 +134,7 @@ var x = document.getElementById("password-home");
 // login begin
 $("#login-form").keyup(function(event) {
   if (event.keyCode === 13) {
-    $(".login-btn-insert").click();
+    $(".login-btn").click();
   }
 });
 $('#login-form').submit(function(e){
@@ -143,7 +143,7 @@ $('#login-form').submit(function(e){
 $(document).ready(function() {
 
   var login_attempts = 0;
-  $(document).on('click','.login-btn-insert', function() {
+  $(document).on('click','.login-btn', function() {
     var current_loc = window.location.href;
 
     if (!$('li').hasClass('no-count')) {
@@ -188,7 +188,7 @@ $(document).ready(function() {
               $('#msg-ul').html(response['li']);
             }
 
-            $('#buttons').html('<a class="submit login-btn full-width">Try again</a>');
+            $('#buttons').html('<a class="submit login login-btn full-width">Try again</a>');
           }
         } 
       },
@@ -203,9 +203,6 @@ $(document).ready(function() {
 
   });
 });
-
-
-
 
 // footer contact
 $(document).ready(function() {

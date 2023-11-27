@@ -34,29 +34,26 @@ if ($row['owner_id'] == $user_id) { ?>
 
 <form id="epd-form" method="post">
   <input type="hidden" name="submitdeets" value="yo">
-<!--
-    <div id="epd-alert">
-      <ul id="epd-errors"></ul>
-    </div>
--->
-    <div id="message"> 
-      <ul id="msg-ul"></ul>
-    </div>
 
+  <div id="message"> 
+    <ul id="msg-ul"></ul>
+  </div>
 
-  <p>Rename project | Limit 30 characters</p>
+  <p>Renamez project | Limit 30 characters</p>
   <input type="text" name="project_name" id="p-name" maxlength="30" value="<?= $row['project_name']; ?>">
 
   <p>Project Notes | Limit 1,500 characters</p>
   <textarea id="textbox" name="project_notes" maxlength="1500"><?= $row['project_notes']; ?></textarea>
   
-  <!-- <div class="btn-wrap"> -->
   <div id="buttons">
-    <a class="cancel cancel-deets">Cancel</a><a class="submit submit-deets">Submit</a>
+    <a class="cancel cancel-new-project">Cancel</a><a class="submit submit-deets">Submit</a>
   </div>
 
 </form>
-
+<form id="new-project-cancel-btn" method="post">
+  <input type="hidden" name="cancelprojectdetails" value="yo"> 
+  <input type="hidden" name="newprojectcancelbtn" value="yo">
+</form>
 <?php 
 } else {
   echo "<p class=\"edit-tinkerer\">Only a project owner can modify their project name and notes.</p>";
