@@ -36,7 +36,7 @@ require '_includes/head.php'; ?>
     <ul id="msg-ul"></ul>
   </div>
 
- 	<form method="post">
+ 	<form id="sharep" method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
     <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
@@ -113,7 +113,7 @@ require '_includes/head.php'; ?>
     <ul id="msg-ul"></ul>
   </div>
 
- 	<form method="post">
+ 	<form id="sharep" method="post">
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
     <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		

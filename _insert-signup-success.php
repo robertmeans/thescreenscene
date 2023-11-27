@@ -7,7 +7,7 @@
 
     <p class="riff">To help keep the riffraff out you need to verify your account. Check your email and click on the link verification that was sent to: 
       <span class="yo-email"><?= $_SESSION['email']; ?></span> 
-    Can take a minute or 2...
+    Can take a minute or 2. Check spam, etc.
     <?php unset($_SESSION['firstname']);; unset($_SESSION['email']); ?>
     <a class="verified log-form">Close this dialog</a></p>
 

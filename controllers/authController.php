@@ -65,7 +65,6 @@ function verifyUser($token) {
 			$_SESSION['lastname'] = $user['last_name'];
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['current_project'] = $user['current_project'];
-			// $_SESSION['verified'] = 1;
 
 			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);

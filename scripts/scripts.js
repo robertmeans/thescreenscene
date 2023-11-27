@@ -717,6 +717,15 @@ $(document).ready(function() {
   });
 
   // delete_project.php | delete project - form processing
+  $("#delete-form").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".delete-my-project").click();
+    }
+  });
+  $('#delete-form').submit(function(e){
+      e.preventDefault();
+  });
+
   $(document).on('click','.delete-my-project', function() {
     var current_loc = window.location.href;
 
@@ -744,7 +753,7 @@ $(document).ready(function() {
           $('#message').addClass('delete-page');
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
-          $('#buttons').html('<a class="cancel cancel-deets">Never mind</a><a class="submit delete-my-project">Try again?</a>');
+          $('#buttons').html('<a class="cancel cancel-deets">Never mind</a><a class="delete delete-my-project">Try again?</a>');
           
         } 
       },
@@ -793,7 +802,35 @@ $(document).ready(function() {
   });
 
 
-  // share_project | share project - form processing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// share_project | share project - form processing
+  $("#sharep").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".shareproject").click();
+    }
+  });
+  $('#sharep').submit(function(e){
+      e.preventDefault();
+  });
   $(document).on('click','.shareproject', function() {
     var current_loc = window.location.href;
 
@@ -921,6 +958,36 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE
   $(document).on('click','.np-link', function() {
     var current_loc = window.location.href;
@@ -950,109 +1017,86 @@ $(document).ready(function() {
 
 
 
+  // $(document).on('click','.new-project-btn', function() {
+  //   var current_loc = window.location.href;
+
+  //   if (document.getElementById('can-opt')) {
+  //     var cancel = 'off';
+  //   } else {
+  //     var cancel = 'on';
+  //   }     
+
+  //   $.ajax({
+  //     dataType: "JSON",
+  //     url: "new-project-process.php",
+  //     type: "POST",
+  //     data: $('.new-project-form').serialize(),
+  //     beforeSend: function(xhr) {
+  //       $('#new-project-alert').removeClass('red'); // reset class every click
+  //       $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
+
+  //     },
+  //     success: function(response) {
+  //       console.log(response);
+  //       if(response) {
+  //         // console.log(response);
+  //         if(response['signal'] == 'ok') {
+
+  //           if (current_loc.indexOf("localhost") > -1) {
+  //             window.location.replace("http://localhost/browsergadget");
+  //           } else {
+  //             window.location.replace("https://browsergadget.com");
+  //           }
+
+  //         } else {
+  //           $('#new-project-alert').addClass('red');
+  //           $('#new-project-errors').html(response['li']);
+
+  //           if (cancel == 'off') {
+  //             $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+  //           } else {
+  //             if (current_loc.indexOf("localhost") > -1) {
+  //               $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+  //             } else {
+  //               $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
+  //             }
+  //           }
+  //         }
+  //       } 
+  //     },
+  //     error: function(response) {
+  //       // console.log(response);
+  //       $('#login-btn').html(response['msg']);
+  //     }, 
+  //     complete: function() {
+
+  //     }
+  //   })
+
+  // });
+
+// new project end
 
 
+  // from new_project.php
+  $("#new-project-form").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".createnewproject").click();
+    }
+  });
+  $('#new-project-form').submit(function(e){
+      e.preventDefault();
+  });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  $(document).on('click','.new-project-btn', function() {
+  $(document).on('click','.createnewproject', function() {
     var current_loc = window.location.href;
 
     if (document.getElementById('can-opt')) {
       var cancel = 'off';
     } else {
       var cancel = 'on';
-    }     
+    } 
 
-    $.ajax({
-      dataType: "JSON",
-      url: "new-project-process.php",
-      type: "POST",
-      data: $('.new-project-form').serialize(),
-      beforeSend: function(xhr) {
-        $('#new-project-alert').removeClass('red'); // reset class every click
-        $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-
-      },
-      success: function(response) {
-        console.log(response);
-        if(response) {
-          // console.log(response);
-          if(response['signal'] == 'ok') {
-
-            if (current_loc.indexOf("localhost") > -1) {
-              window.location.replace("http://localhost/browsergadget");
-            } else {
-              window.location.replace("https://browsergadget.com");
-            }
-
-          } else {
-            $('#new-project-alert').addClass('red');
-            $('#new-project-errors').html(response['li']);
-
-            if (cancel == 'off') {
-              $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-            } else {
-              if (current_loc.indexOf("localhost") > -1) {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              } else {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              }
-            }
-          }
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-        $('#login-btn').html(response['msg']);
-      }, 
-      complete: function() {
-
-      }
-    })
-
-  });
-
-// new project end
-
-
-  // from new_project.php
-  $(document).on('click','.createnewproject', function() {
-    var current_loc = window.location.href;
 
     $.ajax({
       dataType: "JSON",
@@ -1073,11 +1117,17 @@ $(document).ready(function() {
           } else {
             window.location.replace("https://browsergadget.com");
           }
+
+
         } else {
           $('#message').addClass('red');
           $('#msg-ul').html(response['li']);
 
-          $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit createnewproject">Try again</a>');
+          if (cancel =='off') {
+            $('#buttons').html('<a class="submit full-width createnewproject">Try again</a>');
+          } else {
+            $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit createnewproject">Try again</a>');
+          }
 
         }
       },
@@ -1088,42 +1138,6 @@ $(document).ready(function() {
       }
     })
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1255,7 +1269,7 @@ $(document).ready(function() {
   }
 	
 
-	$('#update').click(function() {
+	$('.update-bookmark').click(function() {
 		var id 		= $('#idcount').val();
 		var name 	= $('#name').val();
 		var urlz 	= $('#urlz').val();
@@ -1289,7 +1303,7 @@ $(document).ready(function() {
 		theModal.style.display = "none";
 	});
 
-	$('#delete').click(function() {
+	$('.delete-bookmark').click(function() {
 		var id 		= $('#idcount').val();
 		var rowid 	= $('#rowid').val();
 		var cp 		= $('#cp').val();
@@ -1392,7 +1406,37 @@ $(document).ready(function() {
 
   });
 
-  $('#update-note').click(function() { // add new note button (this is NOT the modal)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $('#update-note').click(function() { // add new note button (this is NOT the modal) 
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
@@ -1570,6 +1614,39 @@ $(document).ready(function() {
     noteModal.style.display = "none";
  });
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // begin Project note editing from homepage (not Add a note but the actual Project notes)
 $(document).ready(function() { // edit icon

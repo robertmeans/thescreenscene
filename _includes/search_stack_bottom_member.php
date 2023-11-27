@@ -149,10 +149,11 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 40 characters)</label>
 
       <div class="submit-links">
-        <a class="cancel-close static" data-role="notesClose">Cancel</a>
-        <input type="button" name="update-note" id="update-note" class="update" value="Add note">
-        <input type="button" name="modify-note" id="modify-note" class="update" value="Modify note">
-      </div><!-- #submit-links -->
+        <a data-role="notesClose" class="cancel">Cancel</a>
+        <a id="update-note" class="submit">Add note</a>
+        <a id="modify-note" class="submit">Modify note</a>
+      </div>
+
     </form>
     </div><!-- .aan-modal-body -->
   </div><!-- .aan-modal-wrap -->

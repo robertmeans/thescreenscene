@@ -674,6 +674,7 @@ if (isset($_POST['reset'])) {
           if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
           if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
           if (isset($_SESSION['cancel-option'])) { unset($_SESSION['cancel-option']); }
+          if (isset($_SESSION['view-proj-pg'])) { unset($_SESSION['view-proj-pg']); }
           $_SESSION['current_project'] = $new_id;
 
           $signal = 'ok';

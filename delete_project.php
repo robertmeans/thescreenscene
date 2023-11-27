@@ -42,7 +42,7 @@ if (isset($row['owner_id']) && $row['owner_id'] == $_SESSION['id']) {  ?>
   <input type="text" name="vamoose" value="<?php if (isset($_POST['vamoose'])) { echo $_POST['vamoose']; } ?>">
 
   <div id="buttons" class="delete-page">
-    <a class="cancel cancel-deets">Never mind</a><a class="submit delete-my-project">Delete</a>
+    <a class="cancel cancel-deets">Never mind</a><a class="delete delete-my-project">Delete</a>
   </div>
 
 </form>

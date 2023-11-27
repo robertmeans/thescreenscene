@@ -86,7 +86,8 @@ p.query-tinkerer {
   to { opacity: 1; }
 }
 
-#buttons {
+#buttons,
+.submit-links {
   display: flex;
   justify-content: space-between;
   margin-top: 1em;
@@ -106,12 +107,14 @@ p.query-tinkerer {
     }
   }
   .cancel,
-  .submit {
+  .submit,
+  .delete {
     display: flex;
     width: 48%;
     height: 2.5em;
     justify-content: center;
     align-items: center;
+    text-align: center;
     color: #fff;
     padding: 0.5em 1em;
     border: 1px solid #fff;
@@ -135,6 +138,9 @@ p.query-tinkerer {
   }
   .submit {
     background-color: #3cb34e;
+  }
+  .delete {
+    background-color: #ff4c4c;
   }
   a.submit.login {
     background-color: #313131;

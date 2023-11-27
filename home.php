@@ -45,8 +45,7 @@ require '_includes/head.php';
         <p>Welcome aboard, <?= $_SESSION['firstname']; ?>!</p>
       </div>
 
-<?php 
-      unset($_SESSION['new']); 
+<?php unset($_SESSION['new']); 
     } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'toot') {
     /* new user with a partial token (they didn't copy the whole thing or it's corrupted) */ ?>
 

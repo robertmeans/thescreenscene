@@ -69,3 +69,20 @@ by using:	$_SESSION['deleteproject']
 found only in my_projects.php
 
 
+
+
+standardize errors on:
+
+1. login - DONE
+2. signup - DONE
+3. forgot pass - DONE
+4. reset pass - DONE
+5. share project - DONE
+6. delete project - DONE
+7. new project - DONE ...I think
+
+
+
+
+http://localhost/browsergadget/index.php?password-token=7f2e4b6d06a6e24e882688a989c7da98242557f635ae09f9ae3622099582866b673f8cda7a9c0c86eed0a8e6b982c1cc88d3
+

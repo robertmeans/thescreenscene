@@ -83,9 +83,14 @@ if ($projects < 10 || $row['admin'] == 1) {
 
   <?php if (isset($_SESSION['cancel-option'])) { ?>
       <input type="hidden" id="can-opt" name="can-opt" value="off">
-      <div id="np-toggle-btn">
-        <div id="new-project-btn"><span class="login-txt">Start new project</span></div>
+
+      <div id="buttons">
+        <a class="submit full-width createnewproject">Start new project</a>
       </div>
+
+<!--       <div id="np-toggle-btn">
+        <div id="new-project-btn"><span class="login-txt">Start new project</span></div>
+      </div> -->
 
     <?php } else { ?>
 
