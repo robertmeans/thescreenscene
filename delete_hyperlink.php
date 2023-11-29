@@ -2,26 +2,27 @@
 
 require_once 'config/initialize.php';
 
-
 if (is_post_request()) {
-  if (isset($_POST['cp'])) {
-    global $db;
 
-    $count      = $_POST['rowid'] ?? '';
-    $cp         = $_POST['cp'] ?? '';
-    // delete only happens in projects table so no need for shared_with version
-    
-    $sql = "UPDATE projects SET ";
-    $sql .= $count . "_text='', ";
-    $sql .= $count . "_url='' ";
+  global $db;
 
-    $sql .= "WHERE id='"  . db_escape($db, $cp) . "' ";
-    $sql .= "LIMIT 1";
+  $id = $_SESSION['id']; 
+  $current_project = $_SESSION['current_project'];
 
-    $result = mysqli_query($db, $sql);
-    if($result) {
-      echo 'data deleted';
-    }
+  $count2  = $_POST['rowid'];
+  $cp     = $_POST['cp'];
+  // delete only happens in projects table so no need for shared_with version
+
+  $result = delete_bookmark($id, $current_project, $count2, $cp); 
+
+  if ($result === 'pass') {
+    $signal = 'ok';
+    echo json_encode($signal);
+  } else {
+    $_SESSION['got-kicked-out'] = 'nossir';
+    $signal = 'no';
+    echo json_encode($signal);
   }
 
 }
+

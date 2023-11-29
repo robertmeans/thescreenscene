@@ -243,7 +243,7 @@ if (isset($_POST['login'])) {
       $_SESSION['verified'] = $user['active'];
       $_SESSION['admin'] = $user['admin'];
       $_SESSION['current_project'] = $user['current_project'];
-      // $_SESSION['token'] = $user['email_code'];
+      $_SESSION['token'] = $user['email_code'];
 
         // you're not verified yet -> go see a msg telling you we're waiting for
         // email verification
@@ -427,13 +427,15 @@ if (isset($_POST['reset'])) {
 
     if ($result === 'pass') {
       $_SESSION['current_project'] = $current_project;
+      if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
       $signal = 'ok';
       echo json_encode($signal);
     } else {
       $_SESSION['got-kicked-out'] = 'nossir';
       $signal = 'ok';
-      echo json_encode($signal);
+      echo json_encode($signal);   
     }
+
   }
 
 /*  link handler
@@ -455,6 +457,7 @@ if (isset($_POST['reset'])) {
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
         $_SESSION['organize'] = 'anothern';
+        if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
 
         $signal = 'ok';
         echo json_encode($signal); 
@@ -502,6 +505,7 @@ if (isset($_POST['reset'])) {
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
         $_SESSION['share-project'] = 'anothern';
+        if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
 
         $signal = 'ok';
         echo json_encode($signal); 
@@ -613,26 +617,6 @@ if (isset($_POST['reset'])) {
     }
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* edit / update / create bookmarks hyperlinks on homepage */
   if (isset($_POST['cp'])) {
     global $db;
@@ -657,30 +641,7 @@ if (isset($_POST['reset'])) {
       echo json_encode($signal);
     }
 
-
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
 
 /* new_project.php - create a new project */ 
   if (isset($_POST['create-new-project'])) {
@@ -714,7 +675,7 @@ if (isset($_POST['reset'])) {
 
       global $db;
 
-      // start by creating a new project with user_id = the user's ID
+      /* start by creating a new project with user_id = the user's ID */
       $one = "INSERT INTO projects ";
       $one .= "(project_name, project_notes) ";
       $one .= "VALUES ("; 
@@ -722,8 +683,7 @@ if (isset($_POST['reset'])) {
       $one .= "'" . db_escape($db, $row['project_notes'])    . "'";
       $one .= ")";
 
-      // we're going to grab the last id assigned for the project just
-      // created and insert it as the project_id in the project_user table
+      /* we're going to grab the last id assigned for the project just created and insert it as the project_id in the project_user table */
       $two = "INSERT INTO project_user ";
       $two .= "(owner_id, share, edit, project_id) ";
       $two .= "VALUES (";
@@ -733,23 +693,21 @@ if (isset($_POST['reset'])) {
       $two .= "LAST_INSERT_ID()";
       $two .= ")"; 
 
-      // running the 1st query to create a new project
+      /* running the 1st query to create a new project */
       $result1 = mysqli_query($db, $one);
 
-      if ($result1 === true) { // if the project was successfully created
+      if ($result1 === true) {
+      /* if the project was successfully created */
 
-        // grab that new project id, assign it to a variable $new_id
-        // and put it in the users table as this users current_project
+        /* grab that new project id, assign it to a variable $new_id and put it in the users table as this users current_project */
         $new_id = mysqli_insert_id($db);
         update_users_current_project($new_id, $user_id);
 
-        // and run the next query which adds this project to the 
-        // project_user table
+        /* and run the next query which adds this project to the project_user table */
         $result = mysqli_query($db, $two);
 
-        if ($result) { // if the project is successfully added to the 
-          // project_user table then change the current_project in the
-          // session and send them to the homepage with their new project
+        if ($result) { 
+        /* if the project is successfully added to the project_user table then change the current_project in the session and send them to the homepage with their new project */
 
           if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
           if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
@@ -780,7 +738,6 @@ if (isset($_POST['reset'])) {
     echo json_encode($data);
 
   }
-
 
 
 /* Delete button on delete_project.php page - conditions have been met to allow deletion. */
@@ -833,7 +790,6 @@ if (isset($_POST['reset'])) {
   echo json_encode($data);
 
   }
-
 
   // 'Cancel' button on edit_project_details.php
   if (isset($_POST['cancel-deets'])) {
@@ -893,52 +849,6 @@ if (isset($_POST['reset'])) {
   echo json_encode($data);
 
   } // if (isset($_POST['submitdeets']))
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 /* ******************* share project stuff ************************ */
@@ -1067,7 +977,6 @@ if (isset($_POST['reset'])) {
                   <a class="rsu removeshareduser">Remove</a>
                 </form></li>';
                 $signal = 'ok';
-
             }
 
             /* end if ($result3) - beyond this $result3 does not exist */
@@ -1077,9 +986,7 @@ if (isset($_POST['reset'])) {
             $signal = 'bad';
 
           }
-
         }
-
       } 
    /* ^ if ($result2) */
 
@@ -1114,21 +1021,6 @@ if (isset($_POST['reset'])) {
   echo json_encode($data);
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   if (isset($_POST['sharer-share-submit'])) {
     if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
@@ -1168,7 +1060,6 @@ if (isset($_POST['reset'])) {
 
     if ($li === '') {
 
-
       $sql = "SELECT * FROM project_user WHERE ";
       $sql .= "shared_with='" . db_escape($db, $user_id) . "' ";
       $sql .= "AND project_id='" . db_escape($db, $current_project) . "' ";
@@ -1178,11 +1069,8 @@ if (isset($_POST['reset'])) {
       confirm_result_set($result);
       $last_check = mysqli_fetch_assoc($result);
 
-      if (isset($last_check['shared_with'])) { // one last check to make sure this user wasn't removed from
-                                    // project before trying to share it (since they've been logged
-                                    // in to the share_projects.php page)
-
-
+      if (isset($last_check['shared_with'])) { 
+      /* one last check to make sure this user wasn't removed from project before trying to share it (since they've been logged in to the share_projects.php page) */
 
         /* make sure email actually exists in db */
         $sql1 = "SELECT * FROM users WHERE "; 
@@ -1257,16 +1145,13 @@ if (isset($_POST['reset'])) {
                 // $shared_names .= implode($names);
                 $signal = 'ok';
 
-
               } else {
            /* ^ if ($result3) */
                 $li .= '<li>' .  mysqli_error($db) . '</li>';
                 $class = 'red';
                 $signal = 'bad';
               }
-
             }
-
           } else {
        /* ^ if ($result2) */
             $li .= '<li>' .  mysqli_error($db) . '</li>';
@@ -1292,20 +1177,13 @@ if (isset($_POST['reset'])) {
             $signal = 'bad';
 
           }
-
         }
-
       } else {
 
         $li .= '<li>You were removed from this project since you\'ve been on this page. Nothing will work for you pertaining to this project any longer.</li>';
         $class = 'red';
         $signal = 'bad';
-
       }
-
-
-
-
     } /* if ($li === '') */
 
   $data = array(
@@ -1318,65 +1196,6 @@ if (isset($_POST['reset'])) {
   echo json_encode($data);
 
   } /* if (isset($_POST['sharer-share-submit'])) */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   if (isset($_POST['delete-shared-user'])) {
@@ -1480,6 +1299,93 @@ if (isset($_POST['reset'])) {
 
   }
 
+
+  if (isset($_POST['leave_project'])) {
+    global $db;
+
+    if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
+
+    $li = '';
+    $class = '';
+    $id = $_POST['project_id'];
+    $remove_this_user = $_POST['leave_project']; 
+
+    $sql = "DELETE FROM project_user ";
+    $sql .= "WHERE project_id='" . $id . "' ";
+    $sql .= "AND shared_with='" . $remove_this_user . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    $_SESSION['view-proj-pg'] = 'anothern';
+    $_SESSION['leaveproject'] = 'anothern';
+    $signal = 'ok';
+    echo json_encode($signal);
+
+  }
+
+/* footer contact: comments | questions | suggestions */
+if (isset($_POST['contactbob'])) {
+  $signal = '';
+  $msg = '';
+  $li = '';
+  $class = '';
+  $msg_txt = '';
+
+  $name = trim($_POST['name']);
+  $email = trim($_POST['email']);
+  $message = trim($_POST['comments']);
+
+  // if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(3); }
+
+  // validation
+  if (empty($name)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">What\'s your name?</li>';
+    $class = 'red';
+  }
+
+  if (empty($email)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">What\'s your email?</li>';
+    $class = 'red';
+  } 
+
+  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Email is no bueno. Check it for errors.</li>';
+    $class = 'red';
+  }
+
+  if (empty($message)) {
+    $signal = 'bad';
+    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $li .= '<li class="no-count">Don\'t send me an empty message! :/</li>';
+    $class = 'red';
+  }
+
+  if ($li === '') {
+
+    // if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(2); }
+
+    if (WWW_ROOT != 'http://localhost/browsergadget') {
+      emailBob($name, $email, $message);
+    }
+
+    $signal = 'ok';
+
+  }
+  $data = array(
+    'signal' => $signal,
+    'msg' => $msg, 
+    'li' => $li,
+    'class' => $class
+  );
+  echo json_encode($data);
+}
 
 
 

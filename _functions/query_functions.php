@@ -151,35 +151,24 @@ function edit_search_order($user_id, $current_project) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function verify_access($id, $current_project) {
   global $db;
 
-  $sql = "SELECT * FROM project_user ";
-  $sql .= "WHERE owner_id='" . db_escape($db, $id) . "' ";
-  $sql .= "OR shared_with='" . db_escape($db, $id) . "' ";
-  $sql .= "AND project_id='" . db_escape($db, $current_project) . "'";
-  $sql .= "LIMIT 1";
+  if ($_SESSION['project-owner'] == 'project-owner') {
+    $count = 1;
+  } else {
 
-  $result = mysqli_query($db, $sql);
-  $count = mysqli_num_rows($result); 
+    $sql = "SELECT * FROM project_user ";
+    $sql .= "WHERE (owner_id='" . db_escape($db, $id) . "' ";
+    $sql .= "OR shared_with='" . db_escape($db, $id) . "') ";
+    $sql .= "AND project_id='" . db_escape($db, $current_project) . "'";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+    $count = mysqli_num_rows($result); 
+  }
   return $count;
 }
-
-
 
 
 
@@ -197,10 +186,10 @@ function update_current_project($id, $current_project) {
     $result2 = mysqli_query($db, $sql2);
 
     if ($result2) {
-      return 'fail';
+      return 'pass';
     }
   } else {
-    return 'pass';
+    return 'fail';
   }
 }
 
@@ -222,23 +211,41 @@ function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {
     $result = mysqli_query($db, $sql);
 
     if ($result) {
-      return 'fail';
+      return 'pass';
     }
 
   } else {
-    return 'pass';
+    return 'fail';
   }
 
 }
 
 
 
+function delete_bookmark($id, $current_project, $count2, $cp) { 
+  global $db;
 
+  $count = verify_access($id, $current_project);
 
+  if ($count > 0) {
 
+    $sql = "UPDATE projects SET ";
+    $sql .= $count2 . "_text='', "; 
+    $sql .= $count2 . "_url='' ";
+    $sql .= "WHERE id='"  . db_escape($db, $cp) . "' ";
+    $sql .= "LIMIT 1";
 
+    $result = mysqli_query($db, $sql);
 
+    if ($result) {
+      return 'pass';
+    }
 
+  } else {
+    return 'fail';
+  }
+
+}
 
 
 
@@ -353,74 +360,6 @@ function does_user_have_a_single_project($user_id) {
 }
 
 
-// function user_removed() {
-//   $errors = [];
-
-//   if (!isset($row['shared_with'])) {
-//     $errors['not_here'] = "You were removed from this project since you've been on this page. Nothing will work for you pertaining to this project any longer.";
-//   }
-//   return $errors;
-// }
-
-// function validate_share($row) {
-//   $errors = [];
-
-//   if (is_blank($row['users_email'])) {
-//     $errors['email_error'] = "Do you intend to share \"" . $row['project_name'] . "\" with your invisible friend? Please provide an email address.";
-//   }
-//   return $errors; 
-// }
-
-
-// function validate_email($email, $row, $user_id) {
-//   $errors = [];
-
-//   if (!isset($row['email'])) {
-//     $errors['email_error'] = "The address, \"" . $email . "\" does not exist around here.";
-//   }
-
-//   if (isset($row['user_id']) && ($row['user_id'] == $user_id)) {
-//     $errors['email_error'] = "One is the loneliest number. You can't share with yourself.";
-//   }
-
-//   return $errors;
-// }
-
-// function validate_unique($row2) {
-//   $errors = [];
-
-//   if (isset($row2['email'])) {
-//     $errors['email_error'] = $row2['first_name'] . " " . substr($row2['last_name'], 0, 1) . ". is already a member of this project.";
-//   }
-//   return $errors; 
-// }
-
-// function validate_unique_from_shared($row2) {
-//   $errors = [];
-
-//   if (isset($row2['email'])) {
-//     $errors['email_error'] = "That user is already a member of this project.";
-//   }
-//   return $errors; 
-// }
-
-// function find_user_by_email($users_email) {
-//   global $db;
-
-//   $sql = "SELECT * FROM users WHERE ";
-//   $sql .= "email='" . db_escape($db, $users_email) . "' ";
-//   $sql .= "LIMIT 1";
-
-//   // echo $sql;
-//   $result = mysqli_query($db, $sql);
-//   confirm_result_set($result);
-
-//   $user = mysqli_fetch_assoc($result);
-//   mysqli_free_result($result);
-//   return $user;  // returns an assoc. array    
-// }
-
-
 function show_project($current_project) {
   global $db;
 
@@ -490,16 +429,6 @@ function owner_or_shared_with($current_project, $user_id) {
   return $result;
 }
 
-// function validate_update($row) {
-
-// if (!is_blank($row['name']) && has_length_greater_than($row['name'], 30)) {
-//     $errors['name'] = "more than 3 characters? hope this works!";
-//   }
-
-//   $errors = [];
-//   return $errors; 
-// }
-
 
 function update_page_number_shared_with($user_id, $current_project, $page_number) {
   global $db;
@@ -547,11 +476,7 @@ function update_page_number_owner($user_id, $current_project, $page_number) {
 
 function update_project_deets($current_project, $row) {
   global $db;
-
-  // $errors = validate_project_update($row);
-  // if (!empty($errors)) {
-  //   return $errors;
-  // }   
+ 
   // only an owner can do this
   $sql = "UPDATE projects SET ";
   $sql .= "project_name='"  . db_escape($db, $row['project_name'])  . "', ";
@@ -560,11 +485,9 @@ function update_project_deets($current_project, $row) {
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
-  // UPDATE statements are true/false
   if($result === true) {
     return true;
     } else {
-      // UPDATE failed
       echo mysqli_error($db);
       db_disconnect($db);
       exit;
@@ -624,44 +547,6 @@ function remove_me($id, $remove_this_user) {
 
   return $result;
 }
-
-
-// function validate_delete($vamoose) {
-
-//   $errors = [];
-
-//   if ($vamoose !== "Delete") {
-//     $errors['row_order'] = "You've got to type \"Delete\" (capital \"D\") just like it says. We don't want any accidental deletions around here.";
-//   }
-
-//   return $errors; 
-// }
-
-// function validate_project_update($row) {
-
-//   $errors = [];
-
-//   if (is_blank($row['project_name'])) {
-//     $errors['project_name'] = "Cannot leave Project Name empty.";
-//   }
-
-//   if (has_length_greater_than($row['project_notes'], 1500)) {
-//     $errors['project_notes'] = "Contain the beast! Project notes cannot exceed 1,500 characters.";
-//   }
-
-//   return $errors; 
-// }
-
-
-// function is_blank($value) {
-	
-//   return !isset($value) || trim($value) === '';
-// }
-
-// function has_presence($value) {
-	
-//   return !is_blank($value);
-// }
 
 // has_length_greater_than('abcd', 3)
 // * validate string length

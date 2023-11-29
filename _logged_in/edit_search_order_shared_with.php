@@ -77,7 +77,7 @@
   <ul class="inner-nav">
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
-
+<?php show_session_variables(); ?>
   <div class="search-instructions">
     <ol>
       <li>Drag &amp; drop the order of your search fields for this project. Whatever you put at the top will be ready for your search when you visit.</li>

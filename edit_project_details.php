@@ -26,7 +26,7 @@ $user_id = $_SESSION['id'];
 
 <div id="table-page">
 <div id="edit-deets">
-
+<?php show_session_variables(); ?>
 <?php
 $row = show_project($current_project);
 
@@ -39,7 +39,7 @@ if ($row['owner_id'] == $user_id) { ?>
     <ul id="msg-ul"></ul>
   </div>
 
-  <p>Renamez project | Limit 30 characters</p>
+  <p>Rename project | Limit 30 characters</p>
   <input type="text" name="project_name" id="p-name" maxlength="30" value="<?= $row['project_name']; ?>">
 
   <p>Project Notes | Limit 1,500 characters</p>

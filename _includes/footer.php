@@ -49,7 +49,7 @@ function ewd_copyright($startYear) {
       </li>
       <li>
         <label class="text" for="comments">Message</label>
-        <textarea name="message" id="message" maxlength="2000"></textarea>
+        <textarea name="comments" id="comments" maxlength="2000"></textarea>
       </li>
       <li>
         <div id="msg">

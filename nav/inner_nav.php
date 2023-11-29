@@ -1,5 +1,15 @@
 <?php
-	switch ($inner_nav_context) { // start shared_with navigation
+	switch ($inner_nav_context) { // start current_project_not_found.php navigation
+  case 'cp-not-found' : ?>
+
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="viewprojectspage" value="yo">
+      <a class="vpp-link"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol"></i></div></a>
+    </form>  
+  </li>
+<?php  
+  break; // end current_project_not_found.php navigation | begin shared_with navigation
 	case 'shared_with' :
 
 	if ($layout_context != 'homepage') { ?>
@@ -30,6 +40,8 @@
   <li>
     <form class="gth" method="post">
       <input type="hidden" name="organizesearchfields" value="1">
+      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
       <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
     </form>
   </li>
@@ -39,6 +51,8 @@
 	<li>
     <form method="post">
       <input type="hidden" name="shareproject" value="yo">
+      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
       <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
     </form>
   </li>

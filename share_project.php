@@ -29,7 +29,7 @@ require '_includes/head.php'; ?>
 <ul class="inner-nav" style="float:none;margin:0.75em 0em;">
   <?php require 'nav/inner_nav.php'; ?>
 </ul>
-
+<?php show_session_variables(); ?>
 <p class="owner-txt">You are the OWNER of this project.</p>
 
   <div id="message"> 
@@ -89,12 +89,6 @@ require '_includes/head.php'; ?>
         </ul>
       </div>
 
-
-
-
-
-
-
 <?php } else { 
   /* this is someone who the project is shared with */
 	$row = show_project_to_shared($current_project, $user_id);
@@ -106,7 +100,7 @@ require '_includes/head.php'; ?>
   <ul class="inner-nav" style="float:none;margin:0.75em 0em;">
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
-
+<?php show_session_variables(); ?>
   <p class="owner-txt" style="line-height:1.5em;">This project is being SHARED with you. You have been given permission to share with others.</p>
 
   <div id="message"> 

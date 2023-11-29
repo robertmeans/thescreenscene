@@ -17,13 +17,13 @@ $projects = mysqli_num_rows($any_projects_for_user);
 
 <div id="table-page" class="my-projects">
  	<div id="project-wrap">
-
+<?php show_session_variables(); ?>
   <div class="project-greeting">
     <div>
       <p class="my-info-h">My account info</p>
-      <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <span class="bold"><?= $_SESSION['lastname']; ?></span></p>
-      <p class="my-info-t">Username: <span class="bold"><?= $_SESSION['username']; ?></span></p>
-      <p class="my-info-t">Email: <span class="bold"><?= $_SESSION['email']; ?></span></p>
+      <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <?= $_SESSION['lastname']; ?></p>
+      <p class="my-info-t">Username: <?= $_SESSION['username']; ?></p>
+      <p class="my-info-t">Email: <?= $_SESSION['email']; ?></p>
     </div>
     <div>
       <form class="gth" method="post">
@@ -36,26 +36,34 @@ $projects = mysqli_num_rows($any_projects_for_user);
 
 <ul class="manage-my-projects">
 <?php 
-// find out if user has any projects they manage
-if ($projects > 0) { //(321)
+/* find out if user has any projects they manage */
+if ($projects > 0) { 
+/* (321) */
 
-  if (isset($_SESSION['ds']) && $_SESSION['ds'] == 'ds-success') {
-    echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
+  if (isset($_SESSION['ds'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Delete successful!</span></div>';
     unset($_SESSION['ds']); 
   }
+  if (isset($_SESSION['leaveproject'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Adios amigos!</span></div>';
+    unset($_SESSION['leaveproject']); 
+  }
 
-	while ($row = mysqli_fetch_assoc($any_projects_for_user)) { //(123) while this user has projects, list them. 
+
+	while ($row = mysqli_fetch_assoc($any_projects_for_user)) { 
+  /* (123) while this user has projects, list them. */
 		$this_project = $row['project_id'];
 		$sharing = show_shared_with_info($user_id, $this_project);
 		
 	if (($row['owner_id'] == $_SESSION['id']) || ($row['shared_with'] == $_SESSION['id'])) { //(xyz) 
-			// making sure visitor is one of the users listed as either owner_id or shared_with 
+	/* making sure visitor is one of the users listed as either owner_id or shared_with */ 
 
 	$is_it_shared = is_this_project_shared($this_project);
-	$result2 = mysqli_num_rows($is_it_shared); // did we find any shared results? if so...
+	$result2 = mysqli_num_rows($is_it_shared); 
+  /* did we find any shared results? if so... */
 
-	if ($result2 > 0) { //(abc) we found shared results - here's a special version of results so we can 
-						// display them. 
+	if ($result2 > 0) { 
+  /* (abc) we found shared results - here's a special version of results so we can display them. */
 
 	if (($row['owner_id'] == $user_id) && ($row['shared_with'] != $user_id)) { // if you're the owner...?>
 	<li>
@@ -109,8 +117,7 @@ if ($projects > 0) { //(321)
     <div class="shared-with">
 
     <?php echo "Owner: You | Sharing with: ";
-    // get names ready in case this project is shared
-    // being shared with multiple people. add comma between names, remove last one.
+    /* get names ready in case this project is shared being shared with multiple people. add comma between names, remove last one. */
     while ($row3 = mysqli_fetch_assoc($sharing)) { 
       $names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
     } 
@@ -134,7 +141,7 @@ if ($projects > 0) { //(321)
 		</div><!-- .project-details -->
 	</li>
 
-	<?php } else { // if you're the shared_with ?>
+	<?php } else { /* if you're the shared_with */ ?>
 
 	<li>
 		<div class="review-project my-projects">
@@ -145,7 +152,7 @@ if ($projects > 0) { //(321)
 		</div><!-- .review-project .my-projects -->
 
 		<div class="project-details">
-		<?php /* nav for SOMEONE ELSE OWNER -> sharing with YOU */ ?>
+		<?php /* nav if this project is being shared with you (you are not the owner) */ ?>
 
 		<ul class="inner-nav project-pg">
 			<li>
@@ -171,7 +178,58 @@ if ($projects > 0) { //(321)
           <a class="sp-link"><div class="tooltip"><span class="tooltiptext">Share project</span><i class="fas fa-user-friends fa-fw"></i></div></a>
         </form>
 	    </li>
-			<?php } ?>
+			<?php }
+      /* give the shared_with user an option to quit this project */ ?>
+
+
+
+
+
+
+
+
+
+<!-- <li>
+<form class="edit-user remove-self" method="post"> 
+<div>Me</div>
+<input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
+<input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
+<input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+<input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
+<a class="rsu removeme">Leave</a>
+</form>
+</li> -->
+
+
+
+      <li>
+        <form method="post">
+          <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
+          <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
+          <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+          <input type="hidden" id="leave_project" name="leave_project" value="<?= $user_id; ?>">
+          <a class="leaveproject"><div class="tooltip"><span class="tooltiptext">Leave Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+        </form>
+      </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		</ul>
 		<?php /*
 			below, need to show the current project owner's first & last name

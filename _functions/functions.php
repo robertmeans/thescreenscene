@@ -1,5 +1,13 @@
 <?php
 
+function show_session_variables() {
+  $show   =   '<div style="display: flex; flex-direction: column; width: 100%; padding: 20px;">';
+  $show   .=  '<span style="display: flex; text-decoration: underline">Session variables:</span>';
+  $show   .=  '<pre>' . var_export($_SESSION, true) . '</pre>';
+  $show   .=  '</div>';
+  // echo $show;
+}
+
 function preload_config($layout_context) { 
   $no_preload = array('new-project', 'edit_searches', 'edit_order');
 
@@ -62,3 +70,4 @@ function display_errors($errors=array()) {
   	}
   	return $output;
 	}
+

@@ -106,29 +106,7 @@ $(document).ready(function() {
   }
   $('.menuitem').hoverIntent(hiConfig)
 });
-/* used to use this before hoverintent above */
-/* keeping for prosperity                    */
-/* begin comment ---
-$(document).ready(function() {
 
-  // Show then hide ddown menu on hover
-  $('.menuitem').hover(function() {
-    // need field that had focus before hovering over nav
-    // so we can put it back when nav hover is removed
-    // this doesn't work... -> var focused = document.activeElement.id;
-    
-      $(this).children('.dropdown').stop().slideDown(250);
-      // $('.nav-ac').focus();
-      // alert(focused);
-
-  }, function() {
-      $(this).children('.dropdown').slideUp(50);
-      // alert(focused);
-      // $(focused).focus();
-
-  });
-});
---- end comment */
 
 /* 	edit_order.php -> only owner can move hyperlinks so
 	there's no shared_with version of this 	*/
@@ -284,7 +262,7 @@ $(document).ready(function() {
   $(document).on('click','#emailBob', function() {
     $.ajax({
       dataType: "JSON",
-      url: "contact-process.php",
+      url: "_form-processing.php",
       type: "POST",
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {
@@ -309,15 +287,14 @@ $(document).ready(function() {
         $('#errorli').html('<li>There was an error between your IP and the server. Please try again later.</li>');
       }, 
       complete: function() {
-        // $('#contact').html('<span>Your message was sent successfully.</span>');
-        // $('#send-success').html('<input name="clozer" id="clozer" class="clozer" value="Close">');
+
       }
     })
   });
 });
 $(document).ready(function() {
   $(document).on('click','.reset-contact', function() {
-    $('#contactForm').load('contact-insert.php');
+    $('#contactForm').load('_insert-contact.php');
   });
 });
 
@@ -789,26 +766,6 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // share_project | share project - form processing
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
@@ -945,34 +902,36 @@ $(document).ready(function() {
   });
 
 
+  $(document).on('click','.leaveproject', function() { 
+    var current_loc = window.location.href;
+    var project_name = $('#project_name').val();
 
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      beforeSend: function(xhr) {
+        confirm('Confirm: Remove yourself from ' + project_name + '?');
+      },    
+      success: function(response) {
+        // console.log(response);
+        if (response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
 
 
   // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE
@@ -1001,68 +960,6 @@ $(document).ready(function() {
       }
     })
   });
-
-
-
-  // $(document).on('click','.new-project-btn', function() {
-  //   var current_loc = window.location.href;
-
-  //   if (document.getElementById('can-opt')) {
-  //     var cancel = 'off';
-  //   } else {
-  //     var cancel = 'on';
-  //   }     
-
-  //   $.ajax({
-  //     dataType: "JSON",
-  //     url: "new-project-process.php",
-  //     type: "POST",
-  //     data: $('.new-project-form').serialize(),
-  //     beforeSend: function(xhr) {
-  //       $('#new-project-alert').removeClass('red'); // reset class every click
-  //       $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-
-  //     },
-  //     success: function(response) {
-  //       console.log(response);
-  //       if(response) {
-  //         // console.log(response);
-  //         if(response['signal'] == 'ok') {
-
-  //           if (current_loc.indexOf("localhost") > -1) {
-  //             window.location.replace("http://localhost/browsergadget");
-  //           } else {
-  //             window.location.replace("https://browsergadget.com");
-  //           }
-
-  //         } else {
-  //           $('#new-project-alert').addClass('red');
-  //           $('#new-project-errors').html(response['li']);
-
-  //           if (cancel == 'off') {
-  //             $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-  //           } else {
-  //             if (current_loc.indexOf("localhost") > -1) {
-  //               $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-  //             } else {
-  //               $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-  //             }
-  //           }
-  //         }
-  //       } 
-  //     },
-  //     error: function(response) {
-  //       // console.log(response);
-  //       $('#login-btn').html(response['msg']);
-  //     }, 
-  //     complete: function() {
-
-  //     }
-  //   })
-
-  // });
-
-// new project end
 
 
   // from new_project.php
@@ -1255,14 +1152,6 @@ $(document).ready(function() {
     }
   }
 	
-
-
-
-
-
-
-
-
 	$('.update-bookmark').click(function() {
     var current_loc = window.location.href;
 		var id 		= $('#idcount').val();
@@ -1317,35 +1206,52 @@ $(document).ready(function() {
 	});
 
 
-
-
-
-
-
-
-
 	$('.delete-bookmark').click(function() {
+    var current_loc = window.location.href;
 		var id 		= $('#idcount').val();
-		var rowid 	= $('#rowid').val();
+		var rowid = $('#rowid').val();
 		var cp 		= $('#cp').val();
 
 		$.ajax({
-			url 	: 'delete_hyperlink.php',
-			method 	: 'post',
-			data 	: {rowid:rowid, cp:cp},
+      dataType: "JSON",
+			url 	: "delete_hyperlink.php",
+			method 	: "POST",
+			// data 	: {rowid:rowid, cp:cp},
+      data: $(this).closest('form').serialize(),  
 			success : function(response) {
-			$('#'+id).children('a[data-target=urlz]').attr('href','');
-  		$('#'+id).children('a[data-target=urlz]').text(''); 
+        if (response == 'ok') {
+    			$('#'+id).children('a[data-target=urlz]').attr('href','');
+      		$('#'+id).children('a[data-target=urlz]').text(''); 
 
-      $('#'+id).closest('li').addClass('ea');
-  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
-  		$('#'+id).children('a[data-target=urlz]').addClass('shim');
-  		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
-			}
+          $('#'+id).closest('li').addClass('ea');
+      		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
+      		$('#'+id).children('a[data-target=urlz]').addClass('shim');
+      		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
+        } else {
+          // console.log(response);
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }    
+        }
+			},
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+
+
+
+
 		});
 		theModal.style.display = "none";
 	});
 });
+
+
 
 // Add a note | add, update, delete
 $(document).ready(function() {
@@ -1426,35 +1332,6 @@ $(document).ready(function() {
     limitModal.style.display = "none";
 
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   $('#update-note').click(function() { // add new note button (this is NOT the modal) 
@@ -1635,38 +1512,6 @@ $(document).ready(function() {
     noteModal.style.display = "none";
  });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // begin Project note editing from homepage (not Add a note but the actual Project notes)

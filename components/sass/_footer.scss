@@ -85,7 +85,7 @@ footer {
       text-align: center;
       
     }
-    textarea#message {
+    textarea#comments {
       height: 6em;
       width: 100%;
       max-width: 650px;
@@ -97,7 +97,7 @@ footer {
     }
     input#sendersname,
     input#email,
-    textarea#message {
+    textarea#comments {
       background-color: rgba(255,255,255,0.2);
       color: #fff;
       outline: none;

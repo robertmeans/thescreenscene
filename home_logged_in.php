@@ -23,6 +23,17 @@ if (is_post_request()) {
 
 if ($current_project != '0') { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
+  if (is_null($row)) { 
+    $_SESSION['another-proj'] = 'anothern'; 
+    if (isset($_SESSION['project-owner'])) { unset($_SESSION['project-owner']); }
+    if (isset($_SESSION['current_project'])) { unset($_SESSION['current_project']); }
+  } else {
+    if ($row['owner_id'] == $_SESSION['id']) {
+      $_SESSION['project-owner'] = 'owner';
+    } else {
+      $_SESSION['project-owner'] = 'shared-with';
+    }
+  }
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 
@@ -93,6 +104,7 @@ if ($current_project != '0') { // not a brand new member
       /* clear session if they went to new_project.php but then clicked the home link */
       if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
       if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
+      if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
       require '_logged_in/homepage_shared_with.php';
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results

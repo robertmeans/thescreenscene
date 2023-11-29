@@ -25,6 +25,7 @@ $user_id = $_SESSION['id'];
 <?php // sortable ul from: https://jqueryui.com/sortable ?>
 <div id="edit-delete-page">
 <div id="edit-wrap">
+<?php show_session_variables(); ?>
 <?php
 $row = show_project($current_project);
 

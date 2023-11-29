@@ -27,11 +27,15 @@ $row['reference'] = "1";
 
 preload_config($layout_context); 
 
-// they got here via a very circuitous route that ultimately started with deleting their only project.
-if (isset($_SESSION['ds']) && $_SESSION['ds'] == 'ds-success') {
-  echo '<div id="success-wrap"><span class="success-msg">Delete Successful!</span></div>';
-  unset($_SESSION['ds']);
-}
+/* they got here via a very circuitous route that ultimately started with deleting or leaving their only project. */
+  if (isset($_SESSION['ds'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Delete successful!</span></div>';
+    unset($_SESSION['ds']);
+  }
+  if (isset($_SESSION['leaveproject'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Adios amigos!</span></div>';
+    unset($_SESSION['leaveproject']); 
+  }
 
 require '_includes/nav.php'; 
 ?>
@@ -41,6 +45,7 @@ require '_includes/nav.php';
 <?php require '_includes/search_stack_top.php'; ?>
 
 <div class="tabs new-intro">
+<?php show_session_variables(); ?>
 <?php
 $any_projects_for_user = find_users_projects($user_id);
 $projects = mysqli_num_rows($any_projects_for_user);
@@ -55,8 +60,10 @@ if ($projects < 10 || $row['admin'] == 1) {
 
   <?php } else if (isset($_SESSION['no-projects'])) { ?>
 
+<?php /* echo '<pre>' . var_dump($_SESSION) . '</pre><br><br>'; */ ?>
+
     <p>Hello <?= $_SESSION['username']; ?>,</p>
-    <p>You don't have any projects. The last project you were viewing was deleted and there are no others to choose from. Time to start a new one.</p>
+    <p>You have 0 projects. The last project you were viewing is no longer available and you have no others to choose from. Time to start a new one.</p>
 
   <?php } else { 
   $inner_nav_context = "owner";
@@ -64,7 +71,6 @@ if ($projects < 10 || $row['admin'] == 1) {
   <ul class="inner-nav" style="float:none;margin:-1em 0em 1em;">
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
- 
     <p>Start a new project:</p>
   <?php } ?>
 

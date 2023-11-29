@@ -21,10 +21,8 @@ require '_includes/head.php';
 <div id="table-page">
  	<div id="table-wrap">
   <?php require '_includes/search_stack_top.php'; ?>
-
+<?php  show_session_variables(); ?>
 <div class="tabs visitor">
-
-
 <div id="landing" class="greet-login visitor1">
 
   <?php if (isset($_SESSION['pr'])) { 

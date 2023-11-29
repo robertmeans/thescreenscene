@@ -25,7 +25,7 @@ require '_includes/nav.php'; ?>
   <div id="table-page">
   <div id="table-wrap">
 <?php require '_includes/search_stack_top.php'; ?>
-
+<?php show_session_variables(); ?>
 <div class="tabs">
 
   <ul class="tab-links">

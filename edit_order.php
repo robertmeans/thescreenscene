@@ -40,7 +40,7 @@ $layout_context = "edit_order";
 <ul class="inner-nav">
   <?php require 'nav/inner_nav.php'; ?>
 </ul>
-
+<?php show_session_variables(); ?>
 <ul id="sortable" class="order">
 
 <?php
