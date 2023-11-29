@@ -80,7 +80,7 @@ require '_includes/head.php'; ?>
       </form></li>'; 
     } 
 
-		if ($names) { ?>
+		if (isset($names)) { ?>
   		  <?php	echo implode($names); ?>
 	   <?php } 
 	} else { ?> 
@@ -117,7 +117,7 @@ require '_includes/head.php'; ?>
  		<input type="hidden" name="project_name" value="<?= $row['project_name']; ?>">
     <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
  		
- 		<input type="email" name="user_email" class="<?php if(isset($errors['email_error'])) { echo "email-error"; } ?>" placeholder="Email address of user with whom to share">
+    <input id="user-email" type="email" name="user_email" placeholder="Email address of user with whom to share">
 
  		<p>Select the privliges for this user</p>
 

@@ -150,23 +150,97 @@ function edit_search_order($user_id, $current_project) {
   return $row;
 }
 
-function update_current_project($id, $current_project) { // 12.30.20 - checks out/no changes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function verify_access($id, $current_project) {
   global $db;
 
-  $sql = "UPDATE users SET current_project = '" . $current_project . "' ";
-
-  $sql .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
+  $sql = "SELECT * FROM project_user ";
+  $sql .= "WHERE owner_id='" . db_escape($db, $id) . "' ";
+  $sql .= "OR shared_with='" . db_escape($db, $id) . "' ";
+  $sql .= "AND project_id='" . db_escape($db, $current_project) . "'";
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
-  if($result === true) {
-    return true;
-    } else {
-      echo mysqli_error($db);
-      db_disconnect($db);
-      exit;
-    }  
+  $count = mysqli_num_rows($result); 
+  return $count;
 }
+
+
+
+
+
+function update_current_project($id, $current_project) { 
+  global $db;
+
+  $count = verify_access($id, $current_project);
+
+  if ($count > 0) {
+
+    $sql2 = "UPDATE users SET current_project = '" . $current_project . "' ";
+    $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
+    $sql2 .= "LIMIT 1";
+
+    $result2 = mysqli_query($db, $sql2);
+
+    if ($result2) {
+      return 'fail';
+    }
+  } else {
+    return 'pass';
+  }
+}
+
+
+
+function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {
+  global $db;
+
+  $count = verify_access($id, $current_project);
+
+  if ($count > 0) {
+
+    $sql = "UPDATE projects SET ";
+    $sql .= $count2 . "_text='"  . db_escape($db, $name)  . "', ";
+    $sql .= $count2 . "_url='"   . db_escape($db, $url)   . "' ";
+    $sql .= "WHERE id='"  . db_escape($db, $cp) . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if ($result) {
+      return 'fail';
+    }
+
+  } else {
+    return 'pass';
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 function project_colormode_owner($user_id, $color, $current_project) { // 12.30.20 - checks out/no changes
   global $db;
@@ -179,7 +253,7 @@ function project_colormode_owner($user_id, $color, $current_project) { // 12.30.
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
-  if($result === true) {
+  if ($result === true) {
     return true;
     } else {
       echo mysqli_error($db);
@@ -198,7 +272,7 @@ function project_colormode_shared_with($user_id, $color, $current_project) { // 
   $sql .= "LIMIT 1";
 
   $result = mysqli_query($db, $sql);
-  if($result === true) {
+  if ($result === true) {
     return true;
     } else {
       echo mysqli_error($db);
@@ -279,72 +353,72 @@ function does_user_have_a_single_project($user_id) {
 }
 
 
-function user_removed() {
-  $errors = [];
+// function user_removed() {
+//   $errors = [];
 
-  if (!isset($row['shared_with'])) {
-    $errors['not_here'] = "You were removed from this project since you've been on this page. Nothing will work for you pertaining to this project any longer.";
-  }
-  return $errors;
-}
+//   if (!isset($row['shared_with'])) {
+//     $errors['not_here'] = "You were removed from this project since you've been on this page. Nothing will work for you pertaining to this project any longer.";
+//   }
+//   return $errors;
+// }
 
-function validate_share($row) {
-  $errors = [];
+// function validate_share($row) {
+//   $errors = [];
 
-  if (is_blank($row['users_email'])) {
-    $errors['email_error'] = "Do you intend to share \"" . $row['project_name'] . "\" with your invisible friend? Please provide an email address.";
-  }
-  return $errors; 
-}
+//   if (is_blank($row['users_email'])) {
+//     $errors['email_error'] = "Do you intend to share \"" . $row['project_name'] . "\" with your invisible friend? Please provide an email address.";
+//   }
+//   return $errors; 
+// }
 
 
-function validate_email($email, $row, $user_id) {
-  $errors = [];
+// function validate_email($email, $row, $user_id) {
+//   $errors = [];
 
-  if (!isset($row['email'])) {
-    $errors['email_error'] = "The address, \"" . $email . "\" does not exist around here.";
-  }
+//   if (!isset($row['email'])) {
+//     $errors['email_error'] = "The address, \"" . $email . "\" does not exist around here.";
+//   }
 
-  if (isset($row['user_id']) && ($row['user_id'] == $user_id)) {
-    $errors['email_error'] = "One is the loneliest number. You can't share with yourself.";
-  }
+//   if (isset($row['user_id']) && ($row['user_id'] == $user_id)) {
+//     $errors['email_error'] = "One is the loneliest number. You can't share with yourself.";
+//   }
 
-  return $errors;
-}
+//   return $errors;
+// }
 
-function validate_unique($row2) {
-  $errors = [];
+// function validate_unique($row2) {
+//   $errors = [];
 
-  if (isset($row2['email'])) {
-    $errors['email_error'] = $row2['first_name'] . " " . substr($row2['last_name'], 0, 1) . ". is already a member of this project.";
-  }
-  return $errors; 
-}
+//   if (isset($row2['email'])) {
+//     $errors['email_error'] = $row2['first_name'] . " " . substr($row2['last_name'], 0, 1) . ". is already a member of this project.";
+//   }
+//   return $errors; 
+// }
 
-function validate_unique_from_shared($row2) {
-  $errors = [];
+// function validate_unique_from_shared($row2) {
+//   $errors = [];
 
-  if (isset($row2['email'])) {
-    $errors['email_error'] = "That user is already a member of this project.";
-  }
-  return $errors; 
-}
+//   if (isset($row2['email'])) {
+//     $errors['email_error'] = "That user is already a member of this project.";
+//   }
+//   return $errors; 
+// }
 
-function find_user_by_email($users_email) {
-  global $db;
+// function find_user_by_email($users_email) {
+//   global $db;
 
-  $sql = "SELECT * FROM users WHERE ";
-  $sql .= "email='" . db_escape($db, $users_email) . "' ";
-  $sql .= "LIMIT 1";
+//   $sql = "SELECT * FROM users WHERE ";
+//   $sql .= "email='" . db_escape($db, $users_email) . "' ";
+//   $sql .= "LIMIT 1";
 
-  // echo $sql;
-  $result = mysqli_query($db, $sql);
-  confirm_result_set($result);
+//   // echo $sql;
+//   $result = mysqli_query($db, $sql);
+//   confirm_result_set($result);
 
-  $user = mysqli_fetch_assoc($result);
-  mysqli_free_result($result);
-  return $user;  // returns an assoc. array    
-}
+//   $user = mysqli_fetch_assoc($result);
+//   mysqli_free_result($result);
+//   return $user;  // returns an assoc. array    
+// }
 
 
 function show_project($current_project) {
@@ -416,15 +490,15 @@ function owner_or_shared_with($current_project, $user_id) {
   return $result;
 }
 
-function validate_update($row) {
+// function validate_update($row) {
 
-if (!is_blank($row['name']) && has_length_greater_than($row['name'], 30)) {
-    $errors['name'] = "more than 3 characters? hope this works!";
-  }
+// if (!is_blank($row['name']) && has_length_greater_than($row['name'], 30)) {
+//     $errors['name'] = "more than 3 characters? hope this works!";
+//   }
 
-  $errors = [];
-  return $errors; 
-}
+//   $errors = [];
+//   return $errors; 
+// }
 
 
 function update_page_number_shared_with($user_id, $current_project, $page_number) {
@@ -474,10 +548,10 @@ function update_page_number_owner($user_id, $current_project, $page_number) {
 function update_project_deets($current_project, $row) {
   global $db;
 
-  $errors = validate_project_update($row);
-  if (!empty($errors)) {
-    return $errors;
-  }   
+  // $errors = validate_project_update($row);
+  // if (!empty($errors)) {
+  //   return $errors;
+  // }   
   // only an owner can do this
   $sql = "UPDATE projects SET ";
   $sql .= "project_name='"  . db_escape($db, $row['project_name'])  . "', ";
@@ -563,31 +637,31 @@ function remove_me($id, $remove_this_user) {
 //   return $errors; 
 // }
 
-function validate_project_update($row) {
+// function validate_project_update($row) {
 
-  $errors = [];
+//   $errors = [];
 
-  if (is_blank($row['project_name'])) {
-    $errors['project_name'] = "Cannot leave Project Name empty.";
-  }
+//   if (is_blank($row['project_name'])) {
+//     $errors['project_name'] = "Cannot leave Project Name empty.";
+//   }
 
-  if (has_length_greater_than($row['project_notes'], 1500)) {
-    $errors['project_notes'] = "Contain the beast! Project notes cannot exceed 1,500 characters.";
-  }
+//   if (has_length_greater_than($row['project_notes'], 1500)) {
+//     $errors['project_notes'] = "Contain the beast! Project notes cannot exceed 1,500 characters.";
+//   }
 
-  return $errors; 
-}
+//   return $errors; 
+// }
 
 
-function is_blank($value) {
+// function is_blank($value) {
 	
-  return !isset($value) || trim($value) === '';
-}
+//   return !isset($value) || trim($value) === '';
+// }
 
-function has_presence($value) {
+// function has_presence($value) {
 	
-  return !is_blank($value);
-}
+//   return !is_blank($value);
+// }
 
 // has_length_greater_than('abcd', 3)
 // * validate string length

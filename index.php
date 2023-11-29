@@ -19,7 +19,7 @@ if (!isset($_SESSION['verified']) || isset($_SESSION['new'])) {
 	exit;
 }
 
-if (((isset($_SESSION['verified']) && ($_SESSION['verified'] != "0")) && (!$_SESSION['message']))) {
+if ((isset($_SESSION['verified']) && $_SESSION['verified'] != "0") || isset($_SESSION['got-kicked-out'])) {
 	require 'home_logged_in.php';
 	exit;
 }

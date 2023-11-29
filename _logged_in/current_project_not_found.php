@@ -19,12 +19,39 @@ require '_includes/head.php';
 <?php require '_includes/search_stack_top.php'; ?>
 
 <div class="tabs new-intro">
+
+<?php if (isset($_SESSION['got-kicked-out'])) { ?>
+<?php /* $_SESSION['got-kicked-out']; is unset if they click on the 'Go to your projects page' link */ ?>
+
+<?php 
+  echo '<pre>';
+  var_dump($_SESSION);
+  echo '</pre><br><br>'; 
+?>
+
+  <p>You were removed from the project you were on.</p>
+  <form method="post" style="display: block;margin: 0 auto; width: 96%;">
+    <input type="hidden" id="viewprojectspage" name="viewprojectspage" value="yo">
+    <a class="vpp-link go">Go to your projects page</a> and choose another.
+  </form>
+
+<?php } else { ?>
+
+<?php 
+  echo '<pre>';
+  var_dump($_SESSION);
+  echo '</pre><br><br>'; 
+?>
+
 	<p>Looks like the project you were most recently viewing was deleted since you last saw it.
     <form method="post" style="display: block;margin: 0 auto; width: 96%;">
       <input type="hidden" id="viewprojectspage" name="viewprojectspage" value="yo">
       <a class="vpp-link go">Go to your projects page</a> and choose another.
     </form>
   </p>
+
+<?php } ?>
+
 </div><!-- .tabs .new-intro -->
 
 <?php require '_includes/search_stack_bottom.php'; ?>

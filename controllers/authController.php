@@ -35,8 +35,6 @@ function remember_me()
 			$_SESSION['verified'] = $user['active'];
 			$_SESSION['admin'] = $user['admin'];
 			$_SESSION['current_project'] = $user['current_project'];
-			$_SESSION['message'] = '';
-			$_SESSION['delete-success'] = '0';
 
 			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}

@@ -21,7 +21,7 @@ if (is_post_request()) {
   }
 }
 
-if ($current_project != "0") { // not a brand new member
+if ($current_project != '0') { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
@@ -199,8 +199,9 @@ if ($current_project != "0") { // not a brand new member
      }
 
     } else { 
-      // they have no projects and their last was deleted since last visit
+      /* they have no projects and their last was deleted since last visit. get rid of the 'got-kicked-out' just in case they were kicked out of the only project they had, it won't persist in the background waiting to sabbatoge something */
       if (isset($_SESSION['another-proj'])) { unset($_SESSION['another-proj']); }
+      if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); }
       $_SESSION['no-projects'] = 'no-projects';
       $_SESSION['cancel-option'] = 'off';
       require 'new_project.php';

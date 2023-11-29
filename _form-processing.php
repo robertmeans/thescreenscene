@@ -243,9 +243,7 @@ if (isset($_POST['login'])) {
       $_SESSION['verified'] = $user['active'];
       $_SESSION['admin'] = $user['admin'];
       $_SESSION['current_project'] = $user['current_project'];
-      $_SESSION['token'] = $user['email_code'];
-      $_SESSION['message'] = '';
-      $_SESSION['delete-success'] = '0';
+      // $_SESSION['token'] = $user['email_code'];
 
         // you're not verified yet -> go see a msg telling you we're waiting for
         // email verification
@@ -422,16 +420,20 @@ if (isset($_POST['reset'])) {
     trigger =   .gth-link 
     refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly */
   if (isset($_POST['go_to_homepage'])) {
-    $id = $_POST['user_id'];
+    $id = $_SESSION['id'];
     $current_project = $_POST['current_project'];
 
     $result = update_current_project($id, $current_project);
 
-    if ($result === true) {
+    if ($result === 'pass') {
       $_SESSION['current_project'] = $current_project;
       $signal = 'ok';
       echo json_encode($signal);
-    } 
+    } else {
+      $_SESSION['got-kicked-out'] = 'nossir';
+      $signal = 'ok';
+      echo json_encode($signal);
+    }
   }
 
 /*  link handler
@@ -443,11 +445,12 @@ if (isset($_POST['reset'])) {
   if (isset($_POST['organizesearchfields'])) {
 
     if (isset($_POST['current_project'])) {
+      /* they're coming from my_projects.php. maybe from another project. update everything before sending them on their way. */
       $id = $_SESSION['id'];               ;
       $current_project = $_POST['current_project'];
       $result = update_current_project($id, $current_project);
 
-      if ($result === true) {
+      if ($result === 'pass') {
         $row = update_color($id, $current_project);
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
@@ -455,6 +458,10 @@ if (isset($_POST['reset'])) {
 
         $signal = 'ok';
         echo json_encode($signal); 
+      } else {
+        $_SESSION['got-kicked-out'] = 'nossir';
+        $signal = 'ok';
+        echo json_encode($signal);
       }
 
     } else {
@@ -490,7 +497,7 @@ if (isset($_POST['reset'])) {
       $current_project = $_POST['current_project'];
       $result = update_current_project($id, $current_project);
 
-      if ($result === true) {
+      if ($result === 'pass') {
         $row = update_color($id, $current_project);
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
@@ -498,6 +505,10 @@ if (isset($_POST['reset'])) {
 
         $signal = 'ok';
         echo json_encode($signal); 
+      } else {
+        $_SESSION['got-kicked-out'] = 'nossir';
+        $signal = 'ok';
+        echo json_encode($signal);
       }
 
     } else {
@@ -548,6 +559,7 @@ if (isset($_POST['reset'])) {
     by using: $_SESSION['view-proj-pg'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['viewprojectspage'])) {
+    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); }
     $_SESSION['view-proj-pg'] = 'anothern';
     $signal = 'ok';
     echo json_encode($signal);
@@ -565,7 +577,7 @@ if (isset($_POST['reset'])) {
     $current_project = $_POST['current_project'];
     $result = update_current_project($id, $current_project);
 
-    if ($result === true) {
+    if ($result === 'pass') {
       $row = update_color($id, $current_project);
       $_SESSION['color'] = $row['color'];
       $_SESSION['current_project'] = $current_project;
@@ -590,7 +602,7 @@ if (isset($_POST['reset'])) {
     $current_project = $_POST['current_project'];
     $result = update_current_project($id, $current_project);
 
-    if ($result === true) {
+    if ($result === 'pass') {
       $row = update_color($id, $current_project);
       $_SESSION['color'] = $row['color'];
       $_SESSION['current_project'] = $current_project;
@@ -600,6 +612,74 @@ if (isset($_POST['reset'])) {
       echo json_encode($signal); 
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* edit / update / create bookmarks hyperlinks on homepage */
+  if (isset($_POST['cp'])) {
+    global $db;
+
+    $id = $_SESSION['id'];
+    $current_project = $_SESSION['current_project'];
+
+    $name  = $_POST['name'];
+    $url   = $_POST['urlz'];
+    $count2 = $_POST['rowid'];
+    $cp    = $_POST['cp'];
+    /* update only happens in project table so no need for shared_with version */
+
+    $result = update_bookmark($id, $current_project, $count2, $name, $url, $cp);
+
+    if ($result === 'pass') {
+      $signal = 'ok';
+      echo json_encode($signal);
+    } else {
+      $_SESSION['got-kicked-out'] = 'nossir';
+      $signal = 'no';
+      echo json_encode($signal);
+    }
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
 
 /* new_project.php - create a new project */ 
@@ -817,6 +897,50 @@ if (isset($_POST['reset'])) {
   
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* ******************* share project stuff ************************ */
   if (isset($_POST['owner-share-submit'])) {
     if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(1); }
@@ -903,6 +1027,7 @@ if (isset($_POST['reset'])) {
             $result3 = mysqli_query($db, $sql3);
 
             if ($result3) {
+            /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
               $is_it_shared = is_this_project_shared($_POST['project_id']); 
               $result3 = mysqli_num_rows($is_it_shared); 
@@ -922,7 +1047,8 @@ if (isset($_POST['reset'])) {
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' has successfully been added to the project, "' . $project_name . '".</li>';
               $class = 'green';
-              $shared_names .= implode($names);
+              if (isset($names)) { $shared_names .= implode($names); }
+              // $shared_names .= implode($names);
               $signal = 'ok';
 
               /* end if ($result3 > 0) - beyond this $result3 */
@@ -954,7 +1080,8 @@ if (isset($_POST['reset'])) {
 
         }
 
-      } /* if ($result2) */
+      } 
+   /* ^ if ($result2) */
 
     } else {
  /* ^ ends: if (isset($row1['email']) && ($row1['user_id'] != $user_id)) */
@@ -964,11 +1091,15 @@ if (isset($_POST['reset'])) {
         $class .= 'red';
         $eclass .= 'red';
         $signal = 'bad';
-      }
-      if (isset($row1['user_id']) && ($row1['user_id'] == $user_id)) {
+      } else if (isset($row1['user_id']) && ($row1['user_id'] == $user_id)) {
         $li .= '<li>One is the lonliest number. You can\'t share a project with yourself.</li>';
         $class = 'red';
         $signal = 'bad';
+      } else {
+        $li .= '<li>' .  mysqli_error($db) . '</li>';
+        $class = 'red';
+        $signal = 'bad';
+        
       }
     }
   } /* if ($li === '') */
@@ -988,67 +1119,7 @@ if (isset($_POST['reset'])) {
 
 
 
-  if (isset($_POST['delete-shared-user'])) {
-    $id = $_POST['project_id'];
-    $remove_this_user = $_POST['delete-shared-user'];
-    $user_id = $_SESSION['id'];
-    $li = '';
-    $shared_names = '';
 
-    global $db; 
-    $sql = "DELETE FROM project_user ";
-    $sql .= "WHERE project_id='" . $id . "' ";
-    $sql .= "AND shared_with='" . $remove_this_user . "' ";
-    $sql .= "LIMIT 1";
-
-    $result = mysqli_query($db, $sql);
-
-      if ($result) {
-
-        $is_it_shared = is_this_project_shared($_POST['project_id']); 
-        $result3 = mysqli_num_rows($is_it_shared);
-        if ($result3 > 0) { 
-
-          $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
-          while ($row3 = mysqli_fetch_assoc($sharing)) { 
-            $names[] = '<li><form class="edit-user" method="post">' . $row3['first_name'] . ' ' . $row3['last_name'] . ' (' . $row3['email'] . ') ' . '<input type="hidden" name="delete-shared-user" value="' . $row3['shared_with'] . '">
-              <input type="hidden" id="project_id" name="project_id" value="' .  $row3['project_id'] . '">
-              <input type="hidden" id="project_name" name="project_name" value="' . $_POST['project_name'] . '">
-              <input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">
-              <a class="rsu removeshareduser">Remove</a>
-            </form></li>';
-          } 
-
-        $li .= '<li>You have successfully removed ' . $_POST['username'] . ' from the project, "' . $_POST['project_name'] . '".</li>';
-        $class = 'orange';
-        $shared_names .= implode($names);
-        $signal = 'ok';
-
-        } else {
-
-          $li .= '<li>You have successfully removed ' . $_POST['username'] . ' from the project, "' . $_POST['project_name'] . '".</li>';
-          $class = 'orange';
-          $shared_names .= '<li class="alone">Just you</li>';
-          $signal = 'ok';
-        }
-
-      } else {
-        $_SESSION['share-project'] = 'anothern';
-        $li .= '<li>' . mysqli_error($db) . '</li>';
-        $class = 'red';
-        $signal = 'bad';
-
-      }
-
-  $data = array(
-    'signal' => $signal,
-    'li' => $li,
-    'class' => $class,
-    'shared_names' => $shared_names
-  );
-  echo json_encode($data);
-
-  }
 
 
 
@@ -1097,8 +1168,8 @@ if (isset($_POST['reset'])) {
 
     if ($li === '') {
 
-      /* make sure email actually exists in db */
-      $sql = "SELECT * FROM project_user WHERE "; 
+
+      $sql = "SELECT * FROM project_user WHERE ";
       $sql .= "shared_with='" . db_escape($db, $user_id) . "' ";
       $sql .= "AND project_id='" . db_escape($db, $current_project) . "' ";
       $sql .= "LIMIT 1";
@@ -1106,61 +1177,69 @@ if (isset($_POST['reset'])) {
       $result = mysqli_query($db, $sql);
       confirm_result_set($result);
       $last_check = mysqli_fetch_assoc($result);
-      /* making sure person here is still affiliated with this project. */
 
-      if (isset($last_check['shared_with'])) { 
-      /* one last check to make sure this user wasn't removed from project before trying to share it (since they've been logged in to the share_projects.php page) */
+      if (isset($last_check['shared_with'])) { // one last check to make sure this user wasn't removed from
+                                    // project before trying to share it (since they've been logged
+                                    // in to the share_projects.php page)
 
-        /* making sure email actually exists in db */
-        $sql2 = "SELECT * FROM users WHERE "; 
-        $sql2 .= "email='" . db_escape($db, $email) . "' ";
-        $sql2 .= "LIMIT 1";
 
-        $result = mysqli_query($db, $sql2);
-        confirm_result_set($result);
-        $row = mysqli_fetch_assoc($result); 
-        /* assigning users table content to the specific user whose email has been entered */
 
-          if (isset($row['email']) && ($row['user_id'] != $user_id)) { 
-            /* ********* error checking after this if statement is done ********* */
-            /* email exists and does not belong to the user submitting the request. */
-            $share_with = $row['user_id']; /* here's the user's id whose email was just submitted. */
-            // let's make sure they don't already have this project shared with them.
+        /* make sure email actually exists in db */
+        $sql1 = "SELECT * FROM users WHERE "; 
+        $sql1 .= "email='" . db_escape($db, $email) . "' ";
+        $sql1 .= "LIMIT 1";
 
-            $sql3 = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, u.* ";
-            $sql3 .= "FROM project_user as p_u ";
-            $sql3 .= "LEFT JOIN users as u ON u.user_id=p_u.owner_id "; /* needs to prevent being shared with owner. */
-            $sql3 .= "WHERE p_u.project_id='" . db_escape($db, $id) . "' ";
-            $sql3 .= "AND (p_u.shared_with='" . db_escape($db, $share_with) . "' ";
-            $sql3 .= "OR p_u.owner_id='" . db_escape($db, $share_with) . "') ";
-            $sql3 .= "LIMIT 1";
+        $result1 = mysqli_query($db, $sql1);
+        confirm_result_set($result1);
+        $row1 = mysqli_fetch_assoc($result1); 
+        /* assign users table content to the specific user whose email has been entered */
 
-            $result2 = mysqli_query($db, $sql3);
-            confirm_result_set($result2);
-            $row2 = mysqli_fetch_assoc($result2); 
-            /* assign value of user that was found to '$row2' so it does not interfere w/$row */
+        if (isset($row1['email']) && ($row1['user_id'] != $user_id)) { 
+          /* email exists and does not belong to the user submitting the request. */
+          $share_with = $row1['user_id']; 
+          /* ^ here's the user's id whose email was just submitted. let's make sure they don't already have this project shared with them. */
+          $sql2 = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, u.* ";
+          $sql2 .= "FROM project_user as p_u ";
+          $sql2 .= "LEFT JOIN users as u ON u.user_id=p_u.shared_with "; 
+          $sql2 .= "WHERE p_u.project_id='" . db_escape($db, $id) . "' ";
 
-            if ($result2) { 
-              /* send user's info to validation to throw personalized error */
-              $li .= '<li>That user is already a member of this project.</li>';
+          $sql2 .= "AND (p_u.shared_with='" . db_escape($db, $share_with) . "' ";
+          $sql2 .= "OR p_u.owner_id='" . db_escape($db, $share_with) . "') ";
+
+          $sql2 .= "LIMIT 1";
+
+          $result2 = mysqli_query($db, $sql2);
+          confirm_result_set($result2);
+          $row2 = mysqli_fetch_assoc($result2);
+          /* assign value of user that was found to new var '$row2' so it does not interfere w/$row1 */
+
+          if ($result2) {
+            if (isset($row2['owner_id']) && ($row2['owner_id'] == $share_with)) {
+              $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' is the owner of this project.</li>';
+              $class = 'red';
+              $signal = 'bad';
+            } else if (isset($row2['shared_with']) && ($row2['shared_with'] == $share_with)) {
+              $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' is already a member of this project.</li>';
               $class = 'red';
               $signal = 'bad';
 
-            } else {
+            } else { 
+         /* ^ if (isset($row2['email'])) */
               /* keep going, everything good so far. user is unique and does not have the project shared with them already. */
-              $sql4 = "INSERT INTO project_user ";
-              $sql4 .= "(project_id, owner_id, shared_with, share, edit) ";
-              $sql4 .= "VALUES ("; 
-              $sql4 .= "'" . db_escape($db, $current_project)    . "', ";
-              $sql4 .= "'" . db_escape($db, $user_id) . "', ";
-              $sql4 .= "'" . db_escape($db, $share_with) . "', ";
-              $sql4 .= "'" . db_escape($db, $share) . "', ";
-              $sql4 .= "'" . db_escape($db, $edit) . "'";
-              $sql4 .= ")";
+              $sql3 = "INSERT INTO project_user ";
+              $sql3 .= "(project_id, owner_id, shared_with, share, edit) ";
+              $sql3 .= "VALUES ("; 
+              $sql3 .= "'" . db_escape($db, $current_project)    . "', ";
+              $sql3 .= "'" . db_escape($db, $user_id) . "', ";
+              $sql3 .= "'" . db_escape($db, $share_with) . "', ";
+              $sql3 .= "'" . db_escape($db, $share) . "', ";
+              $sql3 .= "'" . db_escape($db, $edit) . "'";
+              $sql3 .= ")";
 
-              $result3 = mysqli_query($db, $sql4);
+              $result3 = mysqli_query($db, $sql3);
+
               if ($result3) {
-
+              /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
                 $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
                 while ($row3 = mysqli_fetch_assoc($sharing)) { 
@@ -1168,41 +1247,56 @@ if (isset($_POST['reset'])) {
                     <input type="hidden" id="project_id" name="project_id" value="' .  $row3['project_id'] . '">
                     <input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">
                     <input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">
-                    <a class="rsu removeshareduser">Remove</a>
+                    <a class="removeshareduser rsu">Remove</a>
                   </form></li>';
                 } 
 
                 $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' has successfully been added to the project, "' . $project_name . '".</li>';
                 $class = 'green';
-                $shared_names .= implode($names);
+                if (isset($names)) { $shared_names .= implode($names); }
+                // $shared_names .= implode($names);
                 $signal = 'ok';
 
 
-
-
               } else {
+           /* ^ if ($result3) */
                 $li .= '<li>' .  mysqli_error($db) . '</li>';
                 $class = 'red';
                 $signal = 'bad';
               }
+
             }
-          
-      /* ^ if (isset($row['email']) && ($row['user_id'] != $user_id)) */
+
+          } else {
+       /* ^ if ($result2) */
+            $li .= '<li>' .  mysqli_error($db) . '</li>';
+            $class = 'red';
+            $signal = 'bad';
+          }     
+
         } else {
-          if (!isset($row['email'])) {
+     /* ^ if (isset($row1['email']) && ($row1['user_id'] != $user_id)) */
+
+          if (!isset($row1['email'])) {
             $li .= '<li>The address, "' . $email . '" does not exist around here.</li>';
             $class .= 'red';
             $eclass .= 'red';
             $signal = 'bad';
-          }
-          if (isset($row['user_id']) && ($row['user_id'] == $user_id)) {
-            $li .= '<li>One is the lonliest number. You can\'t share a project with yourself. ...Plus, you\'re already a member of this project. What in the world?!</li>';
+          } else if (isset($row1['user_id']) && ($row1['user_id'] == $user_id)) {
+            $li .= '<li>One is the lonliest number. You can\'t share a project with yourself.</li>';
             $class = 'red';
             $signal = 'bad';
+          } else {
+            $li .= '<li>' .  mysqli_error($db) . '</li>';
+            $class = 'red';
+            $signal = 'bad';
+
           }
+
         }
 
       } else {
+
         $li .= '<li>You were removed from this project since you\'ve been on this page. Nothing will work for you pertaining to this project any longer.</li>';
         $class = 'red';
         $signal = 'bad';
@@ -1210,7 +1304,9 @@ if (isset($_POST['reset'])) {
       }
 
 
-  } /* if ($li === '') */
+
+
+    } /* if ($li === '') */
 
   $data = array(
     'signal' => $signal,
@@ -1227,6 +1323,124 @@ if (isset($_POST['reset'])) {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if (isset($_POST['delete-shared-user'])) {
+    $id = $_POST['project_id'];
+    $remove_this_user = $_POST['delete-shared-user'];
+    $user_id = $_SESSION['id'];
+    $li = '';
+    $shared_names = '';
+
+    global $db; 
+    $sql = "DELETE FROM project_user ";
+    $sql .= "WHERE project_id='" . $id . "' ";
+    $sql .= "AND shared_with='" . $remove_this_user . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+      if ($result) {
+
+        $is_it_shared = is_this_project_shared($_POST['project_id']); 
+        $result3 = mysqli_num_rows($is_it_shared);
+        if ($result3 > 0) { 
+
+          $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
+          while ($row3 = mysqli_fetch_assoc($sharing)) { 
+            $names[] = '<li><form class="edit-user" method="post">' . $row3['first_name'] . ' ' . $row3['last_name'] . ' (' . $row3['email'] . ') ' . '<input type="hidden" name="delete-shared-user" value="' . $row3['shared_with'] . '">
+              <input type="hidden" id="project_id" name="project_id" value="' .  $row3['project_id'] . '">
+              <input type="hidden" id="project_name" name="project_name" value="' . $_POST['project_name'] . '">
+              <input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">
+              <a class="rsu removeshareduser">Remove</a>
+            </form></li>';
+          } 
+
+        $li .= '<li>You have successfully removed ' . $_POST['username'] . ' from the project, "' . $_POST['project_name'] . '".</li>';
+        $class = 'orange';
+        if (isset($names)) { $shared_names .= implode($names); }
+        // $shared_names .= implode($names);
+        $signal = 'ok';
+
+        } else {
+
+          $li .= '<li>You have successfully removed ' . $_POST['username'] . ' from the project, "' . $_POST['project_name'] . '".</li>';
+          $class = 'orange';
+          $shared_names .= '<li class="alone">Just you</li>';
+          $signal = 'ok';
+        }
+
+      } else {
+        $_SESSION['share-project'] = 'anothern';
+        $li .= '<li>' . mysqli_error($db) . '</li>';
+        $class = 'red';
+        $signal = 'bad';
+
+      }
+
+  $data = array(
+    'signal' => $signal,
+    'li' => $li,
+    'class' => $class,
+    'shared_names' => $shared_names
+  );
+  echo json_encode($data);
+
+  }
 
 
   if (isset($_POST['remove_me'])) {
