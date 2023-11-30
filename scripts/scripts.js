@@ -323,24 +323,54 @@ $(document).ready(function() { // 122120856 start
 	});
 
 // checkbox edit/share selections
-	$('input:checkbox.edit').change(function(){
-	    if($(this).is(":checked")) {
-	        $('label.edit').addClass("checked");
-	        $('.echeckon').addClass("showcheck");
-	    } else {
-	        $('label.edit').removeClass("checked");
-	        $('.echeckon').removeClass("showcheck");
-	    }
-	});
+  $('input:checkbox.edit').change(function(){
+    if($(this).is(":checked")) {
+        $('label.edit').addClass("checked");
+        $('.echeckon').addClass("showcheck");
+    } else {
+        $('label.edit').removeClass("checked");
+        $('.echeckon').removeClass("showcheck");
+    }
+
+  });
 	$('input:checkbox.share').change(function(){
-	    if($(this).is(":checked")) {
-	        $('label.share').addClass("checked");
-	        $('.scheckon').addClass("showcheck");
-	    } else {
-	        $('label.share').removeClass("checked");
-	        $('.scheckon').removeClass("showcheck");
-	    }
+    if($(this).is(":checked")) {
+        $('label.share').addClass("checked");
+        $('.scheckon').addClass("showcheck");
+    } else {
+        $('label.share').removeClass("checked");
+        $('.scheckon').removeClass("showcheck");
+    }
+
 	});
+
+
+  // $('input:checkbox.edit2').change(function(){
+  $(document).on('click','label.edit2',function() {
+    if($(this).hasClass("checked")) {
+        $('label.edit2').removeClass("checked");
+        $('#edit2').val('0');
+        // $('.echeckon2').addClass("showcheck");
+    } else {
+        $('label.edit2').addClass("checked");
+        $('#edit2').val('1');
+        // $('.echeckon2').removeClass("showcheck");
+    }
+
+  });
+  $(document).on('click','label.share2',function() {
+    if($(this).hasClass("checked")) {
+        $('label.share2').removeClass("checked");
+        $('#share2').val('0');
+        // $('.scheckon2').addClass("showcheck");
+    } else {
+        $('label.share2').addClass("checked");
+        $('#share2').val('1');
+        // $('.scheckon2').removeClass("showcheck");
+    }
+
+  });
+
 
 /* toggle pages */
 $('.tab').hide();
@@ -766,6 +796,23 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // share_project | share project - form processing
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
@@ -799,9 +846,9 @@ $(document).ready(function() {
           $('#user-email').val('');
 
           $('label.edit').removeClass("checked");
-          $('.echeckon').removeClass("showcheck");
+          // $('.echeckon').removeClass("showcheck");
           $('label.share').removeClass("checked");
-          $('.scheckon').removeClass("showcheck");
+          // $('.scheckon').removeClass("showcheck");
 
           $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
@@ -821,9 +868,37 @@ $(document).ready(function() {
     })
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // share_project.php -> remove shared user
   $(document).on('click','.removeshareduser', function() {
     var current_loc = window.location.href;
+    if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
 
     $.ajax({
       dataType: "JSON",
@@ -844,6 +919,11 @@ $(document).ready(function() {
 
           // $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
+
+          if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
+
+
+
         } else {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
@@ -862,6 +942,116 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+
+
+
+
+
+
+  $(document).on('click','.editshareduser',function() {
+
+    var id            = $(this).data('id');
+    var project_id    = $('#'+id+'_project_id').val();
+    var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
+    var project_name  = $('#'+id+'_project_name').val();
+    var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
+    var edit          = $('#'+id+'_edit').val();
+    var share         = $('#'+id+'_share').val();
+
+    var theModal   = document.getElementById("theModal");
+
+    $('#smht').html(username);
+    $('#delete-shared-user').val(esuser);
+    $('#pro-id').val(project_id);
+    $('#username').val(username);
+    $('#project_name').val(project_name);
+
+    if (edit == '1') { 
+      $('#edit2').val('1');
+      $('label.edit2').addClass('checked'); 
+    } else { 
+      $('#edit2').val('0'); 
+      $('label.edit2').removeClass('checked');
+    }
+
+    if (share == '1') { 
+      $('#share2').val('1'); 
+      $('label.share2').addClass('checked');
+    } else { 
+      $('#share2').val('0'); 
+      $('label.share2').removeClass('checked');
+    }
+
+    theModal.style.display = "block";
+  });
+
+  /* deleteshared user is being handled through .removeshareduser above. */
+  $(document).on('click','.updateshareduser',function() {
+
+    var esuser = $('#delete-shared-user').val();
+    var project_id = $('#pro-id').val();
+    var edit = $('#edit2').val();
+    var share = $('#share2').val();
+    var project_name = $('#project_name').val();
+    var username = $('#username').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data  : {updateshareduser:'yo', project_id:project_id, project_name:project_name, username:username, esuser:esuser, edit:edit, share:share},
+      beforeSend: function(xhr) {
+
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response['signal'] == 'ok') {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);  
+          $('#shared-list').html(response['shared_names']);
+          theModal.style.display = "none";
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* this is used on shared_project.php */
   $(document).on('click','.removeme', function() { 
     var current_loc = window.location.href;
     var project_name = $('#project_name').val();
@@ -902,6 +1092,7 @@ $(document).ready(function() {
   });
 
 
+  /* this one is used on my_projects.php */
   $(document).on('click','.leaveproject', function() { 
     var current_loc = window.location.href;
     var project_name = $('#project_name').val();
@@ -1025,7 +1216,7 @@ $(document).ready(function() {
 
 
 
-}); // navigation links begin and forms
+}); // navigation links and forms end
 
 
 
@@ -1173,8 +1364,7 @@ $(document).ready(function() {
       dataType: "JSON",
       url: "_form-processing.php",
       type: "POST",
-      // data  : {name:name, urlz:urlz, rowid:rowid, cp:cp},
-      data: $(this).closest('form').serialize(),
+      data  : {updatebookmark:'yo', name:name, urlz:urlz, rowid:rowid, cp:cp},
 			success : function(response) {
         if (response == 'ok') {
     			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
@@ -1214,10 +1404,9 @@ $(document).ready(function() {
 
 		$.ajax({
       dataType: "JSON",
-			url 	: "delete_hyperlink.php",
+			url 	: "_form-processing.php",
 			method 	: "POST",
-			// data 	: {rowid:rowid, cp:cp},
-      data: $(this).closest('form').serialize(),  
+      data  : {deletebookmark:'yo', rowid:rowid, cp:cp},  
 			success : function(response) {
         if (response == 'ok') {
     			$('#'+id).children('a[data-target=urlz]').attr('href','');
@@ -1242,9 +1431,6 @@ $(document).ready(function() {
       complete: function() {
 
       }
-
-
-
 
 		});
 		theModal.style.display = "none";

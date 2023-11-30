@@ -397,9 +397,8 @@ input.updateSort {
 	input,
 	textarea {
 		outline: none;
-		border-radius: 3px;
+    border: none;
 		font-family: Tahoma, Calbri, sans-serif;
-		border: none;
 		background-color: rgba(255,255,255,0.1);
 		color: #fff;
 	}
@@ -419,7 +418,7 @@ input.updateSort {
 		padding: 1.5em;
 		line-height: 1.5em;
 		border: 1px solid rgba(255,255,255,0.3);
-		border-radius: 8px;
+		// border-radius: 8px;
 	}
 	.btn-wrap,
   #epd-toggle-btn {

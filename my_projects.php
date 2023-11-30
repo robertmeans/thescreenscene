@@ -20,10 +20,10 @@ $projects = mysqli_num_rows($any_projects_for_user);
 <?php show_session_variables(); ?>
   <div class="project-greeting">
     <div>
-      <p class="my-info-h">My account info</p>
-      <p class="my-info-t">First name: <span class="bold"><?= $_SESSION['firstname']; ?></span> | Last name: <?= $_SESSION['lastname']; ?></p>
-      <p class="my-info-t">Username: <?= $_SESSION['username']; ?></p>
-      <p class="my-info-t">Email: <?= $_SESSION['email']; ?></p>
+      <p class="h">My account info</p>
+      <p>First name: <?= $_SESSION['firstname']; ?> | Last name: <?= $_SESSION['lastname']; ?></p>
+      <p>Username: <?= $_SESSION['username']; ?></p>
+      <p>Email: <?= $_SESSION['email']; ?></p>
     </div>
     <div>
       <form class="gth" method="post">

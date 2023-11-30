@@ -1,13 +1,11 @@
 BrowserGadget updates
-
-1. 	logged_in/first_visit.php
-	ajax this!
 	
 2. 	dropdown nav: type to search / auto filter
 
 4. 	pretty up edit_project_details.php page
 
-5. 	fix footer contact on delete_project.php
+6. 	move all inline styles to scss
+
 
 
 
@@ -37,3 +35,7 @@ _errors.txt
 
 http://localhost/browsergadget/index.php?token=2dd849e05ee048bf41de722557a6e96977a828305c08543d68126b0d723ea5d42d5d9418cd71820bcba44a532b9467b85b43
 
+
+
+
+UPDATE project_user SET edit=0, share=0 WHERE id=100 AND (owner_id=1 OR shared_with=1) LIMIT 1

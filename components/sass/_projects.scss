@@ -33,6 +33,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      p {
+        line-height: 1.25em;
+      }
+      p.h {
+        text-decoration: underline;
+      }
       a.np-link {
         display: flex;
         justify-content: center;
@@ -64,16 +70,7 @@
         font-weight: bold;
       }
 			margin: 1em 0.5em;
-      .my-info-h {
-        font-size: 1em;
-        font-weight: bold;
-        text-decoration: underline;
-        margin-bottom: 0.25em;
-      }
-      .my-info-t {
-        font-size: 1em;
-        line-height: 1.2em;
-      }
+
 		}
     // div.project-greeting.my-info {
 
