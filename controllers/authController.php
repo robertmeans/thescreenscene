@@ -12,8 +12,7 @@ $verified = "";
 $admin = "";
 $visible = "";
 
-function remember_me()
-{
+function remember_me() {
 	global $conn;
 	if (!empty($_COOKIE['token'])) {
 		$token = $_COOKIE['token']; 

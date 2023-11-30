@@ -72,12 +72,19 @@ require '_includes/head.php'; ?>
     $sharing = show_shared_with_info($user_id, $this_project); 
 
     while ($row = mysqli_fetch_assoc($sharing)) { 
-      $names[] = '<li><form class="edit-user" method="post">' . $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ' . '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">
-        <input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">
-        <input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">
-        <input type="hidden" id="username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">
-        <a class="rsu removeshareduser">Remove</a>
-      </form></li>'; 
+      $names[]  = '<li><form class="edit-user" method="post">';
+      $names[]  .= $row['first_name'] . ' ' . $row['last_name'] . ' (' . $row['email'] . ') ';
+      $names[]  .= '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">';
+      $names[]  .= '<input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">';
+      $names[]  .= '<input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">';
+      $names[]  .= '<input type="hidden" id="username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">';
+      $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
+      $names[]  .= '</form><span>Privliges: ';
+      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'None'; }
+      if ($row['share'] == 1) { $names[]  .= 'Can share'; }
+      if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
+      if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
+      $names[]  .= '</span></li>'; 
     } 
 
 		if (isset($names)) { ?>

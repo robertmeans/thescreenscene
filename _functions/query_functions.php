@@ -154,7 +154,7 @@ function edit_search_order($user_id, $current_project) {
 function verify_access($id, $current_project) {
   global $db;
 
-  if ($_SESSION['project-owner'] == 'project-owner') {
+  if (isset($_SESSION['project-owner']) && $_SESSION['project-owner'] == 'project-owner') {
     $count = 1;
   } else {
 

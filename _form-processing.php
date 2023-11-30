@@ -947,12 +947,19 @@ if (isset($_POST['reset'])) {
 
                 $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
                 while ($row3 = mysqli_fetch_assoc($sharing)) { 
-                  $names[] = '<li><form class="edit-user" method="post">' . $row3['first_name'] . ' ' . $row3['last_name'] . ' (' . $row3['email'] . ') ' . '<input type="hidden" name="delete-shared-user" value="' . $row3['shared_with'] . '">
-                    <input type="hidden" id="project_id" name="project_id" value="' .  $row3['project_id'] . '">
-                    <input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">
-                    <input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">
-                    <a class="removeshareduser rsu">Remove</a>
-                  </form></li>';
+                  $names[]  = '<li><form class="edit-user" method="post">';
+                  $names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' (' . $row3['email'] . ') ';
+                  $names[]  .= '<input type="hidden" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
+                  $names[]  .= '<input type="hidden" id="project_id" name="project_id" value="' .  $row3['project_id'] . '">';
+                  $names[]  .= '<input type="hidden" id="project_name" name="project_name" value="' . $project_name . '">';
+                  $names[]  .= '<input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
+                  $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
+                  $names[]  .= '</form><span>Privliges: ';
+                  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'None'; }
+                  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+                  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+                  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+                  $names[]  .= '</span></li>'; 
                 } 
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' has successfully been added to the project, "' . $project_name . '".</li>';
