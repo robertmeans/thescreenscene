@@ -102,7 +102,7 @@ require '_includes/head.php'; ?>
       // $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
       $names[]  .= '</form><span>Permissions: ';
-      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'None'; }
+      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
       if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
       if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
       if ($row['share'] == 1) { $names[]  .= 'Can share'; }
@@ -192,7 +192,7 @@ require '_includes/head.php'; ?>
       <input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
       <a class="rsu removeme">Leave</a>
     </form><span>Permissions: <?php
-      if ($row['share'] == 0 && $row['edit'] == 0) { echo 'None'; }
+      if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
       if ($row['edit'] == 1) { echo 'Can edit'; }
       if ($row['share'] == 1 && $row['edit'] == 1) { echo ' + '; }
       if ($row['share'] == 1) { echo 'Can share'; }
@@ -222,7 +222,7 @@ require '_includes/head.php'; ?>
       // $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
       $names[]  .= '</form><span>Permissions: ';
-      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'None'; }
+      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
       if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
       if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
       if ($row['share'] == 1) { $names[]  .= 'Can share'; }
@@ -280,17 +280,11 @@ require '_includes/head.php'; ?>
       </div>
       <div class="modal-body">
 
-
-
-
-
-        <form class="sharemodal sharing" action="post">
+        <form id="esModal" class="sharemodal sharing" action="post">
           <input type="hidden" id="delete-shared-user" name="delete-shared-user">
           <input type="hidden" id="pro-id" name="project_id">
           <input type="hidden" id="username" name="username">
           <input type="hidden" id="project_name" name="project_name">
-
-
 
           <div class="priv-box">
 
@@ -305,8 +299,6 @@ require '_includes/head.php'; ?>
             </div>
 
           </div>
-
-
 
           <div id="buttons">
             <a class="cancel delete removeshareduser">Remove user</a><a class="submit updateshareduser">Update</a>

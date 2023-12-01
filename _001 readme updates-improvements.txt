@@ -2,9 +2,9 @@ BrowserGadget updates
 	
 2. 	dropdown nav: type to search / auto filter
 
-4. 	pretty up edit_project_details.php page
-
 6. 	move all inline styles to scss
+
+7. 	add checkbox fontawesomes to share_project
 
 
 
@@ -39,3 +39,79 @@ http://localhost/browsergadget/index.php?token=2dd849e05ee048bf41de722557a6e9697
 
 
 UPDATE project_user SET edit=0, share=0 WHERE id=100 AND (owner_id=1 OR shared_with=1) LIMIT 1
+
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3JHQZTTDXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-3JHQZTTDXX');
+</script>
+
+
+
+<!-- Google tag (gtag.js) for Contact Us and Order Leads -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GTM-KSCBT7NX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'GTM-KSCBT7NX');
+</script>
+
+
+
+
+-	Free Quote  -  https://investorleads.com/home/free-lead-quote/
+-	Order Leads  -  https://investorleads.com/home/order-investor-leads-online/
+-	Contact Us  -  https://investorleads.com/home/contact-investor-leads/
+
+
+
+
+
+
+
+on contact us
+https://investorleads.com/home/contact-investor-leads/
+id = gform_confirmation_wrapper_3
+
+
+	
+
+
+on order investor leads online
+https://investorleads.com/home/order-investor-leads-online/
+gform_confirmation_wrapper_1
+
+
+Measurement ID
+G-3JHQZTTDXX
+
+
+
+
+
+https://investorleads.com/home/free-lead-quote/
+free quote > redirects
+
+
+
+
+
+
+
+dark:
+#313131
+
+
+spring: 
+rgba(25,96,174,0.6);
+
+light:
+#75a0ce

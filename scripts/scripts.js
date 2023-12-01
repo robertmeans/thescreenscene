@@ -852,6 +852,7 @@ $(document).ready(function() {
 
           $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
+          $('html, body').animate({ scrollTop: 0 }, 250);
         } else {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
@@ -916,14 +917,9 @@ $(document).ready(function() {
         if(response['signal'] == 'ok') {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
-
-          // $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
-
           if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
-
-
-
+          $('html, body').animate({ scrollTop: 0 }, 250);
         } else {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
@@ -1014,6 +1010,7 @@ $(document).ready(function() {
           $('#msg-ul').html(response['li']);  
           $('#shared-list').html(response['shared_names']);
           theModal.style.display = "none";
+          $('html, body').animate({ scrollTop: 0 }, 250);
         } 
       },
       error: function(response) {
@@ -1065,7 +1062,7 @@ $(document).ready(function() {
       beforeSend: function(xhr) {
         $('#message').removeAttr('class'); // reset class every click
         $('#user-email').removeClass('red');
-        confirm('Confirm: Remove yourself from ' + project_name + '?');
+        return confirm('Confirm: Remove yourself from ' + project_name + '?');
         $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
 
       },    
@@ -1104,7 +1101,7 @@ $(document).ready(function() {
       data: $(this).closest('form').serialize(),
 
       beforeSend: function(xhr) {
-        confirm('Confirm: Remove yourself from ' + project_name + '?');
+        return confirm('Confirm: Remove yourself from ' + project_name + '?');
       },    
       success: function(response) {
         // console.log(response);
