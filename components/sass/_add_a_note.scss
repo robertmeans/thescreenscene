@@ -333,15 +333,24 @@
     .sec.note-url.move.long {
       align-self: flex-start;
     }
+    .notename {
+      word-break: break-all;
+    }
     .sec.note {
       width: 60%;
-      word-wrap: break-word;
       display: flex;
+      align-items: center;
+      justify-content: space-between;
+      line-height: 1.5em;
+      word-break: break-all;
       a {
         cursor: pointer;
       }
-      p {
+      p,
+      span {
+        display: flex;
         line-height: 1.5em;
+        text-align: justify;
       }
       a.clipboard {
         float: left;
@@ -464,8 +473,8 @@ a#note-limit {
   cursor: move; 
 }
 #sortable li span { 
-  position: absolute; 
-  margin-left: -1.3em; 
+  // position: absolute; 
+  // margin-left: -1.3em; 
 }
 
 #sortanote { 
@@ -491,18 +500,20 @@ a#note-limit {
   // cursor: default;
 }
 #sortanote li span { 
-  position: absolute; 
-  margin-left: -1.3em; 
+  // position: absolute; 
+  // margin-left: -1.3em; 
 }
-span.more {
-  position: relative;
-  margin-left: 1em;
-  font-size: 0.75em; 
-}
+// span.more {
+//   // position: relative;
+//   // margin-left: 0.5em;
+//   margin: 0 3em 0 0.5em;
+//   font-size: 0.75em; 
+// }
 #sortanote li span.more {
-  position: relative;
-  margin-left: 1em;
+  margin: 0 4em 0 0.5em;
   font-size: 0.75em;
+  display: flex;
+  align-items: center;
 }
 #sortanote li .go > input[type=submit],
 #sortanote li input[type=text],
@@ -543,7 +554,8 @@ span.more {
       align-items: center;
     }
     a.long {
-      align-items: flex-start;
+      align-self: flex-start;
+      margin-top: 3px;
     }
     a.closer {
       pointer-events: auto;

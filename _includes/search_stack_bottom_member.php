@@ -16,7 +16,6 @@
         ?></li>
 
 <?php
-// $user_id = $_SESSION['id'];
 $notes_for_project = find_project_notes($user_id, $current_project);
 $notes = mysqli_num_rows($notes_for_project);
 global $db;
@@ -41,7 +40,7 @@ $modify_id = 0;
 $str_length = 2;
 
 if ($notes > 0) {
-// they have notes so you can run a query to get largest number in sort column
+/* they have notes so you can run a query to get largest number in sort column */
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -59,11 +58,14 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <div class="notename">
+        <div style="display:none;" id="namet_<?= $row['note_id']; ?>" data-target="namet"><?= $row['name']; ?></div>
         <?php
+        /* keep name to total of 21 chars including ellipses */
+        $name = (strlen($row['name']) > 21) ? substr($row['name'],0,18).'...' : $row['name'];
         if ($row['url'] != "") { ?>
-            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $row['name']; ?></a>
+            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $name; ?></a>
         <?php } else { ?>
-            <span data-target="urln" class="urlns"><?= $row['name']; ?></span>
+            <span data-target="urln" class="urlns"><?= $name; ?></span>
         <?php } ?>   
         </div>
 
@@ -72,6 +74,9 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <?php /* For code that renders after modifications have been made to this section see in the  */ ?>
     <?php /* root dir: usernotes.php                                                              */ ?>
     <div class="sec note">
+
+
+      <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
       if ($row['truncate'] == "1") { ?>
@@ -79,26 +84,40 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <?php
-        if ($row['clipboard'] == "1") { ?>
-          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  if (strlen($row['note']) >= 200) { echo " long"; } else { echo " short"; } ?>"><i class="far fa-copy fa-fw"></i></a>
-       <?php }
+        if ($row['clipboard'] == "1") { /* has clipboard */ ?>
+
+          
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
+          if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 
+            echo " long"; 
+          } else { 
+            echo " short"; 
+          } 
+
+          ?>"><i class="far fa-copy fa-fw"></i></a>
+       <?php } 
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              echo '</span>' . nl2br($row['note']) . '</span>';
             } 
-           ?></p>
-        <?php } else { ?>
+           ?>
+        <?php } else { /* no clipboard */ ?>
+
             <span class="norm-copy"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              echo '</span>' . nl2br($row['note']) . '</span>';
             } 
 
-           ?></span>
+           ?>
         <?php }
          ?>
     </div> 
@@ -135,14 +154,14 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
       <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
       <input type="hidden" name="nid" id="nid">
-      <label>Name | Limit 30 characters
-      <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="30"></label>
+      <label>Name | > 18 chars will be trimmed
+      <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label>
 
       <label>URL | Makes the name a hyperlink
       <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
 
-      <label>Note | Limit 5,000 characters
-      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="5000" type="text"></textarea></label>
+      <label>Note | Limit 10,000 characters
+      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label>
 
       <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
 

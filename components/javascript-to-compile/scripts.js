@@ -106,29 +106,7 @@ $(document).ready(function() {
   }
   $('.menuitem').hoverIntent(hiConfig)
 });
-/* used to use this before hoverintent above */
-/* keeping for prosperity                    */
-/* begin comment ---
-$(document).ready(function() {
 
-  // Show then hide ddown menu on hover
-  $('.menuitem').hover(function() {
-    // need field that had focus before hovering over nav
-    // so we can put it back when nav hover is removed
-    // this doesn't work... -> var focused = document.activeElement.id;
-    
-      $(this).children('.dropdown').stop().slideDown(250);
-      // $('.nav-ac').focus();
-      // alert(focused);
-
-  }, function() {
-      $(this).children('.dropdown').slideUp(50);
-      // alert(focused);
-      // $(focused).focus();
-
-  });
-});
---- end comment */
 
 /* 	edit_order.php -> only owner can move hyperlinks so
 	there's no shared_with version of this 	*/
@@ -271,7 +249,6 @@ var reorder = [];
 	});
 }
 
-
 // footer contact
 // $("#contactForm").keyup(function(event) {
 //   if (event.keyCode === 13) {
@@ -285,7 +262,7 @@ $(document).ready(function() {
   $(document).on('click','#emailBob', function() {
     $.ajax({
       dataType: "JSON",
-      url: "contact-process.php",
+      url: "_form-processing.php",
       type: "POST",
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {
@@ -310,20 +287,16 @@ $(document).ready(function() {
         $('#errorli').html('<li>There was an error between your IP and the server. Please try again later.</li>');
       }, 
       complete: function() {
-        // $('#contact').html('<span>Your message was sent successfully.</span>');
-        // $('#send-success').html('<input name="clozer" id="clozer" class="clozer" value="Close">');
+
       }
     })
   });
 });
 $(document).ready(function() {
   $(document).on('click','.reset-contact', function() {
-    $('#contactForm').load('contact-insert.php');
+    $('#contactForm').load('_insert-contact.php');
   });
 });
-
-
-
 
 
 $(document).ready(function() { // 122120856 start
@@ -350,24 +323,54 @@ $(document).ready(function() { // 122120856 start
 	});
 
 // checkbox edit/share selections
-	$('input:checkbox.edit').change(function(){
-	    if($(this).is(":checked")) {
-	        $('label.edit').addClass("checked");
-	        $('.echeckon').addClass("showcheck");
-	    } else {
-	        $('label.edit').removeClass("checked");
-	        $('.echeckon').removeClass("showcheck");
-	    }
-	});
+  $('input:checkbox.edit').change(function(){
+    if($(this).is(":checked")) {
+        $('label.edit').addClass("checked");
+        $('.echeckon').addClass("showcheck");
+    } else {
+        $('label.edit').removeClass("checked");
+        $('.echeckon').removeClass("showcheck");
+    }
+
+  });
 	$('input:checkbox.share').change(function(){
-	    if($(this).is(":checked")) {
-	        $('label.share').addClass("checked");
-	        $('.scheckon').addClass("showcheck");
-	    } else {
-	        $('label.share').removeClass("checked");
-	        $('.scheckon').removeClass("showcheck");
-	    }
+    if($(this).is(":checked")) {
+        $('label.share').addClass("checked");
+        $('.scheckon').addClass("showcheck");
+    } else {
+        $('label.share').removeClass("checked");
+        $('.scheckon').removeClass("showcheck");
+    }
+
 	});
+
+
+  // $('input:checkbox.edit2').change(function(){
+  $(document).on('click','label.edit2',function() {
+    if($(this).hasClass("checked")) {
+        $('label.edit2').removeClass("checked");
+        $('#edit2').val('0');
+        // $('.echeckon2').addClass("showcheck");
+    } else {
+        $('label.edit2').addClass("checked");
+        $('#edit2').val('1');
+        // $('.echeckon2').removeClass("showcheck");
+    }
+
+  });
+  $(document).on('click','label.share2',function() {
+    if($(this).hasClass("checked")) {
+        $('label.share2').removeClass("checked");
+        $('#share2').val('0');
+        // $('.scheckon2').addClass("showcheck");
+    } else {
+        $('label.share2').addClass("checked");
+        $('#share2').val('1');
+        // $('.scheckon2').removeClass("showcheck");
+    }
+
+  });
+
 
 /* toggle pages */
 $('.tab').hide();
@@ -421,101 +424,687 @@ $('.tab.active').show();
 }); // // 122120856 end
 
 
-// new project begin
-$("#new-project-form").keyup(function(event) {
-  if (event.keyCode === 13) {
-    $("#new-project-btn").click();
-  }
-});
-$('#new-project-form').submit(function(e){
-    e.preventDefault();
-});
+
+// navigation links begin and forms begin
 $(document).ready(function() {
 
-  $(document).on('click','#new-project-btn', function() {
+
+  // Homepage link from: inner_nav.php + my_projects.php + nav.php - DONE
+  $(document).on('click', '.gth-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+  // my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE
+  $(document).on('click','.vpp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+  // edit_searches.php (Organize search fields: link) - DONE
+  $(document).on('click','.osf-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+// edit_order.php (Rearrange book marks: link) - DONE
+  $(document).on('click','.eo-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        // console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget/new_project.php");
+          } else {
+            window.location.replace("https://browsergadget.com/new_project.php");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+// delete_project.php (Delete project: nav link; not delete project form (see below)) - DONE
+  $(document).on('click','.dp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(), 
+      success: function(response) {
+        // console.log(response);
+        if (response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // share_project.php (Share project: nav link; not actual share project form (see below)) - DONE
+  $(document).on('click','.sp-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        // console.log(response);
+        if (response == 'ok') {
+          // console.log(response);
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          alert('Something went awry. Will you please report this at the bottom of this page through the contact form so I can fix it? Reference ID: 1120230947');
+        }
+      },
+      error: function() {
+        alert('Something went awry. Will you please report this at the bottom of this page through the contact form so I can fix it? Reference ID: 1120230948');
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+  // edit_project_details.php (from my_projects.php: 'Project name & notes')
+  $(document).on('click','.epd-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+  /* edit_project_details.php 'Cancel' button */
+  $(document).on('click','.cancel-deets', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: ({ 'cancel-deets' : 'cancel' }),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+  // from edit_project_details.php
+  $(document).on('click','.submit-deets', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          // alert('success');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('red');
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="cancel cancel-deets">Cancel</a><a class="submit submit-deets">Try again</a>');
+
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+  // delete_project.php | delete project - form processing
+  $("#delete-form").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".delete-my-project").click();
+    }
+  });
+  $('#delete-form').submit(function(e){
+      e.preventDefault();
+  });
+
+  $(document).on('click','.delete-my-project', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST", 
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeClass('red'); // reset class every click
+
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('delete-page');
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#buttons').html('<a class="cancel cancel-deets">Never mind</a><a class="delete delete-my-project">Try again?</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // 'Cancel' new project
+  $(document).on('click','.cancel-new-project', function() { 
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $('#new-project-cancel-btn').serialize(),
+
+      success: function(response) {
+        console.log(response);
+        if (response == 'ok') {
+          // alert('success');
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass('red');
+          $('#msg-ul').html('Something went wrong. May be a server thing. You can try again but if it still doesn\'t work you will need to try later');
+
+          $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit submit-deets">Try again</a>');
+
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+// share_project | share project - form processing
+  $("#sharep").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".shareproject").click();
+    }
+  });
+  $('#sharep').submit(function(e){
+      e.preventDefault();
+  });
+  $(document).on('click','.shareproject', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeAttr('class'); // reset class every click
+        $('#user-email').removeClass('red');
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          $('#user-email').removeClass('red');
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#user-email').val('');
+
+          $('label.edit').removeClass("checked");
+          // $('.echeckon').removeClass("showcheck");
+          $('label.share').removeClass("checked");
+          // $('.scheckon').removeClass("showcheck");
+
+          $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
+          $('#shared-list').html(response['shared_names']);
+          $('html, body').animate({ scrollTop: 0 }, 250);
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#user-email').addClass(response['eclass']);
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // share_project.php -> remove shared user
+  $(document).on('click','.removeshareduser', function() {
+    var current_loc = window.location.href;
+    if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeAttr('class');
+        //return confirm('Confirm: Remove' + data[username] + ' from project?');
+      },
+          
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#shared-list').html(response['shared_names']);
+          if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
+          $('html, body').animate({ scrollTop: 0 }, 250);
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  $(document).on('click','.editshareduser',function() {
+
+    var id            = $(this).data('id');
+    var project_id    = $('#'+id+'_project_id').val();
+    var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
+    var project_name  = $('#'+id+'_project_name').val();
+    var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
+    var edit          = $('#'+id+'_edit').val();
+    var share         = $('#'+id+'_share').val();
+
+    var theModal   = document.getElementById("theModal");
+
+    $('#smht').html(username);
+    $('#delete-shared-user').val(esuser);
+    $('#pro-id').val(project_id);
+    $('#username').val(username);
+    $('#project_name').val(project_name);
+
+    if (edit == '1') { 
+      $('#edit2').val('1');
+      $('label.edit2').addClass('checked'); 
+    } else { 
+      $('#edit2').val('0'); 
+      $('label.edit2').removeClass('checked');
+    }
+
+    if (share == '1') { 
+      $('#share2').val('1'); 
+      $('label.share2').addClass('checked');
+    } else { 
+      $('#share2').val('0'); 
+      $('label.share2').removeClass('checked');
+    }
+
+    theModal.style.display = "block";
+  });
+
+  /* deleteshared user is being handled through .removeshareduser above. */
+  $(document).on('click','.updateshareduser',function() {
+
+    var esuser = $('#delete-shared-user').val();
+    var project_id = $('#pro-id').val();
+    var edit = $('#edit2').val();
+    var share = $('#share2').val();
+    var project_name = $('#project_name').val();
+    var username = $('#username').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data  : {updateshareduser:'yo', project_id:project_id, project_name:project_name, username:username, esuser:esuser, edit:edit, share:share},
+      beforeSend: function(xhr) {
+
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response['signal'] == 'ok') {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);  
+          $('#shared-list').html(response['shared_names']);
+          theModal.style.display = "none";
+          $('html, body').animate({ scrollTop: 0 }, 250);
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+
+  });
+
+
+  /* this is used on shared_project.php */
+  $(document).on('click','.removeme', function() { 
+    var current_loc = window.location.href;
+    var project_name = $('#project_name').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeAttr('class'); // reset class every click
+        $('#user-email').removeClass('red');
+        return confirm('Confirm: Remove yourself from ' + project_name + '?');
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+
+      },    
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');     
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  /* this one is used on my_projects.php */
+  $(document).on('click','.leaveproject', function() { 
+    var current_loc = window.location.href;
+    var project_name = $('#project_name').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        return confirm('Confirm: Remove yourself from ' + project_name + '?');
+      },    
+      success: function(response) {
+        // console.log(response);
+        if (response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE
+  $(document).on('click','.np-link', function() {
+    var current_loc = window.location.href;
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+  // from new_project.php
+  $("#new-project-form").keyup(function(event) {
+    if (event.keyCode === 13) {
+      $(".createnewproject").click();
+    }
+  });
+  $('#new-project-form').submit(function(e){
+      e.preventDefault();
+  });
+
+  $(document).on('click','.createnewproject', function() {
     var current_loc = window.location.href;
 
     if (document.getElementById('can-opt')) {
       var cancel = 'off';
     } else {
       var cancel = 'on';
-    }     
+    } 
+
 
     $.ajax({
       dataType: "JSON",
-      url: "new-project-process.php",
+      url: "_form-processing.php",
       type: "POST",
-      data: $('#new-project-form').serialize(),
+      data: $(this).closest('form').serialize(),
+
       beforeSend: function(xhr) {
-        $('#new-project-alert').removeClass('red'); // reset class every click
-        $('#np-toggle-btn').html('<div class="verifying-msg"><span class="login-txt"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></span></div>');
-
+        $('#message').removeClass('red'); // reset class every click
+        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
       },
       success: function(response) {
         console.log(response);
-        if(response) {
-          // console.log(response);
-          if(response['signal'] == 'ok') {
-
-            if (current_loc.indexOf("localhost") > -1) {
-              window.location.replace("http://localhost/browsergadget");
-            } else {
-              window.location.replace("https://browsergadget.com");
-            }
-
-          } else {
-            $('#new-project-alert').addClass('red');
-            $('#new-project-errors').html(response['li']);
-
-            if (cancel == 'off') {
-              $('#np-toggle-btn').html('<div id="new-project-btn"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-            } else {
-              if (current_loc.indexOf("localhost") > -1) {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="http://localhost/browsergadget"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              } else {
-                $('#np-toggle-btn').html('<a id="new-project-cancel-btn" class="cncl" href="https://browsergadget.com"><span class="login-txt">Cancel</span></a><div id="new-project-btn" class="cncl"><span class="login-txt"><img src="_images/try-again.png"></span></div>');
-              }
-            }
-          }
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-        $('#login-btn').html(response['msg']);
-      }, 
-      complete: function() {
-
-      }
-    })
-
-  });
-});
-// new project end
-
-
-
-
-
-
-
-
-// inner_nav navigation links begin
-$(document).ready(function() {
-
-
-
-  // edit_searches.php (tooltip: Organize search fields)
-  $(document).on('click','#osf-link', function() {
-    var current_loc = window.location.href;
-
-    $.ajax({
-      dataType: "JSON",
-      url: "set-session-osf.php",
-      type: "POST",
-      data: 'fun',
-      success: function(response) {
-        console.log(response);
-        if(response == 'ok') {
+        if(response['signal'] == 'ok') {
+          // alert('success');
           if (current_loc.indexOf("localhost") > -1) {
             window.location.replace("http://localhost/browsergadget");
           } else {
@@ -524,144 +1113,28 @@ $(document).ready(function() {
 
 
         } else {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
+          $('#message').addClass('red');
+          $('#msg-ul').html(response['li']);
+
+          if (cancel =='off') {
+            $('#buttons').html('<a class="submit full-width createnewproject">Try again</a>');
           } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
+            $('#buttons').html('<a class="cancel cancel-new-project">Cancel</a><a class="submit createnewproject">Try again</a>');
           }
 
         }
-
       },
       error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-
-      }
-    })
-  });
-
-
-
-
-
-
-
-
-
-  // edit_order.php (tooltip: Rearrange book marks)
-  $(document).on('click','#eo-link', function() {
-    var current_loc = window.location.href;
-
-    $.ajax({
-      dataType: "JSON",
-      url: "set-session-eo.php",
-      type: "POST",
-      data: 'fun',
-      success: function(response) {
         console.log(response);
-        if(response == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
-
-
-        } else {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
-          } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
-          }
-
-        }
-
-      },
-      error: function(response) {
-        // console.log(response);
       }, 
       complete: function() {
-
       }
     })
   });
 
 
 
-
-
-
-
-
-
-  // new_project.php (tooltip: Start a new project)
-  $(document).on('click','#np-link', function() {
-    var current_loc = window.location.href;
-
-    $.ajax({
-      dataType: "JSON",
-      url: "set-session-np.php",
-      type: "POST",
-      data: 'fun',
-      success: function(response) {
-        console.log(response);
-        if(response == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
-
-
-        } else {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget/new_project.php");
-          } else {
-            window.location.replace("https://browsergadget.com/new_project.php");
-          }
-
-        }
-
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-
-      }
-    })
-  });
-
-
-});
-// inner_nav navigation links end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}); // navigation links and forms end
 
 
 
@@ -782,13 +1255,14 @@ $(document).ready(function() {
 	});
 
   if (document.getElementsByClassName("closefp").length) {
-	 var closefp = document.getElementsByClassName("closefp")[0];
+    var closefp = document.getElementsByClassName("closefp")[0];
+    closefp.onclick = function() {
+      theModal.style.display = "none";
+    }
   }
-	closefp.onclick = function() {
-	  theModal.style.display = "none";
-	}
-
-	$('#update').click(function() {
+	
+	$('.update-bookmark').click(function() {
+    var current_loc = window.location.href;
 		var id 		= $('#idcount').val();
 		var name 	= $('#name').val();
 		var urlz 	= $('#urlz').val();
@@ -805,45 +1279,82 @@ $(document).ready(function() {
 		}
 
 		$.ajax({
-			url 	: 'update_hyperlink.php',
-			method 	: 'post',
-			data 	: {name:name, urlz:urlz, rowid:rowid, cp:cp},
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data  : {updatebookmark:'yo', name:name, urlz:urlz, rowid:rowid, cp:cp},
 			success : function(response) {
-			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
-  		$('#'+id).children('a[data-target=urlz]').text(name); 
+        if (response == 'ok') {
+    			$('#'+id).children('a[data-target=urlz]').attr('href',urlz);
+      		$('#'+id).children('a[data-target=urlz]').text(name); 
 
-      $('#'+id).closest('li').removeClass('ea');
-  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
-  		$('#'+id).children('a[data-target=urlz]').removeClass('shim');
-  		$('#'+id).children('a[data-target=urlz]').addClass('project-links');
-			}
+          $('#'+id).closest('li').removeClass('ea');
+      		$('#'+id).children('a[data-target=urlz]').removeClass('project-links-empty');
+      		$('#'+id).children('a[data-target=urlz]').removeClass('shim');
+      		$('#'+id).children('a[data-target=urlz]').addClass('project-links');
+        } else {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+
+			},
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+
 		});
 
 		theModal.style.display = "none";
 	});
 
-	$('#delete').click(function() {
+
+	$('.delete-bookmark').click(function() {
+    var current_loc = window.location.href;
 		var id 		= $('#idcount').val();
-		var rowid 	= $('#rowid').val();
+		var rowid = $('#rowid').val();
 		var cp 		= $('#cp').val();
 
 		$.ajax({
-			url 	: 'delete_hyperlink.php',
-			method 	: 'post',
-			data 	: {rowid:rowid, cp:cp},
+      dataType: "JSON",
+			url 	: "_form-processing.php",
+			method 	: "POST",
+      data  : {deletebookmark:'yo', rowid:rowid, cp:cp},  
 			success : function(response) {
-			$('#'+id).children('a[data-target=urlz]').attr('href','');
-  		$('#'+id).children('a[data-target=urlz]').text(''); 
+        if (response == 'ok') {
+    			$('#'+id).children('a[data-target=urlz]').attr('href','');
+      		$('#'+id).children('a[data-target=urlz]').text(''); 
 
-      $('#'+id).closest('li').addClass('ea');
-  		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
-  		$('#'+id).children('a[data-target=urlz]').addClass('shim');
-  		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
-			}
+          $('#'+id).closest('li').addClass('ea');
+      		$('#'+id).children('a[data-target=urlz]').removeClass('project-links');
+      		$('#'+id).children('a[data-target=urlz]').addClass('shim');
+      		$('#'+id).children('a[data-target=urlz]').addClass('project-links-empty');
+        } else {
+          // console.log(response);
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }    
+        }
+			},
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+
 		});
 		theModal.style.display = "none";
 	});
 });
+
 
 // Add a note | add, update, delete
 $(document).ready(function() {
@@ -925,7 +1436,8 @@ $(document).ready(function() {
 
   });
 
-  $('#update-note').click(function() { // add new note button (this is NOT the modal)
+
+  $('#update-note').click(function() { // add new note button (this is NOT the modal) 
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
@@ -978,9 +1490,9 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url     : 'note_manager.php',
+      url     : '_form-processing.php',
       method  : 'post',
-      data    : {sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
+      data    : {new_or_update_a_note:'yo', sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
@@ -1002,9 +1514,9 @@ $(document).ready(function() {
     
     if(confirm("Delete: \"" + notename + "\" ?")) {
       $.ajax({
-        url     : 'note_manager.php',
+        url     : '_form-processing.php',
         method  : 'post',
-        data    : {deletethis:deletethis},
+        data    : {delete_a_note:'yo', deletethis:deletethis},
         success : function(response) {
           $('#usersnotes').load('usersnotes.php');
         }
@@ -1020,6 +1532,7 @@ $(document).ready(function() {
   var noten     = $('#z_'+id).find('[data-target="urln"]').text();
   var notes     = $('#z_'+id).find('[data-target="cb"]').text();
   var clipb     = $('#z_'+id).find('a[data-id="'+id+'"]');
+  var namet     = $('#z_'+id).find('[data-target="namet"]').text();
   var trunc     = $('#z_'+id).find('a[data-id="trunc_'+id+'"]');
 
 
@@ -1040,7 +1553,7 @@ $(document).ready(function() {
   }
 
   $('#aanUrl').val(urln);
-  $('#aanName').val(noten);
+  $('#aanName').val(namet);
   $('#aanNote').val(notes);
   $('#nid').val(id);
 
@@ -1056,7 +1569,8 @@ $(document).ready(function() {
   modifynote.style.display = "block";
  });
 
- $('#modify-note').click(function() { // modify note button - NOT the modal
+/* modify note button - NOT the modal */
+ $('#modify-note').click(function() { 
     var noteModal   = document.getElementById('aan-modal');
     var nid = $('#nid').val();
     var name = $('#aanName').val();
@@ -1087,9 +1601,9 @@ $(document).ready(function() {
     }
 
     $.ajax({
-      url     : 'note_manager.php',
+      url     : '_form-processing.php',
       method  : 'post',
-      data    : {name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate, nid:nid},
+      data    : {modify_a_note:'yo', name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate, nid:nid},
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
@@ -1103,6 +1617,7 @@ $(document).ready(function() {
     noteModal.style.display = "none";
  });
 });
+
 
 // begin Project note editing from homepage (not Add a note but the actual Project notes)
 $(document).ready(function() { // edit icon
@@ -1191,7 +1706,6 @@ $(document).ready(function() { // edit icon
       }
     }) // end ajax
   }) // end click unote
-
 
 }); // close document ready for project note editing on homepage
 

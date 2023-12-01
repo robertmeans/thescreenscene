@@ -32,7 +32,8 @@ include '_includes/head.php'; ?>
 <?php show_session_variables(); ?>
 		<div class="alert alert-warning">
 			<?php /* if (isset($_SESSION['verified'])) { echo 'How is this?'; } */ ?>
-			<p>Something went weird. I really can't imagine how you ended up seeing this. Seriously, I'm only putting this here as a catchall to field whatever bizarro combination of strangeness could possibly result in this being visible.<br><br>Congratulations?</p>
+			<p>Oops! Something glitched. Or, more likely, there's a semicolon out of place somewhere in the gazillion lines of code of this website.</p>
+      <p>Either way, you're seeing a very unique "catchall". Congratulations?</p>
 		</div>
 	 	<a class="verified" href="logout.php">Reset your session</a>
 

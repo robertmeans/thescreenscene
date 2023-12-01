@@ -79,16 +79,21 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <div class="notename">
+        <div style="display:none;" id="namet_<?= $row['note_id']; ?>" data-target="namet"><?= $row['name']; ?></div>
         <?php
+        $name = (strlen($row['name']) > 21) ? substr($row['name'],0,18).'...' : $row['name'];
         if ($row['url'] != "") { ?>
-            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $row['name']; ?></a>
+            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $name; ?></a>
         <?php } else { ?>
-            <span data-target="urln" class="urlns"><?= $row['name']; ?></span>
+            <span data-target="urln" class="urlns"><?= $name; ?></span>
         <?php } ?>   
         </div>
 
     </div>  
     <div class="sec note">
+
+
+      <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
       if ($row['truncate'] == "1") { ?>
@@ -97,25 +102,38 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <?php /* After any modifications to notes have been made - this is what will render the notes */ ?>
         <?php /* section. For first pass see: _includes/search_stack_bottom_member.php */ ?>
         <?php
-        if ($row['clipboard'] == "1") { ?>
-          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  if (strlen($row['note']) >= 200) { echo " long"; } else { echo " short";} ?>"><i class="far fa-copy fa-fw"></i></a>
+        if ($row['clipboard'] == "1") { /* has clipboard */ ?>
+
+
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
+          if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 
+            echo " long"; 
+          } else { 
+            echo " short";
+          } 
+
+        ?>"><i class="far fa-copy fa-fw"></i></a>
        <?php }
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              echo '</span>' . nl2br($row['note']) . '</span>';
             }
-           ?></p>
+           ?>
         <?php } else { ?>
             <span class="norm-copy"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              echo '</span>' . nl2br($row['note']) . '</span>';
             } 
-           ?></span>
+           ?>
         <?php }
          ?>
     </div> 

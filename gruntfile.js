@@ -6,7 +6,10 @@ module.exports = function(grunt) {
 		uglify: {
 			my_target: {
 				files: {
-					'scripts/scripts.js': ['components/javascript-to-compile/_scripts-staging.js']
+					'scripts/scripts.js': ['components/javascript-to-compile/scripts.js'],
+          'scripts/header-scripts.js': ['components/javascript-to-compile/header-scripts.js'],
+          'scripts/scripts-inserts.js': ['components/javascript-to-compile/scripts-inserts.js'],
+          'scripts/scripts-visitor.js': ['components/javascript-to-compile/scripts-visitor.js']
 				} //files
 			} //my_target
 		}, //uglify		
@@ -56,7 +59,7 @@ module.exports = function(grunt) {
 		watch: {
 			options: { livereload: true },
 			scripts: {
-				files: ['components/javascript-to-compile/_scripts-staging.js'],
+				files: ['components/javascript-to-compile/*.js'],
 				tasks: ['uglify']
 			}, //scripts			
 			css: {

@@ -766,6 +766,97 @@ if (isset($_POST['deletebookmark'])) {
   }
 
 
+/* add new note */
+if (isset($_POST['new_or_update_a_note'])) { 
+
+  $user_id = $_SESSION['id'];
+  $current_project = $_SESSION['current_project'];
+
+  $sort           = $_POST['sort']  ?? ''  ;
+  $cp             = $_POST['cp']  ?? '' ;
+  $uid            = $_POST['uid']  ?? ''  ;
+  $name           = $_POST['name']  ?? ''  ;
+  $urly           = $_POST['urly']  ?? ''  ;
+  $note           = $_POST['note']  ?? ''  ;
+  $clipboard      = $_POST['clipboard']  ?? ''  ;
+  $truncate       = $_POST['truncate']  ?? ''  ;
+  
+  global $db;
+
+  $sql = "INSERT INTO notes ";
+  $sql .= "(user_id, project_id, name, url, note, sort, clipboard, truncate) ";
+  $sql .= "VALUES ("; 
+  $sql .= "'" . $uid . "', ";
+  $sql .= "'" . $cp    . "', ";
+  $sql .= "'" . db_escape($db, $name)    . "', ";
+  $sql .= "'" . db_escape($db, $urly)    . "', ";
+  $sql .= "'" . db_escape($db, $note)    . "', ";
+  $sql .= "'" . db_escape($db, $sort)    . "', ";
+  $sql .= "'" . $clipboard    . "', ";
+  $sql .= "'" . $truncate    . "'";
+  $sql .= ")";
+
+  $result = mysqli_query($db, $sql);
+
+  if ($result) { 
+    echo 'data updated';
+  } 
+}
+
+  
+if (isset($_POST['delete_a_note'])) {
+
+  $user_id = $_SESSION['id'];
+  $current_project = $_SESSION['current_project'];
+
+  $deletethis     = $_POST['deletethis'];
+
+  global $db;
+ 
+  $sql = "DELETE FROM notes ";
+  $sql .= "WHERE note_id='" . $deletethis . "' ";
+  $sql .= "LIMIT 1";
+
+  $result = mysqli_query($db, $sql);
+
+  if ($result) { 
+    echo 'data updated';
+  } 
+}
+
+
+if (isset($_POST['modify_a_note'])) {
+
+  $user_id = $_SESSION['id'];
+  $current_project = $_SESSION['current_project'];
+
+  $name           = $_POST['name']  ?? ''  ;
+  $urly           = $_POST['urly']  ?? ''  ;
+  $note           = $_POST['note']  ?? ''  ;
+  $clipboard      = $_POST['clipboard']  ?? ''  ;
+  $truncate      = $_POST['truncate']  ?? ''  ;
+  $nid            = $_POST['nid']   ?? ''  ;
+  
+  global $db;
+
+  $sql = "UPDATE notes SET ";
+  $sql .= "name='" . db_escape($db, h($name))    . "', ";
+  $sql .= "url='" . db_escape($db, $urly)    . "', ";
+  $sql .= "note='" . db_escape($db, h($note))    . "', ";
+  $sql .= "clipboard='" . $clipboard    . "', ";
+  $sql .= "truncate='" . $truncate    . "' ";
+  $sql .= "WHERE note_id='"  . $nid . "' ";
+  $sql .= "LIMIT 1";
+
+  $result = mysqli_query($db, $sql);
+
+  if ($result) { 
+    echo 'data updated';
+  } 
+}
+
+
+
 /* Delete button on delete_project.php page - conditions have been met to allow deletion. */
   if (isset($_POST['vamoose'])) {
 
@@ -875,35 +966,6 @@ if (isset($_POST['deletebookmark'])) {
   echo json_encode($data);
 
   } // if (isset($_POST['submitdeets']))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -1284,23 +1346,6 @@ if (isset($_POST['deletebookmark'])) {
   } /* if (isset($_POST['sharer-share-submit'])) */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   if (isset($_POST['updateshareduser'])) {
     $id = $_POST['project_id'];
     $update_this_user = $_POST['esuser'];
@@ -1389,30 +1434,6 @@ if (isset($_POST['deletebookmark'])) {
   echo json_encode($data);
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   if (isset($_POST['delete-shared-user'])) {
