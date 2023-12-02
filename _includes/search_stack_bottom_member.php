@@ -96,8 +96,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
        <?php } 
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
             <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
-              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 35) {
+              $note = (strlen($row['note']) > 34) ? substr($row['note'],0,32).'...' : $row['note'];
               echo $note . '</span></span><span class="more">[ more ]</span>';
               // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
@@ -107,8 +107,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <?php } else { /* no clipboard */ ?>
 
             <span class="norm-copy"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
-              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 35) {
+              $note = (strlen($row['note']) > 34) ? substr($row['note'],0,32).'...' : $row['note'];
               echo $note . '</span></span><span class="more">[ more ]</span>';
               // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
@@ -163,7 +163,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
       <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
 
-      <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 40 characters)</label>
+      <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label>
 
       <div class="submit-links">
         <a data-role="notesClose" class="cancel">Cancel</a>

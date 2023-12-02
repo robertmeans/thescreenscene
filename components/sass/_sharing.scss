@@ -64,6 +64,10 @@
         background-color: rgba(255,0,0,0.2);
         border-top: 1px solid red;
         border-bottom: 1px solid red;
+        color: #fff;
+        &::placeholder {
+          color: #ccc;
+        }
       }
 		}
 		input[type=email].email-error {
@@ -144,7 +148,8 @@
     .choice.share2.on {
       border: 1px solid transparent;
       &:hover {
-        // border-radius: 0px;
+        background-color: #4f7523;
+        border-color: #fff;
       }
     }    
   }
@@ -207,6 +212,9 @@
 .sharing .priv-box .choice.share2.on,
 .sharing .priv-box .choice.edit2.on {
   background-color: #4f7523;
+  // &:hover {
+  //   background-color: #4f7523;
+  // }
 }
 
 #esModal {

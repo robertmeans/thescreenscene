@@ -23,16 +23,6 @@ if (is_post_request()) {
 
 if ($current_project != '0') { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
-  // if (is_null($row)) { 
-  //   $_SESSION['view-proj-pg'] = 'anothern';
-  //   if (isset($_SESSION['project-owner'])) { unset($_SESSION['project-owner']); }
-  // } else {
-  //   if ($row['owner_id'] == $_SESSION['id']) {
-  //     $_SESSION['project-owner'] = 'owner';
-  //   } else {
-  //     $_SESSION['project-owner'] = 'shared-with';
-  //   }
-  // }
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 
