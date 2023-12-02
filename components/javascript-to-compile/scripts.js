@@ -322,53 +322,59 @@ $(document).ready(function() { // 122120856 start
 	  }
 	});
 
-// checkbox edit/share selections
-  $('input:checkbox.edit').change(function(){
-    if($(this).is(":checked")) {
-        $('label.edit').addClass("checked");
-        $('.echeckon').addClass("showcheck");
-    } else {
-        $('label.edit').removeClass("checked");
-        $('.echeckon').removeClass("showcheck");
-    }
 
+/* checkbox edit/share selections - share project checkboxs 1201231459 */
+  $('input:checkbox.es').change(function(){
+    if($(this).is(":checked")) {
+      $('.edit').addClass("checked");
+      $('.editcheck').addClass('show');
+      $('.choice.edit').addClass('on');
+    } else {
+      $('.edit').removeClass("checked");
+      $('.editcheck').removeClass('show');
+      $('.choice.edit').removeClass('on');
+    }
   });
-	$('input:checkbox.share').change(function(){
+	$('input:checkbox.ts').change(function(){
     if($(this).is(":checked")) {
-        $('label.share').addClass("checked");
-        $('.scheckon').addClass("showcheck");
+      $('.share').addClass("checked");
+      $('.sharecheck').addClass('show');
+      $('.choice.share').addClass('on');
     } else {
-        $('label.share').removeClass("checked");
-        $('.scheckon').removeClass("showcheck");
+      $('.share').removeClass("checked");
+      $('.sharecheck').removeClass('show');
+      $('.choice.share').removeClass('on');
     }
-
 	});
 
-
-  // $('input:checkbox.edit2').change(function(){
+  /* checkbox edit/share selections - share project checkboxs - modal edit version */
   $(document).on('click','label.edit2',function() {
     if($(this).hasClass("checked")) {
-        $('label.edit2').removeClass("checked");
-        $('#edit2').val('0');
-        // $('.echeckon2').addClass("showcheck");
+      $('label.edit2').removeClass("checked");
+      $('#edit2').val('0');
+      $('.editcheck2').removeClass('show');
+      $('.choice.edit2').removeClass('on');
     } else {
-        $('label.edit2').addClass("checked");
-        $('#edit2').val('1');
-        // $('.echeckon2').removeClass("showcheck");
+      $('label.edit2').addClass("checked");
+      $('#edit2').val('1');
+      $('.editcheck2').addClass('show');
+      $('.choice.edit2').addClass('on');
     }
-
   });
+
+
   $(document).on('click','label.share2',function() {
     if($(this).hasClass("checked")) {
-        $('label.share2').removeClass("checked");
-        $('#share2').val('0');
-        // $('.scheckon2').addClass("showcheck");
+      $('label.share2').removeClass("checked");
+      $('#share2').val('0');
+      $('.sharecheck2').removeClass('show');
+      $('.choice.share2').removeClass('on');
     } else {
-        $('label.share2').addClass("checked");
-        $('#share2').val('1');
-        // $('.scheckon2').removeClass("showcheck");
+      $('label.share2').addClass("checked");
+      $('#share2').val('1');
+      $('.sharecheck2').addClass('show');
+      $('.choice.share2').addClass('on');
     }
-
   });
 
 
@@ -796,7 +802,7 @@ $(document).ready(function() {
   });
 
 
-// share_project | share project - form processing
+/* share_project | share project - form processing - checkboxes see: 1201231459 */
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
       $(".shareproject").click();
@@ -828,10 +834,10 @@ $(document).ready(function() {
           $('#msg-ul').html(response['li']);
           $('#user-email').val('');
 
-          $('label.edit').removeClass("checked");
-          // $('.echeckon').removeClass("showcheck");
-          $('label.share').removeClass("checked");
-          // $('.scheckon').removeClass("showcheck");
+          $('.edit').removeClass("checked");
+          $('.editcheck').removeClass('show');
+          $('.share').removeClass("checked");
+          $('.sharecheck').removeClass('show');
 
           $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
@@ -893,7 +899,7 @@ $(document).ready(function() {
     })
   });
 
-
+  /* this is to pull up the 'Remove user', 'Update' modal */
   $(document).on('click','.editshareduser',function() {
 
     var id            = $(this).data('id');
@@ -914,24 +920,36 @@ $(document).ready(function() {
 
     if (edit == '1') { 
       $('#edit2').val('1');
-      $('label.edit2').addClass('checked'); 
+      $('label.edit2').addClass('checked');
+      $('.editcheck2').addClass('show');
+      $('.choice.edit2').addClass('on');
+
     } else { 
       $('#edit2').val('0'); 
       $('label.edit2').removeClass('checked');
+      $('.editcheck2').removeClass('show');
+      $('.choice.edit2').removeClass('on');
+
     }
 
     if (share == '1') { 
       $('#share2').val('1'); 
       $('label.share2').addClass('checked');
+      $('.sharecheck2').addClass('show');
+      $('.choice.share2').addClass('on');
+
     } else { 
       $('#share2').val('0'); 
       $('label.share2').removeClass('checked');
+      $('.sharecheck2').removeClass('show');
+      $('.choice.share2').removeClass('on');
     }
 
     theModal.style.display = "block";
   });
 
   /* deleteshared user is being handled through .removeshareduser above. */
+  /* this is 'Update' through the edit modal */
   $(document).on('click','.updateshareduser',function() {
 
     var esuser = $('#delete-shared-user').val();

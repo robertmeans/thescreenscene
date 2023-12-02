@@ -48,13 +48,17 @@ require '_includes/head.php'; ?>
  		<p>Select the permissions for this user</p>
     <div class="priv-box">
 
-   		<div class="choice">
-        <input id="edit" type="checkbox" class="edit" name="edit" value="0"> 
+   		<div class="choice edit">
+        <span class="editnocheck"><i class="far fa-square fa-fw"></i></span>
+        <span class="editcheck"><i class="far fa-check-square fa-fw"></i></span>
+        <input id="edit" type="checkbox" class="es" name="edit" value="0"> 
         <label class="edit" for="edit">Add, edit or delete links in this project.</label>
       </div>
 
-   		<div class="choice">
-        <input id="share" type="checkbox" class="share" name="share" value="0">
+   		<div class="choice share">
+        <span class="sharenocheck"><i class="far fa-square fa-fw"></i></span>
+        <span class="sharecheck"><i class="far fa-check-square fa-fw"></i></span>
+        <input id="share" type="checkbox" class="ts" name="share" value="0">
         <label class="share" for="share">Share project, and permissions (if any) you assign this user, with others.</label>
       </div>
 
@@ -228,22 +232,7 @@ require '_includes/head.php'; ?>
       if ($row['share'] == 1) { $names[]  .= 'Can share'; }
       $names[]  .= '</span></li>'; 
       $i++;
-      
-      // $names[]  =   '<li><form class="edit-user" method="post">';
-      // $names[]  .=  $row['first_name'] . ' ' . $row['last_name'] . ' | ' . $row['email'];
-      // $names[]  .=  '<input type="hidden" name="delete-shared-user" value="' . $row['shared_with'] . '">';
-      // $names[]  .=  '<input type="hidden" id="project_id" name="project_id" value="' .  $row['project_id'] . '">';
-      // // $names[]  .=  '<a class="rsu removeshareduser">Remove</a>';
-      // $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
-      // $names[]  .= '</form><span>Permissions: ';
-      // if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'None'; }
-      // if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
-      // if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
-      // if ($row['share'] == 1) { $names[]  .= 'Can share'; }
-      // $names[]  .= '</span></li>'; 
     }
-
-
 
 		if ($names) {
 			echo implode($names); 
@@ -265,7 +254,6 @@ require '_includes/head.php'; ?>
         echo "<p class=\"query-tinkerer\">The content you are seeking is not for you. Shield your eyes and run away!</p>";
     } 	
 ?>
-
  	</div><!-- .sharing -->
 	</div><!-- #project-wrap -->
 </div><!-- #table-page -->
@@ -288,12 +276,16 @@ require '_includes/head.php'; ?>
 
           <div class="priv-box">
 
-            <div id="editperm" class="choice">
+            <div id="editperm" class="choice edit2">
+              <span class="editnocheck2"><i class="far fa-square fa-fw"></i></span>
+              <span class="editcheck2"><i class="far fa-check-square fa-fw"></i></span>
               <input id="edit2" type="checkbox" class="edit2" name="edit2" value="1"> 
               <label class="edit2" for="edit2">Add, edit or delete links in this project.</label>
             </div>
 
-            <div id="shareperm" class="choice">
+            <div id="shareperm" class="choice share2">
+              <span class="sharenocheck2"><i class="far fa-square fa-fw"></i></span>
+              <span class="sharecheck2"><i class="far fa-check-square fa-fw"></i></span>
               <input id="share2" type="checkbox" class="share2" name="share2" value="1">
               <label class="share2" for="share2">Share project, and permissions (if any) you assign this user, with others.</label>
             </div>

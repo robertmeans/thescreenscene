@@ -46,7 +46,6 @@ function save_new_positions() {
   });
 }
 
-  
 </script>
 
 <ul <?php if ($notes > 1) { echo "id=\"sortanote\""; } ?> class="project-notes">
@@ -61,7 +60,6 @@ global $db;
 $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
 $max_sort = mysqli_fetch_array($result);
 $max_sort = $max_sort[0] + 1;
-
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -91,8 +89,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
     </div>  
     <div class="sec note">
-
-
       <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
@@ -103,7 +99,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <?php /* section. For first pass see: _includes/search_stack_bottom_member.php */ ?>
         <?php
         if ($row['clipboard'] == "1") { /* has clipboard */ ?>
-
 
           <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
           if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 

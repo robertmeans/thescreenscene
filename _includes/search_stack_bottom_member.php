@@ -75,7 +75,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <?php /* root dir: usernotes.php                                                              */ ?>
     <div class="sec note">
 
-
       <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
@@ -85,7 +84,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
         <?php
         if ($row['clipboard'] == "1") { /* has clipboard */ ?>
-
           
           <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
           if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 

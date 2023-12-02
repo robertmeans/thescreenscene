@@ -36,10 +36,13 @@
 			font-size: 1.3em;
 		}
 
-		label.edit.checked,
-		label.share.checked {
+		.edit.checked,
+		.share.checked,
+    .edit2.checked,
+    .share2.checked {
 			background-color: rgba(79,117,35,1);
 		}
+
 		input[type=email] {
 			background-color: rgba(255,255,255,0.05);
 			color: #fff;
@@ -99,14 +102,30 @@
     padding: 20px;
     // border: 1px solid rgba(0,0,0,0.8);
     // box-shadow: 0px 0px 3px 5px rgba(0,0,0,0.1);
-    .choice {
+    .choice,
+    .choice2 {
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      justify-content: space-between;
       align-items: center;
       width: 100%;
       color: #fff;
       margin: 5px 0;
+      padding: 10px;
+      background-color: transparent;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s ease;
+      // transition: background-color 0.2s ease-out 0.2s, border-radius 0.2s ease-out 0.5s;
+      &:hover {
+        // border-radius: 0px;
+        background-color: #3cb34e;
+      }
+
+      i {
+        font-size: 1.75em;
+      }
       label {
         cursor: pointer;
         line-height: 1.25em;
@@ -115,19 +134,45 @@
         background-color: transparent;
         transition: all 0.2s ease;
         &:hover {
-          background-color: #3cb34e;
+          // background-color: #3cb34e;
         }
       }
     }
+    .choice.edit.on,
+    .choice.share.on,
+    .choice.edit2.on,
+    .choice.share2.on {
+      border: 1px solid transparent;
+      &:hover {
+        // border-radius: 0px;
+      }
+    }    
   }
   #edit,
   #share {
     display: none;
   }
+  .editnocheck,
+  .editcheck,
+  .sharenocheck,
+  .sharecheck,
+  .editnocheck2,
+  .editcheck2,
+  .sharenocheck2,
+  .sharecheck2 {
+    display: none;
+  }
 
-
-
-
+  .editnocheck.show,
+  .editcheck.show,
+  .sharenocheck.show,
+  .sharecheck.show,
+  .editnocheck2.show,
+  .editcheck2.show,
+  .sharenocheck2.show,
+  .sharecheck2.show {
+    display: flex;
+  }
 
 	h2.edit-share {
 		font-size: 1.2em;
@@ -159,6 +204,11 @@
 		}
 	}
 }
+.sharing .priv-box .choice.share2.on,
+.sharing .priv-box .choice.edit2.on {
+  background-color: #4f7523;
+}
+
 #esModal {
   background-color: transparent;
   &.sharing {
@@ -174,10 +224,10 @@
   &.sharing {
     padding: 0px;
   }
-  label.edit2.checked,
-  label.share2.checked {
-    background-color: rgba(79,117,35,1);
-  }
+  // label.edit2.checked,
+  // label.share2.checked {
+  //   background-color: rgba(79,117,35,1);
+  // }
 
 
 }
