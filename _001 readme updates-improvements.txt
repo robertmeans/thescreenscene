@@ -4,7 +4,9 @@ BrowserGadget updates
 
 6. 	move all inline styles to scss
 
-7. 	add checkbox fontawesomes to share_project
+8. replace js confirm dialogs with mymodal on: share_project & my_projects->remove me
+
+9. add 'go to homepage' link on my_projects->bar of each project to left of shared icon
 
 
 

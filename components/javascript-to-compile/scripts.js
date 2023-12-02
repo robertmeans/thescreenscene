@@ -300,7 +300,7 @@ $(document).ready(function() {
 
 
 $(document).ready(function() { // 122120856 start
-// Dictionary or Thesaurus on edit_searches.php
+  /* Dictionary or Thesaurus on edit_searches.php */
 	$('#d').click(function(){
 	  $(this).addClass('selected');
 	  $('#dict').addClass('selected');
@@ -323,7 +323,7 @@ $(document).ready(function() { // 122120856 start
 	});
 
 
-/* checkbox edit/share selections - share project checkboxs 1201231459 */
+  /* checkbox edit/share selections - share project checkboxs 1201231459 */
   $('input:checkbox.es').change(function(){
     if($(this).is(":checked")) {
       $('.edit').addClass("checked");
@@ -379,8 +379,8 @@ $(document).ready(function() { // 122120856 start
 
 
 /* toggle pages */
-$('.tab').hide();
-$('.tab.active').show();
+  $('.tab').hide();
+  $('.tab.active').show();
 
 	$('.tabs .tab-links input').on('click', function(e)  {
     var currentAttrValue = $(this).attr('name');
@@ -412,8 +412,26 @@ $('.tab.active').show();
 
 	}); // end tab switch
 
+
+
+
+
+
+
+
+  /* my_projects.php toggle to drodown project details */
+  /* 'View homepage of this project' link on my_projects.php page. home icon to the left of the project name on the title bar. this prevents the slide toggle from triggering. */
+  // $(document).on('click', 'form.hmp', function(e) {
+  //    e.preventDefault();
+  // });
+  /* initiate hidden details */
 	$('.project-details').hide();
-  	$('.review-project').on('click', function(e) {
+
+
+  $('.review-project').on('click', function(e) {
+    /* prevent toggle if .hmp (home link of this projct) was clicked which is a child of .review-project */
+    if(e.target !== e.currentTarget) return;
+
     var active = $(this);
     var toggle = $(this).next('.project-details');
 
@@ -421,17 +439,21 @@ $('.tab.active').show();
     $('.review-project').not(active).removeClass('active');
 
     $(toggle).slideToggle();
+
     if ($(active).hasClass('active')) {
       $(active).removeClass('active');
     } else {
       $(active).addClass('active');
     }
+
   });
+    
+
 }); // // 122120856 end
 
 
 
-// navigation links begin and forms begin
+// navigation links and forms begin
 $(document).ready(function() {
 
 
@@ -463,8 +485,7 @@ $(document).ready(function() {
     })
   });
 
-
-  // my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE
+  /* my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE */
   $(document).on('click','.vpp-link', function() {
     var current_loc = window.location.href;
 
@@ -802,7 +823,7 @@ $(document).ready(function() {
   });
 
 
-/* share_project | share project - form processing - checkboxes see: 1201231459 */
+  /* share_project | share project - form processing - checkboxes see: 1201231459 */
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
       $(".shareproject").click();
@@ -859,7 +880,7 @@ $(document).ready(function() {
   });
 
 
-  // share_project.php -> remove shared user
+  /* share_project.php -> remove shared user */
   $(document).on('click','.removeshareduser', function() {
     var current_loc = window.location.href;
     if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
@@ -872,7 +893,7 @@ $(document).ready(function() {
 
       beforeSend: function(xhr) {
         $('#message').removeAttr('class');
-        //return confirm('Confirm: Remove' + data[username] + ' from project?');
+        /* return confirm('Confirm: Remove' + data[username] + ' from project?'); */
       },
           
       success: function(response) {
@@ -1089,7 +1110,7 @@ $(document).ready(function() {
   });
 
 
-  // from new_project.php
+  /* from new_project.php */
   $("#new-project-form").keyup(function(event) {
     if (event.keyCode === 13) {
       $(".createnewproject").click();
@@ -1152,22 +1173,22 @@ $(document).ready(function() {
 
 
 
-}); // navigation links and forms end
+}); /* navigation links and forms end */
 
 
 
-// allow formatting in project notes
+/* allow formatting in project notes */
 $(document).on('click','#textbox',function() {
   document.getElementById('textbox').addEventListener('keydown', function(e) {
     if (e.key == 'Tab') {
       e.preventDefault();
       var start = this.selectionStart;
       var end = this.selectionEnd;
-      // set textarea value to: text before caret + tab + text after caret
+      /* set textarea value to: text before caret + tab + text after caret */
       this.value = this.value.substring(0, start) +
         "\t" + this.value.substring(end);
 
-      // put caret at right position again
+      /* put caret at right position again */
       this.selectionStart =
       this.selectionEnd = start + 1;
     }
@@ -1188,7 +1209,7 @@ $(document).ready(function() {
   });
 });
 
-// general ajax submit -> put "ajax" in class to call
+/* general ajax submit -> put "ajax" in class to call */
 $('form.ajax').on('submit', function() {
 	var that = $(this),
 	url = that.attr('action'),
@@ -1214,17 +1235,17 @@ $('form.ajax').on('submit', function() {
 	return false;
 });
 
-// edit_toggle | edit toggle
+/* edit_toggle | edit toggle */
 $(document).ready(function() {
 	$('#edit-content').click(function() {
 
 	var shimOnOff = document.getElementById("static-sort");
 	var editOnOff	=	document.getElementById("edit-content");
-	// set variables and toggle css
+	/* set variables and toggle css */
 	shimOnOff.classList.toggle("edit-shim");
 	editOnOff.classList.toggle("active");
 
-	// get state of checkbox and set it to variable
+	/* get state of checkbox and set it to variable */
 	var editValue 	= document.getElementById("et1");
 
 	if (!editValue.checked) {

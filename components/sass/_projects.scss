@@ -12,7 +12,7 @@
 			// background-color: #000;
 			margin: 2px 0;
 			form {
-				width: 100%;
+				// width: 100%;
 				display: flex;
 				flex-wrap: wrap;
 			}
@@ -75,19 +75,7 @@
     // div.project-greeting.my-info {
 
     // }
-		.review-project {
-			padding: 1em;
-			background-color: rgba(0,0,0,1);
-			cursor: pointer;
-			width: 100%;
-			color: #fff;
-			transition: all 0.2s ease;
-			justify-content: space-between;
-			&:hover {
-				background-color: rgba(255,255,255,0.8);
-				color: #313131;
-			}
-		}
+
 		input.update-current-project {
 			border: none;
 			// display: flex;
@@ -209,4 +197,50 @@ a.project-links.delete-pg {
 }
 #table-page.my-projects {
   align-items: flex-start;
+}
+
+
+
+
+.review-project {
+  display: flex;
+  background-color: rgba(0,0,0,1);
+  cursor: pointer;
+  width: 100%;
+  color: #fff;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: rgba(255,255,255,0.8);
+    color: #313131;
+
+    .pro-left .hmp {
+      color: rgba(0,0,0,0.3);
+    }
+
+  }
+  .pro-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em;
+    background-color: transparent;
+    transition: all 0.2s ease;
+    &:hover {
+      background-color: rgba(0,0,0,0.3);
+      .hmp {
+        color: #000;
+      }
+
+    }
+    .hmp {
+      color: rgba(255,255,255,0.3);
+      // color: green;
+    }
+  }
+  .pro-right {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1em;
+  }
 }

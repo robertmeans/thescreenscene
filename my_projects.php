@@ -65,12 +65,32 @@ if ($projects > 0) {
 	if ($result2 > 0) { 
   /* (abc) we found shared results - here's a special version of results so we can display them. */
 
-	if (($row['owner_id'] == $user_id) && ($row['shared_with'] != $user_id)) { // if you're the owner...?>
+	if (($row['owner_id'] == $user_id) && ($row['shared_with'] != $user_id)) { 
+  /* if you're the owner */ ?>
 	<li>
+
 		<div class="review-project my-projects">
-			<div class="pro-left"><?= $row['project_name']; ?></div>
-			<div class="pro-right"><div class="tooltip"><span class="tooltiptext">This project is shared</span><i class="fas fa-user-friends"></i></div></div> 
+
+			<div class="pro-left">
+        <form class="hmp" method="post">
+          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="go_to_homepage" value="1">
+          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
+        </form>
+      </div>
+
+			<div class="pro-right">
+        <div>
+          <?= $row['project_name']; ?>
+        </div> 
+        <div class="tooltip">
+          <span class="tooltiptext">This project is shared</span><i class="fas fa-user-friends"></i>
+        </div>
+      </div> 
+
 		</div><!-- .review-project .my-projects -->
+
 		<div class="project-details">
 
 		<?php /* nav for YOU owner -> sharing with others */ ?> 
@@ -128,7 +148,7 @@ if ($projects > 0) {
     </div>
 
     <?php 
-    if(($row['project_notes']) != "") { ?>
+    if (($row['project_notes']) != "") { ?>
       <div class="project-notes">
         <p><?= h($row['project_notes']); ?><p>
       </div><!-- .project-notes -->
@@ -181,27 +201,6 @@ if ($projects > 0) {
 			<?php }
       /* give the shared_with user an option to quit this project */ ?>
 
-
-
-
-
-
-
-
-
-<!-- <li>
-<form class="edit-user remove-self" method="post"> 
-<div>Me</div>
-<input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
-<input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
-<input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
-<input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
-<a class="rsu removeme">Leave</a>
-</form>
-</li> -->
-
-
-
       <li>
         <form method="post">
           <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
@@ -211,24 +210,6 @@ if ($projects > 0) {
           <a class="leaveproject"><div class="tooltip"><span class="tooltiptext">Leave Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
         </form>
       </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		</ul>
 		<?php /*
@@ -275,11 +256,26 @@ if ($projects > 0) {
 <?php 	 } else { // this project is not shared  ?>         
 <?php // ^ (abc) ?>
 	<li>
-		<div class="review-project my-projects">
-			<div class="pro-left">
-				<?= $row['project_name']; ?>
-			</div>
-		</div><!-- .review-project .my-projects -->
+
+    <div class="review-project my-projects">
+
+      <div class="pro-left">
+        <form class="hmp" method="post">
+          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="go_to_homepage" value="1">
+          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
+        </form>
+      </div>
+
+      <div class="pro-right">
+        <div>
+          <?= $row['project_name']; ?>
+        </div> 
+      </div> 
+
+    </div><!-- .review-project .my-projects -->
+
 		<div class="project-details">
 		<?php /* nav for YOU owner -> not shared with anyone */ ?>
 		<ul class="inner-nav project-pg">
