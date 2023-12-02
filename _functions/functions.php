@@ -9,7 +9,7 @@ function show_session_variables() {
 }
 
 function preload_config($layout_context) { 
-  $no_preload = array('new-project', 'edit_searches', 'edit_order');
+  $no_preload = array('new-project','edit_searches','edit_order','cp-not-found','share_project','my_projects','edit_project_details');
 
   if (!isset($_SESSION['color'])) {
     if (in_array($layout_context, $no_preload)) {

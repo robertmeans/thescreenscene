@@ -75,6 +75,9 @@
 	cursor: move;
 	pointer-events: none;
 }
+#sortablesearch ol#default li {
+  cursor: default;
+}
 .search-instructions {
 	width: 100%;
 	padding: 2em;

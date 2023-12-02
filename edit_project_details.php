@@ -1,4 +1,4 @@
-<?php $layout_context = "home-private"; 
+<?php $layout_context = "edit_project_details"; 
 
 require_once 'config/initialize.php';
 

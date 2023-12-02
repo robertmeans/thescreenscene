@@ -8,6 +8,7 @@ $project_name = $row['project_name'];
 require '_includes/head.php'; ?>
 
 <body>
+<?php preload_config($layout_context); ?>
 <?php require '_includes/nav.php'; ?>
 
 <div id="table-page">
