@@ -428,9 +428,11 @@ $(document).ready(function() { // 122120856 start
 	$('.project-details').hide();
 
 
-  $('.review-project').on('click', function(e) {
-    /* prevent toggle if .hmp (home link of this projct) was clicked which is a child of .review-project */
-    if(e.target !== e.currentTarget) return;
+
+  $('.review-project').on('click', function() {
+
+
+
 
     var active = $(this);
     var toggle = $(this).next('.project-details');
@@ -446,8 +448,23 @@ $(document).ready(function() { // 122120856 start
       $(active).addClass('active');
     }
 
+
+
+
+
   });
-    
+
+
+
+
+
+
+
+
+
+
+
+
 
 }); // // 122120856 end
 
