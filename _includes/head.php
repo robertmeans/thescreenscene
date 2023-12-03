@@ -37,7 +37,8 @@
 	<?php } // keeping things pretty in the sorcecode
 	?><div><a class="oo-aos back-to-top" data-aos="fade-up" data-aos-offset="205"><i class="fa fa-angle-up"></i></a></div>
 
-    <script src="scripts/jquery-3.5.1.min.js"></script>
+    <!-- <script src="scripts/jquery-3.5.1.min.js"></script> -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   	<script src="scripts/jquery_1-12-1_ui_min.js"></script>
   	<script src="scripts/jquery-ui_touch-punch.js"></script>
   	<script src="scripts/jquery.hoverIntent.min.js"></script>

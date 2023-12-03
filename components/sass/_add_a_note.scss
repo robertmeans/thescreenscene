@@ -412,6 +412,20 @@
     }    
   }
 }
+
+.aan-modal-header.delete {
+  background-color: #ff4c4c;
+}
+.aan-modal-body.delete {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+a.cancel.deletenote {
+  background-color: #ff4c4c;
+}
+
 .note-url > a {
   color: #fff;
   text-decoration: underline;

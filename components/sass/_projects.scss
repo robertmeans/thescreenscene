@@ -203,6 +203,8 @@ a.project-links.delete-pg {
 
 
 .review-project {
+  position: relative;
+  z-index: 10;
   display: flex;
   background-color: rgba(0,0,0,1);
   cursor: pointer;
@@ -219,12 +221,15 @@ a.project-links.delete-pg {
 
   }
   .pro-left {
+    position: absolute;
+    z-index: 21;
+    top: 0px;
+    left: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 1em;
     background-color: transparent;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     &:hover {
       background-color: rgba(0,0,0,0.3);
       .hmp {
@@ -236,9 +241,22 @@ a.project-links.delete-pg {
       color: rgba(255,255,255,0.3);
       // color: green;
     }
+    a.gth-link {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      z-index: 31;
+      padding: 1em;
+    }
+    a.gth-link.shared {
+      margin-bottom: 1px;
+      /* weird artifact w/o this 1px */
+    }
   }
   .pro-right {
     display: flex;
+    margin-left: 50px;
     justify-content: space-between;
     width: 100%;
     padding: 1em;

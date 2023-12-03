@@ -26,7 +26,7 @@ $max_sort = $max_sort[0] + 1;
 ?>
 
   <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
-  <input type="hidden" name="notecount" data-role="notecount" value="<?= $notes; ?>">
+  <input type="hidden" id="userid" value="<?= $_SESSION['id']; ?>">
   <li class="note-edit-pg"><a id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 
 </ul>
@@ -125,7 +125,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
       <form>
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
-        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" id="noteid" value="<?= $row['note_id']; ?>">
+        <input type="hidden" id="userid" value="<?= $_SESSION['id']; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>

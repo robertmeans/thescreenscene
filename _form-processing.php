@@ -809,7 +809,7 @@ if (isset($_POST['delete_a_note'])) {
   $user_id = $_SESSION['id'];
   $current_project = $_SESSION['current_project'];
 
-  $deletethis     = $_POST['deletethis'];
+  $deletethis     = $_POST['noteid'];
 
   global $db;
  
@@ -820,7 +820,7 @@ if (isset($_POST['delete_a_note'])) {
   $result = mysqli_query($db, $sql);
 
   if ($result) { 
-    echo 'data updated';
+    echo 'ok';
   } 
 }
 

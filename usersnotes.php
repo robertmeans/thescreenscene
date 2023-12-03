@@ -124,7 +124,6 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
             if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
               $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
               echo $note . '</span></span><span class="more">[ more ]</span>';
-              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
               echo '</span>' . nl2br($row['note']) . '</span>';
             } 

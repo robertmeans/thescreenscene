@@ -76,7 +76,7 @@ if ($projects > 0) {
           <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <input type="hidden" name="go_to_homepage" value="1">
-          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
+          <a class="gth-link shared"><i class="fas fa-home fa-fw"></i></a>
         </form>
       </div>
 
@@ -264,7 +264,7 @@ if ($projects > 0) {
           <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <input type="hidden" name="go_to_homepage" value="1">
-          <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
+          <a class="gth-link"><i class="fas fa-home fa-fw"></i></a>
         </form>
       </div>
 

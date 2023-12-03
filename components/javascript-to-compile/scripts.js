@@ -412,28 +412,9 @@ $(document).ready(function() { // 122120856 start
 
 	}); // end tab switch
 
-
-
-
-
-
-
-
-  /* my_projects.php toggle to drodown project details */
-  /* 'View homepage of this project' link on my_projects.php page. home icon to the left of the project name on the title bar. this prevents the slide toggle from triggering. */
-  // $(document).on('click', 'form.hmp', function(e) {
-  //    e.preventDefault();
-  // });
   /* initiate hidden details */
 	$('.project-details').hide();
-
-
-
   $('.review-project').on('click', function() {
-
-
-
-
     var active = $(this);
     var toggle = $(this).next('.project-details');
 
@@ -448,35 +429,49 @@ $(document).ready(function() { // 122120856 start
       $(active).addClass('active');
     }
 
-
-
-
-
   });
 
+  $('.review-project a.gth-link').on('click', function(e) {
+    /* this is a differnet version of '.gth-link' because I 'bout broke my brain trying to figure out how to get this to appear on the title bar of the my_projects.php page without interfering with the dropdown toggle. */
+    var current_loc = window.location.href;
+    e.stopPropagation();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+}); /* 122120856 end */
 
 
 
-
-
-
-
-
-
-
-
-
-}); // // 122120856 end
-
-
-
-// navigation links and forms begin
+/* navigation links and forms begin */
 $(document).ready(function() {
 
-
-  // Homepage link from: inner_nav.php + my_projects.php + nav.php - DONE
-  $(document).on('click', '.gth-link', function() {
+  /* Homepage link from: inner_nav.php + my_projects.php + nav.php */
+  $(document).on('click', '.gth-link', function(e) {
+  /* note: there's nother version of this that handles the link on the my_projects.php page in the title bar of each project. search: $('.review-project a.gth-link').on('click', function(e) */
     var current_loc = window.location.href;
+    e.stopPropagation();
 
     $.ajax({
       dataType: "JSON",
@@ -1564,21 +1559,88 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   $(document).on('click','a[data-role=deletenote]',function() { 
-    var deletethis = $(this).closest('form').find('[data-role=deletethis]').val();
+    var noteModal   = document.getElementById('aan-modal');
+    var noteid = $('#noteid').val();
+    var userid = $('#userid').val();
     var notename = $(this).closest('form').find('[data-role=notename]').val();
-    
-    if(confirm("Delete: \"" + notename + "\" ?")) {
+
+    $('.aan-modal-header').addClass('delete');
+    $('.aan-modal-body').addClass('delete');
+    $('#header-msg').html('Confirm deletion');
+    $('#thatll-do').html('<input type="hidden" id="deletenoteid" value="'+noteid+'"><p>Confirm delete of note named, "' + notename + '"</p><div id="buttons"><a class="cancel canceldeletenote">Cancel</a><a class="cancel delete deleteanote">Delete</a></div>');
+    $('#im-watchin').html("&nbsp;");
+
+    noteModal.style.display = "block";
+
+    $(document).on('click','.deleteanote',function() {
+
+      var deletethis = $('#deletenoteid').val(); 
+
       $.ajax({
         url     : '_form-processing.php',
         method  : 'post',
-        data    : {delete_a_note:'yo', deletethis:deletethis},
+        data    : {delete_a_note:'yo', noteid:noteid},
         success : function(response) {
-          $('#usersnotes').load('usersnotes.php');
+          if (response == 'ok') {
+            $('#header-msg').html('That note is history.');
+            setTimeout(function() { noteModal.style.display = "none"; }, 1500);
+
+            $('.aan-modal-header').removeClass('delete');
+            $('.aan-modal-body').removeClass('delete');
+            $('#header-msg').html('* Notes are not shared within project.');
+            $('#thatll-do').html('<form class="edit-link-form"><input type="hidden" name="cp" id="cp" value="'+noteid+'"><input type="hidden" name="uid" id="uid" value="'+userid+'"><input type="hidden" name="nid" id="nid"><label>Name | > 18 chars will be trimmed<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label><label>URL | Makes the name a hyperlink<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label><label>Note | Limit 10,000 characters<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label><label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label><label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label><div class="submit-links"><a data-role="notesClose" class="cancel">Cancel</a><a id="update-note" class="submit">Add note</a><a id="modify-note" class="submit">Modify note</a></div></form>');
+
+            
+            
+            $('#usersnotes').load('usersnotes.php');
+          }
         }
       });
-    }
+
+
+    });
+
+
+
+    $('.canceldeletenote').click(function() {
+      noteModal.style.display = "none";
+
+      $('.aan-modal-header').removeClass('delete');
+      $('.aan-modal-body').removeClass('delete');
+      $('#header-msg').html('* Notes are not shared within project.');
+
+      $('#thatll-do').html('<form class="edit-link-form"><input type="hidden" name="cp" id="cp" value="'+noteid+'"><input type="hidden" name="uid" id="uid" value="'+userid+'"><input type="hidden" name="nid" id="nid"><label>Name | > 18 chars will be trimmed<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label><label>URL | Makes the name a hyperlink<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label><label>Note | Limit 10,000 characters<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label><label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label><label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label><div class="submit-links"><a data-role="notesClose" class="cancel">Cancel</a><a id="update-note" class="submit">Add note</a><a id="modify-note" class="submit">Modify note</a></div></form>');
+
+    });
+
   });
+
+
+
+
+
+
+
+
 
  $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Note Modal
   var ida       = $(this).data('id');

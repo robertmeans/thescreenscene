@@ -117,3 +117,6 @@ rgba(25,96,174,0.6);
 
 light:
 #75a0ce
+
+
+jquery target nested class without triggering containing class
