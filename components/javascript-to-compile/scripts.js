@@ -1546,7 +1546,7 @@ $(document).ready(function() {
   $('#update-note').click(function() {
 
     var noteModal = document.getElementById('aan-modal');
-    var updatenote = document.getElementById('update-note');
+    // var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
 
     var sort1 = $('[data-role=maxsort]').val();
@@ -1656,7 +1656,7 @@ $(document).ready(function() {
     $('#im-watchin').html('&nbsp;');
 
     var noteModal   = document.getElementById('aan-modal');
-    var updatenote = document.getElementById('update-note');
+    // var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
 
     noteModal.style.display = "block";
