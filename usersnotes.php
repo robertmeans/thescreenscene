@@ -23,7 +23,7 @@ $(document).ready(function () {
     }
   });
 });
-// ajax background save for sorting add a note
+/* ajax background save for sorting add a note */
 function save_new_positions() {
   var positions = [];
   $('.updated').each(function () {
@@ -55,17 +55,20 @@ $modify_id = 0;
 $str_length = 2;
 
 if ($notes > 0) {
-// they have notes so you can run a query to get largest number in sort column
+/* ^ contents of entire page. else there's nothing here to provide. */
+/* they have notes so you can run a query to get largest number in sort column. */
 global $db;
 $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
 $max_sort = mysqli_fetch_array($result);
 $max_sort = $max_sort[0] + 1;
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
+/* end of while loop: 1203231157 */
 $modify_id++;
 $modify_id = substr("0{$modify_id}", -$str_length);
 
-if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
+if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { 
+/* to find the close of this if: 1203231156 */ ?>
 
 <li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>">
     <div class="sec note-url <?php if ($notes > 1) { echo "move"; } if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { echo " long"; } else { echo " short"; } ?>">
@@ -113,10 +116,10 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
             <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
             if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
               $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
-              echo $note . '</span></span><span class="more">[ more ]</span>';
-              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
+              echo $note . '</span></span><span class="more">[ more ]</span>'; 
             } else {
-              echo '</span>' . nl2br($row['note']) . '</span>';
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             }
            ?>
         <?php } else { ?>
@@ -125,7 +128,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
               $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
               echo $note . '</span></span><span class="more">[ more ]</span>';
             } else {
-              echo '</span>' . nl2br($row['note']) . '</span>';
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
            ?>
         <?php }
@@ -135,9 +139,10 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <a data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
-        <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
-        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
+        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" date-role="noteid" value="<?= $row['note_id']; ?>">
+        <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
@@ -146,7 +151,83 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 </li>
 
 <?php
-} } }
+    } /* end of if 1203231156 */ 
+  } /* end of while loop: 1203231157 */
+}
 ?>
 
-</ul><?php // #project-notes ?>
+</ul><?php /* #project-notes */ ?>
+
+
+<!-- <script>
+$(document).ready(function() {
+  $(document).on('click','#update-note',function() {
+    var noteModal = document.getElementById('aan-modal');
+    var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
+
+    var sort1 = $('[data-role=maxsort]').val();
+    var sort2 = $('[data-role=maxsortz]').val();
+    if (typeof sort2 != "undefined") {
+      sort2 = sort2;
+    } else {
+      sort2 = "0";
+    }
+    var sort = Math.max(sort1, sort2);
+
+    var notecount1 = $('[data-role=notecount]').val();
+    var notecount2 = $('[data-role=notecountz]').val();
+    if (typeof notecount2 != "undefined") {
+      notecount2 = notecount2;
+    } else {
+      notecount2 = "0";
+    }
+    var notecount = Math.max(notecount1, notecount2);
+
+    var cp = $('#cp').val();
+    var name = $('#aanName').val();
+    var urly = $('#aanUrl').val();
+    var note = $('#aanNote').val();
+    var clipboard = document.getElementById('aanClipboard');
+    var truncate = document.getElementById('aanTruncate');
+    var pattern = /^((http|https|ftp):\/\/)/;
+
+    if(urly != '') {
+      if(!pattern.test(urly)) {
+          urly = "http://" + urly;
+      }
+    } else {
+      urly = '';
+    }
+
+    if(!clipboard.checked) {
+      clipboard = "0";
+    } else {
+      clipboard = "1";
+    }
+
+    if(!truncate.checked) {
+      truncate = "0";
+    } else {
+      truncate = "1";
+    }
+
+    $.ajax({
+      url     : '_form-processing.php',
+      method  : 'post',
+      data    : {new_or_update_a_note:'yo', sort:sort, cp:cp, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
+      success : function(response) {
+        $('#usersnotes').load('usersnotes.php');
+      }
+    });
+
+    $('#aanName').val('');
+    $('#aanUrl').val('');
+    $('#aanNote').val('');
+    $('input #aanClipboard').prop('checked',false);
+    $('input #aanTruncate').prop('checked',false);
+
+    noteModal.style.display = "none";
+  });
+});
+</script> -->

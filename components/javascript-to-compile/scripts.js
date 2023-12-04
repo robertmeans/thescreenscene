@@ -1407,17 +1407,67 @@ $(document).ready(function() {
 });
 
 
-// Add a note | add, update, delete
+/* begin Add a note + modify and delete */
 $(document).ready(function() {
-    var originalHeader = document.getElementById('header-msg');
-    var originalBody = document.getElementById('thatll-do');
-    var originalFooter = document.getElementById('im-watchin');
+/* $(document).ready open - 1203121138 */  
+  /* I can't find this being used anywhere so I silenced it. delete eventually...
+  var originalHeader = document.getElementById('header-msg');
+  var originalBody = document.getElementById('thatll-do');
+  var originalFooter = document.getElementById('im-watchin'); 
+  */
 
+  /* prepare original header (oh) of modal for reuse */
+  /* used in #header-msg */
+  var oh  =   '* Notes are not shared within project.';
+
+  /* prepare original modal (om) body for reuse */
+  /* used in #thatll-do */
+  var om  =   '<form class="edit-link-form">';
+  om      +=  '<input type="hidden" name="cp" id="aancp">';
+  // om      +=  '<input type="hidden" name="uid" id="uid">';
+  om      +=  '<input type="hidden" name="nid" id="nid">';   
+  om      +=  '<label>Name | > 18 chars will be trimmed';
+  om      +=  '<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200">';
+  om      +=  '</label>';
+
+  om      +=  '<label>URL | Makes the name a hyperlink';
+  om      +=  '<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://">';
+  om      +=  '</label>';
+
+  om      +=  '<label>Note | Limit 10,000 characters';
+  om      +=  '<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea>';
+  om      +=  '</label>';
+
+  om      +=  '<label class="clipboard">';
+  om      +=  '<input type="checkbox" name="clipboard" id="aanClipboard">';
+  om      +=  ' Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)';
+  om      +=  '</label>';
+
+  om      +=  '<label class="clipboard">';
+  om      +=  '<input type="checkbox" name="truncate" id="aanTruncate">';
+  om      +=  ' Truncate long note (only show first 32 characters)';
+  om      +=  '</label>';
+
+  om      +=  '<div class="submit-links">';
+  om      +=  '<a data-role="notesClose" class="cancel">Cancel</a>';
+  om      +=  '<a id="update-note" class="submit">Add note</a>';
+  om      +=  '<a id="modify-note" class="submit">Modify note</a>';
+  om      +=  '</div>';
+  om      +=  '</form>';
+
+  /* prepare original footer (of) for reuse */
+  /* used in #im-watchin */
+  var of  =   'Only you will see your notes.';
+
+
+  /* open 'Add a note' modal */
   $(document).on('click','a[data-role=notes]',function() {
-    var noteModal = document.getElementById('aan-modal');
+    // var noteModal = document.getElementById('aan-modal');
+    var noteModal = document.getElementById('aan-modal');;
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
     var limitModal  = document.getElementById('thats-all');
+    var cpid = $('#cpid').val();
 
     var notecount1 = $('[data-role=notecount]').val();
     var notecount2 = $('[data-role=notecountz]').val();
@@ -1433,22 +1483,22 @@ $(document).ready(function() {
       $('#im-watchin').html("Your first little note. Aww. :-)");
     } else if (notecount == 1) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer');
-      $('#im-watchin').html("&nbsp;");
+      $('#im-watchin').html('&nbsp;');
     } else if (notecount == 2) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer');
-      $('#im-watchin').html("&nbsp;");
+      $('#im-watchin').html('&nbsp;');
     } else if (notecount == 3) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer');
-      $('#im-watchin').html("&nbsp;");
+      $('#im-watchin').html('&nbsp;');
     } else if (notecount == 4) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer');
-      $('#im-watchin').html("&nbsp;");
+      $('#im-watchin').html('&nbsp;');
     } else if (notecount == 5) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer num5');
       $('#im-watchin').html("You have 5 notes remaining.");
     } else if (notecount == 6) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer');
-      $('#im-watchin').html("&nbsp;");
+      $('#im-watchin').html('&nbsp;');
     } else if (notecount == 7) {
       $('.aan-modal-footer').attr('class', 'aan-modal-footer num8');
       $('#im-watchin').html("This is note #8. There is a 10 note limit.");
@@ -1463,6 +1513,9 @@ $(document).ready(function() {
         exit();
     }
 
+    $('#aancp').val(cpid);
+    $('#thatll-do').removeClass('delete');
+    $('.aan-modal-header').removeClass('delete');
     // reset checkboxes in case they were checked on last modal open
     $('input#aanClipboard').prop('checked',false);
     $('input#aanTruncate').prop('checked',false);
@@ -1472,10 +1525,12 @@ $(document).ready(function() {
     noteModal.style.display = "block";
   });
 
+  /* 'Close' button from Add a note modal */
   $(document).on('click','[data-role=notesClose]',function() {
     var noteModal = document.getElementById('aan-modal');
     var limitModal  = document.getElementById('thats-all');
 
+    $('#thatll-do').removeClass('delete');
     $('#aanName').val('');
     $('#aanUrl').val('');
     $('#aanNote').val('');
@@ -1487,8 +1542,9 @@ $(document).ready(function() {
 
   });
 
+  // 'Add note' button from inside Add a note modal
+  $('#update-note').click(function() {
 
-  $('#update-note').click(function() { // add new note button (this is NOT the modal) 
     var noteModal = document.getElementById('aan-modal');
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
@@ -1512,7 +1568,6 @@ $(document).ready(function() {
     var notecount = Math.max(notecount1, notecount2);
 
     var cp = $('#cp').val();
-    var uid = $('#uid').val();
     var name = $('#aanName').val();
     var urly = $('#aanUrl').val();
     var note = $('#aanNote').val();
@@ -1543,7 +1598,7 @@ $(document).ready(function() {
     $.ajax({
       url     : '_form-processing.php',
       method  : 'post',
-      data    : {new_or_update_a_note:'yo', sort:sort, cp:cp, uid:uid, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
+      data    : {new_or_update_a_note:'yo', sort:sort, cp:cp, name:name, urly:urly, note:note, clipboard:clipboard, truncate:truncate},
       success : function(response) {
         $('#usersnotes').load('usersnotes.php');
       }
@@ -1563,132 +1618,58 @@ $(document).ready(function() {
 
 
 
+  /* open Modify Note Modal - when far-right icon is clicked under 'Add a note' */
+  $(document).on('click','a[data-role=modify-note]',function() { 
+    var ida       = $(this).data('id');
+    // added a "z_" to this data-id element so the clipboard data-id would be unique
+    var id        = ida.substring(2);
+    var cpid      = $('#cpid').val();
+    var urln      = $('#z_'+id).find('a[data-target="urln"]').attr('href');
+    var noten     = $('#z_'+id).find('[data-target="urln"]').text();
+    var notes     = $('#z_'+id).find('[data-target="cb"]').text();
+    var clipb     = $('#z_'+id).find('a[data-id="'+id+'"]');
+    var namet     = $('#z_'+id).find('[data-target="namet"]').text();
+    var trunc     = $('#z_'+id).find('a[data-id="trunc_'+id+'"]');
 
+    if(clipb.length) { // if clipboard exists
+      $('input#aanClipboard').prop('checked',true);
+      /* clipb = "1"; */
+    } else {
+      $('input#aanClipboard').prop('checked',false);
+      /* clipb = "0"; */
+    }
 
+    if(trunc.length) { // if clipboard exists
+      $('input#aanTruncate').prop('checked',true);
+      /* clipb = "1"; */
+    } else {
+      $('input#aanTruncate').prop('checked',false);
+      /* clipb = "0"; */
+    }
 
+    $('.aan-modal-header').removeClass('delete');
+    $('#aancp').val(cpid); 
+    $('#aanUrl').val(urln);
+    $('#aanName').val(namet);
+    $('#aanNote').val(notes);
+    $('#nid').val(id);
+    $('#im-watchin').html('&nbsp;');
 
-
-
-
-
-
-
-
-
-
-
-  $(document).on('click','a[data-role=deletenote]',function() { 
     var noteModal   = document.getElementById('aan-modal');
-    var noteid = $('#noteid').val();
-    var userid = $('#userid').val();
-    var notename = $(this).closest('form').find('[data-role=notename]').val();
-
-    $('.aan-modal-header').addClass('delete');
-    $('.aan-modal-body').addClass('delete');
-    $('#header-msg').html('Confirm deletion');
-    $('#thatll-do').html('<input type="hidden" id="deletenoteid" value="'+noteid+'"><p>Confirm delete of note named, "' + notename + '"</p><div id="buttons"><a class="cancel canceldeletenote">Cancel</a><a class="cancel delete deleteanote">Delete</a></div>');
-    $('#im-watchin').html("&nbsp;");
+    var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
 
     noteModal.style.display = "block";
-
-    $(document).on('click','.deleteanote',function() {
-
-      var deletethis = $('#deletenoteid').val(); 
-
-      $.ajax({
-        url     : '_form-processing.php',
-        method  : 'post',
-        data    : {delete_a_note:'yo', noteid:noteid},
-        success : function(response) {
-          if (response == 'ok') {
-            $('#header-msg').html('That note is history.');
-            setTimeout(function() { noteModal.style.display = "none"; }, 1500);
-
-            $('.aan-modal-header').removeClass('delete');
-            $('.aan-modal-body').removeClass('delete');
-            $('#header-msg').html('* Notes are not shared within project.');
-            $('#thatll-do').html('<form class="edit-link-form"><input type="hidden" name="cp" id="cp" value="'+noteid+'"><input type="hidden" name="uid" id="uid" value="'+userid+'"><input type="hidden" name="nid" id="nid"><label>Name | > 18 chars will be trimmed<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label><label>URL | Makes the name a hyperlink<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label><label>Note | Limit 10,000 characters<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label><label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label><label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label><div class="submit-links"><a data-role="notesClose" class="cancel">Cancel</a><a id="update-note" class="submit">Add note</a><a id="modify-note" class="submit">Modify note</a></div></form>');
-
-            
-            
-            $('#usersnotes').load('usersnotes.php');
-          }
-        }
-      });
-
-
-    });
-
-
-
-    $('.canceldeletenote').click(function() {
-      noteModal.style.display = "none";
-
-      $('.aan-modal-header').removeClass('delete');
-      $('.aan-modal-body').removeClass('delete');
-      $('#header-msg').html('* Notes are not shared within project.');
-
-      $('#thatll-do').html('<form class="edit-link-form"><input type="hidden" name="cp" id="cp" value="'+noteid+'"><input type="hidden" name="uid" id="uid" value="'+userid+'"><input type="hidden" name="nid" id="nid"><label>Name | > 18 chars will be trimmed<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label><label>URL | Makes the name a hyperlink<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label><label>Note | Limit 10,000 characters<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label><label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label><label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label><div class="submit-links"><a data-role="notesClose" class="cancel">Cancel</a><a id="update-note" class="submit">Add note</a><a id="modify-note" class="submit">Modify note</a></div></form>');
-
-    });
-
+    updatenote.style.display = "none";
+    modifynote.style.display = "block";
   });
 
 
 
 
-
-
-
-
-
- $(document).on('click','a[data-role=modify-note]',function() { // this is the Modify Note Modal
-  var ida       = $(this).data('id');
-  // added a "z_" to this data-id element so the clipboard data-id would be unique
-  var id        = ida.substring(2);
-  var urln      = $('#z_'+id).find('a[data-target="urln"]').attr('href');
-  var noten     = $('#z_'+id).find('[data-target="urln"]').text();
-  var notes     = $('#z_'+id).find('[data-target="cb"]').text();
-  var clipb     = $('#z_'+id).find('a[data-id="'+id+'"]');
-  var namet     = $('#z_'+id).find('[data-target="namet"]').text();
-  var trunc     = $('#z_'+id).find('a[data-id="trunc_'+id+'"]');
-
-
-  if(clipb.length) { // if clipboard exists
-    $('input#aanClipboard').prop('checked',true);
-    // clipb = "1";
-  } else {
-    $('input#aanClipboard').prop('checked',false);
-    // clipb = "0";
-  }
-
-  if(trunc.length) { // if clipboard exists
-    $('input#aanTruncate').prop('checked',true);
-    // clipb = "1";
-  } else {
-    $('input#aanTruncate').prop('checked',false);
-    // clipb = "0";
-  }
-
-  $('#aanUrl').val(urln);
-  $('#aanName').val(namet);
-  $('#aanNote').val(notes);
-  $('#nid').val(id);
-
-  $('#im-watchin').html("&nbsp;");
-
-  var noteModal   = document.getElementById('aan-modal');
-  var updatenote = document.getElementById('update-note');
-  var modifynote  = document.getElementById('modify-note');
-
-  // alert(id);
-  noteModal.style.display = "block";
-  updatenote.style.display = "none";
-  modifynote.style.display = "block";
- });
-
-/* modify note button - NOT the modal */
- $('#modify-note').click(function() { 
+  /* 'Modify note' button from inside modify modal */
+  $(document).on('click','#modify-note',function() {
+ 
     var noteModal   = document.getElementById('aan-modal');
     var nid = $('#nid').val();
     var name = $('#aanName').val();
@@ -1733,8 +1714,114 @@ $(document).ready(function() {
     $('input #aanClipboard').prop('checked',false);
     
     noteModal.style.display = "none";
- });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* open delete note modal - icon to far-right of notes */
+  $(document).on('click','a[data-role=deletenote]',function() { 
+    var noteModal   = document.getElementById('aan-modal');
+    var noteid = $(this).closest('form').find('[data-role=deletethis]').val();
+    var notename = $(this).closest('form').find('[data-role=notename]').val();
+
+    /* var dnm = "delete note modal" */
+    var dnm =   '<input type="hidden" id="deletenoteid" value="'+noteid+'">';
+    dnm     +=  '<p>Confirm delete of note named, "'+notename+'"</p>';
+    dnm     +=  '<div id="buttons">';
+    dnm     +=  '<a class="cancel canceldeletenote">Cancel</a>';
+    dnm     +=  '<a class="cancel delete deleteanote">Delete</a>';
+    dnm     +=  '</div>';
+
+    $('.aan-modal-header').addClass('delete');
+    $('.aan-modal-body').addClass('delete');
+    $('#header-msg').html('Confirm deletion');
+    $('#thatll-do').html(dnm);
+    $('#im-watchin').html('&nbsp;');
+
+    noteModal.style.display = "block";
+
+
+
+    /* 'Delete' button inside the modal */
+    // $(document).on('click','.deleteanote',function() {
+    $('.deleteanote').click(function() {
+      var deletethis = $('#deletenoteid').val(); 
+
+      $.ajax({
+        url     : '_form-processing.php',
+        method  : 'post',
+        data    : {delete_a_note:'yo', noteid:noteid},
+        success : function(response) {
+          if (response == 'ok') {
+            $('#header-msg').html('Gone like the wind');
+            $('#thatll-do').html('That note is history.');
+            setTimeout(function() { noteModal.style.display = "none"; }, 1500);
+
+            setTimeout(function() { 
+              $('.aan-modal-header').removeClass('delete');
+              $('.aan-modal-body').removeClass('delete');
+              $('#header-msg').html(oh);
+              $('#thatll-do').html(om);
+              $('#im-watchin').html(of); 
+            }, 1550);
+
+            $('#usersnotes').load('usersnotes.php');
+          }
+        }
+      });
+    });
+
+  });
+
+
+/* 'Cancel' button inside delete note modal */
+$(document).on('click','.canceldeletenote',function() {
+  var noteModal   = document.getElementById('aan-modal');
+  noteModal.style.display = "none";
+
+  $('.aan-modal-header').removeClass('delete');
+  $('.aan-modal-body').removeClass('delete');
+  $('#header-msg').html('* Notes are not shared within project.');
+  $('#thatll-do').html(om);
+  $('#im-watchin').html(of);
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+});
+/* $(document).ready close - 1203121138 */ 
 
 
 // begin Project note editing from homepage (not Add a note but the actual Project notes)

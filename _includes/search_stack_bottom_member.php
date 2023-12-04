@@ -26,7 +26,8 @@ $max_sort = $max_sort[0] + 1;
 ?>
 
   <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
-  <input type="hidden" id="userid" value="<?= $_SESSION['id']; ?>">
+  <input type="hidden" id="cpid" value="<?= $current_project ?>">
+  <!-- this is something -->
   <li class="note-edit-pg"><a id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 
 </ul>
@@ -101,7 +102,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
               echo $note . '</span></span><span class="more">[ more ]</span>';
               // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo '</span>' . nl2br($row['note']) . '</span>';
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
            ?>
         <?php } else { /* no clipboard */ ?>
@@ -112,7 +114,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
               echo $note . '</span></span><span class="more">[ more ]</span>';
               // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo '</span>' . nl2br($row['note']) . '</span>';
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
 
            ?>
@@ -125,8 +128,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 
       <form>
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
-        <input type="hidden" id="noteid" value="<?= $row['note_id']; ?>">
-        <input type="hidden" id="userid" value="<?= $_SESSION['id']; ?>">
+        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" date-role="noteid" value="<?= $row['note_id']; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
@@ -150,8 +153,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
   <div class="aan-modal-wrap">
     <div id="thatll-do" class="aan-modal-body">
     <form class="edit-link-form">
-      <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
-      <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
+      <input type="hidden" name="cp" id="aancp" value="<?= $current_project; ?>">
       <input type="hidden" name="nid" id="nid">
       <label>Name | > 18 chars will be trimmed
       <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label>

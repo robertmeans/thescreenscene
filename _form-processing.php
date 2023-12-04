@@ -772,14 +772,14 @@ if (isset($_POST['new_or_update_a_note'])) {
   $user_id = $_SESSION['id'];
   $current_project = $_SESSION['current_project'];
 
-  $sort           = $_POST['sort']  ?? ''  ;
+  $sort           = $_POST['sort']  ?? '' ;
   $cp             = $_POST['cp']  ?? '' ;
-  $uid            = $_POST['uid']  ?? ''  ;
-  $name           = $_POST['name']  ?? ''  ;
-  $urly           = $_POST['urly']  ?? ''  ;
-  $note           = $_POST['note']  ?? ''  ;
-  $clipboard      = $_POST['clipboard']  ?? ''  ;
-  $truncate       = $_POST['truncate']  ?? ''  ;
+  $uid            = $user_id ?? '' ;
+  $name           = $_POST['name']  ?? '' ;
+  $urly           = $_POST['urly']  ?? '' ;
+  $note           = $_POST['note']  ?? '' ;
+  $clipboard      = $_POST['clipboard'] ?? '' ;
+  $truncate       = $_POST['truncate']  ?? '' ;
   
   global $db;
 

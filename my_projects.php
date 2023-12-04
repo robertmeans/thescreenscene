@@ -164,12 +164,27 @@ if ($projects > 0) {
 	<?php } else { /* if you're the shared_with */ ?>
 
 	<li>
-		<div class="review-project my-projects">
+    <div class="review-project my-projects">
 
-			<div class="pro-left"><?= $row['project_name']; ?></div>
-			<div class="pro-right"><div class="tooltip"><span class="tooltiptext">This project is shared</span><i class="fas fa-user-friends"></i></div></div>
-			 
-		</div><!-- .review-project .my-projects -->
+      <div class="pro-left">
+        <form class="hmp" method="post">
+          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+          <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
+          <input type="hidden" name="go_to_homepage" value="1">
+          <a class="gth-link shared"><i class="fas fa-home fa-fw"></i></a>
+        </form>
+      </div>
+
+      <div class="pro-right">
+        <div>
+          <?= $row['project_name']; ?>
+        </div> 
+        <div class="tooltip">
+          <span class="tooltiptext">This project is shared</span><i class="fas fa-user-friends"></i>
+        </div>
+      </div> 
+       
+    </div><!-- .review-project .my-projects -->
 
 		<div class="project-details">
 		<?php /* nav if this project is being shared with you (you are not the owner) */ ?>
