@@ -466,6 +466,8 @@ $(document).ready(function() { // 122120856 start
 
 /* navigation links and forms begin */
 $(document).ready(function() {
+  /* prepare an original edit shared modal for later use */
+  /* if ($('#esModal').length != 0) { var oesm  = $("#esModal").clone(); } */
 
   /* Homepage link from: inner_nav.php + my_projects.php + nav.php */
   $(document).on('click', '.gth-link', function(e) {
@@ -835,6 +837,20 @@ $(document).ready(function() {
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /* share_project | share project - form processing - checkboxes see: 1201231459 */
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
@@ -862,9 +878,17 @@ $(document).ready(function() {
       success: function(response) {
         console.log(response);
         if(response['signal'] == 'ok') {
+
           $('#user-email').removeClass('red');
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
+
+          setTimeout(function() { $('#message').addClass('out'); }, 2000);
+          setTimeout(function() { 
+            $('#msg-ul').html(''); 
+            $('#message').removeAttr('class');
+          }, 2500);
+
           $('#user-email').val('');
 
           $('.edit').removeClass("checked");
@@ -874,7 +898,11 @@ $(document).ready(function() {
 
           $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
-          $('html, body').animate({ scrollTop: 0 }, 250);
+
+
+          // $('html, body').animate({ scrollTop: 0 }, 250);
+
+
         } else {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
@@ -892,49 +920,31 @@ $(document).ready(function() {
   });
 
 
-  /* share_project.php -> remove shared user */
-  $(document).on('click','.removeshareduser', function() {
-    var current_loc = window.location.href;
-    if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
 
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
 
-      beforeSend: function(xhr) {
-        $('#message').removeAttr('class');
-        /* return confirm('Confirm: Remove' + data[username] + ' from project?'); */
-      },
-          
-      success: function(response) {
-        console.log(response);
-        if(response['signal'] == 'ok') {
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);
-          $('#shared-list').html(response['shared_names']);
-          if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
-          $('html, body').animate({ scrollTop: 0 }, 250);
-        } else {
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);
 
-          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
-          
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
-  });
 
-  /* this is to pull up the 'Remove user', 'Update' modal */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* 'Edit' link next to each shared user. opens modal with, 'Remove user' & 'Update' buttons from share_project.php */
   $(document).on('click','.editshareduser',function() {
 
+    
+    var theModal      = document.getElementById("theModal");
+    var content       = document.getElementById("esu-content");
     var id            = $(this).data('id');
     var project_id    = $('#'+id+'_project_id').val();
     var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
@@ -942,8 +952,6 @@ $(document).ready(function() {
     var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
     var edit          = $('#'+id+'_edit').val();
     var share         = $('#'+id+'_share').val();
-
-    var theModal   = document.getElementById("theModal");
 
     $('#smht').html(username);
     $('#delete-shared-user').val(esuser);
@@ -978,12 +986,82 @@ $(document).ready(function() {
       $('.choice.share2').removeClass('on');
     }
 
+    $('#esModal').removeClass('gone');
+    $('#esu-message').removeAttr('class');
+    $('#esu-msg-ul').html(''); 
     theModal.style.display = "block";
+    content.style.display = "block";
   });
 
-  /* deleteshared user is being handled through .removeshareduser above. */
-  /* this is 'Update' through the edit modal */
+
+
+
+
+  /* 'Remove user' button on share_project.php inside modal */
+  /* sends to _form-processing.php on unique $_POST['delete-shared-user'] */
+  $(document).on('click','.removeshareduser', function() {
+    var current_loc = window.location.href;
+    var username = $('#username').val();
+    var projectname = $('#project_name').val();
+    if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+
+      beforeSend: function(xhr) {
+        $('#message').removeAttr('class');
+        return confirm('Confirm: Remove ' + username + ' from the project: ' + projectname );
+      },
+          
+      success: function(response) {
+        console.log(response);
+        if(response['signal'] == 'ok') {
+
+
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+          $('#shared-list').html(response['shared_names']);
+
+          if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
+          // $('html, body').animate({ scrollTop: 0 }, 250);
+
+
+
+        } else {
+          $('#message').addClass(response['class']);
+          $('#msg-ul').html(response['li']);
+
+          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
+          
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* 'Update' button on share_project.php inside Edit modal */
   $(document).on('click','.updateshareduser',function() {
+
+    // var theModal = document.getElementById('theModal');
 
     var esuser = $('#delete-shared-user').val();
     var project_id = $('#pro-id').val();
@@ -998,16 +1076,29 @@ $(document).ready(function() {
       type: "POST",
       data  : {updateshareduser:'yo', project_id:project_id, project_name:project_name, username:username, esuser:esuser, edit:edit, share:share},
       beforeSend: function(xhr) {
-
+        $('#esu-message').removeAttr('class');
+        $('#esu-msg-ul').html('');
       },
       success: function(response) {
         // console.log(response);
         if(response['signal'] == 'ok') {
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);  
+
+
+
+          $('#esModal').addClass('gone');
+          $('#esu-message').addClass(response['class']);
+          $('#esu-msg-ul').html(response['li']);  
           $('#shared-list').html(response['shared_names']);
-          theModal.style.display = "none";
-          $('html, body').animate({ scrollTop: 0 }, 250);
+
+            $('#esu-content').delay(1500).slideUp(200);
+            $('#theModal').delay(1500).fadeOut(200);
+            setTimeout(function() { theModal.style.display = "none"; }, 1800);
+
+          // theModal.style.display = "none";
+          // $('html, body').animate({ scrollTop: 0 }, 250);
+
+
+
         } 
       },
       error: function(response) {
@@ -1410,59 +1501,10 @@ $(document).ready(function() {
 /* begin Add a note + modify and delete */
 $(document).ready(function() {
 /* $(document).ready open - 1203121138 */  
-  /* I can't find this being used anywhere so I silenced it. delete eventually...
-  var originalHeader = document.getElementById('header-msg');
-  var originalBody = document.getElementById('thatll-do');
-  var originalFooter = document.getElementById('im-watchin'); 
-  */
-
-  /* prepare original header (oh) of modal for reuse */
-  /* used in #header-msg */
-  var oh  =   '* Notes are not shared within project.';
-
-  /* prepare original modal (om) body for reuse */
-  /* used in #thatll-do */
-  var om  =   '<form class="edit-link-form">';
-  om      +=  '<input type="hidden" name="cp" id="aancp">';
-  // om      +=  '<input type="hidden" name="uid" id="uid">';
-  om      +=  '<input type="hidden" name="nid" id="nid">';   
-  om      +=  '<label>Name | > 18 chars will be trimmed';
-  om      +=  '<input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200">';
-  om      +=  '</label>';
-
-  om      +=  '<label>URL | Makes the name a hyperlink';
-  om      +=  '<input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://">';
-  om      +=  '</label>';
-
-  om      +=  '<label>Note | Limit 10,000 characters';
-  om      +=  '<textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea>';
-  om      +=  '</label>';
-
-  om      +=  '<label class="clipboard">';
-  om      +=  '<input type="checkbox" name="clipboard" id="aanClipboard">';
-  om      +=  ' Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)';
-  om      +=  '</label>';
-
-  om      +=  '<label class="clipboard">';
-  om      +=  '<input type="checkbox" name="truncate" id="aanTruncate">';
-  om      +=  ' Truncate long note (only show first 32 characters)';
-  om      +=  '</label>';
-
-  om      +=  '<div class="submit-links">';
-  om      +=  '<a data-role="notesClose" class="cancel">Cancel</a>';
-  om      +=  '<a id="update-note" class="submit">Add note</a>';
-  om      +=  '<a id="modify-note" class="submit">Modify note</a>';
-  om      +=  '</div>';
-  om      +=  '</form>';
-
-  /* prepare original footer (of) for reuse */
-  /* used in #im-watchin */
-  var of  =   'Only you will see your notes.';
-
+  var delMB = $('#delete-modal-body').clone();
 
   /* open 'Add a note' modal */
   $(document).on('click','a[data-role=notes]',function() {
-    // var noteModal = document.getElementById('aan-modal');
     var noteModal = document.getElementById('aan-modal');;
     var updatenote = document.getElementById('update-note');
     var modifynote  = document.getElementById('modify-note');
@@ -1529,6 +1571,7 @@ $(document).ready(function() {
   $(document).on('click','[data-role=notesClose]',function() {
     var noteModal = document.getElementById('aan-modal');
     var limitModal  = document.getElementById('thats-all');
+    var deleteModal  = document.getElementById('adios');
 
     $('#thatll-do').removeClass('delete');
     $('#aanName').val('');
@@ -1539,15 +1582,13 @@ $(document).ready(function() {
 
     noteModal.style.display = "none";
     limitModal.style.display = "none";
+    deleteModal.style.display = "none";
 
   });
 
   // 'Add note' button from inside Add a note modal
   $('#update-note').click(function() {
-
     var noteModal = document.getElementById('aan-modal');
-    // var updatenote = document.getElementById('update-note');
-    var modifynote  = document.getElementById('modify-note');
 
     var sort1 = $('[data-role=maxsort]').val();
     var sort2 = $('[data-role=maxsortz]').val();
@@ -1620,6 +1661,10 @@ $(document).ready(function() {
 
   /* open Modify Note Modal - when far-right icon is clicked under 'Add a note' */
   $(document).on('click','a[data-role=modify-note]',function() { 
+    var noteModal   = document.getElementById('aan-modal');
+    var updatenote = document.getElementById('update-note');
+    var modifynote  = document.getElementById('modify-note');
+
     var ida       = $(this).data('id');
     // added a "z_" to this data-id element so the clipboard data-id would be unique
     var id        = ida.substring(2);
@@ -1654,10 +1699,6 @@ $(document).ready(function() {
     $('#aanNote').val(notes);
     $('#nid').val(id);
     $('#im-watchin').html('&nbsp;');
-
-    var noteModal   = document.getElementById('aan-modal');
-    // var updatenote = document.getElementById('update-note');
-    var modifynote  = document.getElementById('modify-note');
 
     noteModal.style.display = "block";
     updatenote.style.display = "none";
@@ -1716,49 +1757,20 @@ $(document).ready(function() {
     noteModal.style.display = "none";
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* open delete note modal - icon to far-right of notes */
   $(document).on('click','a[data-role=deletenote]',function() { 
-    var noteModal   = document.getElementById('aan-modal');
+    var deleteModal   = document.getElementById('adios'); 
+    var deleteContent = document.getElementById('adios-content');  
     var noteid = $(this).closest('form').find('[data-role=deletethis]').val();
     var notename = $(this).closest('form').find('[data-role=notename]').val();
 
-    /* var dnm = "delete note modal" */
-    var dnm =   '<input type="hidden" id="deletenoteid" value="'+noteid+'">';
-    dnm     +=  '<p>Confirm delete of note named, "'+notename+'"</p>';
-    dnm     +=  '<div id="buttons">';
-    dnm     +=  '<a class="cancel canceldeletenote">Cancel</a>';
-    dnm     +=  '<a class="cancel delete deleteanote">Delete</a>';
-    dnm     +=  '</div>';
+    $('#delete-header-msg').html('Delete note');
+    $('#delete-modal-body').html(delMB);
+    $('#deletenoteid').val(noteid);
+    $('#deletenotename').html(notename);
 
-    $('.aan-modal-header').addClass('delete');
-    $('.aan-modal-body').addClass('delete');
-    $('#header-msg').html('Confirm deletion');
-    $('#thatll-do').html(dnm);
-    $('#im-watchin').html('&nbsp;');
-
-    noteModal.style.display = "block";
-
-
+    deleteModal.style.display = "block";
+    deleteContent.style.display = "block";
 
     /* 'Delete' button inside the modal */
     // $(document).on('click','.deleteanote',function() {
@@ -1768,43 +1780,29 @@ $(document).ready(function() {
       $.ajax({
         url     : '_form-processing.php',
         method  : 'post',
-        data    : {delete_a_note:'yo', noteid:noteid},
+        data    : {delete_a_note:'yo', deletethis:deletethis},
         success : function(response) {
           if (response == 'ok') {
-            $('#header-msg').html('Gone like the wind');
-            $('#thatll-do').html('That note is history.');
-            setTimeout(function() { noteModal.style.display = "none"; }, 1500);
-
-            setTimeout(function() { 
-              $('.aan-modal-header').removeClass('delete');
-              $('.aan-modal-body').removeClass('delete');
-              $('#header-msg').html(oh);
-              $('#thatll-do').html(om);
-              $('#im-watchin').html(of); 
-            }, 1550);
-
+            $('#delete-header-msg').html('Gone like the wind');
+            $('#delete-modal-body').html('<p>That note is history.</p>');
+            $('#adios-content').delay(750).slideUp(200);
+            $('#adios').delay(750).fadeOut(200);
+            setTimeout(function() { deleteModal.style.display = "none"; }, 950);
             $('#usersnotes').load('usersnotes.php');
           }
         }
       });
     });
 
+    /* 'Cancel' button inside delete note modal */
+    $('.canceldeletenote').click(function() {
+      var deleteModal   = document.getElementById('adios');
+      deleteModal.style.display = "none";
+
+    });
+
+
   });
-
-
-/* 'Cancel' button inside delete note modal */
-$(document).on('click','.canceldeletenote',function() {
-  var noteModal   = document.getElementById('aan-modal');
-  noteModal.style.display = "none";
-
-  $('.aan-modal-header').removeClass('delete');
-  $('.aan-modal-body').removeClass('delete');
-  $('#header-msg').html('* Notes are not shared within project.');
-  $('#thatll-do').html(om);
-  $('#im-watchin').html(of);
-
-});
-
 
 
 

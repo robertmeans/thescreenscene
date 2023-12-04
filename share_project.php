@@ -259,44 +259,48 @@ require '_includes/head.php'; ?>
 	</div><!-- #project-wrap -->
 </div><!-- #table-page -->
 <!-- Modal -->
-<div id="theModal" class="modal fade" role="dialog">
+<div id="theModal" class="esu modal fade" role="dialog">
   <div class="modal-dialog">
     <!-- Modal content-->
-    <div class="modal-content">
+    <div id="esu-content" class="modal-content">
       <div class="modal-header">
         <a class="static closefp"><i class="fas fa-times-circle"></i></a>
         <h4 id="smht" class="modal-title">Edit Permissions | Remove from Project</h4>
       </div>
       <div class="modal-body">
 
-        <form id="esModal" class="sharemodal sharing" action="post">
-          <input type="hidden" id="delete-shared-user" name="delete-shared-user">
-          <input type="hidden" id="pro-id" name="project_id">
-          <input type="hidden" id="username" name="username">
-          <input type="hidden" id="project_name" name="project_name">
+      <div id="esu-message"> 
+        <ul id="esu-msg-ul"></ul>
+      </div>
 
-          <div class="priv-box">
+      <form id="esModal" class="sharemodal sharing" action="post">
+        <input type="hidden" id="delete-shared-user" name="delete-shared-user">
+        <input type="hidden" id="pro-id" name="project_id">
+        <input type="hidden" id="username" name="username">
+        <input type="hidden" id="project_name" name="project_name">
 
-            <div id="editperm" class="choice edit2">
-              <span class="editnocheck2"><i class="far fa-square fa-fw"></i></span>
-              <span class="editcheck2"><i class="far fa-check-square fa-fw"></i></span>
-              <input id="edit2" type="checkbox" class="edit2" name="edit2" value="1"> 
-              <label class="edit2" for="edit2">Add, edit or delete links in this project.</label>
-            </div>
+        <div class="priv-box">
 
-            <div id="shareperm" class="choice share2">
-              <span class="sharenocheck2"><i class="far fa-square fa-fw"></i></span>
-              <span class="sharecheck2"><i class="far fa-check-square fa-fw"></i></span>
-              <input id="share2" type="checkbox" class="share2" name="share2" value="1">
-              <label class="share2" for="share2">Share project, and permissions (if any) you assign this user, with others.</label>
-            </div>
-
+          <div id="editperm" class="choice edit2">
+            <span class="editnocheck2"><i class="far fa-square fa-fw"></i></span>
+            <span class="editcheck2"><i class="far fa-check-square fa-fw"></i></span>
+            <input id="edit2" type="checkbox" class="edit2" name="edit2" value="1"> 
+            <label class="edit2" for="edit2">Add, edit or delete links in this project.</label>
           </div>
 
-          <div id="buttons">
-            <a class="cancel delete removeshareduser">Remove user</a><a class="submit updateshareduser">Update</a>
-          </div> 
-        </form>
+          <div id="shareperm" class="choice share2">
+            <span class="sharenocheck2"><i class="far fa-square fa-fw"></i></span>
+            <span class="sharecheck2"><i class="far fa-check-square fa-fw"></i></span>
+            <input id="share2" type="checkbox" class="share2" name="share2" value="1">
+            <label class="share2" for="share2">Share project, and permissions (if any) you assign this user, with others.</label>
+          </div>
+
+        </div>
+
+        <div id="buttons">
+          <a class="cancel delete removeshareduser">Remove user</a><a class="submit updateshareduser">Update</a>
+        </div> 
+      </form>
 
       </div>
       <div class="modal-footer">

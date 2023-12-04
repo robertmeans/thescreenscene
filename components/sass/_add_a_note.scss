@@ -19,13 +19,14 @@
   position: relative;
   // background-color: #fefefe;
   background-color: #313131;
+  background-color: rgba(0,0,0,0.8);
   color: #fff;
   margin: 15% auto 0;
   padding: 0px;
   border: 1px solid #fff;
   width: 90%;
   max-width: 500px;
-  border-radius: 8px;
+  // border-radius: 8px;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
   animation-name: animatetop;
   animation-duration: 0.4s;
@@ -40,13 +41,13 @@
 /* The Close Button */
 .aan-close,
 .modify-close {
-  color: #313131;
+  color: #fff;
   float: right;
   margin-top: -0.2em;
   font-size: 1.5em;
   font-weight: bold;
-  background-color: #fff;
-  border-radius: 50%;
+  // background-color: #fff;
+  // border-radius: 50%;
   &:hover,
   &:focus {
     color: black;
@@ -59,7 +60,7 @@
 .aan-close:focus,
 .modify-close:hover,
 .modify-close:focus {
-  color: black;
+  color: #fff;
   text-decoration: none;
   cursor: pointer;
 }
@@ -75,8 +76,8 @@
 }
 .aan-modal-header,
 .modify-modal-header {
-  border-top-right-radius: 8px;
-  border-top-left-radius: 8px;
+  // border-top-right-radius: 8px;
+  // border-top-left-radius: 8px;
 }
 .aan-modal-wrap,
 .modify-modal-wrap {
@@ -200,8 +201,8 @@
 /* Modal Footer */
 .aan-modal-footer,
 .modify-modal-footer {
-  border-bottom-right-radius: 8px;
-  border-bottom-left-radius: 8px;
+  // border-bottom-right-radius: 8px;
+  // border-bottom-left-radius: 8px;
 }
 
 .aan-modal-footer.num5 {
@@ -416,14 +417,22 @@
 .aan-modal-header.delete {
   background-color: #ff4c4c;
 }
+.aan-modal-footer.delete {
+  background-color: #a83232;
+}
 .aan-modal-body.delete {
   display: flex; 
   flex-direction: column;
-  justify-content: center;
+  // justify-content: center;
   align-items: center;
+  margin: 1.5em auto;
   p {
     word-break: break-all;
-  }  
+  } 
+  p.c {
+    // text-align: center;
+    margin: 1.5em auto;
+  } 
 }
 a.cancel.deletenote {
   background-color: #ff4c4c;

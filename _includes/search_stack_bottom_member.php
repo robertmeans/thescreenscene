@@ -181,9 +181,9 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <h3 id="im-watchin">Only you will see your notes.</h3>
   </div>
 </div><!-- .aan-modal-content -->
-</div><?php // #aan-modal ?>
+</div><?php /* #aan-modal */ ?>
 
-<?php // limit reached modal // ?>
+<?php /* limit reached modal */ ?>
 <div id="thats-all" class="aan-modal">
 <div class="aan-modal-content">
   <div class="aan-modal-header">
@@ -199,4 +199,31 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <h3>That'll do, note piggy.</h3>
   </div>
 </div><!-- .aan-modal-content -->
-</div><?php // #aan-modal ?>
+</div><?php /* #thats-all */ ?>
+
+
+<?php /* delete modal */ ?>
+<div id="adios" class="aan-modal delete">
+<div id="adios-content" class="aan-modal-content">
+  <div class="aan-modal-header delete">
+    <span class="aan-close shutit" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
+    <h2 id="delete-header-msg">Delete note</h2>
+  </div>
+  <div class="aan-modal-wrap">
+    <div id="delete-modal-body" class="aan-modal-body delete">
+    <form class="edit-link-form">
+      <p>Confirm delete of note:</p>
+      <p id="deletenotename" class="c"></p>
+      <input type="hidden" name="deletenoteid" id="deletenoteid">
+      <div class="submit-links">
+        <a data-role="notesClose" class="cancel canceldeletenote">Cancel</a>
+        <a class="cancel delete deleteanote">Delete</a>
+      </div>
+    </form>
+    </div><!-- .aan-modal-body -->
+  </div><!-- .aan-modal-wrap -->
+  <div class="aan-modal-footer delete">
+    <h3>&nbsp;</h3>
+  </div>
+</div><!-- .aan-modal-content -->
+</div><?php /* #adios */ ?>

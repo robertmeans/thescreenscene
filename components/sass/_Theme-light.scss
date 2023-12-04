@@ -21,7 +21,7 @@ ul#static-sort {
 }
 .modify-modal-content,
 .aan-modal-content {
-    background-color: #fff; 
+    background-color: rgba(255,255,255,0.9); 
     color: #313131;
 	form p,	
 	label {
@@ -67,7 +67,7 @@ ul#static-sort {
 }
 #theModal {
 	.modal-body {
-    background-color: #fff;
+    background-color: rgba(255,255,255,0.9);
 		color: #313131;
 		form.edit-link-form input.edit-input {
 			color: #313131;
@@ -600,4 +600,7 @@ a.td {
 }
 #thatll-do {
   color: #757575;
+}
+#delete-header-msg {
+  background-color: #ff4c4c;
 }
