@@ -190,9 +190,14 @@
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		align-items: center;
 		margin-bottom: 0;
+    width: 100%;
 		line-height: 1.5em;
+    .sudeets {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 		input[type=submit].remove,
 		input[type=submit].modify {
 			display: inline;
@@ -216,7 +221,20 @@
   //   background-color: #4f7523;
   // }
 }
-
+#ruModal {
+  display: none;
+}
+#ruModal #ru-content .modal-header {
+  background-color: #ff4c4c;
+}
+#ruForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5em;
+  padding: 1.5em 1em;
+}
 #esModal {
   display: flex;
   flex-direction: column;
@@ -249,36 +267,64 @@
   display: none;
 }
 
+.rsu-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 
 .rsu {
   display: flex;
-  padding: 0.5em 1em;
-  border: 1px solid transparent;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 0.25em 1em;
+  border: 1px solid rgba(255,255,255,0.3);
   border-radius: 0px;
   background-color: rgba(0,0,0,0.8);
   -webkit-transform: scale(1.0);
   -moz-transform: scale(1.0);
   -o-transform: scale(1.0);
   transform: scale(1.0); 
-  transition: all 0.2s ease; 
+  transition: all 0.2s ease;
+  &.editshareduser {
+    margin-bottom: 3px;
+  } 
   &:hover {
     border: 1px solid #fff;
     background-color: #000;
-    border-radius: 5px;
+    // border-radius: 5px;
     -webkit-transform: scale(0.9);
     -moz-transform: scale(0.9);
     -o-transform: scale(0.9);
     transform: scale(0.9);
   }
 }
+.rsu.removeme {
+  width: auto;
+}
+.rsu.removesharedmodal {
+  background-color: #ff4c4c;
+  &:hover {
+    background-color: #ff4c4c;
+  }
+}
+#shmt.red {
+  background-color: #ff4c4c;
+  color: #fff;
+}
 #shared-list {
   display: flex;
   flex-direction: column;
   background-color: transparent;
   li span {
-    display: flex;
-    width: 100%;
-    padding: 0.25em 1em 0.5em 0;
+    // display: flex;
+    // width: 100%;
+    // padding: 0.25em 1em 0.5em 0;
     color: #fff;
     font-size: 0.8em;
 
@@ -288,7 +334,9 @@
     padding: 0.5em 1em;
   }
   li {
-    padding: 0em 0em 0em 1em;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
   }
   li:nth-child(odd) {
     background-color: rgba(0,0,0,0.3);
@@ -296,7 +344,7 @@
   li:nth-child(even) {
     background-color: transparent;
     .rsu {
-      background-color: transparent;
+      // background-color: transparent;
     }
   }
 }

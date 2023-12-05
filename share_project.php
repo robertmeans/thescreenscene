@@ -90,7 +90,10 @@ require '_includes/head.php'; ?>
     $i = 0;
     while ($row = mysqli_fetch_assoc($sharing)) { 
       $names[]  = '<li><form class="edit-user" method="post">';
+
+      $names[]  .= '<div class="sudeets">';
       $names[]  .= $row['first_name'] . ' ' . $row['last_name'] . ' | ' . $row['email'];
+
       $names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row['shared_with'] . '">';
       $names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row['project_id'] . '">';
 
@@ -104,14 +107,22 @@ require '_includes/head.php'; ?>
 
       $names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
       $names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">';
-      // $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
+
+      $names[]  .= '<span>Permissions: ';
+        if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
+        if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
+        if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
+        if ($row['share'] == 1) { $names[]  .= 'Can share'; }
+      $names[]  .= '</span>';
+      $names[]  .= '</div>';
+
+      $names[]  .= '<div class="rsu-btns">';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '</form><span>Permissions: ';
-      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
-      if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
-      if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
-      if ($row['share'] == 1) { $names[]  .= 'Can share'; }
-      $names[]  .= '</span></li>'; 
+      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
+      $names[]  .= '</div>';
+
+      $names[]  .= '</form></li>';
+
       $i++; 
     } 
 
@@ -190,27 +201,32 @@ require '_includes/head.php'; ?>
 	?>
 	<li>
     <form class="edit-user remove-self" method="post"> 
-      <div>Me</div>
-      <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
-      <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
-      <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
-      <input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
-      <a class="rsu removeme">Leave</a>
-    </form><span>Permissions: <?php
-      if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
-      if ($row['edit'] == 1) { echo 'Can edit'; }
-      if ($row['share'] == 1 && $row['edit'] == 1) { echo ' + '; }
-      if ($row['share'] == 1) { echo 'Can share'; }
-    ?></span>
+      <div class="sudeets">Me
+        <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
+        <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
+        <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+
+      <span>Permissions: <?php
+        if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
+        if ($row['edit'] == 1) { echo 'Can edit'; }
+        if ($row['share'] == 1 && $row['edit'] == 1) { echo ' + '; }
+        if ($row['share'] == 1) { echo 'Can share'; }
+      ?></span>
+    </div>
+        <input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
+        <a class="rsu removeme">Leave</a>
+    </form>
   </li>
 	<?php
 	if ($result > 1) {
 		$sharing = show_shared_with_info($user_id, $this_project);
     $i = 0;
     while ($row = mysqli_fetch_assoc($sharing)) { 
-
       $names[]  = '<li><form class="edit-user" method="post">';
+
+      $names[]  .= '<div class="sudeets">';
       $names[]  .= $row['first_name'] . ' ' . $row['last_name'] . ' | ' . $row['email'];
+
       $names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row['shared_with'] . '">';
       $names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row['project_id'] . '">';
 
@@ -224,14 +240,21 @@ require '_includes/head.php'; ?>
 
       $names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
       $names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row['first_name'] . ' ' . $row['last_name'] . '">';
-      // $names[]  .= '<a class="rsu removeshareduser">Remove</a>';
+
+      $names[]  .= '<span>Permissions: ';
+        if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
+        if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
+        if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
+        if ($row['share'] == 1) { $names[]  .= 'Can share'; }
+      $names[]  .= '</span>';
+      $names[]  .= '</div>';
+
+      $names[]  .= '<div class="rsu-btns">';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '</form><span>Permissions: ';
-      if ($row['share'] == 0 && $row['edit'] == 0) { $names[]  .= 'View only'; }
-      if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
-      if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
-      if ($row['share'] == 1) { $names[]  .= 'Can share'; }
-      $names[]  .= '</span></li>'; 
+      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
+      $names[]  .= '</div>';
+
+      $names[]  .= '</form></li>';
       $i++;
     }
 
@@ -298,7 +321,8 @@ require '_includes/head.php'; ?>
         </div>
 
         <div id="buttons">
-          <a class="cancel delete removeshareduser">Remove user</a><a class="submit updateshareduser">Update</a>
+          <a class="cancel cancelouttahere">Cancel</a>
+          <a class="submit updateshareduser">Update</a>
         </div> 
       </form>
 
@@ -309,4 +333,63 @@ require '_includes/head.php'; ?>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
+
+
+<!-- Remove user modal -->
+<div id="ruModal" class="esu modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <!-- <div id="esu-content" class="modal-content"> -->
+    <div id="ru-content" class="modal-content">
+      <div class="modal-header">
+        <a class="static closefp"><i class="fas fa-times-circle"></i></a>
+        <!-- <h4 id="smht" class="modal-title">Edit Permissions | Remove from Project</h4> -->
+      <h4 id="ruht" class="modal-title"></h4>
+      </div>
+      <div class="modal-body">
+
+      <!--
+      <div id="esu-message"> 
+        <ul id="esu-msg-ul"></ul>
+      </div>
+    -->
+      <div id="ru-message"> 
+        <ul id="ru-msg-ul"></ul>
+      </div>
+
+
+      <form id="ruForm" class="sharemodal sharing" action="post">
+        <input type="hidden" id="removethis-user" name="delete-shared-user">
+        <input type="hidden" id="ru-pro-id" name="project_id">
+        <input type="hidden" id="ru-username" name="username">
+        <input type="hidden" id="ru-project_name" name="project_name">
+
+        <div id="dthisuser"></div>
+
+        <div id="rubuttons">
+          <a class="cancel cancelouttahere">Cancel</a>
+          <a class="delete removeshareduser">Remove</a>
+        </div> 
+      </form>
+
+      </div>
+      <div class="modal-footer">
+        <h3>&nbsp;</h3>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
 <?php require '_includes/footer.php'; ?>

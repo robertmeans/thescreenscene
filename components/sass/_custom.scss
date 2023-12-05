@@ -47,7 +47,8 @@ p.query-tinkerer {
 }
 
 #message,
-#esu-message {
+#esu-message
+#ru-message {
   height: 0px;
   opacity: 0;
   color: #fff;
@@ -64,7 +65,8 @@ p.query-tinkerer {
     margin: 1em auto 0.25em;
   }
   #msg-ul,
-  #esu-msg-ul {
+  #esu-msg-ul,
+  #ru-msg-ul {
     margin-left: 20px;
     li {
       list-style-type: disc;
@@ -104,6 +106,7 @@ p.query-tinkerer {
 }
 
 #buttons,
+#rubuttons,
 .submit-links {
   display: flex;
   justify-content: space-between;

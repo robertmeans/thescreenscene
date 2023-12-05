@@ -1,5 +1,10 @@
 <?php
 
+$x = 1;
+function local_testing($x) {
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep($x); }
+}
+
 function show_session_variables() {
   $show   =   '<div style="display: flex; flex-direction: column; width: 100%; padding: 20px;">';
   $show   .=  '<span style="display: flex; text-decoration: underline">Session variables:</span>';

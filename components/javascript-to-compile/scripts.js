@@ -939,10 +939,9 @@ $(document).ready(function() {
 
 
 
-  /* 'Edit' link next to each shared user. opens modal with, 'Remove user' & 'Update' buttons from share_project.php */
+  /* 'Edit' link next to each shared user. opens modal with, 'Cancel' & 'Update' buttons from share_project.php */
   $(document).on('click','.editshareduser',function() {
 
-    
     var theModal      = document.getElementById("theModal");
     var content       = document.getElementById("esu-content");
     var id            = $(this).data('id');
@@ -991,59 +990,95 @@ $(document).ready(function() {
     $('#esu-msg-ul').html(''); 
     theModal.style.display = "block";
     content.style.display = "block";
+
+
+    /* 'Cancel' button inside delete note modal */
+    $('.cancelouttahere').click(function() {
+      theModal.style.display = "none";
+    });
+
   });
 
 
 
 
 
-  /* 'Remove user' button on share_project.php inside modal */
-  /* sends to _form-processing.php on unique $_POST['delete-shared-user'] */
-  $(document).on('click','.removeshareduser', function() {
+  /* 'Remove' button on share_project.php to the far right of each shared user - under 'Edit' */
+  $(document).on('click','.removesharedmodal', function() {
     var current_loc = window.location.href;
-    var username = $('#username').val();
-    var projectname = $('#project_name').val();
-    if ($('#theModal').length != 0) { var theModal   = document.getElementById("theModal"); }
+    var theModal      = document.getElementById("ruModal");
 
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
+    var id            = $(this).data('id');
+    var project_id    = $('#'+id+'_project_id').val();
+    var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
+    var project_name  = $('#'+id+'_project_name').val();
+    var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
 
-      beforeSend: function(xhr) {
-        $('#message').removeAttr('class');
-        return confirm('Confirm: Remove ' + username + ' from the project: ' + projectname );
-      },
-          
-      success: function(response) {
-        console.log(response);
-        if(response['signal'] == 'ok') {
+    $('#ruht').html('Remove '+username);
+    $('#removethis-user').val(esuser);
+    $('#ru-pro-id').val(project_id);
+    $('#ru-username').val(username);
+    $('#ru-project_name').val(project_name);
+    $('#dthisuser').html('<p>Remove: '+username+'</p><p>From: '+project_name+'?');
+    theModal.style.display = "block";
 
 
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);
-          $('#shared-list').html(response['shared_names']);
+    /* 'Remove' button inside modal on shared_project.php */
+    $('.removeshareduser').click(function() {
+    /* sends to _form-processing.php on unique $_POST['delete-shared-user'] */
+      $.ajax({
+        dataType: "JSON",
+        url: "_form-processing.php",
+        type: "POST",
+        data: $(this).closest('form').serialize(),
 
-          if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
-          // $('html, body').animate({ scrollTop: 0 }, 250);
+        beforeSend: function(xhr) {
+          $('#rubuttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+        },    
+        success: function(response) {
+          console.log(response);
+          if(response['signal'] == 'ok') {
+
+            $('#ru-message').addClass(response['class']);
+            $('#ru-msg-ul').html(response['li']);
+            $('#ruForm').html('<p>They\'re gone!</p>');
+
+            setTimeout(function() { $('#ru-message').addClass('out'); }, 2000);
+            setTimeout(function() { 
+              $('#ru-msg-ul').html(''); 
+              $('#ru-message').removeAttr('class');
+            }, 2500);
 
 
 
-        } else {
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);
+            $('#shared-list').html(response['shared_names']);
 
-          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');
-          
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
+            // theModal.style.display = "none";
+            // if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
+            // $('html, body').animate({ scrollTop: 0 }, 250);
+
+          } 
+        },
+        error: function(response) {
+          // console.log(response);
+        }, 
+        complete: function() {
+        }
+      })
+
+    });
+
+
+
+    /* 'Cancel' button inside delete note modal */
+    $('.cancelouttahere').click(function() {
+      theModal.style.display = "none";
+    });
+    $('.closefp').click(function() {
+      theModal.style.display = "none";
+    });
+
+
   });
 
 

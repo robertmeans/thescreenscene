@@ -1,5 +1,6 @@
 /* The Modal (background) */
-#theModal {
+#theModal,
+#ruModal {
   display: none; /* turn this modal on or off for dev at btm of script */
   position: fixed;
   z-index: 80;
