@@ -287,9 +287,6 @@ if ($projects > 0) {
         <div>
           <?= $row['project_name']; ?>
         </div> 
-        <div class="tooltip">
-          <span class="tooltiptext">This project is shared</span><i class="fas fa-user-friends"></i>
-        </div>
       </div> 
 
     </div><!-- .review-project .my-projects -->

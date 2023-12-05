@@ -8,6 +8,8 @@ BrowserGadget updates
 
 9. add 'go to homepage' link on my_projects->bar of each project to left of shared icon
 
+10. login - create a catchall for:  if ($_SESSION['first_name'] === NULL) { send to logout.php } -- because if someone has a cookie that does not correspond with their email_code they can't shake that shit.
+
 
 
 
@@ -120,3 +122,11 @@ light:
 
 
 jquery target nested class without triggering containing class
+
+
+
+UPDATE notes SET user_id=1, project_id=3
+
+UPDATE notes SET project_id=3
+
+MIT lecture

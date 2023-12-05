@@ -3,7 +3,6 @@
 <?php if ($_SESSION['pr'] == 'showmepr') { 
   // they have a password reset token and it checks out  ?>
   <form id="reset-form" class="front-login" method="post">
-
     <div id="message"> 
       <ul id="msg-ul"></ul>
     </div>

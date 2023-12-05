@@ -1265,8 +1265,33 @@ $i++;
               if ($result3) {
               /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
-                $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
+                $sharing = show_shared_with_info($user_id, $_POST['project_id']);   
                 $i = 0;
+      // figure out later...
+      // needs to print special version if shared_with user
+      // $names[]  =  '<li>';
+
+      // $names[]  .=  '<form class="edit-user remove-self" method="post">';
+      // $names[]  .=  '<div class="sudeets">Me';
+      // $names[]  .=  '<input type="hidden" id="project_name" name="project_name" value="' . $row3['project_name'] .'">';
+      // $names[]  .=  '<input type="hidden" id="project_id" name="project_id" value="'. $row3['project_id'] . '">';
+      // $names[]  .=  '<input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
+      // $names[]  .=  '<span>Permissions:';
+
+      //               if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
+      //               if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+      //               if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+      //               if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+
+      // $names[]  .=  '</span></div>';
+      // $names[]  .=  '<input type="hidden" id="remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
+      // $names[]  .=  '<a class="rsu removeme">Leave</a>';
+      // $names[]  .=  '</form>';
+      // $names[]  .=  '</li>';
+
+
+      // $names[]  .=  '</li>';
+
                 while ($row3 = mysqli_fetch_assoc($sharing)) { 
       $names[]  = '<li><form class="edit-user" method="post">';
 

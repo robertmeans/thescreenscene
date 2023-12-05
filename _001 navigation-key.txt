@@ -86,3 +86,15 @@ standardize errors on:
 
 http://localhost/browsergadget/index.php?password-token=7f2e4b6d06a6e24e882688a989c7da98242557f635ae09f9ae3622099582866b673f8cda7a9c0c86eed0a8e6b982c1cc88d3
 
+
+emails to use for testing ( pswd same for: 'test' )
+password reset: index.php?password-token=
+welcome/new acct: index.php?token=
+
+browser		  email									  username (first only)		   email_code
+chrome: RM 	: robert@robertmeans.com 				: Robert Means 				 : rhm
+chrome: BG 	: robertmeans01@gmail.com 				: Bob Means 				 : bhm
+chrome: TL	: triplellaw@bobmeans.com 				: Triple L 					 : mno
+chrome: LD	: ldintuitive@bobmeans.com 				: Larry Porter 				 : abc
+chrome: ED	: evergreencreativedistrict@gmail.com 	: Evergreen CreativeDistrict : xyz
+
