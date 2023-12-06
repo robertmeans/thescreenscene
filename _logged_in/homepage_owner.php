@@ -176,8 +176,8 @@ $id_count = 1 + $row_count;
         <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
         <input type="hidden" name="idcount" id="idcount">
 
-        <label>Name | Limit 30 characters
-        <input name="name" id="name" class="edit-input link-name" type="text" maxlength="30"></label>
+        <label>Name | Limit 18 characters
+        <input name="name" id="name" class="edit-input link-name" type="text" maxlength="18"></label>
 
         <label>URL
         <input name="urlz" id="urlz" class="edit-input link-url" type="text" placeholder="http://"></label>

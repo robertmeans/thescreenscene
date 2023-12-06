@@ -1438,22 +1438,22 @@ $i++;
         $result3 = mysqli_num_rows($is_it_shared);
         if ($result3 > 0) { 
 
-          $sharing = show_owner_info($_POST['project_id']);
+          $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
           $me = mysqli_fetch_assoc($sharing);
 
 
 $names[] = ''; /* initiate $names */
-if (($_SESSION['id'] !== $me['owner_id'])) {
+if ($me) {
 /* this is the shared_with user. give them the 'Leave' option */
 $names [] .= '<li><form class="edit-user remove-self" method="post">';
 $names [] .= '<div class="sudeets">Me'; /* id 'rmfp' = remove me from project */
 $names [] .= '<input type="hidden" id="rmfp_project_name" name="project_name" value="' . $_POST['project_name'] . '">';
 $names [] .= '<input type="hidden" id="rmfp_project_id" name="project_id" value="' . $_POST['project_id'] . '">';
 $names [] .= '<span>Permissions:';
-    if ($me['share'] == 0 && $me['edit'] == 0) { $names [] .= 'View only'; }
-    if ($me['edit'] == 1) { $names [] .= 'Can edit'; }
-    if ($me['share'] == 1 && $me['edit'] == 1) { $names [] .= ' + '; }
-    if ($me['share'] == 1) { $names [] .= 'Can share'; }
+  if ($me['share'] == 0 && $me['edit'] == 0) { $names [] .= 'View only'; }
+  if ($me['edit'] == 1) { $names [] .= 'Can edit'; }
+  if ($me['share'] == 1 && $me['edit'] == 1) { $names [] .= ' + '; }
+  if ($me['share'] == 1) { $names [] .= 'Can share'; }
 $names [] .= '</span>';
 $names [] .= '</div>';
 $names [] .= '<input type="hidden" id="rmfp_remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
@@ -1580,21 +1580,21 @@ $i++;
         $result3 = mysqli_num_rows($is_it_shared);
         if ($result3 > 0) { 
 
-          $sharing = show_owner_info($_POST['project_id']);
+          $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
           $me = mysqli_fetch_assoc($sharing);
 
 $names[] = ''; /* initiate $names */
-if (($_SESSION['id'] !== $me['owner_id'])) {
+if ($me) {
 /* this is the shared_with user. give them the 'Leave' option */
 $names [] .= '<li><form class="edit-user remove-self" method="post">';
 $names [] .= '<div class="sudeets">Me'; /* id 'rmfp' = remove me from project */
 $names [] .= '<input type="hidden" id="rmfp_project_name" name="project_name" value="' . $_POST['project_name'] . '">';
 $names [] .= '<input type="hidden" id="rmfp_project_id" name="project_id" value="' . $_POST['project_id'] . '">';
 $names [] .= '<span>Permissions:';
-    if ($me['share'] == 0 && $me['edit'] == 0) { $names [] .= 'View only'; }
-    if ($me['edit'] == 1) { $names [] .= 'Can edit'; }
-    if ($me['share'] == 1 && $me['edit'] == 1) { $names [] .= ' + '; }
-    if ($me['share'] == 1) { $names [] .= 'Can share'; }
+  if ($me['share'] == 0 && $me['edit'] == 0) { $names [] .= 'View only'; }
+  if ($me['edit'] == 1) { $names [] .= 'Can edit'; }
+  if ($me['share'] == 1 && $me['edit'] == 1) { $names [] .= ' + '; }
+  if ($me['share'] == 1) { $names [] .= 'Can share'; }
 $names [] .= '</span>';
 $names [] .= '</div>';
 $names [] .= '<input type="hidden" id="rmfp_remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
@@ -1715,30 +1715,6 @@ $i++;
 
   }
 
-
-  // if (isset($_POST['leave_project'])) {
-  //   global $db;
-
-  //   local_testing($x);
-
-  //   $li = '';
-  //   $class = '';
-  //   $id = $_POST['project_id'];
-  //   $remove_this_user = $_POST['leave_project']; 
-
-  //   $sql = "DELETE FROM project_user ";
-  //   $sql .= "WHERE project_id='" . $id . "' ";
-  //   $sql .= "AND shared_with='" . $remove_this_user . "' ";
-  //   $sql .= "LIMIT 1";
-
-  //   $result = mysqli_query($db, $sql);
-
-  //   $_SESSION['view-proj-pg'] = 'anothern';
-  //   $_SESSION['leaveproject'] = 'anothern';
-  //   $signal = 'ok';
-  //   echo json_encode($signal);
-
-  // }
 
 /* ******************* share project : end ************************ */ 
 

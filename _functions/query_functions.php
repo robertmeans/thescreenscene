@@ -133,6 +133,19 @@ function shared_or_owner($user_id, $current_project) {
   return $result;
 }
 
+function show_shared_permissions($user_id, $current_project) {
+  global $db;
+
+  $sql = "SELECT shared_with, edit, share from project_user ";
+  $sql .= "WHERE shared_with='" . db_escape($db, $user_id) . "' ";
+  $sql .= "AND project_id='" . db_escape($db, $current_project) . "' ";
+  $sql .= "LIMIT 1";
+
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);
+  return $result;
+}
+
 function edit_search_order($user_id, $current_project) {
   global $db;
 
