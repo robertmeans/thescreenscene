@@ -28,14 +28,7 @@ $row['reference'] = "1";
 preload_config($layout_context); 
 
 /* they got here via a very circuitous route that ultimately started with deleting or leaving their only project. */
-  if (isset($_SESSION['ds'])) {
-    echo '<div id="success-wrap"><span class="success-msg">Delete successful!</span></div>';
-    unset($_SESSION['ds']);
-  }
-  if (isset($_SESSION['leaveproject'])) {
-    echo '<div id="success-wrap"><span class="success-msg">Adios amigos!</span></div>';
-    unset($_SESSION['leaveproject']); 
-  }
+  flash_message();
 
 require '_includes/nav.php'; 
 ?>

@@ -840,20 +840,6 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* share_project | share project - form processing - checkboxes see: 1201231459 */
   $("#sharep").keyup(function(event) {
     if (event.keyCode === 13) {
@@ -921,24 +907,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* 'Edit' link next to each shared user. opens modal with, 'Cancel' & 'Update' buttons from share_project.php */
   /* open and prepare the modal for EDIT user functions */
   $(document).on('click','.editshareduser',function() {
@@ -1003,6 +971,7 @@ $(document).ready(function() {
 
     /* prepare modal */
     $('.modal-header').removeClass('red');
+    $('#smht').html('Edit Permissions');
     $('.modal-footer').removeClass('red');    
     $('.modal-body').removeClass('green');
     $('#es-msg-ul').html(''); /* reset any messages */
@@ -1072,34 +1041,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   /* 'Remove' button on share_project.php to the far right of each shared user - under 'Edit' */
   /* open and prepare modal for REMOVE user functions */
   $(document).on('click','.removeshared', function() {
@@ -1122,6 +1063,7 @@ $(document).ready(function() {
 
     /* prepare modal */
     $('.modal-header').addClass('red');
+    $('#smht').html('Remove from Project');
     $('.modal-body').removeClass('green'); /* reset */
     $('.modal-footer').addClass('red');
     $('#es-msg-ul').html(''); /* reset any messages */
@@ -1186,31 +1128,20 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /* this is used on shared_project.php */
+  /* open leave project modal. this is used on shared_project.php and my_projects.php */
   $(document).on('click','.removeme', function() { 
     var current_loc = window.location.href;
     var content       = document.getElementById("esu-content");    
     var theModal      = document.getElementById("theModal");
 
-    var project_id = $('#project_id').val();
-    var project_name = $('#project_name').val();
-    var editpriv = $('#editpriv').val();
-    var sharepriv = $('#sharepriv').val();
-    var esuser = $('#remove_me').val();
+    var id = $(this).data('id');
+    var project_id = $('#'+id+'_project_id').val();
+    var project_name = $('#'+id+'_project_name').val();
+    /* these are only used on share_project.php page. they're not available on my_projects.php */
+    if ($('#'+id+'_editpriv').length !== 0) { var editpriv = $('#'+id+'_editpriv').val(); }
+    if ($('#'+id+'_sharepriv').length !== 0) { var sharepriv = $('#'+id+'_sharepriv').val(); }
+    if ($('#'+id+'_remove_me').length !== 0) { var esuser = $('#'+id+'_remove_me').val(); }
+
 
     $('#pro-id').val(project_id);
     $('#project_name').val(project_name);
@@ -1221,6 +1152,7 @@ $(document).ready(function() {
 
     /* prepare modal */
     $('.modal-header').addClass('red');
+    $('#smht').html('Leave Project');
     $('.modal-body').removeClass('green'); /* reset */
     $('.modal-footer').addClass('red');
     $('#es-msg-ul').html(''); /* reset any messages */
@@ -1277,38 +1209,6 @@ $(document).ready(function() {
 
   });
 
-
-  /* this one is used on my_projects.php */
-  $(document).on('click','.leavethisproject', function() { 
-    var current_loc = window.location.href;
-    var project_name = $('#project_name').val();
-
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
-
-      beforeSend: function(xhr) {
-        return confirm('Confirm: Remove yourself from ' + project_name + '?');
-      },    
-      success: function(response) {
-        // console.log(response);
-        if (response == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
-          }
-        }
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
-  });
 
 
   // new_project.php (inner_nav.php & new_project.php: 'Start a new project': link) - DONE

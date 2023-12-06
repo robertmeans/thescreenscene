@@ -26,7 +26,7 @@ require '_includes/head.php';
 <?php if (isset($_SESSION['got-kicked-out'])) { ?>
 <?php /* $_SESSION['got-kicked-out']; is unset if they click on the 'Go to your projects page' link */ ?>
 
-<?php /* echo '<pre>' . var_dump($_SESSION) . '</pre><br><br>'; */ ?>
+<?php show_session_variables(); ?>
 
   <div class="cpnf">
   <p>You were removed from the project you were on.</p>
@@ -38,7 +38,7 @@ require '_includes/head.php';
 
 <?php } else { ?>
 
-<?php /* echo '<pre>' . var_dump($_SESSION) . '</pre><br><br>'; */ ?>
+<?php show_session_variables(); ?>
 
   <div class="cpnf">
   	<p>Looks like the project you were most recently viewing was deleted since you last saw it.

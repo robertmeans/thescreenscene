@@ -214,11 +214,11 @@ require '_includes/head.php'; ?>
 
 	?>
 	<li>
-    <form class="edit-user remove-self" method="post"> 
-      <div class="sudeets">Me
-        <input type="hidden" id="project_name" name="project_name" value="<?= $row['project_name']; ?>">
-        <input type="hidden" id="my_project_id" name="project_id" value="<?= $row['project_id']; ?>">
-        <input type="hidden" id="my_username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+    <form class="edit-user remove-self" method="post">
+      <div class="sudeets">Me <?php /* id 'rmfp' = remove me from project */ ?>
+        <input type="hidden" id="rmfp_project_name" name="project_name" value="<?= $row['project_name']; ?>">
+        <input type="hidden" id="rmfp_my_project_id" name="project_id" value="<?= $row['project_id']; ?>">
+        <input type="hidden" id="rmfp_my_username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
 
       <span>Permissions: <?php
         if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
@@ -228,8 +228,8 @@ require '_includes/head.php'; ?>
       ?></span>
     </div>
     <div class="rsu-btns">
-      <input type="hidden" id="remove_me" name="remove_me" value="<?= $user_id; ?>">
-      <a class="rsu removeme">Leave</a>
+      <input type="hidden" id="rmfp_remove_me" name="remove_me" value="<?= $user_id; ?>">
+      <a class="rsu removeme" data-id="rmfp">Leave</a>
     </div>
     </form>
   </li>

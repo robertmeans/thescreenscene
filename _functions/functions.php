@@ -13,6 +13,18 @@ function show_session_variables() {
   // echo $show;
 }
 
+function flash_message() {
+  /* timeout function in scripts.js and scripts-visitor.js. CSS in edit_page.scss */
+  if (isset($_SESSION['ds'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Delete successful!</span></div>';
+    unset($_SESSION['ds']); 
+  }
+  if (isset($_SESSION['leaveproject'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Adios amigos!</span></div>';
+    unset($_SESSION['leaveproject']); 
+  }
+}
+
 function preload_config($layout_context) { 
   $no_preload = array('new-project','edit_searches','edit_order','cp-not-found','share_project','my_projects','edit_project_details');
 
