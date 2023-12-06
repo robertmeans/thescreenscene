@@ -43,9 +43,10 @@ ul.inner-nav {
 					display: flex;
 				}
 				a {
-					padding: 0.5em 1em 0.5em 0.5em;
+          display: flex;
+          padding: 0.5em;
+          width: 100px;
 					text-decoration: none;
-					width: 100%;
 					border: 1px solid #ccc;
 					transition: all 0.2s ease;
 				}

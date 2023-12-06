@@ -222,7 +222,7 @@ if ($projects > 0) {
           <input type="hidden" id="project_id" name="project_id" value="<?= $row['project_id']; ?>">
           <input type="hidden" id="username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
           <input type="hidden" id="leave_project" name="leave_project" value="<?= $user_id; ?>">
-          <a class="leaveproject"><div class="tooltip"><span class="tooltiptext">Leave Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
+          <a class="leavethisproject"><div class="tooltip"><span class="tooltiptext">Leave Project</span><i class="fas fa-minus-circle fa-fw"></i></div></a>
         </form>
       </li>
 
@@ -239,19 +239,18 @@ if ($projects > 0) {
 		echo $row4['first_name'] . " " . $row4['last_name']; // project owner's name
 		// mysqli_free_result($owner);
 
-		echo " | Shared with: You";
-
 		$this_project = $row['project_id'];
 		$foo = show_shared_with_info($user_id, $this_project);
 		$anything_here = mysqli_num_rows($foo);
 
 		if ($anything_here > 0) {
+      echo " | Shared with: you, ";
       while ($row3 = mysqli_fetch_assoc($foo)) { 
-        $names[] = ", " . $row3['first_name'] . " " . $row3['last_name'] . ", ";  
+        $names[] = " " . $row3['first_name'] . " " . $row3['last_name'] . ", ";  
       } 
       echo rtrim(implode(array_unique($names)), ', ');
       unset($names);
-			} ?>
+			} else { echo " | Shared only with you."; } ?>
 		</div>
 
     <?php 

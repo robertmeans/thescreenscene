@@ -467,7 +467,10 @@ $(document).ready(function() { // 122120856 start
 /* navigation links and forms begin */
 $(document).ready(function() {
   /* prepare an original edit shared modal for later use */
-  /* if ($('#esModal').length != 0) { var oesm  = $("#esModal").clone(); } */
+  var esbuttons  = '<a id="cancelouttahere" class="cancel cancelouttahere">Cancel</a>';
+      esbuttons += '<a id="updateshareduser" class="submit updateshareduser">Update</a>';
+      esbuttons += '<a id="removeshared" class="delete removeshareduser">Remove</a>';
+      esbuttons += '<a id="leaveproject" class="delete leaveproject">Leave project</a>';
 
   /* Homepage link from: inner_nav.php + my_projects.php + nav.php */
   $(document).on('click', '.gth-link', function(e) {
@@ -899,11 +902,8 @@ $(document).ready(function() {
           $('#buttons').html('<a class="shareproject submit full-width">Add another</a>');
           $('#shared-list').html(response['shared_names']);
 
-
-          // $('html, body').animate({ scrollTop: 0 }, 250);
-
-
         } else {
+          $('html, body').animate({ scrollTop: 0 }, 250);
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
           $('#user-email').addClass(response['eclass']);
@@ -940,10 +940,11 @@ $(document).ready(function() {
 
 
   /* 'Edit' link next to each shared user. opens modal with, 'Cancel' & 'Update' buttons from share_project.php */
+  /* open and prepare the modal for EDIT user functions */
   $(document).on('click','.editshareduser',function() {
 
+    var content       = document.getElementById("esu-content");    
     var theModal      = document.getElementById("theModal");
-    var content       = document.getElementById("esu-content");
     var id            = $(this).data('id');
     var project_id    = $('#'+id+'_project_id').val();
     var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
@@ -951,12 +952,28 @@ $(document).ready(function() {
     var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
     var edit          = $('#'+id+'_edit').val();
     var share         = $('#'+id+'_share').val();
+    var sharersEpriv  = $('#editpriv').val();
+    var sharersSpriv  = $('#sharepriv').val();
 
     $('#smht').html(username);
     $('#delete-shared-user').val(esuser);
     $('#pro-id').val(project_id);
-    $('#username').val(username);
-    $('#project_name').val(project_name);
+
+    if ($('#my_username').length !== 0) { 
+      $('#username').val(username); 
+    } else {
+      $('#username').val(username);
+    }
+
+    if ($('#my_project_name').length !== 0) { 
+      $('#project_name').val(project_name); 
+    } else {
+      $('#project_name').val(project_name);
+    }
+
+    /* these 2 are dependent upon the user's priviliges on this specific project so they do not need to be reset with each modal load. */
+    if (sharersEpriv == '0') { $('.choice.edit2').addClass('gone'); }
+    if (sharersSpriv == '0') { $('.choice.share2').addClass('gone'); }
 
     if (edit == '1') { 
       $('#edit2').val('1');
@@ -969,7 +986,6 @@ $(document).ready(function() {
       $('label.edit2').removeClass('checked');
       $('.editcheck2').removeClass('show');
       $('.choice.edit2').removeClass('on');
-
     }
 
     if (share == '1') { 
@@ -985,12 +1001,23 @@ $(document).ready(function() {
       $('.choice.share2').removeClass('on');
     }
 
-    $('#esModal').removeClass('gone');
-    $('#esu-message').removeAttr('class');
-    $('#esu-msg-ul').html(''); 
-    theModal.style.display = "block";
-    content.style.display = "block";
+    /* prepare modal */
+    $('.modal-header').removeClass('red');
+    $('.modal-footer').removeClass('red');    
+    $('.modal-body').removeClass('green');
+    $('#es-msg-ul').html(''); /* reset any messages */
+    $('#esForm').removeClass('gone'); /* form id="esModal" */
+    $('#remove-box').addClass('gone'); /* hide remove confirmation */
+    $('#priv-box').removeClass('gone'); /* show checkboxes */
+    $('#esbuttons').html(esbuttons); /* put buttons back */
+    $('#removeshared').addClass('gone'); /* hide 'Remove' button */
+    $('#leaveproject').addClass('gone'); /* hide 'Leave project' button */
+    $('#updateshareduser').removeClass('gone'); /* show 'Update' button */
+    $('#shared_key').attr('name', 'edit-shared-user');
+    $('#shared_key').val(esuser);
 
+    content.style.display = "block";
+    theModal.style.display = "block";
 
     /* 'Cancel' button inside delete note modal */
     $('.cancelouttahere').click(function() {
@@ -999,27 +1026,116 @@ $(document).ready(function() {
 
   });
 
+  /* 'Update' button on share_project.php inside Edit modal */
+  $(document).on('click','.updateshareduser',function() {
+
+    var esuser = $('#shared_key').val();
+    var project_id = $('#pro-id').val();
+    var edit = $('#edit2').val();
+    var share = $('#share2').val();
+    var project_name = $('#project_name').val();
+    var username = $('#username').val();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data  : {updateshareduser:'yo', project_id:project_id, project_name:project_name, username:username, esuser:esuser, edit:edit, share:share},
+      beforeSend: function(xhr) {
+        $('#message').removeAttr('class');
+        $('#msg-ul').html('');
+        $('#esbuttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+      },
+      success: function(response) {
+        // console.log(response);
+        if(response['signal'] == 'ok') {
+
+          $('#esForm').addClass('gone');
+          $('.modal-body').addClass(response['class']);
+          $('#es-msg-ul').html(response['li']);  
+          $('#shared-list').html(response['shared_names']);
+
+          $('#esu-content').delay(3000).slideUp(200);
+          $('#theModal').delay(3100).fadeOut(200);
+          // setTimeout(function() { theModal.style.display = "none"; }, 1700);
+
+        } 
+      },
+      error: function(response) {
+        // console.log(response);
+      }, 
+      complete: function() {
+      }
+    })
+
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
   /* 'Remove' button on share_project.php to the far right of each shared user - under 'Edit' */
-  $(document).on('click','.removesharedmodal', function() {
+  /* open and prepare modal for REMOVE user functions */
+  $(document).on('click','.removeshared', function() {
     var current_loc = window.location.href;
-    var theModal      = document.getElementById("ruModal");
+    var content       = document.getElementById("esu-content");    
+    var theModal      = document.getElementById("theModal");
 
     var id            = $(this).data('id');
     var project_id    = $('#'+id+'_project_id').val();
     var esuser        = $('#'+id+'_dsuser').val(); /* deleteshareduser : user id */
     var project_name  = $('#'+id+'_project_name').val();
-    var username      = $('#'+id+'_username').val(); /* user's first + last name, not username */
+    var username      = $('#'+id+'_username').val(); /* user's first + last name, not really username */
 
-    $('#ruht').html('Remove '+username);
-    $('#removethis-user').val(esuser);
-    $('#ru-pro-id').val(project_id);
-    $('#ru-username').val(username);
-    $('#ru-project_name').val(project_name);
-    $('#dthisuser').html('<p>Remove: '+username+'</p><p>From: '+project_name+'?');
+    $('#pro-id').val(project_id);
+    $('#username').val(username);
+    $('#project_name').val(project_name);
+    $('#shared_key').attr('name', 'delete-shared-user');
+    $('#shared_key').val(esuser);
+
+
+    /* prepare modal */
+    $('.modal-header').addClass('red');
+    $('.modal-body').removeClass('green'); /* reset */
+    $('.modal-footer').addClass('red');
+    $('#es-msg-ul').html(''); /* reset any messages */
+    $('#esForm').removeClass('gone');
+    $('#esbuttons').html(esbuttons); /* put buttons back */
+    $('#updateshareduser').addClass('gone'); /* hide 'Update' button */
+    $('#leaveproject').addClass('gone'); /* hide 'Leave project' button */
+    $('#removeshared').removeClass('gone'); /* show 'Remove' button */
+    $('#priv-box').addClass('gone'); /* hide checkboxes */
+    $('#remove-box').removeClass('gone'); /* show remove confirmation */
+    $('#remove-box').html('<p>Confirm:<br>Remove: '+username+'<br>From: ' +project_name+'</p>' );
+
+
+    content.style.display = "block";
     theModal.style.display = "block";
 
 
@@ -1033,29 +1149,20 @@ $(document).ready(function() {
         data: $(this).closest('form').serialize(),
 
         beforeSend: function(xhr) {
-          $('#rubuttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+          $('#esbuttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
         },    
         success: function(response) {
           console.log(response);
           if(response['signal'] == 'ok') {
 
-            $('#ru-message').addClass(response['class']);
-            $('#ru-msg-ul').html(response['li']);
-            $('#ruForm').html('<p>They\'re gone!</p>');
-
-            setTimeout(function() { $('#ru-message').addClass('out'); }, 2000);
-            setTimeout(function() { 
-              $('#ru-msg-ul').html(''); 
-              $('#ru-message').removeAttr('class');
-            }, 2500);
-
-
-
+            $('#esForm').addClass('gone');
+            $('#remove-box').addClass('gone');
+            $('.modal-body').addClass(response['class']);
+            $('#es-msg-ul').html(response['li']);
             $('#shared-list').html(response['shared_names']);
 
-            // theModal.style.display = "none";
-            // if (typeof theModal !== 'undefined') { theModal.style.display = "none"; }
-            // $('html, body').animate({ scrollTop: 0 }, 250);
+            $('#esu-content').delay(3000).slideUp(200);
+            $('#theModal').delay(3100).fadeOut(200);
 
           } 
         },
@@ -1064,11 +1171,8 @@ $(document).ready(function() {
         }, 
         complete: function() {
         }
-      })
-
+      });
     });
-
-
 
     /* 'Cancel' button inside delete note modal */
     $('.cancelouttahere').click(function() {
@@ -1093,102 +1197,89 @@ $(document).ready(function() {
 
 
 
-  /* 'Update' button on share_project.php inside Edit modal */
-  $(document).on('click','.updateshareduser',function() {
 
-    // var theModal = document.getElementById('theModal');
-
-    var esuser = $('#delete-shared-user').val();
-    var project_id = $('#pro-id').val();
-    var edit = $('#edit2').val();
-    var share = $('#share2').val();
-    var project_name = $('#project_name').val();
-    var username = $('#username').val();
-
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data  : {updateshareduser:'yo', project_id:project_id, project_name:project_name, username:username, esuser:esuser, edit:edit, share:share},
-      beforeSend: function(xhr) {
-        $('#esu-message').removeAttr('class');
-        $('#esu-msg-ul').html('');
-      },
-      success: function(response) {
-        // console.log(response);
-        if(response['signal'] == 'ok') {
-
-
-
-          $('#esModal').addClass('gone');
-          $('#esu-message').addClass(response['class']);
-          $('#esu-msg-ul').html(response['li']);  
-          $('#shared-list').html(response['shared_names']);
-
-            $('#esu-content').delay(1500).slideUp(200);
-            $('#theModal').delay(1500).fadeOut(200);
-            setTimeout(function() { theModal.style.display = "none"; }, 1800);
-
-          // theModal.style.display = "none";
-          // $('html, body').animate({ scrollTop: 0 }, 250);
-
-
-
-        } 
-      },
-      error: function(response) {
-        // console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
-
-  });
 
 
   /* this is used on shared_project.php */
   $(document).on('click','.removeme', function() { 
     var current_loc = window.location.href;
+    var content       = document.getElementById("esu-content");    
+    var theModal      = document.getElementById("theModal");
+
+    var project_id = $('#project_id').val();
     var project_name = $('#project_name').val();
+    var editpriv = $('#editpriv').val();
+    var sharepriv = $('#sharepriv').val();
+    var esuser = $('#remove_me').val();
 
-    $.ajax({
-      dataType: "JSON",
-      url: "_form-processing.php",
-      type: "POST",
-      data: $(this).closest('form').serialize(),
+    $('#pro-id').val(project_id);
+    $('#project_name').val(project_name);
+    $('#editpriv').val(editpriv);
+    $('#sharepriv').val(sharepriv);
+    $('#shared_key').attr('name', 'remove_me');
+    $('#shared_key').val(esuser);
 
-      beforeSend: function(xhr) {
-        $('#message').removeAttr('class'); // reset class every click
-        $('#user-email').removeClass('red');
-        return confirm('Confirm: Remove yourself from ' + project_name + '?');
-        $('#buttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+    /* prepare modal */
+    $('.modal-header').addClass('red');
+    $('.modal-body').removeClass('green'); /* reset */
+    $('.modal-footer').addClass('red');
+    $('#es-msg-ul').html(''); /* reset any messages */
+    $('#esForm').removeClass('gone');
+    $('#esbuttons').html(esbuttons); /* put buttons back */
+    $('#updateshareduser').addClass('gone'); /* hide 'Update' button */
+    $('#removeshared').addClass('gone'); /* hide 'Remove' button */
+    $('#priv-box').addClass('gone'); /* hide checkboxes */
+    $('#remove-box').removeClass('gone'); /* show remove confirmation */
+    $('#remove-box').html('<p>Confirm:<br>Quit: ' +project_name+'</p>' );
 
-      },    
-      success: function(response) {
-        console.log(response);
-        if(response['signal'] == 'ok') {
-          if (current_loc.indexOf("localhost") > -1) {
-            window.location.replace("http://localhost/browsergadget");
-          } else {
-            window.location.replace("https://browsergadget.com");
+    content.style.display = "block";
+    theModal.style.display = "block";
+
+    $('.leaveproject').click(function() {
+
+      $.ajax({
+        dataType: "JSON",
+        url: "_form-processing.php",
+        type: "POST",
+        data: $(this).closest('form').serialize(),
+
+        beforeSend: function(xhr) {
+          $('#esbuttons').html('<div class="verifying"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>');
+
+        },    
+        success: function(response) {
+          console.log(response);
+          if(response['signal'] == 'ok') {
+            /* maybe put a session variable in the _form-processing.php to show a 'see ya' msg on the redirect */
+            if (current_loc.indexOf("localhost") > -1) {
+              window.location.replace("http://localhost/browsergadget");
+            } else {
+              window.location.replace("https://browsergadget.com");
+            }
+
           }
-        } else {
-          $('#message').addClass(response['class']);
-          $('#msg-ul').html(response['li']);
-          $('#buttons').html('<a class="shareproject submit full-width">Try again</a>');     
+        },
+        error: function(response) {
+          // console.log(response);
+        }, 
+        complete: function() {
         }
-      },
-      error: function(response) {
-        console.log(response);
-      }, 
-      complete: function() {
-      }
-    })
+      });
+    });
+
+    /* 'Cancel' button inside delete note modal */
+    $('.cancelouttahere').click(function() {
+      theModal.style.display = "none";
+    });
+    $('.closefp').click(function() {
+      theModal.style.display = "none";
+    });
+
   });
 
 
   /* this one is used on my_projects.php */
-  $(document).on('click','.leaveproject', function() { 
+  $(document).on('click','.leavethisproject', function() { 
     var current_loc = window.location.href;
     var project_name = $('#project_name').val();
 

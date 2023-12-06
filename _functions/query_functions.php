@@ -89,7 +89,7 @@ function show_shared_with_info($user_id, $this_project) {
 // who is the project shared with?
   global $db;
 
-  $sql = "SELECT u.first_name, u.last_name, u.email, p_u.shared_with, p_u.project_id, p_u.share, p_u.edit ";
+  $sql = "SELECT u.first_name, u.last_name, u.email, p_u.owner_id, p_u.shared_with, p_u.project_id, p_u.sharers_id, p_u.share, p_u.edit ";
   $sql .= "FROM users as u ";
   $sql .= "LEFT JOIN project_user as p_u ON u.user_id=p_u.shared_with ";
   $sql .= "WHERE u.user_id=p_u.shared_with ";
@@ -398,7 +398,7 @@ function show_project_to_owner($current_project) {
 function show_project_to_shared($current_project, $user_id) {
   global $db;
 
-  $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.page_number, p_u.share, p_u.edit, u.first_name, u.last_name, u.user_id, p.* ";
+  $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.sharers_id, p_u.page_number, p_u.share, p_u.edit, u.first_name, u.last_name, u.user_id, p.* ";
   $sql .= "FROM projects as p ";
   $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
 

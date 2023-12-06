@@ -106,7 +106,7 @@ p.query-tinkerer {
 }
 
 #buttons,
-#rubuttons,
+#esbuttons,
 .submit-links {
   display: flex;
   justify-content: space-between;
@@ -194,6 +194,21 @@ p.query-tinkerer {
       transform: scale(1.0);      
     }
   }
+}
+
+#buttons,
+#esbuttons {
+  #cancelouttahere,
+  #updateshareduser,
+  #removeshared,
+  #leaveproject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.gone {
+      display: none;
+    }
+  } 
 }
 
 .lds-ellipsis {

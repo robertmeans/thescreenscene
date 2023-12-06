@@ -1096,7 +1096,7 @@ if (isset($_POST['modify_a_note'])) {
 
       $names[]  .= '<div class="rsu-btns">';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
+      $names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
       $names[]  .= '</div>';
 
       $names[]  .= '</form></li>';
@@ -1169,6 +1169,7 @@ $i++;
     $shared_names = '';
 
     $user_id = $_SESSION['id'];
+    $owner_id = $_POST['owner_id'];
     $id = $_POST['project_id'];
     if (isset($_POST['share'])) { $share = '1'; } else { $share = '0'; }
     if (isset($_POST['edit'])) { $edit = '1'; } else { $edit = '0'; }
@@ -1251,11 +1252,12 @@ $i++;
          /* ^ if (isset($row2['email'])) */
               /* keep going, everything good so far. user is unique and does not have the project shared with them already. */
               $sql3 = "INSERT INTO project_user ";
-              $sql3 .= "(project_id, owner_id, shared_with, share, edit) ";
+              $sql3 .= "(project_id, owner_id, shared_with, sharers_id, share, edit) ";
               $sql3 .= "VALUES ("; 
               $sql3 .= "'" . db_escape($db, $current_project)    . "', ";
-              $sql3 .= "'" . db_escape($db, $user_id) . "', ";
+              $sql3 .= "'" . db_escape($db, $owner_id) . "', ";
               $sql3 .= "'" . db_escape($db, $share_with) . "', ";
+              $sql3 .= "'" . db_escape($db, $user_id) . "', ";
               $sql3 .= "'" . db_escape($db, $share) . "', ";
               $sql3 .= "'" . db_escape($db, $edit) . "'";
               $sql3 .= ")";
@@ -1267,66 +1269,83 @@ $i++;
 
                 $sharing = show_shared_with_info($user_id, $_POST['project_id']);   
                 $i = 0;
-      // figure out later...
-      // needs to print special version if shared_with user
-      // $names[]  =  '<li>';
-
-      // $names[]  .=  '<form class="edit-user remove-self" method="post">';
-      // $names[]  .=  '<div class="sudeets">Me';
-      // $names[]  .=  '<input type="hidden" id="project_name" name="project_name" value="' . $row3['project_name'] .'">';
-      // $names[]  .=  '<input type="hidden" id="project_id" name="project_id" value="'. $row3['project_id'] . '">';
-      // $names[]  .=  '<input type="hidden" id="username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
-      // $names[]  .=  '<span>Permissions:';
-
-      //               if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-      //               if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-      //               if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-      //               if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
-
-      // $names[]  .=  '</span></div>';
-      // $names[]  .=  '<input type="hidden" id="remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
-      // $names[]  .=  '<a class="rsu removeme">Leave</a>';
-      // $names[]  .=  '</form>';
-      // $names[]  .=  '</li>';
 
 
-      // $names[]  .=  '</li>';
+      $names[]  =  '<li>';
+
+      $names[]  .=  '<form class="edit-user remove-self" method="post">';
+      $names[]  .=  '<div class="sudeets">Me';
+      $names[]  .=  '<input type="hidden" id="project_name" name="project_name" value="' . $_POST['project_name'] .'">';
+      $names[]  .=  '<input type="hidden" id="project_id" name="project_id" value="'. $_POST['project_id'] . '">';
+      $names[]  .=  '<input type="hidden" id="username" name="username" value="' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '">';
+      $names[]  .=  '<span>Permissions:';
+
+                    if ($_POST['sharepriv'] == 0 && $_POST['editpriv'] == 0) { $names[]  .= 'View only'; }
+                    if ($_POST['editpriv'] == 1) { $names[]  .= 'Can edit'; }
+                    if ($_POST['sharepriv'] == 1 && $_POST['editpriv'] == 1) { $names[]  .= ' + '; }
+                    if ($_POST['sharepriv'] == 1) { $names[]  .= 'Can share'; }
+
+      $names[]  .=  '</span></div>';
+      $names[]  .=  '<input type="hidden" id="remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
+      $names[]  .=  '<a class="rsu removeme">Leave</a>';
+      $names[]  .=  '</form>';
+      $names[]  .=  '</li>';
+
+
+      $names[]  .=  '</li>';
 
                 while ($row3 = mysqli_fetch_assoc($sharing)) { 
-      $names[]  = '<li><form class="edit-user" method="post">';
+if ($_SESSION['id'] == $row3['sharers_id']) {
+$names[]  .= '<li><form class="edit-user" method="post">';
 
-      $names[]  .= '<div class="sudeets">';
-      $names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
+$names[]  .= '<div class="sudeets">';
+$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
-      $names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-      if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-      $names[]  .= '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
+if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
+$names[]  .= '">';
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-      if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-      $names[]  .= '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
+if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
+$names[]  .= '">';
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
-      $names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
 
-      $names[]  .= '<span>Permissions: ';
-        if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-        if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-        if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-        if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
-      $names[]  .= '</span>';
-      $names[]  .= '</div>';
+$names[]  .= '<span>Permissions: ';
+  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
+  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+$names[]  .= '</span>';
+$names[]  .= '</div>';
 
-      $names[]  .= '<div class="rsu-btns">';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
-      $names[]  .= '</div>';
+$names[]  .= '<div class="rsu-btns">';
+$names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
+$names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
+$names[]  .= '</div>';
 
-      $names[]  .= '</form></li>';
+$names[]  .= '</form></li>';
 $i++;
+} else {
+$names[]  .= '<li><form class="edit-user" method="post">';
+$names[]  .= '<div class="sudeets">';
+$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
+$names[]  .= '<span>Permissions: ';
+  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
+  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+$names[]  .= '</span>';
+$names[]  .= '</div>';
+$names[]  .= '<div class="rsu-btns"></div>';
+$names[]  .= '</form></li>';
+$i++;  
+}
+
                 } 
 
                 $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
@@ -1389,7 +1408,10 @@ $i++;
   } /* if (isset($_POST['sharer-share-submit'])) */
 
 
+  /* being submitted by 'Update' button inside modal on share_project.php after clicking 'Edit' next to the user's name */
   if (isset($_POST['updateshareduser'])) {
+    local_testing($x);
+
     $id = $_POST['project_id'];
     $update_this_user = $_POST['esuser'];
     $edit = $_POST['edit'];
@@ -1417,53 +1439,103 @@ $i++;
         if ($result3 > 0) { 
 
           $sharing = show_shared_with_info($user_id, $_POST['project_id']);
+          $me = mysqli_fetch_assoc($sharing);
+          // $row3 = $sharing->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
+$names[] = ''; /* initiate $names */
+if (($_SESSION['id'] == $me['sharers_id']) && ($_SESSION['id'] !== $me['owner_id'])) {
+/* this is the shared_with user. give them the 'Leave' option */
+$names [] .= '<li><form class="edit-user remove-self" method="post">';
+$names [] .= '<div class="sudeets">Me';
+$names [] .= '<input type="hidden" id="project_name" name="project_name" value="' . $_POST['project_name'] . '">';
+$names [] .= '<input type="hidden" id="project_id" name="project_id" value="' . $me['project_id'] . '">';
+$names [] .= '<input type="hidden" id="username" name="username" value="' . $me['first_name'] . ' ' . $me['last_name'] . '">';
+$names [] .= '<span>Permissions:';
+        if ($me['share'] == 0 && $me['edit'] == 0) { $names [] .= 'View only'; }
+        if ($me['edit'] == 1) { $names [] .= 'Can edit'; }
+        if ($me['share'] == 1 && $me['edit'] == 1) { $names [] .= ' + '; }
+        if ($me['share'] == 1) { $names [] .= 'Can share'; }
+$names [] .= '</span>';
+$names [] .= '</div>';
+$names [] .= '<input type="hidden" id="remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
+$names [] .= '<a class="rsu removeme">Leave</a>';
+$names [] .= '</form></li>';
+}
+
+          /* I'm sure there's a better way but I'm tired... */
+          $use_again = show_shared_with_info($user_id, $_POST['project_id']);
           $i = 0; 
-          while ($row3 = mysqli_fetch_assoc($sharing)) { 
-      $names[]  = '<li><form class="edit-user" method="post">';
+          while ($row3 = mysqli_fetch_assoc($use_again)) { 
 
-      $names[]  .= '<div class="sudeets">';
-      $names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
-      $names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
+if ($_SESSION['id'] == $row3['sharers_id'] || $_SESSION['id'] == $row3['owner_id']) {
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-      if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-      $names[]  .= '">';
+$names[]  .= '<li><form class="edit-user" method="post">';
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-      if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-      $names[]  .= '">';
+$names[]  .= '<div class="sudeets">';
+$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
 
-      $names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $_POST['project_name'] . '">';
-      $names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
 
-      $names[]  .= '<span>Permissions: ';
-        if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-        if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-        if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-        if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
-      $names[]  .= '</span>';
-      $names[]  .= '</div>';
+$names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
+if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
+$names[]  .= '">';
 
-      $names[]  .= '<div class="rsu-btns">';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
-      $names[]  .= '</div>';
+$names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
+if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
+$names[]  .= '">';
 
-      $names[]  .= '</form></li>';
+$names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $_POST['project_name'] . '">';
+$names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
+
+$names[]  .= '<span>Permissions: ';
+  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
+  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+$names[]  .= '</span>';
+$names[]  .= '</div>';
+
+$names[]  .= '<div class="rsu-btns">';
+$names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
+$names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
+$names[]  .= '</div>';
+
+$names[]  .= '</form></li>';
 $i++; 
+
+} else {
+$names[]  .= '<li><form class="edit-user" method="post">';
+$names[]  .= '<div class="sudeets">';
+$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
+$names[]  .= '<span>Permissions: ';
+  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
+  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
+  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
+  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+$names[]  .= '</span>';
+$names[]  .= '</div>';
+$names[]  .= '<div class="rsu-btns"></div>';
+$names[]  .= '</form></li>';
+$i++; 
+}
+
+
+
+
           } 
         /* below - $_POST['username'] is really first_name + last_name */
-        $li .= '<li>You have successfully updated ' . $_POST['username'] . '\'s permissions on the project, "' . $_POST['project_name'] . '".</li>';
+        $li .= '<li>Update successful!<br>' . $_POST['username'] . '<br>On the project: "' . $_POST['project_name'] . '".</li>';
         $class = 'green';
         if (isset($names)) { $shared_names .= implode($names); }
         $signal = 'ok';
 
         } else {
 
-          $li .= '<li>You have successfully updated ' . $_POST['username'] . '\'s permissions ';
-          $li .= 'on the project, "' . $_POST['project_name'] . '".</li>';
+          $li .= '<li>Update successful!<br>' . $_POST['username'] . '<br>';
+          $li .= 'on the project: "' . $_POST['project_name'] . '".</li>';
           $class = 'green';
           $shared_names .= '<li class="alone">Just me</li>';
           $signal = 'ok';
@@ -1488,7 +1560,7 @@ $i++;
   }
 
   if (isset($_POST['delete-shared-user'])) {
-    local_testing($x);
+    local_testing(3);
 
     $id = $_POST['project_id'];
     $remove_this_user = $_POST['delete-shared-user'];
@@ -1542,22 +1614,22 @@ $i++;
 
       $names[]  .= '<div class="rsu-btns">';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-      $names[]  .= '<a data-id="'.$i.'" class="rsu removesharedmodal">Remove</a>';
+      $names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
       $names[]  .= '</div>';
 
       $names[]  .= '</form></li>';
 $i++;
           } 
         /* below - $_POST['username'] is really first_name + last_name */
-        $li .= '<li>You have successfully removed ' . $_POST['username'] . ' from the project, "' . $_POST['project_name'] . '".</li>';
+        $li .= '<li>Removed successfully!<br>' . $_POST['username'] . '<br>from the project: "' . $_POST['project_name'] . '".</li>';
         $class = 'green';
         if (isset($names)) { $shared_names .= implode($names); }
         $signal = 'ok';
 
         } else {
 
-          $li .= '<li>You have successfully removed ' . $_POST['username'] . ' ';
-          $li .= 'from the project, "' . $_POST['project_name'] . '".</li>';
+          $li .= '<li>Removed successfully!<br>' . $_POST['username'] . '<br>';
+          $li .= 'from the project: "' . $_POST['project_name'] . '".</li>';
           $class = 'green';
           $shared_names .= '<li class="alone">Just me</li>';
           $signal = 'ok';
@@ -1585,7 +1657,7 @@ $i++;
   if (isset($_POST['remove_me'])) {
     global $db;
 
-    local_testing($x);
+    local_testing(3);
 
     $li = '';
     $class = '';
