@@ -872,11 +872,19 @@ $(document).ready(function() {
           $('#message').addClass(response['class']);
           $('#msg-ul').html(response['li']);
 
-          setTimeout(function() { $('#message').addClass('out'); }, 2000);
-          setTimeout(function() { 
-            $('#msg-ul').html(''); 
-            $('#message').removeAttr('class');
-          }, 2500);
+          if (current_loc.indexOf("localhost") > -1) {
+            setTimeout(function() { $('#message').addClass('out'); }, 100);
+            setTimeout(function() { 
+              $('#msg-ul').html(''); 
+              $('#message').removeAttr('class');
+            }, 150);
+          } else {
+            setTimeout(function() { $('#message').addClass('out'); }, 2000);
+            setTimeout(function() { 
+              $('#msg-ul').html(''); 
+              $('#message').removeAttr('class');
+            }, 2500);
+          }
 
           $('#user-email').val('');
 
@@ -997,6 +1005,7 @@ $(document).ready(function() {
 
   /* 'Update' button on share_project.php inside Edit modal */
   $(document).on('click','.updateshareduser',function() {
+    var current_loc = window.location.href;
 
     var esuser = $('#shared_key').val();
     var project_id = $('#pro-id').val();
@@ -1024,9 +1033,13 @@ $(document).ready(function() {
           $('#es-msg-ul').html(response['li']);  
           $('#shared-list').html(response['shared_names']);
 
-          $('#esu-content').delay(3000).slideUp(200);
-          $('#theModal').delay(3100).fadeOut(200);
-          // setTimeout(function() { theModal.style.display = "none"; }, 1700);
+          if (current_loc.indexOf("localhost") > -1) {
+            $('#esu-content').delay(250).slideUp(200);
+            $('#theModal').delay(250).fadeOut(200);
+          } else {
+            $('#esu-content').delay(3000).slideUp(200);
+            $('#theModal').delay(3100).fadeOut(200);
+          }
 
         } 
       },
@@ -1098,8 +1111,13 @@ $(document).ready(function() {
             $('#es-msg-ul').html(response['li']);
             $('#shared-list').html(response['shared_names']);
 
-            $('#esu-content').delay(3000).slideUp(200);
-            $('#theModal').delay(3100).fadeOut(200);
+            if (current_loc.indexOf("localhost") > -1) {
+              $('#esu-content').delay(250).slideUp(200);
+              $('#theModal').delay(250).fadeOut(200);
+            } else {
+              $('#esu-content').delay(3000).slideUp(200);
+              $('#theModal').delay(3100).fadeOut(200);
+            }
 
           } 
         },

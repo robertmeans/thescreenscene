@@ -2,7 +2,7 @@
 
 $x = 1;
 function local_testing($x) {
-  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep($x); }
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep(0); }
 }
 
 function show_session_variables() {

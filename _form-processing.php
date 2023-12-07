@@ -971,43 +971,59 @@ if (isset($_POST['modify_a_note'])) {
 
 /* ******************* share project : begin ************************ */
 
-function print_names($i, $first_name, $last_name, $email, $shared_with, $project_id, $edit, $share, $project_name, $user_id) {
-  $q   = '<li><form class="edit-user" method="post">';
-  $q  .= '<div class="sudeets">';
-  $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
-  $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
-  $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
-  $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-          if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
-  $q  .= '">';
-  $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-          if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
-  $q  .= '">';
-  $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
-  $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
-  $q  .= '<span>Permissions: ';
-          if ($share == 0 && $edit == 0) { $q  .= 'View only'; }
-          if ($edit == 1) { $q  .= 'Can edit'; }
-          if ($share == 1 && $edit == 1) { $q  .= ' + '; }
-          if ($share == 1) { $q  .= 'Can share'; }
 
-          $who = who_shared_this($project_id, $shared_with);
-          $sharer = mysqli_fetch_assoc($who);
+function update_project_users($post_pid, $project_name, $user_id) {
+  $q = '';
+  $sharing = show_shared_with_info($user_id, $post_pid);
+  $i = 0;
+  while ($row3 = mysqli_fetch_assoc($sharing)) {
+    $first_name   = $row3['first_name'];
+    $last_name    = $row3['last_name'];
+    $email        = $row3['email'];
+    $shared_with  = $row3['shared_with'];
+    $project_id   = $row3['project_id'];
+    $edit         = $row3['edit'];
+    $share        = $row3['share'];
 
-          if ($sharer['sharers_id'] == $user_id) {
-            $q  .= '<br>';
-            $q  .= 'Shared by: Me';
-          } else if ($sharer['sharers_id'] !== '0') {
-            $q  .= '<br>';
-            $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
-          }
-$q  .= '</span>';
-$q  .= '</div>';
-$q  .= '<div class="rsu-btns">';
-$q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-$q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
-$q  .= '</div>';
-$q  .= '</form></li>';
+    $q  .= '<li><form class="edit-user" method="post">';
+    $q  .= '<div class="sudeets">';
+    $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
+    $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
+    $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
+    $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
+            if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
+    $q  .= '">';
+    $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
+            if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
+    $q  .= '">';
+    $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
+    $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
+    $q  .= '<span>Permissions: ';
+    if ($share == 0 && $edit == 0) { $q  .= 'View only'; }
+    if ($edit == 1) { $q  .= 'Can edit'; }
+    if ($share == 1 && $edit == 1) { $q  .= ' + '; }
+    if ($share == 1) { $q  .= 'Can share'; }
+
+    $who = who_shared_this($project_id, $shared_with);
+    $sharer = mysqli_fetch_assoc($who);
+
+    if ($sharer['sharers_id'] == $user_id) {
+      $q  .= '<br>';
+      $q  .= 'Shared by: Me';
+    } else if ($sharer['sharers_id'] !== '0') {
+      $q  .= '<br>';
+      $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+    }
+    $q  .= '</span>';
+    $q  .= '</div>';
+    $q  .= '<div class="rsu-btns">';
+    $q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
+    $q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
+    $q  .= '</div>';
+    $q  .= '</form></li>';        
+
+    $i++;
+  } 
 
   return $q;
 }
@@ -1106,24 +1122,16 @@ $q  .= '</form></li>';
 
               if ($result3 > 0) { 
 
-              $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
-              $i = 0;
+              
 
-              while ($row3 = mysqli_fetch_assoc($sharing)) {
-                $first_name   = $row3['first_name'];
-                $last_name    = $row3['last_name'];
-                $email        = $row3['email'];
-                $shared_with  = $row3['shared_with'];
-                $project_id   = $row3['project_id'];
-                $edit         = $row3['edit'];
-                $share        = $row3['share'];
-                $project_name = $row['project_name']; /* set at top of share_project.php */ 
-                $user_id      = $_SESSION['id']; 
+              $post_pid = $_POST['project_id'];
+              $project_name = $row['project_name']; /* set at top of share_project.php */ 
+              $user_id      = $_SESSION['id']; 
 
-                $names[] = print_names($i, $first_name, $last_name, $email, $shared_with, $project_id, $edit, $share, $project_name, $user_id);
+              $names[] = update_project_users($post_pid, $project_name, $user_id);
 
-                $i++;
-              } 
+
+
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
               $li .= 'has successfully been added to the project, "' . $project_name . '".</li>';
