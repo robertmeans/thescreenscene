@@ -1171,6 +1171,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
               $result3 = mysqli_num_rows($is_it_shared); 
               /* did we find any shared results? if so... */
 
+
               if ($result3 > 0) { 
 
 
@@ -1182,6 +1183,9 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
               $leave        = 'off';
               
               $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
+
+
+
 
 
 
@@ -1347,6 +1351,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
               $result3 = mysqli_query($db, $sql3);
 
+
               if ($result3) {
               /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
@@ -1362,6 +1367,9 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
                 $leave          = 'on';
                 
                 $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
+
+
+
 
 
                 $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
@@ -1452,6 +1460,9 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
         $is_it_shared = is_this_project_shared($_POST['project_id']); 
         $result3 = mysqli_num_rows($is_it_shared);
+
+
+
         if ($result3 > 0) { 
 
           $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
@@ -1470,6 +1481,8 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
           $leave          = 'on';
           
           $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
+
+
 
 
 
@@ -1527,6 +1540,9 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
         $is_it_shared = is_this_project_shared($_POST['project_id']); 
         $result3 = mysqli_num_rows($is_it_shared);
+
+
+
         if ($result3 > 0) { 
 
           $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
@@ -1539,12 +1555,20 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
           $project_name   = $_POST['project_name'];
           $sess_fn        = $_SESSION['firstname'];
           $sess_ln        = $_SESSION['lastname'];
-          if (isset($post_s)) { $post_s = $_POST['sharepriv']; } else { $post_s = ''; }
-          if (isset($post_e)) { $post_e = $_POST['editpriv']; } else { $post_e = ''; }
-          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; } else { $owner_id = ''; $post_s = ''; $post_e = ''; }
-          $leave  
-                  = 'on';
+          
+          if (isset($post_s)) { $post_s = $_POST['sharepriv']; 
+            } else { $post_s = ''; }
+          if (isset($post_e)) { $post_e = $_POST['editpriv']; 
+            } else { $post_e = ''; }
+          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; 
+            } else { $owner_id = ''; $post_s = ''; $post_e = ''; }
+
+          $leave  = 'on';
+
           $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
+
+
+
 
 
 
