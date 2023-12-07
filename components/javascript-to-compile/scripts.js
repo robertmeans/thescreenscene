@@ -1039,8 +1039,6 @@ $(document).ready(function() {
 
   });
 
-
-
   /* 'Remove' button on share_project.php to the far right of each shared user - under 'Edit' */
   /* open and prepare modal for REMOVE user functions */
   $(document).on('click','.removeshared', function() {
@@ -1060,7 +1058,6 @@ $(document).ready(function() {
     $('#shared_key').attr('name', 'delete-shared-user');
     $('#shared_key').val(esuser);
 
-
     /* prepare modal */
     $('.modal-header').addClass('red');
     $('#smht').html('Remove from Project');
@@ -1076,10 +1073,8 @@ $(document).ready(function() {
     $('#remove-box').removeClass('gone'); /* show remove confirmation */
     $('#remove-box').html('<p>Confirm:<br>Remove: '+username+'<br>From: ' +project_name+'</p>' );
 
-
     content.style.display = "block";
     theModal.style.display = "block";
-
 
     /* 'Remove' button inside modal on shared_project.php */
     $('.removeshareduser').click(function() {
@@ -1124,7 +1119,6 @@ $(document).ready(function() {
       theModal.style.display = "none";
     });
 
-
   });
 
 
@@ -1141,7 +1135,6 @@ $(document).ready(function() {
     if ($('#'+id+'_editpriv').length !== 0) { var editpriv = $('#'+id+'_editpriv').val(); }
     if ($('#'+id+'_sharepriv').length !== 0) { var sharepriv = $('#'+id+'_sharepriv').val(); }
     if ($('#'+id+'_remove_me').length !== 0) { var esuser = $('#'+id+'_remove_me').val(); }
-
 
     $('#pro-id').val(project_id);
     $('#project_name').val(project_name);
@@ -1681,10 +1674,6 @@ $(document).ready(function() {
   });
 
 
-
-
-
-
   /* open Modify Note Modal - when far-right icon is clicked under 'Add a note' */
   $(document).on('click','a[data-role=modify-note]',function() { 
     var noteModal   = document.getElementById('aan-modal');
@@ -1730,8 +1719,6 @@ $(document).ready(function() {
     updatenote.style.display = "none";
     modifynote.style.display = "block";
   });
-
-
 
 
   /* 'Modify note' button from inside modify modal */
@@ -1827,22 +1814,7 @@ $(document).ready(function() {
 
     });
 
-
   });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 });
 /* $(document).ready close - 1203121138 */ 
