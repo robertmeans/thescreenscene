@@ -32,6 +32,22 @@ function find_users_projects($user_id) { // 12.29.20 rewritten
   return $result;  
 }
 
+function who_shared_this($project_id, $shared_with) { // 12.29.20 rewritten
+  global $db;
+  // solution learned at: https://www.youtube.com/watch?v=2HVMiPPuPIM&ab_channel=JoeyBlue
+  $sql = "SELECT u.first_name, u.last_name, u.email, p_u.owner_id, p_u.shared_with, p_u.sharers_id "; 
+  $sql .= "FROM projects as p ";
+  $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
+  $sql .= "LEFT JOIN users as u on u.user_id=p_u.sharers_id ";
+  $sql .= "WHERE p_u.project_id='" . db_escape($db, $project_id) . "' ";
+  $sql .= "AND p_u.shared_with='" . db_escape($db, $shared_with) . "' ";
+  $sql .= "LIMIT 1";
+
+  $result = mysqli_query($db, $sql);
+  confirm_result_set($result);  
+  return $result;  
+}
+
 function update_color($user_id, $current_project) { 
   global $db;
 
@@ -89,7 +105,7 @@ function show_shared_with_info($user_id, $this_project) {
 // who is the project shared with?
   global $db;
 
-  $sql = "SELECT u.first_name, u.last_name, u.email, p_u.owner_id, p_u.shared_with, p_u.project_id, p_u.sharers_id, p_u.share, p_u.edit ";
+  $sql = "SELECT u.user_id, u.first_name, u.last_name, u.email, p_u.owner_id, p_u.shared_with, p_u.project_id, p_u.sharers_id, p_u.share, p_u.edit ";
   $sql .= "FROM users as u ";
   $sql .= "LEFT JOIN project_user as p_u ON u.user_id=p_u.shared_with ";
   $sql .= "WHERE u.user_id=p_u.shared_with ";
@@ -414,9 +430,7 @@ function show_project_to_shared($current_project, $user_id) {
   $sql = "SELECT p_u.project_id, p_u.owner_id, p_u.shared_with, p_u.sharers_id, p_u.page_number, p_u.share, p_u.edit, u.first_name, u.last_name, u.user_id, p.* ";
   $sql .= "FROM projects as p ";
   $sql .= "LEFT JOIN project_user as p_u ON p.id=p_u.project_id ";
-
   $sql .= "LEFT JOIN users as u on u.user_id=p_u.shared_with ";
-
   $sql .= "WHERE p_u.project_id='" . db_escape($db, $current_project) . "' ";
   $sql .= "AND p_u.shared_with='" . db_escape($db, $user_id) . "' ";
   $sql .= "LIMIT 1";

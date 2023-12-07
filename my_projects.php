@@ -44,7 +44,7 @@ if ($projects > 0) {
 
   $i = 0;
   while ($row = mysqli_fetch_assoc($any_projects_for_user)) { 
-  /* 1206230900 - while this user has projects, list them. we'll distinguish between owner or shared_with role within this while loop. this is just every project they are connected with, in alphabetical order. */
+  /* 1206230900 - while this user has projects, list them. we'll distinguish between owner or shared_with role within this while loop. this is just every project they are connected with, in alphabetical order. one of the 2 if statements below will figure out if they're owner or shared_with and prepare the appropriate display. */
 
     $this_project = $row['project_id'];
     $sharing = show_shared_with_info($user_id, $this_project);

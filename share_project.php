@@ -89,6 +89,10 @@ require '_includes/head.php'; ?>
     $sharing = show_shared_with_info($user_id, $this_project); 
     $i = 0;
     while ($row = mysqli_fetch_assoc($sharing)) { 
+
+      $who = who_shared_this($row['project_id'], $row['shared_with']);
+      $sharer = mysqli_fetch_assoc($who);
+
       $names[]  = '<li><form class="edit-user" method="post">';
 
       $names[]  .= '<div class="sudeets">';
@@ -113,8 +117,17 @@ require '_includes/head.php'; ?>
         if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
         if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
         if ($row['share'] == 1) { $names[]  .= 'Can share'; }
-      $names[]  .= '</span>';
-      $names[]  .= '</div>';
+
+
+        if ($sharer['sharers_id'] == $_SESSION['id']) {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: Me';
+        } else if ($sharer['sharers_id'] !== '0') {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+        }
+
+      $names[]  .= '</span></div>';
 
       $names[]  .= '<div class="rsu-btns">';
       $names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
@@ -204,15 +217,10 @@ require '_includes/head.php'; ?>
   <div class="shared-users">
     <h2 class="edit-share"><span class="th1">Project Users</span><span class="dot">●</span><span class="th2">You can only edit those you add with permissions you have.</span></h2>
     <ul id="shared-list" class="shared-list">
-
-
 <?php
-	$this_project = $row['project_id'];
-	$is_it_shared = is_this_project_shared($this_project);
-	$result = mysqli_num_rows($is_it_shared); 
-  /* did we find any shared results? if so... */
-
-	?>
+    $who2 = who_shared_this($row['project_id'], $row['shared_with']);
+    $sharer2 = mysqli_fetch_assoc($who2);
+?>
 	<li>
     <form class="edit-user remove-self" method="post">
       <div class="sudeets">Me <?php /* id 'rmfp' = remove me from project */ ?>
@@ -225,7 +233,12 @@ require '_includes/head.php'; ?>
         if ($row['edit'] == 1) { echo 'Can edit'; }
         if ($row['share'] == 1 && $row['edit'] == 1) { echo ' + '; }
         if ($row['share'] == 1) { echo 'Can share'; }
-      ?></span>
+
+        if ($sharer2['sharers_id'] !== '0') {
+          echo '<br>Shared by: ' . $sharer2['first_name'] . ' ' . $sharer2['last_name'] . ' | ' . $sharer2['email'];
+        } ?>
+
+      </span>
     </div>
     <div class="rsu-btns">
       <input type="hidden" id="rmfp_remove_me" name="remove_me" value="<?= $user_id; ?>">
@@ -233,13 +246,19 @@ require '_includes/head.php'; ?>
     </div>
     </form>
   </li>
-	<?php
+<?php
+  $this_project = $row['project_id'];
+  $is_it_shared = is_this_project_shared($this_project);
+  $result = mysqli_num_rows($is_it_shared); 
+  /* did we find any shared results? if so... */
+
 	if ($result > 1) {
 		$sharing = show_shared_with_info($user_id, $this_project);
     $names[] = '';
     $i = 0;
     while ($row = mysqli_fetch_assoc($sharing)) { 
       if ($_SESSION['id'] == $row['sharers_id']) {
+
         $names[]  = '<li><form class="edit-user" method="post">';
 
         $names[]  .= '<div class="sudeets">';
@@ -264,6 +283,18 @@ require '_includes/head.php'; ?>
           if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
           if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
           if ($row['share'] == 1) { $names[]  .= 'Can share'; }
+
+        $who = who_shared_this($row['project_id'], $row['shared_with']);
+        $sharer = mysqli_fetch_assoc($who);
+      
+        if ($sharer['sharers_id'] == $_SESSION['id']) {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: Me';
+        } else if ($sharer['sharers_id'] !== '0') {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+        }
+
         $names[]  .= '</span>';
         $names[]  .= '</div>';
 
@@ -283,6 +314,18 @@ require '_includes/head.php'; ?>
           if ($row['edit'] == 1) { $names[]  .= 'Can edit'; }
           if ($row['share'] == 1 && $row['edit'] == 1) { $names[]  .= ' + '; }
           if ($row['share'] == 1) { $names[]  .= 'Can share'; }
+
+        $who = who_shared_this($row['project_id'], $row['shared_with']);
+        $sharer = mysqli_fetch_assoc($who);
+        
+        if ($sharer['sharers_id'] == $_SESSION['id']) {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: Me';
+        } else if ($sharer['sharers_id'] !== '0') {
+          $names[]  .= '<br>';
+          $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+        }
+
         $names[]  .= '</span>';
         $names[]  .= '</div>';
         $names[]  .= '<div class="rsu-btns"></div>';
