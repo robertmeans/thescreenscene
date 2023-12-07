@@ -152,7 +152,7 @@ function shared_or_owner($user_id, $current_project) {
 function show_shared_permissions($user_id, $current_project) {
   global $db;
 
-  $sql = "SELECT shared_with, edit, share from project_user ";
+  $sql = "SELECT owner_id, shared_with, edit, share from project_user ";
   $sql .= "WHERE shared_with='" . db_escape($db, $user_id) . "' ";
   $sql .= "AND project_id='" . db_escape($db, $current_project) . "' ";
   $sql .= "LIMIT 1";
