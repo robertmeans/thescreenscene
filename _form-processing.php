@@ -972,11 +972,35 @@ if (isset($_POST['modify_a_note'])) {
 /* ******************* share project : begin ************************ */
 
 
-function update_project_users($post_pid, $project_name, $user_id) {
-  $q = '';
+function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e) {
+  $q   = '';
+
+  if (isset($sess_fn)) {
+    $q  .= '<li><form class="edit-user remove-self" method="post">';
+    $q  .= '<div class="sudeets">Me'; /* id 'rmfp' = remove me from project */
+    $q  .= '<input type="hidden" id="rmfp_project_name" name="project_name" value="' . $project_name .'">';
+    $q  .= '<input type="hidden" id="rmfp_project_id" name="project_id" value="'. $post_pid . '">';
+    $q  .= '<input type="hidden" id="rmfp_username" name="username" value="' . $sess_fn . ' ' . $sess_ln . '">';
+    $q  .= '<span>Permissions: ';
+    if ($post_s == 0 && $post_e == 0) { $q  .= 'View only'; }
+    if ($post_e == 1) { $q  .= 'Can edit'; }
+    if ($post_s == 1 && $post_e == 1) { $q  .= ' + '; }
+    if ($post_s == 1) { $q  .= 'Can share'; }
+
+    $who2 = who_shared_this($post_pid, $user_id);
+    $sharer2 = mysqli_fetch_assoc($who2);
+    if ($sharer2['sharers_id'] !== '0') {
+      $q  .= '<br>Shared by: ' . $sharer2['first_name'] . ' ' . $sharer2['last_name'] . ' | ' . $sharer2['email'];
+    } 
+
+    $q  .= '</span></div>';
+    $q  .= '<input type="hidden" id="rmfp_remove_me" name="remove_me" value="' . $user_id . '">';
+    $q  .= '<a class="rsu removeme" data-id="rmfp">Leave</a>';
+    $q  .= '</form></li>';
+  }
+
   $sharing = show_shared_with_info($user_id, $post_pid);
   $i = 0;
-
   while ($row3 = mysqli_fetch_assoc($sharing)) {
     $first_name   = $row3['first_name'];
     $last_name    = $row3['last_name'];
@@ -986,44 +1010,70 @@ function update_project_users($post_pid, $project_name, $user_id) {
     $edit         = $row3['edit'];
     $share        = $row3['share'];
 
-    $q  .= '<li><form class="edit-user" method="post">';
-    $q  .= '<div class="sudeets">';
-    $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
-    $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
-    $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
-    $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-      if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
-    $q  .= '">';
-    $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-      if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
-    $q  .= '">';
-    $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
-    $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
-    $q  .= '<span>Permissions: ';
+    if (($_SESSION['id'] == $row3['owner_id']) || ($_SESSION['id'] == $row3['sharers_id'])) {
+      $q  .= '<li><form class="edit-user" method="post">';
+      $q  .= '<div class="sudeets">';
+      $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
+      $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
+      $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
+      $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
+        if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
+      $q  .= '">';
+      $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
+        if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
+      $q  .= '">';
+      $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
+      $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
+      $q  .= '<span>Permissions: ';
       if ($share == 0 && $edit == 0) { $q  .= 'View only'; }
       if ($edit == 1) { $q  .= 'Can edit'; }
       if ($share == 1 && $edit == 1) { $q  .= ' + '; }
       if ($share == 1) { $q  .= 'Can share'; }
 
-    $who = who_shared_this($project_id, $shared_with);
-    $sharer = mysqli_fetch_assoc($who);
+      $who = who_shared_this($project_id, $shared_with);
+      $sharer = mysqli_fetch_assoc($who);
+      if ($sharer['sharers_id'] == $user_id) {
+        $q  .= '<br>';
+        $q  .= 'Shared by: Me';
+      } else if ($sharer['sharers_id'] !== '0') {
+        $q  .= '<br>';
+        $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+      }
 
-    if ($sharer['sharers_id'] == $user_id) {
-      $q  .= '<br>';
-      $q  .= 'Shared by: Me';
-    } else if ($sharer['sharers_id'] !== '0') {
-      $q  .= '<br>';
-      $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+      $q  .= '</span></div>';
+      $q  .= '<div class="rsu-btns">';
+      $q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
+      $q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
+      $q  .= '</div>';
+      $q  .= '</form></li>';        
+
+      $i++;
+    } else {
+      $q  .= '<li><form class="edit-user" method="post">';
+      $q  .= '<div class="sudeets">';        
+      $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
+      $q  .= '<span>Permissions: ';
+      if ($share == 0 && $edit == 0) { $q  .= 'View only'; }
+      if ($edit == 1) { $q  .= 'Can edit'; }
+      if ($share == 1 && $edit == 1) { $q  .= ' + '; }
+      if ($share == 1) { $q  .= 'Can share'; }
+
+      $who = who_shared_this($project_id, $shared_with);
+      $sharer = mysqli_fetch_assoc($who);
+      if ($sharer['sharers_id'] == $user_id) {
+        $q  .= '<br>';
+        $q  .= 'Shared by: Me';
+      } else if ($sharer['sharers_id'] !== '0') {
+        $q  .= '<br>';
+        $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+      } 
+
+      $q  .= '</span></div>';
+      $q  .= '<div class="rsu-btns"></div>';
+      $q  .= '</form></li>';
+
+      $i++;
     }
-    $q  .= '</span>';
-    $q  .= '</div>';
-    $q  .= '<div class="rsu-btns">';
-    $q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-    $q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
-    $q  .= '</div>';
-    $q  .= '</form></li>';        
-
-    $i++;
   } 
 
   return $q;
@@ -1123,11 +1173,12 @@ function update_project_users($post_pid, $project_name, $user_id) {
 
               if ($result3 > 0) { 
 
-              $post_pid = $_POST['project_id'];
+              $user_id      = $_SESSION['id'];
+              $post_pid     = $_POST['project_id'];
               $project_name = $row['project_name']; /* set at top of share_project.php */ 
-              $user_id      = $_SESSION['id']; 
+               
 
-              $names[] = update_project_users($post_pid, $project_name, $user_id);
+              $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e);
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
               $li .= 'has successfully been added to the project, "' . $project_name . '".</li>';
@@ -1294,106 +1345,14 @@ function update_project_users($post_pid, $project_name, $user_id) {
               if ($result3) {
               /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
-$names[]  =  '<li>';
-
-$names[]  .=  '<form class="edit-user remove-self" method="post">';
-$names[]  .=  '<div class="sudeets">Me'; /* id 'rmfp' = remove me from project */
-$names[]  .=  '<input type="hidden" id="rmfp_project_name" name="project_name" value="' . $_POST['project_name'] .'">';
-$names[]  .=  '<input type="hidden" id="rmfp_project_id" name="project_id" value="'. $_POST['project_id'] . '">';
-$names[]  .=  '<input type="hidden" id="rmfp_username" name="username" value="' . $_SESSION['firstname'] . ' ' . $_SESSION['lastname'] . '">';
-$names[]  .=  '<span>Permissions:';
-
-  if ($_POST['sharepriv'] == 0 && $_POST['editpriv'] == 0) { $names[]  .= 'View only'; }
-  if ($_POST['editpriv'] == 1) { $names[]  .= 'Can edit'; }
-  if ($_POST['sharepriv'] == 1 && $_POST['editpriv'] == 1) { $names[]  .= ' + '; }
-  if ($_POST['sharepriv'] == 1) { $names[]  .= 'Can share'; }
-
-  $who2 = who_shared_this($_POST['project_id'], $_SESSION['id']);
-  $sharer2 = mysqli_fetch_assoc($who2);
-
-  if ($sharer2['sharers_id'] !== '0') {
-    $names[]  .= '<br>Shared by: ' . $sharer2['first_name'] . ' ' . $sharer2['last_name'] . ' | ' . $sharer2['email'];
-  } 
-
-$names[]  .=  '</span></div>';
-$names[]  .=  '<input type="hidden" id="rmfp_remove_me" name="remove_me" value="' . $_SESSION['id'] . '">';
-$names[]  .=  '<a class="rsu removeme" data-id="rmfp">Leave</a>';
-$names[]  .=  '</form>';
-$names[]  .=  '</li>';
-
-$sharing = show_shared_with_info($user_id, $_POST['project_id']);   
-$i = 0;
-while ($row3 = mysqli_fetch_assoc($sharing)) { 
-if ($_SESSION['id'] == $row3['sharers_id']) {
-$names[]  .= '<li><form class="edit-user" method="post">';
-$names[]  .= '<div class="sudeets">';
-$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
-$names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-$names[]  .= '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-$names[]  .= '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
-$names[]  .= '<span>Permissions: ';
-  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
-
-  $who = who_shared_this($row3['project_id'], $row3['shared_with']);
-  $sharer = mysqli_fetch_assoc($who);
-
-  if ($sharer['sharers_id'] == $_SESSION['id']) {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: Me';
-  } else if ($sharer['sharers_id'] !== '0') {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
-  }
-
-$names[]  .= '</span>';
-$names[]  .= '</div>';
-$names[]  .= '<div class="rsu-btns">';
-$names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-$names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
-$names[]  .= '</div>';
-$names[]  .= '</form></li>';
-$i++;
-
-} else {
-
-$names[]  .= '<li><form class="edit-user" method="post">';
-$names[]  .= '<div class="sudeets">';
-$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
-$names[]  .= '<span>Permissions: ';
-  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
-
-  $who = who_shared_this($row3['project_id'], $row3['shared_with']);
-  $sharer = mysqli_fetch_assoc($who);
-
-  if ($sharer['sharers_id'] == $_SESSION['id']) {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: Me';
-  } else if ($sharer['sharers_id'] !== '0') {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
-  }
-
-$names[]  .= '</span>';
-$names[]  .= '</div>';
-$names[]  .= '<div class="rsu-btns"></div>';
-$names[]  .= '</form></li>';
-$i++;  
-}
-
-                } 
+                $user_id        = $_SESSION['id'];
+                $post_pid       = $_POST['project_id'];
+                $project_name   = $_POST['project_name'];
+                $sess_fn        = $_SESSION['firstname'];
+                $sess_ln        = $_SESSION['lastname'];
+                $post_s         = $_POST['sharepriv'];
+                $post_e         = $_POST['editpriv'];
+                $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e);
 
                 $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
                 $li .= 'has successfully been added to the project, "' . $project_name . '".</li>';
