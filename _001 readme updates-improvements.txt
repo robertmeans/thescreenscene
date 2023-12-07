@@ -4,11 +4,13 @@ BrowserGadget updates
 
 6. 	move all inline styles to scss
 
-8. replace js confirm dialogs with mymodal on: share_project & my_projects->remove me
-
-9. add 'go to homepage' link on my_projects->bar of each project to left of shared icon
-
 10. login - create a catchall for:  if ($_SESSION['first_name'] === NULL) { send to logout.php } -- because if someone has a cookie that does not correspond with their email_code they can't shake that shit.
+
+11. add flash msg on redirect once someone left a project from both .leavethisproject (on my_projects.php) and .removeme (on share_project.php)
+
+12. customize, "the information you... run away" page
+
+
 
 
 
@@ -130,3 +132,6 @@ UPDATE notes SET user_id=1, project_id=3
 UPDATE notes SET project_id=3
 
 MIT lecture
+
+
+UPDATE project_user SET sharers_id=0
