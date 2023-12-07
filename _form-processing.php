@@ -970,6 +970,48 @@ if (isset($_POST['modify_a_note'])) {
 
 
 /* ******************* share project : begin ************************ */
+
+function print_names($i, $first_name, $last_name, $email, $shared_with, $project_id, $edit, $share, $project_name, $user_id) {
+  $q   = '<li><form class="edit-user" method="post">';
+  $q  .= '<div class="sudeets">';
+  $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
+  $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
+  $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
+  $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
+          if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
+  $q  .= '">';
+  $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
+          if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
+  $q  .= '">';
+  $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
+  $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
+  $q  .= '<span>Permissions: ';
+          if ($share == 0 && $edit == 0) { $q  .= 'View only'; }
+          if ($edit == 1) { $q  .= 'Can edit'; }
+          if ($share == 1 && $edit == 1) { $q  .= ' + '; }
+          if ($share == 1) { $q  .= 'Can share'; }
+
+          $who = who_shared_this($project_id, $shared_with);
+          $sharer = mysqli_fetch_assoc($who);
+
+          if ($sharer['sharers_id'] == $user_id) {
+            $q  .= '<br>';
+            $q  .= 'Shared by: Me';
+          } else if ($sharer['sharers_id'] !== '0') {
+            $q  .= '<br>';
+            $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
+          }
+$q  .= '</span>';
+$q  .= '</div>';
+$q  .= '<div class="rsu-btns">';
+$q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
+$q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
+$q  .= '</div>';
+$q  .= '</form></li>';
+
+  return $q;
+}
+
 /* ******************** share owner : begin ************************* */
   if (isset($_POST['owner-share-submit'])) {
     local_testing($x);
@@ -1064,55 +1106,31 @@ if (isset($_POST['modify_a_note'])) {
 
               if ($result3 > 0) { 
 
-$sharing = show_shared_with_info($user_id, $_POST['project_id']); 
-$i = 0;
+              $sharing = show_shared_with_info($user_id, $_POST['project_id']); 
+              $i = 0;
 
-while ($row3 = mysqli_fetch_assoc($sharing)) {
-$names[]  = '<li><form class="edit-user" method="post">';
-$names[]  .= '<div class="sudeets">';
-$names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
-$names[]  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $row3['shared_with'] . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $row3['project_id'] . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-if ($row3['edit'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-$names[]  .= '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-if ($row3['share'] == 1) { $names[]  .= '1'; } else { $names[] .= '0'; }
-$names[]  .= '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
-$names[]  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $row3['first_name'] . ' ' . $row3['last_name'] . '">';
-$names[]  .= '<span>Permissions: ';
-  if ($row3['share'] == 0 && $row3['edit'] == 0) { $names[]  .= 'View only'; }
-  if ($row3['edit'] == 1) { $names[]  .= 'Can edit'; }
-  if ($row3['share'] == 1 && $row3['edit'] == 1) { $names[]  .= ' + '; }
-  if ($row3['share'] == 1) { $names[]  .= 'Can share'; }
+              while ($row3 = mysqli_fetch_assoc($sharing)) {
+                $first_name   = $row3['first_name'];
+                $last_name    = $row3['last_name'];
+                $email        = $row3['email'];
+                $shared_with  = $row3['shared_with'];
+                $project_id   = $row3['project_id'];
+                $edit         = $row3['edit'];
+                $share        = $row3['share'];
+                $project_name = $row['project_name']; /* set at top of share_project.php */ 
+                $user_id      = $_SESSION['id']; 
 
-  $who = who_shared_this($row3['project_id'], $row3['shared_with']);
-  $sharer = mysqli_fetch_assoc($who);
+                $names[] = print_names($i, $first_name, $last_name, $email, $shared_with, $project_id, $edit, $share, $project_name, $user_id);
 
-  if ($sharer['sharers_id'] == $_SESSION['id']) {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: Me';
-  } else if ($sharer['sharers_id'] !== '0') {
-    $names[]  .= '<br>';
-    $names[]  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
-  }
-
-$names[]  .= '</span>';
-$names[]  .= '</div>';
-$names[]  .= '<div class="rsu-btns">';
-$names[]  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
-$names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
-$names[]  .= '</div>';
-$names[]  .= '</form></li>';
-$i++;
-} 
+                $i++;
+              } 
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
               $li .= 'has successfully been added to the project, "' . $project_name . '".</li>';
               $class = 'green';
 
               if (isset($names)) { $shared_names .= implode($names); }
+              /* leaving $shared_names here for consistency. it echoes back to ajax. leave it alone. :) */
 
               $signal = 'ok';
 
@@ -1341,7 +1359,9 @@ $names[]  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
 $names[]  .= '</div>';
 $names[]  .= '</form></li>';
 $i++;
+
 } else {
+
 $names[]  .= '<li><form class="edit-user" method="post">';
 $names[]  .= '<div class="sudeets">';
 $names[]  .= $row3['first_name'] . ' ' . $row3['last_name'] . ' | ' . $row3['email'];
@@ -1866,8 +1886,6 @@ if (isset($_POST['contactbob'])) {
   );
   echo json_encode($data);
 }
-
-
 
 
 } // end if (is_post_request())
