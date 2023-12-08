@@ -975,7 +975,7 @@ if (isset($_POST['modify_a_note'])) {
 function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave) {
   $q   = '';
 
-  if ($leave != 'off' && (isset($owner_id) && ($owner_id != '') && ($owner_id != $user_id))) {
+  if ($leave == 'on' && $owner_id != $user_id) {
     $q  .= '<li><form class="edit-user remove-self" method="post">';
     $q  .= '<div class="sudeets">Me'; /* id 'rmfp' = remove me from project */
     $q  .= '<input type="hidden" id="rmfp_project_name" name="project_name" value="' . $project_name .'">';
@@ -1010,17 +1010,17 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
     $edit         = $row3['edit'];
     $share        = $row3['share'];
 
-    if (($_SESSION['id'] == $row3['owner_id']) || ($_SESSION['id'] == $row3['sharers_id'])) {
+    if (($user_id == $row3['owner_id']) || ($user_id == $row3['sharers_id'])) {
       $q  .= '<li><form class="edit-user" method="post">';
       $q  .= '<div class="sudeets">';
       $q  .= $first_name . ' ' . $last_name . ' | ' . $email;
       $q  .= '<input type="hidden" id="'.$i.'_dsuser" name="delete-shared-user" value="' . $shared_with . '">';
       $q  .= '<input type="hidden" id="'.$i.'_project_id" name="project_id" value="' .  $project_id . '">';
       $q  .= '<input type="hidden" id="'.$i.'_edit" name="'.$i.'_edit" value="';
-        if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
+      if ($edit == 1) { $q  .= '1'; } else { $q .= '0'; }
       $q  .= '">';
       $q  .= '<input type="hidden" id="'.$i.'_share" name="'.$i.'_share" value="';
-        if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
+      if ($share == 1) { $q  .= '1'; } else { $q .= '0'; }
       $q  .= '">';
       $q  .= '<input type="hidden" id="'.$i.'_project_name" name="project_name" value="' . $project_name . '">';
       $q  .= '<input type="hidden" id="'.$i.'_username" name="username" value="' . $first_name . ' ' . $last_name . '">';
@@ -1039,13 +1039,12 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         $q  .= '<br>';
         $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
       }
-
       $q  .= '</span></div>';
       $q  .= '<div class="rsu-btns">';
       $q  .= '<a data-id="'.$i.'" class="rsu editshareduser">Edit</a>';
       $q  .= '<a data-id="'.$i.'" class="rsu removeshared">Remove</a>';
       $q  .= '</div>';
-      $q  .= '</form></li>';        
+      $q  .= '</form></li>';
 
       $i++;
     } else {
@@ -1067,11 +1066,10 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         $q  .= '<br>';
         $q  .= 'Shared by: ' . $sharer['first_name'] . ' ' . $sharer['last_name'] . ' | ' . $sharer['email'];
       } 
-
       $q  .= '</span></div>';
       $q  .= '<div class="rsu-btns"></div>';
       $q  .= '</form></li>';
-
+      
       $i++;
     }
   } 
@@ -1174,19 +1172,18 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
               if ($result3 > 0) { 
 
-
-
               /* we're in: 'owner-share-submit' */
               $user_id      = $_SESSION['id'];
               $post_pid     = $_POST['project_id'];
-              $project_name = $row['project_name']; /* set at top of share_project.php */ 
-              $leave        = 'off';
+              $project_name = $row['project_name']; /* set at top of share_project.php */
+              $sess_fn        = '';
+              $sess_ln        = '';
+              $post_s         = '';
+              $post_e         = '';
+              $owner_id       = $user_id;
+              $leave          = '';
               
               $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
-
-
-
-
 
 
               $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
@@ -1355,7 +1352,6 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
               if ($result3) {
               /* new member was successfully added to project. now let's prepare the results of all shared members to update the list on the page. */
 
-
                 /* we're in: 'sharer-share-submit' */
                 $user_id        = $_SESSION['id'];
                 $post_pid       = $_POST['project_id'];
@@ -1364,12 +1360,10 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
                 $sess_ln        = $_SESSION['lastname'];
                 $post_s         = $_POST['sharepriv'];
                 $post_e         = $_POST['editpriv'];
+                $owner_id       = $_POST['owner_id'];
                 $leave          = 'on';
                 
                 $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
-
-
-
 
 
                 $li .= '<li>' . $row1['first_name'] . ' ' . $row1['last_name'] . ' ';
@@ -1461,13 +1455,10 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         $is_it_shared = is_this_project_shared($_POST['project_id']); 
         $result3 = mysqli_num_rows($is_it_shared);
 
-
-
         if ($result3 > 0) { 
 
           $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
           $me = mysqli_fetch_assoc($sharing);
-
 
           /* we're in: 'updateshareduser' */
           $user_id        = $_SESSION['id'];
@@ -1477,13 +1468,10 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
           $sess_ln        = $_SESSION['lastname'];
           if (isset($post_s)) { $post_s = $_POST['sharepriv']; } else { $post_s = ''; }
           if (isset($post_e)) { $post_e = $_POST['editpriv']; } else { $post_e = ''; }
-          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; } else { $owner_id = ''; $post_s = ''; $post_e = ''; }
+          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; } else { $owner_id = $user_id; }
           $leave          = 'on';
           
           $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
-
-
-
 
 
         /* below - $_POST['username'] is really first_name + last_name */
@@ -1541,13 +1529,10 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         $is_it_shared = is_this_project_shared($_POST['project_id']); 
         $result3 = mysqli_num_rows($is_it_shared);
 
-
-
         if ($result3 > 0) { 
 
           $sharing = show_shared_permissions($_SESSION['id'], $_POST['project_id']);
           $me = mysqli_fetch_assoc($sharing);
-
 
           /* we're inside: delete-shared-user */
           $user_id        = $_SESSION['id'];
@@ -1555,21 +1540,12 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
           $project_name   = $_POST['project_name'];
           $sess_fn        = $_SESSION['firstname'];
           $sess_ln        = $_SESSION['lastname'];
-          
-          if (isset($post_s)) { $post_s = $_POST['sharepriv']; 
-            } else { $post_s = ''; }
-          if (isset($post_e)) { $post_e = $_POST['editpriv']; 
-            } else { $post_e = ''; }
-          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; 
-            } else { $owner_id = ''; $post_s = ''; $post_e = ''; }
-
+          if (isset($_POST['sharepriv'])) { $post_s = $_POST['sharepriv']; }
+          if (isset($_POST['editpriv'])) { $post_e = $_POST['editpriv']; }
+          if (isset($me)) { $owner_id = $me['owner_id']; $post_s = $me['share']; $post_e = $me['edit']; } else { $owner_id = $user_id; }
           $leave  = 'on';
 
           $names[] = update_project_users($user_id, $post_pid, $project_name, $sess_fn, $sess_ln, $post_s, $post_e, $owner_id, $leave);
-
-
-
-
 
 
         /* below - $_POST['username'] is really first_name + last_name */
