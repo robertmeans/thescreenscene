@@ -55,7 +55,7 @@ require '_includes/nav.php'; ?>
 		<?php require 'nav/inner_nav.php'; ?>
 	</ul>
 
-<ul id="static-sort" class="homepage <?php if ($row['edit_toggle'] == "1") { echo "edit-shim"; }  ?>">
+<ul id="static-sort" class="homepage <?php if ($row['edit'] == "1" && $row['edit_toggle'] == "1") { echo "edit-shim"; }  ?>">
 
 <div class="tab-content">
 <!-- page 1 -->

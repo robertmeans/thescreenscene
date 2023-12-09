@@ -131,6 +131,7 @@ p.owner-txt {
 	.shared-with {
 		width: 100%;
 		text-align: right;
+    line-height: 1.5em;
 		margin: 0.5em 0;
 		padding-right: 1em;
 	}
@@ -158,6 +159,11 @@ p.owner-txt {
 		    word-wrap: break-word;       /* Internet Explorer 5.5+ */
 		}
 	}
+  .my-perms {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 1em;
+  }
 }
 .project-notes.my-projects-pg p {
   width: 100%;

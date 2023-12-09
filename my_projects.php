@@ -130,7 +130,7 @@ if ($projects > 0) {
 
     <div class="shared-with">
 
-    <?php echo "Owner: You | Sharing with: ";
+    <?php echo "Owner: You<br/>Sharing with: ";
     /* get names ready in case this project is shared being shared with multiple people. add comma between names, remove last one. */
     while ($row3 = mysqli_fetch_assoc($sharing)) { 
       $names[] = $row3['first_name'] . " " . $row3['last_name'] . ", ";  
@@ -236,13 +236,13 @@ if ($projects > 0) {
     $anything_here = mysqli_num_rows($foo);
 
     if ($anything_here > 0) {
-      echo " | Shared with: you, ";
+      echo "<br />Shared with: you, ";
       while ($row3 = mysqli_fetch_assoc($foo)) { 
         $names[] = " " . $row3['first_name'] . " " . $row3['last_name'] . ", ";  
       } 
       echo rtrim(implode(array_unique($names)), ', ');
       unset($names);
-      } else { echo " | Shared only with you."; } ?>
+      } else { echo "<br />Shared only with you."; } ?>
     </div>
 
     <?php 
@@ -255,6 +255,16 @@ if ($projects > 0) {
         <p>This project has nary a note.</p>
       </div><!-- .project-notes -->
     <?php } ?>
+
+    <div class="my-perms">
+      <p>My permissions: <?php
+        if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
+        if ($row['edit'] == 1) { echo 'Can edit'; }
+        if ($row['share'] == 1 && $row['edit'] == 1) { echo ' + '; }
+        if ($row['share'] == 1) { echo 'Can share'; }
+
+      ?></p> 
+    </div>
 
     </div><!-- .project-details -->
   </li>
@@ -327,7 +337,7 @@ if ($projects > 0) {
     </ul>
     <div class="shared-with">
 
-    <?php echo "Owner: You | Not shared";?>
+    <?php echo "Owner: You<br/>Not shared";?>
 
     </div>
 

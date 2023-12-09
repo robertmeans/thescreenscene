@@ -11,7 +11,7 @@ Organize Search Fields (Google, URL, Bing, Reference, YouTube)
 tooltip =   'Organize search fields'
 trigger =   .osf-link 
 goes to:    edit_searches.php
-by using:   $_SESSION['organize'] = 'anothern';
+by using:   $_SESSION['go-to-edit_searches'] = 'anothern';
 found in both: nav/inner_nav.php & my_projects.php
 
 
@@ -20,7 +20,7 @@ Rearrange Bookmarks [drag & drop hyperlinks around]
 tooltip =	'Rearrange bookmarks'
 trigger = 	.eo-link
 goes to:	edit_order.php
-by using:	$_SESSION['order'] = 'anothern';
+by using:	$_SESSION['go-to-edit_order'] = 'anothern';
 found in both: nav/inner_nav.php & my_projects.php
 
 
@@ -29,7 +29,7 @@ Share Project
 tooltip = 	'Share project'
 trigger =	.sp-link
 goes to:	share_project.php
-by using:	$_SESSION['share-project'] = 'anothern';
+by using:	$_SESSION['go-to-share_project'] = 'anothern';
 found in both: nav/inner_nav.php & my_projects.php
 
 
@@ -47,7 +47,7 @@ My Projects Page
 tooltip =	'Projects page'
 trigger =	.vpp-link
 goes to:	my_projects.php
-by using:	$_SESSION['view-proj-pg'] = 'anothern';
+by using:	$_SESSION['go-to-my_projects'] = 'anothern';
 found in both: nav/inner_nav.php & my_projects.php
 
 

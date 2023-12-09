@@ -5,7 +5,7 @@ if (is_post_request()) {
 
 // sign-up
 if (isset($_POST['signup'])) {
-  local_testing($x);
+  local_testing_delay($x);
 
   $signal = '';
   $msg = '';
@@ -169,7 +169,7 @@ if (isset($_POST['signup'])) {
 
 // if user clicks on login
 if (isset($_POST['login'])) {
-  local_testing($x);
+  local_testing_delay($x);
 
   $signal = '';
   $msg = '';
@@ -289,7 +289,7 @@ if (isset($_POST['login'])) {
 
 // forgot password
 if (isset($_POST['forgotpass'])) {
-  local_testing($x);
+  local_testing_delay($x);
 
   $signal = '';
   $msg = '';
@@ -355,7 +355,7 @@ if (isset($_POST['forgotpass'])) {
 
 // reset password 
 if (isset($_POST['reset'])) {
-  local_testing($x);
+  local_testing_delay($x);
 
   $signal = '';
   $msg = '';
@@ -367,7 +367,7 @@ if (isset($_POST['reset'])) {
 
   // validation
   if (empty($password) || empty($passwordConf)) {
-    local_testing($x);
+    local_testing_delay($x);
     $signal = 'bad';
     $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
     $li .= '<li class="no-count">Enter new password in both fields.</li>';
@@ -375,7 +375,7 @@ if (isset($_POST['reset'])) {
   }
 
   if ((!empty($password) && !empty($passwordConf)) && $password !== $passwordConf) {
-    local_testing($x);
+    local_testing_delay($x);
     $signal = 'bad';
     $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
     $li .= '<li class="no-count">Passwords do not match.</li>';
@@ -442,7 +442,7 @@ if (isset($_POST['reset'])) {
     tooltip =   'Organize search fields' | (Google, URL, Bing, Reference, YouTube)
     trigger =   .osf-link 
     goes to:    edit_searches.php
-    by using:   $_SESSION['organize'] = 'anothern';
+    by using:   $_SESSION['go-to-edit_searches'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */ 
   if (isset($_POST['organizesearchfields'])) {
 
@@ -456,7 +456,7 @@ if (isset($_POST['reset'])) {
         $row = update_color($id, $current_project);
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
-        $_SESSION['organize'] = 'anothern';
+        $_SESSION['go-to-edit_searches'] = 'anothern';
         if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
 
         $signal = 'ok';
@@ -468,7 +468,7 @@ if (isset($_POST['reset'])) {
       }
 
     } else {
-      $_SESSION['organize'] = 'anothern';
+      $_SESSION['go-to-edit_searches'] = 'anothern';
       $signal = 'ok';
       echo json_encode($signal);
     } 
@@ -479,10 +479,10 @@ if (isset($_POST['reset'])) {
     tooltip = 'Rearrange bookmarks'
     trigger =   .eo-link
     goes to:  edit_order.php
-    by using: $_SESSION['order'] = 'anothern';
+    by using: $_SESSION['go-to-edit_order'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['rearrangebookmarks'])) {
-    $_SESSION['order'] = 'anothern';
+    $_SESSION['go-to-edit_order'] = 'anothern';
     $signal = 'ok';
     echo json_encode($signal);
   }
@@ -491,7 +491,7 @@ if (isset($_POST['reset'])) {
     tooltip =   'Share project'
     trigger = .sp-link
     goes to:  share_project.php
-    by using: $_SESSION['share-project'] = 'anothern';
+    by using: $_SESSION['go-to-share_project'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */ 
   if (isset($_POST['shareproject'])) {
 
@@ -504,7 +504,7 @@ if (isset($_POST['reset'])) {
         $row = update_color($id, $current_project);
         $_SESSION['color'] = $row['color'];
         $_SESSION['current_project'] = $current_project;
-        $_SESSION['share-project'] = 'anothern';
+        $_SESSION['go-to-share_project'] = 'anothern';
         if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
 
         $signal = 'ok';
@@ -516,7 +516,7 @@ if (isset($_POST['reset'])) {
       }
 
     } else {
-      $_SESSION['share-project'] = 'anothern';
+      $_SESSION['go-to-share_project'] = 'anothern';
       $signal = 'ok';
       echo json_encode($signal);
     } 
@@ -560,11 +560,11 @@ if (isset($_POST['reset'])) {
     tooltip = 'Projects page'
     trigger = .vpp-link
     goes to:  my_projects.php
-    by using: $_SESSION['view-proj-pg'] = 'anothern';
+    by using: $_SESSION['go-to-my_projects'] = 'anothern';
     found in both: nav/inner_nav.php & my_projects.php */
   if (isset($_POST['viewprojectspage'])) {
     if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); }
-    $_SESSION['view-proj-pg'] = 'anothern';
+    $_SESSION['go-to-my_projects'] = 'anothern';
     $signal = 'ok';
     echo json_encode($signal);
   }
@@ -682,7 +682,7 @@ if (isset($_POST['deletebookmark'])) {
     $row['share']         = '1' ?? '' ;
     $row['edit']          = '1' ?? '' ;
 
-    local_testing($x);
+    local_testing_delay($x);
 
     // validation
     if (empty($row['project_name'])) {
@@ -738,7 +738,7 @@ if (isset($_POST['deletebookmark'])) {
           if (isset($_SESSION['first-project'])) { unset($_SESSION['first-project']); }
           if (isset($_SESSION['no-projects'])) { unset($_SESSION['no-projects']); }
           if (isset($_SESSION['cancel-option'])) { unset($_SESSION['cancel-option']); }
-          if (isset($_SESSION['view-proj-pg'])) { unset($_SESSION['view-proj-pg']); }
+          if (isset($_SESSION['go-to-my_projects'])) { unset($_SESSION['go-to-my_projects']); }
           $_SESSION['current_project'] = $new_id;
 
           $signal = 'ok';
@@ -860,7 +860,7 @@ if (isset($_POST['modify_a_note'])) {
 /* Delete button on delete_project.php page - conditions have been met to allow deletion. */
   if (isset($_POST['vamoose'])) {
 
-    local_testing($x);
+    local_testing_delay($x);
     global $db;
 
     $li = '';
@@ -890,7 +890,7 @@ if (isset($_POST['modify_a_note'])) {
 
       if ($result === true) {
         $_SESSION['ds'] = 'ds-success';
-        $_SESSION['view-proj-pg'] = 'anothern';
+        $_SESSION['go-to-my_projects'] = 'anothern';
         $signal = 'ok';
       } else {
         $signal = 'bad';
@@ -910,7 +910,7 @@ if (isset($_POST['modify_a_note'])) {
 
   // 'Cancel' button on edit_project_details.php
   if (isset($_POST['cancel-deets'])) {
-    $_SESSION['view-proj-pg'] = 'anothern';
+    $_SESSION['go-to-my_projects'] = 'anothern';
     $signal = 'ok';
     echo json_encode($signal);
   }
@@ -927,7 +927,7 @@ if (isset($_POST['modify_a_note'])) {
 
     // validation
     if (empty($row['project_name'])) {
-    local_testing($x);
+    local_testing_delay($x);
       $signal = 'bad';
       $li .= '<li class="no-count">Cannot leave Project Name empty.</li>';
       $class = 'red'; 
@@ -942,12 +942,12 @@ if (isset($_POST['modify_a_note'])) {
     if ($li === '') {
 
       global $db;
-      local_testing($x);
+      local_testing_delay($x);
 
       $result = update_project_deets($current_project, $row);
 
       if ($result === true) {
-        $_SESSION['view-proj-pg'] = 'anothern';
+        $_SESSION['go-to-my_projects'] = 'anothern';
         $signal = 'ok';
 
         } else {
@@ -1079,7 +1079,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
 /* ******************** share owner : begin ************************* */
   if (isset($_POST['owner-share-submit'])) {
-    local_testing($x);
+    local_testing_delay($x);
 
     global $db;
 
@@ -1243,7 +1243,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 /* ********************** share owner : end ************************** */
 
   if (isset($_POST['sharer-share-submit'])) {
-    local_testing($x);
+    local_testing_delay($x);
 
     global $db;
 
@@ -1428,7 +1428,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
   /* being submitted by 'Update' button inside modal on share_project.php after clicking 'Edit' next to the user's name */
   if (isset($_POST['updateshareduser'])) {
-    local_testing($x);
+    local_testing_delay($x);
 
     $id = $_POST['project_id'];
     $update_this_user = $_POST['esuser'];
@@ -1490,7 +1490,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         }
 
       } else {
-        $_SESSION['share-project'] = 'anothern';
+        $_SESSION['go-to-share_project'] = 'anothern';
         $li .= '<li>' . mysqli_error($db) . '</li>';
         $class = 'red';
         $signal = 'bad';
@@ -1508,7 +1508,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
   }
 
   if (isset($_POST['delete-shared-user'])) {
-    local_testing(3);
+    local_testing_delay($x);
 
     $id = $_POST['project_id'];
     $remove_this_user = $_POST['delete-shared-user'];
@@ -1564,7 +1564,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
         }
 
       } else {
-        $_SESSION['share-project'] = 'anothern';
+        $_SESSION['go-to-share_project'] = 'anothern';
         $li .= '<li>' . mysqli_error($db) . '</li>';
         $class = 'red';
         $signal = 'bad';
@@ -1585,7 +1585,7 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
   if (isset($_POST['remove_me'])) {
     global $db;
 
-    local_testing(3);
+    local_testing_delay($x);
 
     $li = '';
     $class = '';
@@ -1600,13 +1600,13 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
     $result = mysqli_query($db, $sql);
 
     if ($result === true) {
-      if (isset($_SESSION['share-project'])) { unset($_SESSION['share-project']); }
-      $_SESSION['view-proj-pg'] = 'anothern';
+      if (isset($_SESSION['go-to-share_project'])) { unset($_SESSION['go-to-share_project']); }
+      $_SESSION['go-to-my_projects'] = 'anothern';
       $_SESSION['leaveproject'] = 'anothern';
       $signal = 'ok';
     } else {
 
-      $_SESSION['view-proj-pg'] = 'anothern';
+      $_SESSION['go-to-my_projects'] = 'anothern';
       $li .= '<li>' . mysqli_error($db) . '</li>';
       $class = 'red';
       $signal = 'bad';
@@ -1635,7 +1635,7 @@ if (isset($_POST['contactbob'])) {
   $email = trim($_POST['email']);
   $message = trim($_POST['comments']);
 
-  local_testing($x);
+  local_testing_delay($x);
 
   // validation
   if (empty($name)) {

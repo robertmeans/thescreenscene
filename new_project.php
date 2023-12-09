@@ -74,7 +74,7 @@ if ($projects < 10 || $row['admin'] == 1) {
         <div id="msg-ul"></div>
       </div>
 
-      <p>Name your first project | Limit 30 characters</p>
+      <p>Project Name | Limit 30 characters</p>
       <input type="text" class="first-project-name" name="project_name" maxlength="30" value="<?php if (isset($_POST['project_name'])) { echo $_POST['project_name']; } ?>">
 
       <p>Project Notes | Limit 1,500 characters</p>

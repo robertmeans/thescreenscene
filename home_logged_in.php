@@ -26,32 +26,32 @@ if ($current_project != '0') { // not a brand new member
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 
-    if (isset($_SESSION['view-proj-pg'])) {
+    if (isset($_SESSION['go-to-my_projects'])) {
       /* Main dropdown nav = 'View Projects Page' */
       /* click event _scripts/scripts.js: .vpp-link */
-      unset($_SESSION['view-proj-pg']); 
+      unset($_SESSION['go-to-my_projects']); 
       /* clear session if they went to new_project.php but then clicked the 'My Projects' link */
       if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
       if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
 
       require 'my_projects.php';
 
-    } else if (isset($_SESSION['organize'])) {
+    } else if (isset($_SESSION['go-to-edit_searches'])) {
       /* tooltip = 'Organize search fields' */
       /* click event _scripts/scripts.js: .osf-link */
-      unset($_SESSION['organize']); 
+      unset($_SESSION['go-to-edit_searches']); 
       require 'edit_searches.php';
 
-    } else if (isset($_SESSION['order'])) {
+    } else if (isset($_SESSION['go-to-edit_order'])) {
       /* tooltip = 'Rearrange bookmarks' */
       /* click event _scripts/scripts.js: .eo-link */
-      unset($_SESSION['order']); 
+      unset($_SESSION['go-to-edit_order']); 
       require 'edit_order.php';
 
-    } else if (isset($_SESSION['share-project'])) {
+    } else if (isset($_SESSION['go-to-share_project'])) {
       /* tooltip = 'Start a new project' */
       /* click event _scripts/scripts.js: .np-link */
-      unset($_SESSION['share-project']);
+      unset($_SESSION['go-to-share_project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
@@ -98,32 +98,32 @@ if ($current_project != '0') { // not a brand new member
     }
   } else if (isset($row['owner_id']) && $row['owner_id'] == $user_id) { // show owner's results
 
-    if (isset($_SESSION['view-proj-pg'])) {
+    if (isset($_SESSION['go-to-my_projects'])) {
       /* Main dropdown nav = 'View Projects Page' */
       /* click event _scripts/scripts.js: .vpp-link */
-      unset($_SESSION['view-proj-pg']); 
+      unset($_SESSION['go-to-my_projects']); 
       /* clear session if they went to new_project.php but then clicked the 'My Projects' link */
       if (isset($_SESSION['backtomyprojects'])) { unset($_SESSION['backtomyprojects']); }
       if (isset($_SESSION['backtohomepage'])) { unset($_SESSION['backtohomepage']); }
 
       require 'my_projects.php';
 
-    } else if (isset($_SESSION['organize'])) {
+    } else if (isset($_SESSION['go-to-edit_searches'])) {
       /* tooltip = 'Organize search fields' */
       /* click event _scripts/scripts.js: .osf-link */
-      unset($_SESSION['organize']);
+      unset($_SESSION['go-to-edit_searches']);
       require 'edit_searches.php';
 
-    } else if (isset($_SESSION['order'])) {
+    } else if (isset($_SESSION['go-to-edit_order'])) {
       /* tooltip = 'Rearrange bookmarks' */
       /* click event _scripts/scripts.js: .eo-link */
-      unset($_SESSION['order']); 
+      unset($_SESSION['go-to-edit_order']); 
       require 'edit_order.php';
 
-    } else if (isset($_SESSION['share-project'])) {
+    } else if (isset($_SESSION['go-to-share_project'])) {
       /* tooltip = 'Start a new project' */
       /* click event _scripts/scripts.js: .np-link */
-      unset($_SESSION['share-project']);
+      unset($_SESSION['go-to-share_project']);
       require 'share_project.php';
 
     } else if (isset($_SESSION['another-proj'])) {
@@ -175,8 +175,8 @@ if ($current_project != '0') { // not a brand new member
     if ($has_project > 0) { 
       // they have at least 1 project but their last was deleted since last visit
 
-     if (isset($_SESSION['view-proj-pg'])) {
-      unset($_SESSION['view-proj-pg']); 
+     if (isset($_SESSION['go-to-my_projects'])) {
+      unset($_SESSION['go-to-my_projects']); 
       require 'my_projects.php';
 
      } else if (isset($_SESSION['another-proj'])) {
