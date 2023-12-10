@@ -23,7 +23,7 @@ $(document).ready(function () {
     }
   });
 });
-// ajax background save for sorting add a note
+/* ajax background save for sorting add a note */
 function save_new_positions() {
   var positions = [];
   $('.updated').each(function () {
@@ -46,7 +46,6 @@ function save_new_positions() {
   });
 }
 
-  
 </script>
 
 <ul <?php if ($notes > 1) { echo "id=\"sortanote\""; } ?> class="project-notes">
@@ -56,18 +55,20 @@ $modify_id = 0;
 $str_length = 2;
 
 if ($notes > 0) {
-// they have notes so you can run a query to get largest number in sort column
+/* ^ contents of entire page. else there's nothing here to provide. */
+/* they have notes so you can run a query to get largest number in sort column. */
 global $db;
 $result = mysqli_query($db, "SELECT MAX(sort) FROM notes WHERE user_id='$user_id' AND project_id='$current_project'");
 $max_sort = mysqli_fetch_array($result);
 $max_sort = $max_sort[0] + 1;
 
-
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
+/* end of while loop: 1203231157 */
 $modify_id++;
 $modify_id = substr("0{$modify_id}", -$str_length);
 
-if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { ?>
+if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_project)) { 
+/* to find the close of this if: 1203231156 */ ?>
 
 <li id="z_<?= $row['note_id']; ?>" sort="<?= $row['sort'] ?>">
     <div class="sec note-url <?php if ($notes > 1) { echo "move"; } if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { echo " long"; } else { echo " short"; } ?>">
@@ -79,16 +80,19 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <div class="notename">
+        <div style="display:none;" id="namet_<?= $row['note_id']; ?>" data-target="namet"><?= $row['name']; ?></div>
         <?php
+        $name = (strlen($row['name']) > 21) ? substr($row['name'],0,18).'...' : $row['name'];
         if ($row['url'] != "") { ?>
-            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $row['name']; ?></a>
+            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $name; ?></a>
         <?php } else { ?>
-            <span data-target="urln" class="urlns"><?= $row['name']; ?></span>
+            <span data-target="urln" class="urlns"><?= $name; ?></span>
         <?php } ?>   
         </div>
 
     </div>  
     <div class="sec note">
+      <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
       if ($row['truncate'] == "1") { ?>
@@ -97,25 +101,37 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
         <?php /* After any modifications to notes have been made - this is what will render the notes */ ?>
         <?php /* section. For first pass see: _includes/search_stack_bottom_member.php */ ?>
         <?php
-        if ($row['clipboard'] == "1") { ?>
-          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  if (strlen($row['note']) >= 200) { echo " long"; } else { echo " short";} ?>"><i class="far fa-copy fa-fw"></i></a>
+        if ($row['clipboard'] == "1") { /* has clipboard */ ?>
+
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
+          if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 
+            echo " long"; 
+          } else { 
+            echo " short";
+          } 
+
+        ?>"><i class="far fa-copy fa-fw"></i></a>
        <?php }
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             }
-           ?></p>
+           ?>
         <?php } else { ?>
             <span class="norm-copy"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 36) {
+              $note = (strlen($row['note']) > 35) ? substr($row['note'],0,33).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
             } else {
-              echo nl2br($row['note']);
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
-           ?></span>
+           ?>
         <?php }
          ?>
     </div> 
@@ -123,9 +139,10 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <a data-role="modify-note" data-id="z_<?= $row['note_id']; ?>" class="modify-note static"><i class="far fa-edit"></i></a>
 
       <form>
-        <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
-        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
+        <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" date-role="noteid" value="<?= $row['note_id']; ?>">
+        <input type="hidden" name="notecountz" data-role="notecountz" value="<?= $notes; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
@@ -134,7 +151,10 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
 </li>
 
 <?php
-} } }
+    } /* end of if 1203231156 */ 
+  } /* end of while loop: 1203231157 */
+}
 ?>
 
-</ul><?php // #project-notes ?>
+</ul><?php /* #project-notes */ ?>
+

@@ -25,7 +25,7 @@ require '_includes/nav.php'; ?>
   <div id="table-page">
   <div id="table-wrap">
 <?php require '_includes/search_stack_top.php'; ?>
-
+<?php show_session_variables(); ?>
 <div class="tabs">
 
   <ul class="tab-links">
@@ -176,17 +176,16 @@ $id_count = 1 + $row_count;
         <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
         <input type="hidden" name="idcount" id="idcount">
 
-        <label>Name | Limit 30 characters
-        <input name="name" id="name" class="edit-input link-name" type="text" maxlength="30"></label>
+        <label>Name | Limit 18 characters
+        <input name="name" id="name" class="edit-input link-name" type="text" maxlength="18"></label>
 
         <label>URL
         <input name="urlz" id="urlz" class="edit-input link-url" type="text" placeholder="http://"></label>
+
         <div class="submit-links">
-          <!-- <input type="submit" name="owner-update-link" style="display:none"> -->
-          <input type="button" name="delete" id="delete" class="delete" value="Delete">
-          <input type="button" name="update" id="update" class="update" value="Update">
-         <!--  <a id="update">Update</a> -->
-        </div><!-- #submit-links -->
+          <a class="delete delete-bookmark">Delete</a><a class="submit update-bookmark">Update</a>
+        </div>
+
       </form>
       </div>
       <div class="modal-footer">

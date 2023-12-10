@@ -77,10 +77,12 @@
   <ul class="inner-nav">
     <?php require 'nav/inner_nav.php'; ?>
   </ul>
-
+<?php show_session_variables(); ?>
   <div class="search-instructions">
-    <p>Drag &amp; drop the order of your search fields for this project. Whatever you put at the top will be ready for your search when you visit.</p>
-    <p>Select which reference field to use as a default:</p>
+    <ol>
+      <li>Drag &amp; drop the order of your search fields for this project. Whatever you put at the top will be ready for your search when you visit.</li>
+      <li>Select which reference field to use as a default:</li>
+    </ol>
 
     <div class="td-form">
       <form action="dictionary_thesaurus_02.php" method="post" class="ajax">

@@ -262,9 +262,13 @@ a.textNav {
 		padding: 0.5em 1em 0.5em 0.5em;
 		p.note-title {
 			padding: 0px;
-			// display: flex;
 			background-color: transparent;
+      cursor: default;
 		}
+    p.ooce {
+      color: rgba(255,255,255,0.4);
+      cursor: default;
+    }
 		a.eicon {
 			// display: flex;
 			cursor: pointer;

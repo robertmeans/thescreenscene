@@ -16,7 +16,6 @@
         ?></li>
 
 <?php
-// $user_id = $_SESSION['id'];
 $notes_for_project = find_project_notes($user_id, $current_project);
 $notes = mysqli_num_rows($notes_for_project);
 global $db;
@@ -27,7 +26,8 @@ $max_sort = $max_sort[0] + 1;
 ?>
 
   <input type="hidden" name="maxsort" data-role="maxsort" value="<?= $max_sort; ?>">
-  <input type="hidden" name="notecount" data-role="notecount" value="<?= $notes; ?>">
+  <input type="hidden" id="cpid" value="<?= $current_project ?>">
+  <!-- this is something -->
   <li class="note-edit-pg"><a id="add-note" data-role="notes" class="add-a-note static">Add a note</a></li>
 
 </ul>
@@ -41,7 +41,7 @@ $modify_id = 0;
 $str_length = 2;
 
 if ($notes > 0) {
-// they have notes so you can run a query to get largest number in sort column
+/* they have notes so you can run a query to get largest number in sort column */
 
 while ($row = mysqli_fetch_assoc($notes_for_project)) {
 $modify_id++;
@@ -59,11 +59,14 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <div class="notename">
+        <div style="display:none;" id="namet_<?= $row['note_id']; ?>" data-target="namet"><?= $row['name']; ?></div>
         <?php
+        /* keep name to total of 21 chars including ellipses */
+        $name = (strlen($row['name']) > 21) ? substr($row['name'],0,18).'...' : $row['name'];
         if ($row['url'] != "") { ?>
-            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $row['name']; ?></a>
+            <a href="<?= $row['url']; ?>" data-target="urln" class="note-link" target="_blank"><?= $name; ?></a>
         <?php } else { ?>
-            <span data-target="urln" class="urlns"><?= $row['name']; ?></span>
+            <span data-target="urln" class="urlns"><?= $name; ?></span>
         <?php } ?>   
         </div>
 
@@ -72,6 +75,8 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <?php /* For code that renders after modifications have been made to this section see in the  */ ?>
     <?php /* root dir: usernotes.php                                                              */ ?>
     <div class="sec note">
+
+      <span><?php /* this begins the container so you can use justify-content: space-between and keep the '[more]' on the far right end */ ?>
       <div style="display:none;" id="cb_<?= $row['note_id']; ?>" data-target="cb"><?= $row['note']; ?></div>
       <?php
       if ($row['truncate'] == "1") { ?>
@@ -79,26 +84,41 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <?php } ?>
 
         <?php
-        if ($row['clipboard'] == "1") { ?>
-          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  if (strlen($row['note']) >= 200) { echo " long"; } else { echo " short"; } ?>"><i class="far fa-copy fa-fw"></i></a>
-       <?php }
+        if ($row['clipboard'] == "1") { /* has clipboard */ ?>
+          
+          <a data-role="cb" data-id="<?= $row['note_id']; ?>" class="clipboard btn static<?php  
+          if (strlen($row['note']) >= 200 && $row['truncate'] == '0') { 
+            echo " long"; 
+          } else { 
+            echo " short"; 
+          } 
+
+          ?>"><i class="far fa-copy fa-fw"></i></a>
+       <?php } 
         if ($row['note'] != "" && $row['clipboard'] == "1") { ?>
-            <p class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            <span class="cb-txt" id="cb_<?= $row['note_id']; ?>"><?php
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 35) {
+              $note = (strlen($row['note']) > 34) ? substr($row['note'],0,32).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
-           ?></p>
-        <?php } else { ?>
+           ?>
+        <?php } else { /* no clipboard */ ?>
+
             <span class="norm-copy"><?php
-            if ($row['truncate'] == '1' && strlen($row['note']) >= 41) {
-              echo substr(nl2br($row['note']), 0, 40) . '<span class="more">[ more... ]</span>'; 
+            if ($row['truncate'] == '1' && strlen($row['note']) >= 35) {
+              $note = (strlen($row['note']) > 34) ? substr($row['note'],0,32).'...' : $row['note'];
+              echo $note . '</span></span><span class="more">[ more ]</span>';
+              // echo substr(nl2br($row['note']), 0, 35) . '<span class="more">[ more... ]</span>'; 
             } else {
-              echo nl2br($row['note']);
+              if ($row['note'] == '') { echo '<span>&nbsp;</span>'; } else {
+              echo '</span>' . nl2br($row['note']) . '</span>'; }
             } 
 
-           ?></span>
+           ?>
         <?php }
          ?>
     </div> 
@@ -109,6 +129,7 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
       <form>
         <input type="hidden" name="maxsortz" data-role="maxsortz" value="<?= $max_sort; ?>">
         <input type="hidden" data-role="deletethis" value="<?= $row['note_id']; ?>">
+        <input type="hidden" date-role="noteid" value="<?= $row['note_id']; ?>">
         <input type="hidden" data-role="notename" value="<?= $row['name']; ?>">
         <a data-role="deletenote" class="deletenote"><i class="fas fa-minus-circle"></i></a>
       </form>
@@ -132,27 +153,27 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
   <div class="aan-modal-wrap">
     <div id="thatll-do" class="aan-modal-body">
     <form class="edit-link-form">
-      <input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
-      <input type="hidden" name="uid" id="uid" value="<?= $user_id; ?>">
+      <input type="hidden" name="cp" id="aancp" value="<?= $current_project; ?>">
       <input type="hidden" name="nid" id="nid">
-      <label>Name | Limit 30 characters
-      <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="30"></label>
+      <label>Name | > 18 chars will be trimmed
+      <input name="name" id="aanName" class="edit-input link-name" type="text" maxlength="200"></label>
 
       <label>URL | Makes the name a hyperlink
       <input name="url" id="aanUrl" class="edit-input link-name" type="text" maxlength="2000" placeholder="http://"></label>
 
-      <label>Note | Limit 5,000 characters
-      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="5000" type="text"></textarea></label>
+      <label>Note | Limit 10,000 characters
+      <textarea name="note" id="aanNote" class="edit-input link-url" maxlength="10000" type="text"></textarea></label>
 
       <label class="clipboard"><input type="checkbox" name="clipboard" id="aanClipboard"> Add &quot;Copy to clipboard&quot; icon (Grabs note to clipboard)</label>
 
-      <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 40 characters)</label>
+      <label class="clipboard"><input type="checkbox" name="truncate" id="aanTruncate"> Truncate long note (only show first 32 characters)</label>
 
       <div class="submit-links">
-        <a class="cancel-close static" data-role="notesClose">Cancel</a>
-        <input type="button" name="update-note" id="update-note" class="update" value="Add note">
-        <input type="button" name="modify-note" id="modify-note" class="update" value="Modify note">
-      </div><!-- #submit-links -->
+        <a data-role="notesClose" class="cancel">Cancel</a>
+        <a id="update-note" class="submit">Add note</a>
+        <a id="modify-note" class="submit">Modify note</a>
+      </div>
+
     </form>
     </div><!-- .aan-modal-body -->
   </div><!-- .aan-modal-wrap -->
@@ -160,9 +181,9 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <h3 id="im-watchin">Only you will see your notes.</h3>
   </div>
 </div><!-- .aan-modal-content -->
-</div><?php // #aan-modal ?>
+</div><?php /* #aan-modal */ ?>
 
-<?php // limit reached modal // ?>
+<?php /* limit reached modal */ ?>
 <div id="thats-all" class="aan-modal">
 <div class="aan-modal-content">
   <div class="aan-modal-header">
@@ -178,4 +199,31 @@ if (($row['user_id'] == $_SESSION['id']) && ($row['project_id'] == $current_proj
     <h3>That'll do, note piggy.</h3>
   </div>
 </div><!-- .aan-modal-content -->
-</div><?php // #aan-modal ?>
+</div><?php /* #thats-all */ ?>
+
+
+<?php /* delete modal */ ?>
+<div id="adios" class="aan-modal delete">
+<div id="adios-content" class="aan-modal-content">
+  <div class="aan-modal-header delete">
+    <span class="aan-close shutit" data-role="notesClose"><i class="fas fa-times-circle"></i></span>
+    <h2 id="delete-header-msg">Delete note</h2>
+  </div>
+  <div class="aan-modal-wrap">
+    <div id="delete-modal-body" class="aan-modal-body delete">
+    <form class="edit-link-form">
+      <p>Confirm delete of note:</p>
+      <p id="deletenotename" class="c"></p>
+      <input type="hidden" name="deletenoteid" id="deletenoteid">
+      <div class="submit-links">
+        <a data-role="notesClose" class="cancel canceldeletenote">Cancel</a>
+        <a class="cancel delete deleteanote">Delete</a>
+      </div>
+    </form>
+    </div><!-- .aan-modal-body -->
+  </div><!-- .aan-modal-wrap -->
+  <div class="aan-modal-footer delete">
+    <h3>&nbsp;</h3>
+  </div>
+</div><!-- .aan-modal-content -->
+</div><?php /* #adios */ ?>

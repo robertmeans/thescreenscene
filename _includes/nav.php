@@ -10,7 +10,7 @@
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
-		case 'my_projects' 		:	 	break;
+		// case 'my_projects' 		:	 	break;
 		case 'home-first-visit' :	 	break;
 		case 'no-projects' 	    :	 	break;
 		// dropdown nav ->
@@ -24,12 +24,13 @@
 				<a class="pen">&nbsp;</a>
 				<!-- working on autocomplete... -->
 				<!-- <input class="nav-ac" type="text" id="t1"> -->
-			<a href="my_projects.php" class="dda vpp">View Projects Page</a>
+			<form method="post"><input type="hidden" name="viewprojectspage" value="yo"><a class="vpp-link dda vpp">View Projects Page</a></form>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
-				<form action="my_projects.php" method="post">
+				<form method="post">
+        <input type="hidden" name="user_id" value="<?= $user_id; ?>">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-				<a class="static dda" onclick="$(this).closest('form').submit()"><?= $rowg['project_name'] ?></a>
+				<a class="gth-link dda"><?= $rowg['project_name'] ?></a>
 				</form>	
 			<?php	} mysqli_free_result($result); ?>	
 			</div>

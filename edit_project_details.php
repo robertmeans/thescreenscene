@@ -1,4 +1,4 @@
-<?php $layout_context = "home-private"; 
+<?php $layout_context = "edit_project_details"; 
 
 require_once 'config/initialize.php';
 
@@ -13,24 +13,8 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
 	exit();
 }
 
-$current_project = $_GET['id'];
-$user_id = $_SESSION['id'];
-
-if (is_post_request()) {
-
-  $row = [];
-  $row['project_name']     = $_POST['project_name'] ?? '';
-  $row['project_notes']      = $_POST['project_notes'] ?? '';
-
-  $result = update_project_deets($current_project, $row);
-
-  if ($result === true) {
-    header('location: my_projects.php?id=' . $current_project);
-
-    } else {
-          $errors = $result;
-    } 
-}  
+$current_project = $_SESSION['current_project'];
+$user_id = $_SESSION['id']; 
 
 ?>
 
@@ -42,22 +26,18 @@ if (is_post_request()) {
 
 <div id="table-page">
 <div id="edit-deets">
-
+<?php show_session_variables(); ?>
 <?php
 $row = show_project($current_project);
 
 if ($row['owner_id'] == $user_id) { ?>
 
-<form action="" method="post">
+<form id="epd-form" method="post">
+  <input type="hidden" name="submitdeets" value="yo">
 
-    <?php if(count($errors) > 0): ?>
-        <div class="alert alert-danger">
-            <?php // if(isset($rememberme_error)) { echo $rememberme_error; } ?>
-            <?php foreach($errors as $error): ?>
-            <li><?php echo $error; ?></li>
-        <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+  <div id="message"> 
+    <ul id="msg-ul"></ul>
+  </div>
 
   <p>Rename project | Limit 30 characters</p>
   <input type="text" name="project_name" id="p-name" maxlength="30" value="<?= $row['project_name']; ?>">
@@ -65,15 +45,18 @@ if ($row['owner_id'] == $user_id) { ?>
   <p>Project Notes | Limit 1,500 characters</p>
   <textarea id="textbox" name="project_notes" maxlength="1500"><?= $row['project_notes']; ?></textarea>
   
-  <div class="btn-wrap">
-    <a href="my_projects.php" class="cancel-deets">Cancel</a><input type="submit" name="update-deets">
+  <div id="buttons">
+    <a class="cancel cancel-new-project">Cancel</a><a class="submit submit-deets">Submit</a>
   </div>
 
 </form>
-
+<form id="new-project-cancel-btn" method="post">
+  <input type="hidden" name="cancelprojectdetails" value="yo"> 
+  <input type="hidden" name="newprojectcancelbtn" value="yo">
+</form>
 <?php 
 } else {
-      echo "<p class=\"edit-tinkerer\">Only a project owner can modify their project name and notes.</p>";
+  echo "<p class=\"edit-tinkerer\">Only a project owner can modify their project name and notes.</p>";
 }   
 ?>
 

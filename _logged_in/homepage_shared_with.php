@@ -25,7 +25,7 @@ require '_includes/nav.php'; ?>
 	<div id="table-page">
 	<div id="table-wrap">
 <?php require '_includes/search_stack_top.php'; ?>
-
+<?php show_session_variables(); ?>
 <div class="tabs">
 
 	<ul class="tab-links">
@@ -55,10 +55,9 @@ require '_includes/nav.php'; ?>
 		<?php require 'nav/inner_nav.php'; ?>
 	</ul>
 
-<ul id="static-sort" class="homepage <?php if ($row['edit_toggle'] == "1") { echo "edit-shim"; }  ?>">
+<ul id="static-sort" class="homepage <?php if ($row['edit'] == "1" && $row['edit_toggle'] == "1") { echo "edit-shim"; }  ?>">
 
 <div class="tab-content">
-
 <!-- page 1 -->
 <div id="tab1" class="tab <?php if ($row['page_number'] == "1") { echo "active"; }  ?>">
 <?php
@@ -146,7 +145,7 @@ $id_count = 1 + $row_count;
 </div><!-- #tab3 -->
 
 <?php if (($user_id == '1') || ($user_id == '3')) { ?>
-<?php /* if me, then show edit option for notes regardless of whether I am owner or shared_with */ ?>
+<?php /* if me, then show edit option for notes regardless of whether I am owner or shared_with. - this was all done when query strings were visibally availalbe for development purposes but doesn't really server any purpose now. */ ?>
 <div id="tab4" class="tab">
 
   <span class="note-header">
@@ -173,11 +172,24 @@ $id_count = 1 + $row_count;
 <?php } else { ?>
 <?php /* everyone else will not see the edit option if they are the "shared_with" of this project */ ?>
 <div id="tab4" class="tab">
+
+  <span class="note-header">
+    <p class="note-title">Project Notes</p>
+    <span id="nei" class="note-edit-icon">
+      <p class="ooce">Only owner can edit</p>
+    </span>
+  </span>
+
 <?php 
-if (trim($row['project_notes']) != '') { 
-	echo nl2br(h($row['project_notes'])); 
-} else { ?>
+if (trim($row['project_notes']) != '') { ?>
+<div id="note-portal" class="pop-note-portal display-portal">
+<?php	echo nl2br(h($row['project_notes'])); ?>
+</div>
+
+<?php } else { ?>
+<div id="note-portal" class="pop-note-portal display-portal">  
 	<div id="note-portal" class="empty-note-portal display-portal">There are no project notes to display.</div>
+</div>
 <?php } ?>
 </div>
 <?php } ?>
@@ -207,17 +219,16 @@ if (trim($row['project_notes']) != '') {
 				<input type="hidden" name="cp" id="cp" value="<?= $current_project; ?>">
 				<input type="hidden" name="idcount" id="idcount">
 
-				<label>Name | Limit 30 characters
-				<input name="name" id="name" class="edit-input link-name" type="text" maxlength="30"></label>
+				<label>Name | Limit 18 characters
+				<input name="name" id="name" class="edit-input link-name" type="text" maxlength="18"></label>
 
 				<label>URL
 				<input name="urlz" id="urlz" class="edit-input link-url" type="text" placeholder="http://"></label>
-				<div class="submit-links">
-					<!-- <input type="submit" name="owner-update-link" style="display:none"> -->
-					<input name="delete" id="delete" class="delete" value="Delete">
-					<input name="update" id="update" class="update" value="Update">
-				 <!--  <a id="update">Update</a> -->
-				</div><!-- #submit-links -->
+
+        <div class="submit-links">
+          <a class="delete delete-bookmark">Delete</a><a class="submit update-bookmark">Update</a>
+        </div>
+
 			</form>
 			</div>
 			<div class="modal-footer">

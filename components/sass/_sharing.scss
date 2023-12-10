@@ -20,6 +20,9 @@
       color: #fff;
     }
   }
+  form.gth {
+    margin-bottom: 0;
+  }
 	form {
 		display: flex;
 		flex-direction: column;
@@ -28,44 +31,18 @@
 		p {
 			width: 100%;
 			padding: 0.5em;
+      margin-bottom: 1em;
 			text-align: center;
 			font-size: 1.3em;
 		}
-		label {
-			line-height: 2em;
-			width: 100%;
-			cursor: pointer;
-			padding: 0.5em;
-			&:hover {
-				background-color: rgba(0,0,0,0.2);
 
-			}
-		}
-		input[type=checkbox] {
-			margin-right: 0.75em;
-			visibility: hidden;
-			width: 1em;
-			height: 1em;
-			position: fixed;
-		}
-		// label.edit {
-		// 	margin-bottom: 0.2em;
-		// }
-		label.edit,
-		label.share {
-			background-color: transparent;
-			color: #fff;
-			margin-bottom: 0.2em;
-			transition: background-color 0.2s ease;
-			&:hover {
-				background-color: rgba(130,195,58,1);
-				// color: #313131;
-			}
-		}
-		label.edit.checked,
-		label.share.checked {
+		.edit.checked,
+		.share.checked,
+    .edit2.checked,
+    .share2.checked {
 			background-color: rgba(79,117,35,1);
 		}
+
 		input[type=email] {
 			background-color: rgba(255,255,255,0.05);
 			color: #fff;
@@ -83,34 +60,28 @@
 			&:focus {
 				outline: none;
 			}
+      &.red {
+        background-color: rgba(255,0,0,0.2);
+        border-top: 1px solid red;
+        border-bottom: 1px solid red;
+        color: #fff;
+        &::placeholder {
+          color: #ccc;
+        }
+      }
 		}
 		input[type=email].email-error {
 			// background-color: rgba(255,0,0,0.2);
 			border-top: 1px solid rgba(231,74,66,1);
 			border-bottom: 1px solid rgba(231,74,66,1);
 		}
-		input[type=submit] {
-			width: 100%;
-			margin: 1em 0 0.5em;
-			font-size: 1em;
-			padding: 1em;
-			color: #fff;
-			background-color: rgba(0,0,0,0.6);
-			background-color: #44c073;
-			border: 1px solid #fff;
-			cursor: pointer;
-			transition: all 0.2s ease;
-			&:hover {
-				background-color: rgba(0,0,0,1);
-				background-color: #08df08;
-			}
-		}
+
 		.share-note {
 			border: 1px dotted #ccc;
 			padding: 1.5em;
-			font-size: 0.8em;
 			line-height: 1.5em;
 			background-color: rgba(255,255,255,0.1);
+      margin-top: 2em;
 		}
 		.echeckon,
 		.scheckon {
@@ -124,59 +95,133 @@
 			// font-size: 1.5em;
 		}
 	}
+
+
+
+  .priv-box,
+  .remove-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    .choice,
+    .choice2 {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      color: #fff;
+      margin: 5px 0;
+      padding: 10px;
+      background-color: transparent;
+      border-radius: 3px;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: all 0.2s ease;
+      // transition: background-color 0.2s ease-out 0.2s, border-radius 0.2s ease-out 0.5s;
+      &:hover {
+        // border-radius: 0px;
+        background-color: #3cb34e;
+      }
+
+      i {
+        font-size: 1.75em;
+      }
+      label {
+        cursor: pointer;
+        line-height: 1.25em;
+        width: 100%;
+        padding: 10px;
+        background-color: transparent;
+        transition: all 0.2s ease;
+        &:hover {
+          // background-color: #3cb34e;
+        }
+      }
+    }
+    .choice.edit2,
+    .choice.share2 {
+      display: flex;
+      &.gone {
+        display: none;
+      }
+    }
+    .choice.edit.on,
+    .choice.share.on,
+    .choice.edit2.on,
+    .choice.share2.on {
+      border: 1px solid rgba(255,255,255,0.2);
+      &:hover {
+        background-color: #4f7523;
+        border-color: #fff;
+      }
+    }
+    &.gone {
+      display: none;
+    }    
+  }
+  #edit,
+  #share {
+    display: none;
+  }
+  .editnocheck,
+  .editcheck,
+  .sharenocheck,
+  .sharecheck,
+  .editnocheck2,
+  .editcheck2,
+  .sharenocheck2,
+  .sharecheck2 {
+    display: none;
+  }
+
+  .editnocheck.show,
+  .editcheck.show,
+  .sharenocheck.show,
+  .sharecheck.show,
+  .editnocheck2.show,
+  .editcheck2.show,
+  .sharenocheck2.show,
+  .sharecheck2.show {
+    display: flex;
+  }
+
 	h2.edit-share {
-		font-size: 1.2em;
-		text-decoration: underline;
-		margin-bottom: 0.5em;
+    display: flex;
+    align-items: center;
+		margin: 0.5em 0 1em;
+    line-height: 1.25em;
+    span.th1 {
+      text-decoration: underline;
+      font-size: 1.2em;
+    }
+    span.dot {
+      font-size: 1em;
+      color: #fff;
+      padding: 0em 0.5em;
+      display: inline-block;
+    }
+    span.th2 {
+      font-size: 0.8em;
+      text-decoration: none;
+    }
 	}
-	form.remove-self {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		flex-direction: row;
-		padding: 0.2em 0.5em;
-		background-color: transparent;
-		margin-bottom: 0;
-		&:hover {
-			background-color: rgba(0,0,0,0.3);
-		}
-		p.mep {
-			font-size: 1em;
-			width: auto;
-			padding: 0em;
-			text-align: left;
-		}
-		input[name=remove-self] {
-			display: inline;
-		    width: auto;
-		    padding: 0em;
-		    border: none;
-		    margin: 0;
-		    background-color: transparent;
-		    outline: none;
-		    text-decoration: none;
-		    &:hover {
-		    	text-decoration: underline;
-		    }
-		}
-	}
-	.shared-users {
-		// line-height: 1.5em;
-		width: 100%;
-		background-color: transparent;
-		padding: 0.2em 0.5em;
-		transition: all 0.2s ease;
-		&:hover {
-			background-color: rgba(0,0,0,0.3);
-		}
-	}	
+
+
 	form.edit-user {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		align-items: center;
 		margin-bottom: 0;
+    width: 100%;
 		line-height: 1.5em;
+    .sudeets {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
 		input[type=submit].remove,
 		input[type=submit].modify {
 			display: inline;
@@ -192,5 +237,157 @@
 			}
 		}
 	}
+}
+.sharing .priv-box .choice.share2.on,
+.sharing .priv-box .choice.edit2.on {
+  background-color: #4f7523;
+  // &:hover {
+  //   background-color: #4f7523;
+  // }
+}
+#ruModal {
+  display: none;
+}
+#ruModal #ru-content .modal-header {
+  background-color: #ff4c4c;
+}
+#ruForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  line-height: 1.5em;
+  padding: 1.5em 1em;
+}
+#esModal {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  &.sharing {
+    box-shadow: none;
+  }
+}
+#esModal.gone {
+  display: none;
+}
+.priv-box {
+  background-color: #313131;
+  border: 1px solid #fff;
+}
+.sharemodal {
+  width: 100%;
+  &.sharing {
+    padding: 0px;
+  }
+  // label.edit2.checked,
+  // label.share2.checked {
+  //   background-color: rgba(79,117,35,1);
+  // }
+
+
+}
+#edit2,
+#share2 {
+  display: none;
+}
+
+.rsu-btns {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+
+
+.rsu {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 0.25em 1em;
+  width: 100px;
+  height: 2em;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 0px;
+  background-color: rgba(0,0,0,0.8);
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0); 
+  transition: all 0.2s ease;
+  &.editshareduser {
+    margin-bottom: 3px;
+  } 
+  &:hover {
+    border: 1px solid #fff;
+    background-color: #000;
+    // border-radius: 5px;
+    -webkit-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+.rsu.removeme {
+  width: 100px;
+}
+.rsu.removeshared {
+  background-color: #ff4c4c;
+  &:hover {
+    background-color: #ff4c4c;
+  }
+}
+#shmt.red {
+  background-color: #ff4c4c;
+  color: #fff;
+}
+#shared-list {
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  li span {
+    // display: flex;
+    // width: 100%;
+    // padding: 0.25em 1em 0.5em 0;
+    color: #fff;
+    font-size: 0.8em;
+
+  }
+  li.alone {
+    color: #fff;
+    padding: 0.5em 1em;
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em;
+  }
+  li:nth-child(odd) {
+    background-color: rgba(0,0,0,0.3);
+  }
+  li:nth-child(even) {
+    background-color: transparent;
+    .rsu {
+      // background-color: transparent;
+    }
+  }
+}
+
+#esForm {
+  &.gone {
+    display: none;
+  }
+}
+#priv-box,
+#remove-box {
+  display: flex;
+  &.gone {
+    display: none;
+  }
+}
+#remove-box {
+  padding: 1em;
 }
 

@@ -21,7 +21,7 @@ ul#static-sort {
 }
 .modify-modal-content,
 .aan-modal-content {
-    background-color: #fff; 
+    background-color: rgba(255,255,255,0.9); 
     color: #313131;
   form p, 
   label {
@@ -66,17 +66,17 @@ ul#static-sort {
   }
 }
 #theModal {
-  .modal-body {
-    background-color: #fff;
-    color: #313131;
-    form.edit-link-form input.edit-input {
-      color: #313131;
-      &:focus,
-      &:hover {
-        color: #fff;
-      }
-    }
-  }
+	.modal-body {
+    background-color: rgba(255,255,255,0.9);
+		color: #313131;
+		form.edit-link-form input.edit-input {
+			color: #313131;
+			&:focus,
+			&:hover {
+				color: #fff;
+			}
+		}
+	}
 }
 
 // login background homepage
@@ -442,7 +442,7 @@ a#add-note {
 
 .project-notes li:nth-child(odd) {
   color: #757575;
-  background-color: #fff;
+	background-color: #fff;
   .reorder i.fa-arrows-alt,
   a.modify-note,
   a.deletenote {
@@ -584,4 +584,23 @@ a.td {
   &.selected {
     color: #fff;
   }
+}
+.priv-box {
+  background-color: #75a0ce;
+}
+
+.review-project .pro-left .hmp {
+  color: #b5d6ff;
+}
+
+.aan-modal-body.delete {
+  p {
+    color: #757575;
+  }  
+}
+#thatll-do {
+  color: #757575;
+}
+#delete-header-msg {
+  background-color: #ff4c4c;
 }

@@ -505,7 +505,8 @@ a.welcome-log {
 #success-form,
 #forgot-form,
 #reset-form,
-#new-project-form {
+#new-project-form,
+#epd-form {
   #hidethis {
     display: none;
   }
@@ -525,6 +526,7 @@ a.welcome-log {
   }
   #login-alert,
   #new-project-alert,
+  #epd-alert,
   #reset-alert,
   #signup-alert,
   #forgot-alert {
@@ -536,7 +538,6 @@ a.welcome-log {
     border: 1px solid transparent;
     height: 0px;
     text-align: left;
-    // background-color: rgba(255,255,255,0.6);
     background-color: #000;
     border-radius: 0px;
     transition: background-color 0.2s ease-out 0.2s, 
@@ -554,7 +555,8 @@ a.welcome-log {
         list-style-type: disc;
       }
     }
-    ul#new-project-errors {
+    ul#new-project-errors,
+    ul#epd-errors {
       li {
         line-height: 1.25em;
         margin-bottom: 0.5em;
@@ -569,6 +571,7 @@ a.welcome-log {
 
   #login-alert,
   #new-project-alert,
+  #epd-alert,
   #reset-alert,
   #signup-alert {
     display: none;
@@ -578,6 +581,7 @@ a.welcome-log {
   #login-alert.orange,
   #login-alert.green,
   #new-project-alert.red,
+  #epd-alert.red,
   #signup-alert.red,
   #signup-alert.blue,
   #signup-alert.orange,
@@ -600,6 +604,7 @@ a.welcome-log {
   }
   #login-alert.red,
   #new-project-alert.red,
+  #epd-alert.red,
   #forgot-alert.red,
   #signup-alert.red,
   #reset-alert.red {
@@ -687,7 +692,8 @@ a.welcome-log {
   #toggle-reset-btn .verifying-msg,
   #toggle-signup-btn .verifying-msg,
   #toggle-forgot-btn .verifying-msg,
-  #toggle-btn-insert .verifying-msg {
+  #toggle-btn-insert .verifying-msg,
+  #epd-toggle-btn .verifying-msg {
     cursor: default;
     box-shadow: none;
     &:hover {
@@ -714,41 +720,6 @@ a.welcome-log {
   from { opacity: 0; }
   to { opacity: 1; }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-#table-page #table-wrap .visitor .visitor1 {
-  // width: 60%;
-}
-#table-page #table-wrap .visitor .visitor2 {
-  // width: 40%;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

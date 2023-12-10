@@ -12,8 +12,7 @@ $verified = "";
 $admin = "";
 $visible = "";
 
-function remember_me()
-{
+function remember_me() {
 	global $conn;
 	if (!empty($_COOKIE['token'])) {
 		$token = $_COOKIE['token']; 
@@ -35,8 +34,6 @@ function remember_me()
 			$_SESSION['verified'] = $user['active'];
 			$_SESSION['admin'] = $user['admin'];
 			$_SESSION['current_project'] = $user['current_project'];
-			$_SESSION['message'] = '';
-			$_SESSION['delete-success'] = '0';
 
 			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}
@@ -65,7 +62,6 @@ function verifyUser($token) {
 			$_SESSION['lastname'] = $user['last_name'];
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['current_project'] = $user['current_project'];
-			// $_SESSION['verified'] = 1;
 
 			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);

@@ -75,10 +75,23 @@
 	cursor: move;
 	pointer-events: none;
 }
+#sortablesearch ol#default li {
+  cursor: default;
+}
 .search-instructions {
 	width: 100%;
 	padding: 2em;
-
+  ol {
+    margin: 0 1em 1em;
+    li {
+      list-style-type: decimal;
+      line-height: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    li:last-of-type {
+      margin-bottom: 0;
+    }
+  }
 	p {
 		line-height: 1.5em;
 		margin-bottom: 1em;
@@ -92,6 +105,7 @@
 	display: flex;
 	justify-content: space-around;
 	width: 100%;
+  max-width: 500px;
 	form {
 		width: 50%;
 	}
@@ -119,9 +133,19 @@ a.td {
 	width: 96%;
 	display: block;
 	text-decoration: none;
+  -webkit-transform: scale(1.0);
+  -moz-transform: scale(1.0);
+  -o-transform: scale(1.0);
+  transform: scale(1.0);
+  box-shadow: 0px 17px 10px -10px rgba(0,0,0,0.4);  
 	transition: all 0.2s ease;
 	&:hover {
 		text-decoration: none;
+    -webkit-transform: scale(0.95);
+    -moz-transform: scale(0.95);
+    -o-transform: scale(0.95);
+    transform: scale(0.95);
+    box-shadow: 0px 2px 3px 0px rgba(0,0,0,0.6);    
 		background-color: rgba(115,209,8,1);
 	}
 }
@@ -344,7 +368,7 @@ input.updateSort {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0,0,0,008);
+  background-color: rgba(0,0,0,0.8);
   .success-msg {
     box-sizing: border-box;
     padding: 50px;
@@ -365,6 +389,7 @@ input.updateSort {
 	padding: 2em 0.5em 2em;
 	form {
 		width: 100%;
+    max-width: 600px;
 		margin: 0 auto;
 		padding: 1em;
 	}
@@ -375,9 +400,8 @@ input.updateSort {
 	input,
 	textarea {
 		outline: none;
-		border-radius: 3px;
+    border: none;
 		font-family: Tahoma, Calbri, sans-serif;
-		border: none;
 		background-color: rgba(255,255,255,0.1);
 		color: #fff;
 	}
@@ -397,22 +421,24 @@ input.updateSort {
 		padding: 1.5em;
 		line-height: 1.5em;
 		border: 1px solid rgba(255,255,255,0.3);
-		border-radius: 8px;
+		// border-radius: 8px;
 	}
-	.btn-wrap {
+	.btn-wrap,
+  #epd-toggle-btn {
 		display: flex;
-		justify-content: flex-end;
+		justify-content: space-between;
 		align-items: center;
     width: 100%;
     // max-width: 300px;
 
 		input[type=submit],
-		a.cancel-deets {
+		a.cancel-deets,
+    a.submit-deets {
 			// display: flex;
 			font-size: 1em;
 			color: #fff;
-			width: 50%;
-      max-width: 150px;
+			width: 48%;
+      // max-width: 150px;
 			margin: 0.75em 0.2em;
 			padding: 1em 1.25em;
 			text-align: center;
@@ -422,7 +448,8 @@ input.updateSort {
 			cursor: pointer;
 			line-height: 1em;
 		}
-		input[type=submit] {
+		input[type=submit],
+    a.submit-deets {
 			background-color: rgba(130,195,58,1);
 			border: none;
 			transition: all 0.2s ease;

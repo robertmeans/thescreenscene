@@ -2,13 +2,13 @@
 
 <?php if (isset($_SESSION['pr'])) { unset($_SESSION['pr']); } ?>
 
-<form id="login-form-insert" class="front-login" method="post">
+<form id="login-form" class="front-login" method="post">
 
-  <div id="login-alert">
-    <ul id="errors"></ul>
+  <div id="message"> 
+    <ul id="msg-ul"></ul>
   </div>
 
-  <div id="error-area">No account? <a class="log create-form">Join Here</a></div>
+  <div id="reset-success">Your password was successfully changed! You can log in with your new credentials.</div> 
 
   <input type="hidden" name="login">
   <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
@@ -18,8 +18,8 @@
       <div id="showLoginPass"><i class="far fa-eye"></i> Show Password</div>
   </div>
 
-  <input id="remember_me-insert" type="checkbox" name="remember_me-insert">
-  <label for="remember_me-insert" class="rm-checked"> 
+  <input id="remember_me" type="checkbox" name="remember_me">
+  <label for="remember_me" class="rm-checked"> 
     <div class="rm-wrap">
       <div class="aa-rm-out">
         <div class="aa-rm-in"></div>
@@ -28,8 +28,8 @@
     </div>
   </label>
 
-  <div id="toggle-btn-insert">
-    <div id="login-btn-insert"><span class="login-txt"><img src="_images/login.png"></span></div>
+  <div id="buttons" class="login">
+    <a class="submit login login-btn full-width">Login</a>
   </div>
 
   <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>

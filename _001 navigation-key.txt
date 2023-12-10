@@ -1,0 +1,107 @@
+
+1.
+Homepage
+tooltip =   'Go to homepage'
+trigger =   .gth-link 
+refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly
+
+
+2.
+Organize Search Fields (Google, URL, Bing, Reference, YouTube)
+tooltip =   'Organize search fields'
+trigger =   .osf-link 
+goes to:    edit_searches.php
+by using:   $_SESSION['go-to-edit_searches'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+3.
+Rearrange Bookmarks [drag & drop hyperlinks around]
+tooltip =	'Rearrange bookmarks'
+trigger = 	.eo-link
+goes to:	edit_order.php
+by using:	$_SESSION['go-to-edit_order'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+4.
+Share Project
+tooltip = 	'Share project'
+trigger =	.sp-link
+goes to:	share_project.php
+by using:	$_SESSION['go-to-share_project'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+5.
+New Project
+tooltip =	'Start a new project'
+trigger =	.np-link
+goes to:	new_project.php
+by using:	$_SESSION['another-proj'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+6.
+My Projects Page
+tooltip =	'Projects page'
+trigger =	.vpp-link
+goes to:	my_projects.php
+by using:	$_SESSION['go-to-my_projects'] = 'anothern';
+found in both: nav/inner_nav.php & my_projects.php
+
+
+7.
+Project Info
+tooltip =	'Project name & notes'
+trigger =	.epd-link
+goes to:	edit_project_details.php
+by using:	$_SESSION['editprojdeets'];
+found only in my_projects.php
+
+
+8.
+Delete Project
+tooltip =	'Delete project'
+trigger =	.dp-link
+goes to:	delete_project.php
+by using:	$_SESSION['deleteproject']
+found only in my_projects.php
+
+
+
+
+standardize errors on:
+
+1. login - DONE
+2. signup - DONE
+3. forgot pass - DONE
+4. reset pass - DONE
+5. share project - DONE
+6. delete project - DONE
+7. new project - DONE ...I think
+
+
+
+
+http://localhost/browsergadget/index.php?password-token=7f2e4b6d06a6e24e882688a989c7da98242557f635ae09f9ae3622099582866b673f8cda7a9c0c86eed0a8e6b982c1cc88d3
+
+
+accounts for testing ( pswd same for: 'test' )
+password reset: index.php?password-token=
+welcome/new acct: index.php?token=
+
+browser		  email									  username (first only)		   email_code
+chrome: RM 	: robert@robertmeans.com 				: Robert Means 				 : rhm
+
+chrome: BG 	: robertmeans01@gmail.com 				: Bob Means 				 : bhm
+chrome: TL	: triplellaw@bobmeans.com 				: Triple L 					 : mno
+chrome: LD	: ldintuitive@bobmeans.com 				: Larry Porter 				 : abc
+chrome: ED	: evergreencreativedistrict@gmail.com 	: Evergreen CreativeDistrict : xyz
+
+
+
+green: #3cb34e
+red: #ff4c4c | border 1px solid #f02222
+
+an swiss army apothocary workhorse

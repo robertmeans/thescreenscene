@@ -11,20 +11,10 @@ if ((isset($_SESSION['id'])) && (!$_SESSION['verified'])) {
   exit();
 }
 
-$current_project = $_GET['id'];
+$current_project = $_SESSION['current_project'];
 $user_id = $_SESSION['id'];
 
-if (is_post_request()) {
-  $vamoose  = $_POST['vamoose']   ?? '';
-
-  $result = delete_project($current_project, $vamoose);
-
-  if ($result !== true) {
-    $errors = $result;
-  }
-}
-
-?>
+?> 
 
 <?php require '_includes/head.php'; ?>
 
@@ -35,30 +25,29 @@ if (is_post_request()) {
 <?php // sortable ul from: https://jqueryui.com/sortable ?>
 <div id="edit-delete-page">
 <div id="edit-wrap">
+<?php show_session_variables(); ?>
 <?php
 $row = show_project($current_project);
 
 if (isset($row['owner_id']) && $row['owner_id'] == $_SESSION['id']) {  ?>
 <p class="delete-title">Delete <?= $row['project_name'] ?></p>
 
-<form id="delete-form" action="" method="post">
+<form id="delete-form" method="post">
   <p>Type "Delete" and click Delete</p>
 
-    <?php if($errors): ?>
-        <div class="alert alert-danger">
-            <?php foreach($errors as $error): ?>
-            <li><?php echo $error; ?></li>
-        <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
+  <div id="message" class="delete-page"> 
+    <ul id="msg-ul"></ul>
+  </div>
 
   <input type="hidden" name="current_project" value="<?= $current_project ?>">
-
   <input type="text" name="vamoose" value="<?php if (isset($_POST['vamoose'])) { echo $_POST['vamoose']; } ?>">
-  <div class="btns">
-    <a href="my_projects" class="nm">Never mind</a> <input type="submit" name="see-ya" value="Delete">
+
+  <div id="buttons" class="delete-page">
+    <a class="cancel cancel-deets">Never mind</a><a class="delete delete-my-project">Delete</a>
   </div>
+
 </form>
+
 <?php
 $r = explode(",",$row['row_order']);
 $s = explode(",",$row['search_order']);

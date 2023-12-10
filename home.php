@@ -21,10 +21,8 @@ require '_includes/head.php';
 <div id="table-page">
  	<div id="table-wrap">
   <?php require '_includes/search_stack_top.php'; ?>
-
+<?php  show_session_variables(); ?>
 <div class="tabs visitor">
-
-
 <div id="landing" class="greet-login visitor1">
 
   <?php if (isset($_SESSION['pr'])) { 
@@ -33,44 +31,36 @@ require '_includes/head.php';
 
 		<form id="login-form" class="front-login" method="post">
 
-    <div id="login-alert">
-      <ul id="errors"></ul>
+    <div id="message"> 
+      <ul id="msg-ul"></ul>
     </div>
 
-    <?php if (isset($_SESSION['newpswd'])) { 
-    // they're here with a password-token ?>
 
-      <div id="reset-success">Your password was successfully changed! You can log in with your new credentials</div>
-
-    <?php 
-      unset($_SESSION['newpswd']); 
-    } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'woot') { 
-    // they're here with a token - new user ?>
+<?php if (isset($_SESSION['new']) && $_SESSION['new'] == 'woot') { 
+    /*  they're here with a token - new user */ ?>
 
       <div id="reset-success">
         <p>Welcome aboard, <?= $_SESSION['firstname']; ?>!</p>
       </div>
 
-    <?php 
-      unset($_SESSION['new']); 
+<?php unset($_SESSION['new']); 
     } else if (isset($_SESSION['new']) && $_SESSION['new'] == 'toot') {
-    // new user with a partial token (they didn't copy the whole thing or it's corrupted) ?>
+    /* new user with a partial token (they didn't copy the whole thing or it's corrupted) */ ?>
 
       <div id="reset-success" class="not">There's no token in the database that matches what you've provided. If you copied &amp; pasted the URL maybe you didn't grab the whole thing?</div>
 
-    <?php 
-      unset($_SESSION['new']); 
+<?php unset($_SESSION['new']); 
     } else { ?>
 
 		  <div id="error-area">No account? <a class="log create-form">Join Here</a></div>
 
-    <?php } ?>
+<?php } ?>
 
     <input type="hidden" name="login">
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
     <input type="password" id="password-home" class="text login-pswd" name="password" placeholder="Password">
 
-    <div class="showpassword-wrap"> 
+    <div class="showpassword-wrap">  
         <div id="showLoginPass-home"><i class="far fa-eye"></i> Show Password</div>
     </div>
 
@@ -84,15 +74,15 @@ require '_includes/head.php';
       </div>
     </label>
 
-    <div id="toggle-btn">
-      <div id="login-btn"><span class="login-txt"><img src="_images/login.png"></span></div>
+    <div id="buttons" class="login">
+      <a class="submit login login-btn full-width">Login</a>
     </div>
 
     <p class="btm-p"><a class="log lt create-form">Create account</a> | <a class="log rt forgot-form">Forgot password?</a></p>
 
 		</form>
 
-  <?php } ?>
+<?php } ?>
 
 </div>
 
@@ -101,7 +91,7 @@ require '_includes/head.php';
   	<h1>BrowserGadget</h1>
   	<p>Stop browsing the Internet like a cave baboon and upgrade to a Swiss Army homepage.</p>
   	<p id="watchvideo"><a class="static"><i class="fab fa-youtube"></i> <span class="u">Watch this quick video</span> for the what and how.</a></p>
-  	<ul>
+  	<ul class="perks">
   		<li>Consolidate | Organize</li>
       <li>Store bookmarks</li>
   		<li>Share projects</li>

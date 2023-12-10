@@ -2,11 +2,10 @@
 
 <form id="signup-form" method="post">
 
-  <div id="signup-alert">
-    <ul id="signup-errors"></ul>
+  <div id="message"> 
+    <ul id="msg-ul"></ul>
   </div>
 
-  <!-- <h1 class="text-center">Join here</h1> -->
   <input type="hidden" name="signup">
   <div class="name">
     <input type="text" id="firstname" class="text" name="firstname" value="<?= h($firstname); ?>" placeholder="First name">
@@ -22,12 +21,9 @@
       <div id="showSignupPass"><i class="far fa-eye"></i> Show Passwords</div>
   </div>
 
-
-  <div id="toggle-signup-btn">
-    <div id="signup-btn"><span class="login-txt"><img src="_images/signup.png"></span></div>
+  <div id="buttons" class="login">
+    <a class="submit login signup-btn full-width">Signup</a>
   </div>
-
-
 
   <p class="btm-p">Already a member? <a class="log log-form">Sign in</a></p>
 </form>

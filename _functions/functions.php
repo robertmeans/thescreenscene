@@ -1,7 +1,33 @@
 <?php
 
+function local_testing_delay($x) {
+  /* $x = ''; in initialize.php. override delay in each indiviual instance or set globally here */ 
+  if ($x === '') { $x = 1; } 
+  if (WWW_ROOT == 'http://localhost/browsergadget') { sleep($x); }
+}
+
+function show_session_variables() {
+  $show   =   '<div style="display: flex; flex-direction: column; width: 100%; padding: 20px;">';
+  $show   .=  '<span style="display: flex; text-decoration: underline">Session variables:</span>';
+  $show   .=  '<pre>' . var_export($_SESSION, true) . '</pre>';
+  $show   .=  '</div>';
+  // echo $show;
+}
+
+function flash_message() {
+  /* timeout function in scripts.js and scripts-visitor.js. CSS in edit_page.scss */
+  if (isset($_SESSION['ds'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Delete successful!</span></div>';
+    unset($_SESSION['ds']); 
+  }
+  if (isset($_SESSION['leaveproject'])) {
+    echo '<div id="success-wrap"><span class="success-msg">Adios amigos!</span></div>';
+    unset($_SESSION['leaveproject']); 
+  }
+}
+
 function preload_config($layout_context) { 
-  $no_preload = array('new-project', 'edit_searches', 'edit_order');
+  $no_preload = array('new-project','edit_searches','edit_order','cp-not-found','share_project','my_projects','edit_project_details');
 
   if (!isset($_SESSION['color'])) {
     if (in_array($layout_context, $no_preload)) {
@@ -62,3 +88,4 @@ function display_errors($errors=array()) {
   	}
   	return $output;
 	}
+
