@@ -22,11 +22,11 @@
 		<div class="menuitem">
 			<div class="dropdown">
 				<a class="pen">&nbsp;</a>
-				<!-- working on autocomplete... -->
-				<!-- <input class="nav-ac" type="text" id="t1"> -->
+				<!-- working on fuzzy search... -->
+				<input class="nav-ac" type="text" id="dd_searchInput" placeholder="Search...">
 			<form method="post"><input type="hidden" name="viewprojectspage" value="yo"><a class="vpp-link dda vpp">View Projects Page</a></form>
 			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
-				<form method="post">
+				<form method="post" class="dd">
         <input type="hidden" name="user_id" value="<?= $user_id; ?>">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">

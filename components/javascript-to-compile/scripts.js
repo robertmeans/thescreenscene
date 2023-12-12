@@ -82,13 +82,37 @@ $(document).ready(function() {
   });
 });
 
-// a static link - stop from jumping to top of page
+/* a static link - stop from jumping to top of page */
 $('a.static').click(function(e) {
    e.preventDefault();
 });
 
 
-// login - see scripts-visitor.js
+/* login - see scripts-visitor.js */
+
+
+/* works - original */
+$(document).ready(function() {
+  $('#mp_searchInput').on('keyup', function() {
+    var value = $(this).val().toLowerCase();
+    $('#ewd-search li.sort-this').filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+
+
+  $('#dd_searchInput').on('keyup', function() {
+    var value = $(this).val().toLowerCase();
+    $('form.dd').filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+  });
+
+});
+
+
+
 
 
 // *NEW: show then hide ddown menu on hover.

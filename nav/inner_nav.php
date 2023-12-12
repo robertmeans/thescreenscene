@@ -1,5 +1,5 @@
 <?php
-	switch ($inner_nav_context) { // start current_project_not_found.php navigation
+	switch ($inner_nav_context) { /* start current_project_not_found.php navigation */
   case 'cp-not-found' : ?>
 
   <li>
@@ -9,7 +9,7 @@
     </form>  
   </li>
 <?php  
-  break; // end current_project_not_found.php navigation | begin shared_with navigation
+  break; /* end current_project_not_found.php navigation | begin shared_with navigation */
 	case 'shared_with' :
 
 	if ($layout_context != 'homepage') { ?>
@@ -72,7 +72,7 @@
   <li>
     <form class="gth" method="post">
       <input type="hidden" name="viewprojectspage" value="yo">
-      <a class="vpp-link"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol"></i></div></a>
+      <a class="vpp-link"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol fa-fw"></i></div></a>
     </form>  
   </li>
 
@@ -110,9 +110,9 @@
   <li class="project-name" style="cursor:default;">| <span style="margin-left:0.5em;cursor:default;"><?= $row['project_name']; ?></span></li>  
 
   <?php } 
-	break; // end shared_with navigation | begin owner navigation
+	break; /* end shared_with navigation | begin owner navigation */
 	case 'owner' :	
-	if ($layout_context != 'homepage') { // begin owner navigation ?>	
+	if ($layout_context != 'homepage') { /* begin owner navigation */ ?>	
 
 	<li>
     <form class="gth" method="post">
@@ -177,9 +177,32 @@
   <li>
     <form class="gth" method="post">
       <input type="hidden" name="viewprojectspage" value="yo">
-      <a class="vpp-link"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol"></i></div></a>
+      <a class="vpp-link"><div class="tooltip"><span class="tooltiptext">Projects Page</span><i class="fas fa-list-ol fa-fw"></i></div></a>
     </form>  
   </li>
+
+
+
+
+
+<!-- 
+  <li>
+    <form class="gth" method="post">
+      <input type="hidden" name="quicksearch" value="yo">
+      <a class="quicksearch-link"><div class="tooltip"><span class="tooltiptext">Quick Search</span><i class="fas fa-search fa-fw"></i></div></a>
+    </form>  
+  </li>
+
+ -->
+
+
+
+
+
+
+
+
+
 
 <?php if ($layout_context == 'homepage') { ?>
 
