@@ -91,29 +91,95 @@ $('a.static').click(function(e) {
 /* login - see scripts-visitor.js */
 
 
-/* works - original */
+/* project searches */
 $(document).ready(function() {
+  
+  /* put focus in dropdown search on mouseover | put focus back where it was on mouseout */
+  $('#theDropdown').on('mouseover', function() {
+    var focused = document.activeElement;
+    var element = document.getElementById('dd_searchInput');
+    element.focus({ preventScroll: true });
+    $('#dd_searchInput').focus();
+
+    $(this).on('mouseout', function() {
+      $(focused).focus();
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+  /* dropdown search */
+  $('#dd_searchInput').on('keyup', function() {
+
+
+    var value = $(this).val().toLowerCase();
+    $('form.dd').filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+    });
+
+
+  });
+
+
+
+
+
+  $('.dropdown').on('keydown', function() { // stop here
+
+    var results = $('form.dd:visible .gth-link:first');
+    if (event.keyCode === 9) {
+      // $('tabindex').focus();
+      results.click();
+    }
+
+
+    if (event.keyCode === 13) {
+      // $('.gth-link:focus').click();
+    }
+
+
+  })
+
+  // $(".focus").keyup(function(event) {
+  //   if (event.keyCode === 13) {
+  //     $(".gth-link").click();
+  //   }
+  // });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /* my_projects.php search */
   $('#mp_searchInput').on('keyup', function() {
     var value = $(this).val().toLowerCase();
     $('#ewd-search li.sort-this').filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
   });
-
-
-
-  $('#dd_searchInput').on('keyup', function() {
-    var value = $(this).val().toLowerCase();
-    $('form.dd').filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
-    });
-  });
-
+   
 });
-
-
-
-
 
 // *NEW: show then hide ddown menu on hover.
 // uses hoverintent: https://briancherne.github.io/jquery-hoverIntent/

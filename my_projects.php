@@ -32,7 +32,7 @@ $user_id = $_SESSION['id'];
   </div>
   <div class="project-greeting">
     <div class="search-field">
-      <i class="fas fa-search fa-fw"></i><input id="mp_searchInput" type="text" placeholder="Search..." autofocus>
+      <i class="fas fa-search fa-fw"></i><input id="mp_searchInput" type="text" placeholder="Search...">
     </div>
   </div>
 

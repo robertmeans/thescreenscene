@@ -213,6 +213,12 @@ a.logout {
 }
 .dropdown {
   background-color: #4978ad;
+  span i {
+    color: #fff;
+  }
+}
+.dropdown .nav-ac {
+  background: rgba(255,255,255,0.3);
 }
 a.projects-dd {
   background-color: #4978ad;
