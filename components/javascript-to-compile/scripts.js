@@ -120,12 +120,10 @@ $(document).ready(function() {
   /* dropdown search */
   $('#dd_searchInput').on('keyup', function() {
 
-
     var value = $(this).val().toLowerCase();
     $('form.dd').filter(function() {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
-
 
   });
 
@@ -137,35 +135,18 @@ $(document).ready(function() {
 
     var results = $('form.dd:visible .gth-link:first');
     if (event.keyCode === 9) {
-      // $('tabindex').focus();
+      
       results.click();
+
     }
 
-
-    if (event.keyCode === 13) {
-      // $('.gth-link:focus').click();
-    }
-
-
-  })
+  });
 
   // $(".focus").keyup(function(event) {
   //   if (event.keyCode === 13) {
   //     $(".gth-link").click();
   //   }
   // });
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
