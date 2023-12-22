@@ -111,7 +111,6 @@ function show_shared_with_info($user_id, $this_project) {
   $sql .= "WHERE u.user_id=p_u.shared_with ";
   $sql .= "AND p_u.project_id='" . db_escape($db, $this_project) . "' ";
   $sql .= "AND p_u.shared_with!='" . db_escape($db, $user_id) . "' ";
-  // $sql .= "GROUP BY u.user_id ";
   $sql .= "ORDER BY u.first_name ASC";
 
   $result = mysqli_query($db, $sql);
