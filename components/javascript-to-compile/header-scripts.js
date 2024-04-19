@@ -76,6 +76,21 @@ $(document).ready(function() {
 });
 // end google search
 
+// begin YouTube search
+function submitYouTube() {
+  var ytinput = document.getElementById("sr_05").value;
+  var ytstring = ytinput.trim();
+  if (ytstring !== '') {
+    $('#sr_05').val(ytstring);
+    document.youtube.action ="https://www.youtube.com/results";
+  }  else {
+    window.open("https://www.youtube.com", "_blank");
+    // document.youtube.action ="https://www.youtube.com/";
+  }
+  return true;
+}
+// end YouTube search
+
 // make sure http:// is on the front of anything submitted by the URL field
 // open in new tab and then make sure everything is reset back in 
 // original tab. Opera requires the additional complications.

@@ -1866,6 +1866,7 @@ $(document).ready(function() {
     var noteid = $(this).closest('form').find('[data-role=deletethis]').val();
     var notename = $(this).closest('form').find('[data-role=notename]').val();
 
+    $('.aan-modal-header').addClass('delete');
     $('#delete-header-msg').html('Delete note');
     $('#delete-modal-body').html(delMB);
     $('#deletenoteid').val(noteid);
