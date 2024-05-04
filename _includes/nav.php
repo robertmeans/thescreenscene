@@ -10,29 +10,31 @@
 	<!-- 2nd link... -->
 	<?php
 	switch ($layout_context) {
-		// case 'my_projects' 		:	 	break;
 		case 'home-first-visit' :	 	break;
 		case 'no-projects' 	    :	 	break;
-		// dropdown nav ->
+		/* dropdown nav */
 		default :	?>
 		<?php 
 		$result = build_projects_navigation($user_id);
 		$projects = mysqli_num_rows($result); // to use in if statement when you get to it
 		?>
-		<div class="menuitem">
+		<div id="theDropdown" class="menuitem">
 			<div class="dropdown">
 				<a class="pen">&nbsp;</a>
-				<!-- working on autocomplete... -->
-				<!-- <input class="nav-ac" type="text" id="t1"> -->
+				<!-- working on fuzzy search... -->
+				<span><i class="fas fa-search fa-fw"></i><input class="nav-ac" type="text" id="dd_searchInput" placeholder="Search..." tabinex="1"></span>
 			<form method="post"><input type="hidden" name="viewprojectspage" value="yo"><a class="vpp-link dda vpp">View Projects Page</a></form>
-			<?php while ($rowg = mysqli_fetch_assoc($result)) { ?>		
-				<form method="post">
+			<?php 
+      $i = 2;
+      while ($rowg = mysqli_fetch_assoc($result)) { ?>		
+				<form method="post" class="dd">
         <input type="hidden" name="user_id" value="<?= $user_id; ?>">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
-				<a class="gth-link dda"><?= $rowg['project_name'] ?></a>
-				</form>	
-			<?php	} mysqli_free_result($result); ?>	
+				<a class="gth-link dda" tabindex="<?= $i ?>"><?= $rowg['project_name'] ?></a>
+				</form>	 
+			<?php	$i++;
+          } mysqli_free_result($result); ?>	
 			</div>
 			<div class="nav-item">
 				<!-- <a class="projects-dd" href="my_projects.php"><i class="fas fa-list-ol"></i> Projects</a> -->

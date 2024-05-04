@@ -1151,11 +1151,12 @@ function update_project_users($user_id, $post_pid, $project_name, $sess_fn, $ses
 
             /* keep going, everything good so far. user is unique and does not have the project shared with them already. */
             $sql3 = "INSERT INTO project_user ";
-            $sql3 .= "(project_id, owner_id, shared_with, share, edit) ";
+            $sql3 .= "(project_id, owner_id, shared_with, sharers_id, share, edit) ";
             $sql3 .= "VALUES ("; 
             $sql3 .= "'" . db_escape($db, $current_project)    . "', ";
             $sql3 .= "'" . db_escape($db, $user_id) . "', ";
             $sql3 .= "'" . db_escape($db, $share_with) . "', ";
+            $sql3 .= "'" . db_escape($db, $user_id) . "', ";
             $sql3 .= "'" . db_escape($db, $share) . "', ";
             $sql3 .= "'" . db_escape($db, $edit) . "'";
             $sql3 .= ")";

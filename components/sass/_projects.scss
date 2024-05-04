@@ -269,3 +269,23 @@ a.project-links.delete-pg {
     padding: 1em;
   }
 }
+.search-field {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em; 
+  border: 1px solid #ccc;
+  .fa-search {
+    padding: 0em 0.5em;
+  }
+}
+#mp_searchInput {
+  outline: none;
+  -webkit-appearance: none;
+  padding: 0.5em;
+  border-top: none;
+  border-right: none;
+  border-bottom: none;
+  border-left: 1px solid #ccc;
+  font-size: 1em;
+  margin-left: 1em;
+}

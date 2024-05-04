@@ -230,7 +230,7 @@ $(document).ready(function() {
   $(document).on('click','#emailBob', function() {
     $.ajax({
       dataType: "JSON",
-      url: "contact-process.php",
+      url: "_form-processing.php",
       type: "POST",
       data: $('#contactForm').serialize(),
       beforeSend: function(xhr) {

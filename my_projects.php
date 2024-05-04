@@ -30,8 +30,14 @@ $user_id = $_SESSION['id'];
       </form>
     </div>
   </div>
+  <div class="project-greeting">
+    <div class="search-field">
+      <i class="fas fa-search fa-fw"></i><input id="mp_searchInput" type="text" placeholder="Search...">
+    </div>
+  </div>
 
-<ul class="manage-my-projects">
+
+<ul id="ewd-search" class="manage-my-projects">
 <?php 
 /* query whether user is affiliated with any projects */
 $any_projects_for_user = find_users_projects($user_id);
@@ -61,7 +67,7 @@ if ($projects > 0) {
 
   if (($row['owner_id'] == $user_id) && ($row['shared_with'] != $user_id)) { 
   /* 1206230918 | begin: owner content */ ?>
-  <li>
+  <li class="sort-this">
 
     <div class="review-project my-projects">
 
@@ -89,7 +95,7 @@ if ($projects > 0) {
 
     <?php /* nav for YOU owner -> sharing with others */ ?> 
     <ul class="inner-nav project-pg">
-      <li>
+      <li><?php /* dnhfs = do not hide from search */ ?>
         <form method="post">
           <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
@@ -160,7 +166,7 @@ if ($projects > 0) {
   } else { 
   /* 1206230922 | begin: shared_with content */ ?>
 
-  <li>
+  <li class="sort-this">
     <div class="review-project my-projects">
 
       <div class="pro-left">
@@ -274,7 +280,7 @@ if ($projects > 0) {
   /* 1206230922 | end: shared_with content */
   } else { 
   /* 1206230905 | still inside the while loop, still going alphabetically, but this project is not_shared. show special set of details. */ ?>         
-  <li>
+  <li class="sort-this">
     <div class="review-project my-projects">
 
       <div class="pro-left">

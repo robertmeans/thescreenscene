@@ -1,5 +1,5 @@
 <div id="youtube" class="searches bottom">
-<form name="youtube" action="https://www.youtube.com/results" method="get" target="_blank">
+<form name="youtube" method="get" onSubmit="return submitYouTube();" target="_blank">
 
   <p>YouTube</p>
     <div class="srs">

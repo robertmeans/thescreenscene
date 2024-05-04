@@ -75,6 +75,7 @@ nav ul li {
 	display: none;
 }
 .menuitem {
+  width: 250px;
 		/* width */
 	::-webkit-scrollbar {
 	  width: 5px;
@@ -95,69 +96,33 @@ nav ul li {
 	  background: #555;
 	}
 }
-.dropdown {
-	display: none;
-	// line-height: 1.25em;
-	// padding-top: 0.5em;
-	padding-bottom: 0.5em;
-	// margin-left: 0.5em;
-	margin-bottom: 0em;
-	// padding: 0.5em 0.5em 1.25em;
+
+.nav-item {
+	position: relative;
+}
+a.projects-dd {
+	position: absolute;
+  top: -1px;
+  display: flex;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font-size: 14px;
 	background-color: #444;
+	color: #fff;
 	border-top: none;
 	border-right: 1px solid #757575;
 	border-bottom-right-radius: 3px;
 	border-bottom: 1px solid #757575;
 	border-bottom-left-radius: 3px;
 	border-left: 1px solid #757575;
-	cursor: pointer;
-	max-height: 50vh;
-	overflow-y: scroll;
-	// ::-webkit-scrollbar {
-	// 	width: 5px;
-	// }
-	// ::-webkit-scrollbar-track {
-	// 	background: #000;
-	// }
-	// ::-webkit-scrollbar-thumb {
-	// 	background: #313131;
-	// 	height: 1.5em;
-	// }
-	// ::-webkit-scrollbar-thumb:hover {
-	// 	background: #ccc;
-	// }
-}
-.nav-item {
-	position: relative;
-	// padding-top: 8px;
-}
-a.projects-dd {
-	// "dd" = dropdown
-	// turn this off when screen < 800px
-		position: absolute;
-    top: -1px;
-    display: flex;
-		cursor: pointer;
-		text-align: center;
-		text-decoration: none;
-		font-size: 14px;
-		background-color: #444;
-		color: #fff;
-		border-top: none;
-		border-right: 1px solid #757575;
-		border-bottom-right-radius: 3px;
-		border-bottom: 1px solid #757575;
-		border-bottom-left-radius: 3px;
-		border-left: 1px solid #757575;
-		// box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.2);
-		// padding: 0.6em 0.6em 0.5em;
-		padding: 9px 14px 7px;
-		transition: background-color 0.2s ease;
-			i.far,
-			i.fas,
-			i.fa {
-				margin-right: 0.8em;
-		}		
+	padding: 9px 14px 7px;
+	transition: background-color 0.2s ease;
+	i.far,
+	i.fas,
+	i.fa {
+		margin-right: 0.8em;
+	}		
 }
 
 a.dda,
@@ -168,9 +133,12 @@ a.pen {
 	display: block;
 	padding: 0.5em 2em 0.5em 1em;
 	transition: all 0.2s ease;
-		&:hover {
-			background-color: rgba(0,0,0,0.5);
-		}		
+	&:hover {
+		background-color: rgba(0,0,0,0.5);
+	}		
+}
+a.dda.focus {
+  background-color: rgba(0,0,0,0.5);
 }
 a.dda.vpp {
   border-top: 1px solid rgba(255,255,255,0.3);
@@ -184,16 +152,46 @@ a.pen {
 	pointer-events: none;
 	cursor: default;
 }
+.dropdown {
+  display: none;
+  padding-bottom: 0.5em;
+  margin-bottom: 0em;
+  background-color: #444;
+  border-top: none;
+  border-right: 1px solid #757575;
+  border-bottom-right-radius: 3px;
+  border-bottom: 1px solid #757575;
+  border-bottom-left-radius: 3px;
+  border-left: 1px solid #757575;
+  cursor: pointer;
+  max-height: 50vh;
+  overflow-y: scroll;
+  span {
+    display: flex;
+    align-items: center;
+    width: 98%;
+    border: 1px solid #fff;
+    padding: 0em 0em 0em 0.75em;
+    width: 96%;
+    margin: 0 auto 0.5em auto;
+  }
+}
 .dropdown .nav-ac {
 	-webkit-appearance: none;
 	border: none;
+  border-left: 1px solid #ccc;
+  margin-left: 1em;
 	background: #313131;
 	font-size: 14px;
 	padding: 7px;
 	color: #fff;
-	margin: 0 0 0.5em 1em;
-	border-bottom: 1px solid rgba(255,255,255,0.4);
-	width: 86%;
+  width: 100%;
+  &::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+	// margin: 0 0 0.5em 1em;
+	// border-bottom: 1px solid rgba(255,255,255,0.4);
+	// width: 86%;
 	&:focus {
 		outline: none;
 	}
