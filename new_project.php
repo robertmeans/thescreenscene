@@ -44,7 +44,7 @@ $any_projects_for_user = find_users_projects($user_id);
 $projects = mysqli_num_rows($any_projects_for_user);
 $row = mysqli_fetch_assoc($any_projects_for_user);
 
-if ($projects < 10 || $_SESSION['admin'] == 1) {
+if ($projects < 10 || $_SESSION['admin'] == 1 || $_SESSION['email'] == 'robertmeans01@gmail.com') {
 
   if (isset($_SESSION['first-project'])) { ?>
     <p>Welcome <?= $_SESSION['username']; ?>,</p>
@@ -108,7 +108,7 @@ if ($projects < 10 || $_SESSION['admin'] == 1) {
 
 
   <?php } else { ?>
-      <p class="query-tinkerer"><?= $row['admin'] ?><br/>There is a limit of 10 projects for now. Is it worth $20 a year to have unlimited projects? Let me know via the contact form at the bottom of this page.</p>
+      <p class="query-tinkerer">Hello <?= $row['first_name'] ?>,<br/>There is a limit of 10 projects for now. Is it worth $20 a year to have unlimited projects? Let me know via the contact form at the bottom of this page.</p>
   <?php } ?>
 
 
