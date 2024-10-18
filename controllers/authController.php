@@ -26,14 +26,16 @@ function remember_me() {
 			$user = $result->fetch_assoc();
 
 			// put user in session (log them in)
-			$_SESSION['id'] = $user['user_id'];
-			$_SESSION['username'] = $user['username'];
-			$_SESSION['firstname'] = $user['first_name'];
-			$_SESSION['lastname'] = $user['last_name'];
-			$_SESSION['email'] = $user['email'];
-			$_SESSION['verified'] = $user['active'];
-			$_SESSION['admin'] = $user['admin'];
-			$_SESSION['current_project'] = $user['current_project'];
+      if (isset($user['user_id'])) {
+  			$_SESSION['id'] = $user['user_id'];
+  			$_SESSION['username'] = $user['username'];
+  			$_SESSION['firstname'] = $user['first_name'];
+  			$_SESSION['lastname'] = $user['last_name'];
+  			$_SESSION['email'] = $user['email'];
+  			$_SESSION['verified'] = $user['active'];
+  			$_SESSION['admin'] = $user['admin'];
+  			$_SESSION['current_project'] = $user['current_project'];
+      }
 
 			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}

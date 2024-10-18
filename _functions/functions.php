@@ -63,7 +63,7 @@ function u($string="") {
 }
 
 function h($string="") {
-	return htmlspecialchars($string);
+	return htmlspecialchars($string ?? '');
 }
 
 function is_post_request() {
