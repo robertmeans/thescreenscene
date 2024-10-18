@@ -1,9 +1,9 @@
 <?php
 
-if (!isset($x)) { $x = 1; }
 function local_testing_delay($x) {
   /* $x = ''; in initialize.php. override delay in each indiviual instance or set globally here */ 
   // if ($x === '') { $x = 1; } 
+  if ($x == '') { $x = 1; }
   if (WWW_ROOT == 'http://localhost/browsergadget') { sleep($x); }
 }
 
