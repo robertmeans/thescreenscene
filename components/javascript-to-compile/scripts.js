@@ -111,12 +111,6 @@ $(document).ready(function() {
 
 
 
-
-
-
-
-
-
   /* dropdown search */
   $('#dd_searchInput').on('keyup', function() {
 
@@ -134,10 +128,8 @@ $(document).ready(function() {
   $('.dropdown').on('keydown', function() { // stop here
 
     var results = $('form.dd:visible .gth-link:first');
-    if (event.keyCode === 9) {
-      
+    if (event.keyCode === 9) {  
       results.click();
-
     }
 
   });
