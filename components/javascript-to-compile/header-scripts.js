@@ -82,13 +82,46 @@ function submitYouTube() {
   var ytstring = ytinput.trim();
   if (ytstring !== '') {
     $('#sr_05').val(ytstring);
+    // event.preventDefault(); // Prevent default anchor behavior
     document.youtube.action ="https://www.youtube.com/results";
   }  else {
+    // event.preventDefault(); // Prevent default anchor behavior
     window.open("https://www.youtube.com", "_blank");
-    // document.youtube.action ="https://www.youtube.com/";
   }
   return true;
 }
+
+
+// document.addEventListener("DOMContentLoaded", function () {
+//   var form = document.forms["youtube"];
+//   var input = document.getElementById("sr_05");
+//   var goButton = document.querySelector(".go-a");
+
+//   function submitYouTube(event) {
+//     if (event) event.preventDefault(); // Prevent default submission if triggered via form
+    
+//     var ytstring = input.value.trim();
+    
+//     if (ytstring !== "") {
+//       form.action = "https://www.youtube.com/results";
+//       form.submit();
+//     } else {
+//       window.open("https://www.youtube.com", "_blank");
+//     }
+//   }
+
+//   // Attach event listener to the form
+//   form.addEventListener("submit", submitYouTube);
+
+//   // Attach click event to the "Go" button
+//   goButton.addEventListener("click", function (event) {
+//     event.preventDefault(); // Prevent default anchor behavior
+//     submitYouTube(); // Call the function directly
+//   });
+// });
+
+
+
 // end YouTube search
 
 // make sure http:// is on the front of anything submitted by the URL field
