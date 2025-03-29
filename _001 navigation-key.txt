@@ -7,7 +7,7 @@ refreshes index.php which calls homepage_logged_in.php to sort via session varia
 
 
 2.
-Organize Search Fields (Google, URL, Bing, Reference, YouTube)
+Organize Search Fields (Google, URL, AI, Reference, YouTube)
 tooltip =   'Organize search fields'
 trigger =   .osf-link 
 goes to:    edit_searches.php

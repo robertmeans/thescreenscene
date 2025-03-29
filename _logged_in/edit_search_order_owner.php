@@ -2,10 +2,10 @@
 
 <ul id="sortablesearch" class="order owner">
 
-  <li id="<?= $r[0]; ?>" class="ct sert <?php if ($r[0] == "1") {echo "google";} if ($r[0] == "2") {echo "url";} if ($r[0] == "3") {echo "bing";} if ($r[0] == "4") {echo "reference";} if ($r[0] == "5") {echo "youtube";} ?>"><?php 
+  <li id="<?= $r[0]; ?>" class="ct sert <?php if ($r[0] == "1") {echo "google";} if ($r[0] == "2") {echo "url";} if ($r[0] == "3") {echo "ai";} if ($r[0] == "4") {echo "reference";} if ($r[0] == "5") {echo "youtube";} ?>"><?php 
     if ($r[0] == "1") {require '_includes_static/static_google.php';}
     if ($r[0] == "2") {require '_includes_static/static_url.php';}
-    if ($r[0] == "3") {require '_includes_static/static_bing.php';}
+    if ($r[0] == "3") {require '_includes_static/static_ai.php';}
     if ($r[0] == "4") {
       ?><div id="dic-row" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><?php
       require '_includes_static/static_dictionary.php';
@@ -19,10 +19,10 @@
 
     ?></li>
 
-  <li id="<?= $r[1] ?>" class="ct sert <?php if ($r[1] == "1") {echo "google";} if ($r[1] == "2") {echo "url";} if ($r[1] == "3") {echo "bing";} if ($r[1] == "4") {echo "reference";} if ($r[1] == "5") {echo "youtube";} ?>"><?php 
+  <li id="<?= $r[1] ?>" class="ct sert <?php if ($r[1] == "1") {echo "google";} if ($r[1] == "2") {echo "url";} if ($r[1] == "3") {echo "ai";} if ($r[1] == "4") {echo "reference";} if ($r[1] == "5") {echo "youtube";} ?>"><?php 
     if ($r[1] == "1") {require '_includes_static/static_google.php';}
     if ($r[1] == "2") {require '_includes_static/static_url.php';}
-    if ($r[1] == "3") {require '_includes_static/static_bing.php';}
+    if ($r[1] == "3") {require '_includes_static/static_ai.php';}
     if ($r[1] == "4") {
       ?><div id="dic-row" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><?php
       require '_includes_static/static_dictionary.php';
@@ -36,10 +36,10 @@
 
     ?></li>
 
-  <li id="<?= $r[2] ?>" class="ct sert <?php if ($r[2] == "1") {echo "google";} if ($r[2] == "2") {echo "url";} if ($r[2] == "3") {echo "bing";} if ($r[2] == "4") {echo "reference";} if ($r[2] == "5") {echo "youtube";} ?>"><?php 
+  <li id="<?= $r[2] ?>" class="ct sert <?php if ($r[2] == "1") {echo "google";} if ($r[2] == "2") {echo "url";} if ($r[2] == "3") {echo "ai";} if ($r[2] == "4") {echo "reference";} if ($r[2] == "5") {echo "youtube";} ?>"><?php 
     if ($r[2] == "1") {require '_includes_static/static_google.php';}
     if ($r[2] == "2") {require '_includes_static/static_url.php';}
-    if ($r[2] == "3") {require '_includes_static/static_bing.php';}
+    if ($r[2] == "3") {require '_includes_static/static_ai.php';}
     if ($r[2] == "4") {
       ?><div id="dic-row" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><?php
       require '_includes_static/static_dictionary.php';
@@ -53,10 +53,10 @@
 
     ?></li>
 
-  <li id="<?= $r[3] ?>" class="ct sert <?php if ($r[3] == "1") {echo "google";} if ($r[3] == "2") {echo "url";} if ($r[3] == "3") {echo "bing";} if ($r[3] == "4") {echo "reference";} if ($r[3] == "5") {echo "youtube";} ?>"><?php 
+  <li id="<?= $r[3] ?>" class="ct sert <?php if ($r[3] == "1") {echo "google";} if ($r[3] == "2") {echo "url";} if ($r[3] == "3") {echo "ai";} if ($r[3] == "4") {echo "reference";} if ($r[3] == "5") {echo "youtube";} ?>"><?php 
     if ($r[3] == "1") {require '_includes_static/static_google.php';}
     if ($r[3] == "2") {require '_includes_static/static_url.php';}
-    if ($r[3] == "3") {require '_includes_static/static_bing.php';}
+    if ($r[3] == "3") {require '_includes_static/static_ai.php';}
     if ($r[3] == "4") {
       ?><div id="dic-row" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><?php
       require '_includes_static/static_dictionary.php';
@@ -100,10 +100,10 @@
   </div><!-- .search-instructions -->
 </li>
 
-  <li id="<?= $r[4] ?>" class="ct sert <?php if ($r[4] == "1") {echo "google";} if ($r[4] == "2") {echo "url";} if ($r[4] == "3") {echo "bing";} if ($r[4] == "4") {echo "reference";} if ($r[4] == "5") {echo "youtube";} ?>"><?php 
+  <li id="<?= $r[4] ?>" class="ct sert <?php if ($r[4] == "1") {echo "google";} if ($r[4] == "2") {echo "url";} if ($r[4] == "3") {echo "ai";} if ($r[4] == "4") {echo "reference";} if ($r[4] == "5") {echo "youtube";} ?>"><?php 
     if ($r[4] == "1") {require '_includes_static/static_google.php';}
     if ($r[4] == "2") {require '_includes_static/static_url.php';}
-    if ($r[4] == "3") {require '_includes_static/static_bing.php';}
+    if ($r[4] == "3") {require '_includes_static/static_ai.php';}
     if ($r[4] == "4") {
       ?><div id="dic-row" class="<?php if ($row['reference'] == "1") { echo "selected"; } ?>"><?php
       require '_includes_static/static_dictionary.php';

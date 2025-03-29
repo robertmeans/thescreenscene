@@ -2,10 +2,10 @@
     require '_includes/search_stack_bottom_static.php';
 } else { ?>
 <ul id="bottom-search" class="logged">
-      <li id="<?= $s[4] ?>" class="ct <?php if ($s[4] == "1") {echo "google";} if ($s[4] == "2") {echo "url";} if ($s[4] == "3") {echo "bing";} if ($s[4] == "4") {echo "reference";} if ($s[4] == "5") {echo "youtube";} ?>"><?php 
+      <li id="<?= $s[4] ?>" class="ct <?php if ($s[4] == "1") {echo "google";} if ($s[4] == "2") {echo "url";} if ($s[4] == "3") {echo "ai";} if ($s[4] == "4") {echo "reference";} if ($s[4] == "5") {echo "youtube";} ?>"><?php 
         if ($s[4] == "1") {require '_includes/search_google.php';}
         if ($s[4] == "2") {require '_includes/search_url.php';}
-        if ($s[4] == "3") {require '_includes/search_bing.php';}
+        if ($s[4] == "3") {require '_includes/search_ai.php';}
         if ($s[4] == "4") {
         	if ($row['reference'] == "1") {
         	require '_includes/search_dictionary.php';

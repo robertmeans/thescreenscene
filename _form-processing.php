@@ -439,7 +439,7 @@ if (isset($_POST['reset'])) {
   }
 
 /*  link handler
-    tooltip =   'Organize search fields' | (Google, URL, Bing, Reference, YouTube)
+    tooltip =   'Organize search fields' | (Google, URL, AI, Reference, YouTube)
     trigger =   .osf-link 
     goes to:    edit_searches.php
     by using:   $_SESSION['go-to-edit_searches'] = 'anothern';

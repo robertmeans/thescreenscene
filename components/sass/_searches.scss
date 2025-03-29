@@ -9,7 +9,7 @@
 }
 #google, 
 #url, 
-#bing, 
+#ai, 
 #reference, 
 #youtube {
 	font-family: 'Roboto', sans-serif;
@@ -145,6 +145,51 @@
 		}
 	}
 }
+
+#ai {
+  display: flex;
+  justify-content: center;
+  .perai {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 0px;
+    line-height: 1em;
+    a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      justify-content: center;
+      align-items:center;
+      padding: 0.82em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
+      width: 100%;
+      // background-color: blue;
+      transition: all 0.2s ease;
+      &:hover {
+        background-color: #3d571c;
+      }
+    }
+    a.cgpt {
+      border-top-left-radius: 8px;
+    }
+    // a.cgptbtm {
+    //   border-bottom-left-radius: 8px;
+    // }
+    a.perpr {
+      border-top-right-radius: 8px;
+    }
+    // a.perprbtm {
+    //   border-bottom-right-radius: 8px;
+    // }
+  }
+  .perai.ch,
+  .perai.ge,
+  .perai.gr {
+    border-right: 1px dotted rgba(255,255,255,0.2);
+  }
+
+}
+
 @media screen and (max-width: 500px) {
 	.td-form {
 		flex-direction: column;
@@ -162,7 +207,7 @@
 @media screen and (max-width: 700px) {
 #google, 
 #url, 
-#bing, 
+#ai, 
 #reference, 
 #youtube {
 	.go {
@@ -173,7 +218,7 @@
 @media screen and (max-width: 650px) {
 	#google, 
 	#url, 
-	#bing, 
+	#ai, 
 	#reference, 
 	#youtube {
 		form {
@@ -223,7 +268,7 @@
 
 	ul#sortablesearch #google,
 	ul#sortablesearch #url,
-	ul#sortablesearch #bing,
+	ul#sortablesearch #ai,
 	ul#sortablesearch #reference,
 	ul#sortablesearch #youtube,
 	 {
@@ -268,7 +313,7 @@ ul#sortablesearch li.sert {
 }
 ul#sortablesearch #google,
 ul#sortablesearch #url,
-ul#sortablesearch #bing,
+ul#sortablesearch #ai,
 ul#sortablesearch #reference,
 ul#sortablesearch #youtube,
  {
@@ -293,8 +338,9 @@ li.url {
 		color: #313131;
 	}
 }
-li.bing {
+li.ai {
 	background-color: rgba(91,128,41,1 );
+  // background-color: rgba(0,0,0,1);
 }
 li.reference {
 	background-color: rgba(33,46,82,1);

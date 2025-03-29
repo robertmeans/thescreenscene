@@ -32,6 +32,9 @@
 #sortablesearch li { 
 	cursor: move;
 }
+ul#sortablesearch #ai {
+  pointer-events: none;
+}
 #sortablesearch ul.tab-links li {
 	cursor: default;
 }
