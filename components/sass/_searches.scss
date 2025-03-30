@@ -161,7 +161,8 @@
       display: flex;
       justify-content: center;
       align-items:center;
-      padding: 0.82em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
+      // padding: 0.82em;
+      padding: 0.7em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
       width: 100%;
       // background-color: blue;
       transition: all 0.2s ease;
@@ -172,15 +173,16 @@
     a.cgpt {
       border-top-left-radius: 8px;
     }
-    // a.cgptbtm {
-    //   border-bottom-left-radius: 8px;
-    // }
     a.perpr {
       border-top-right-radius: 8px;
     }
-    // a.perprbtm {
-    //   border-bottom-right-radius: 8px;
-    // }
+    a .mg {
+      margin-left: 0.5em;
+    }
+    a img {
+      width: 20px;
+      height: 20px;
+    }
   }
   .perai.ch,
   .perai.ge,
@@ -190,6 +192,25 @@
 
 }
 
+@media screen and (max-width: 650px) {
+  #url {
+    padding-bottom: 0.5em;
+  }
+  #ai {
+    .perai {
+      a {
+        padding: 1.5em 0;
+      }
+      a .mg {
+        display: none;
+      }
+      a img {
+        width: 30px;
+        height: 30px;
+      }
+    }
+  }
+}
 @media screen and (max-width: 500px) {
 	.td-form {
 		flex-direction: column;
@@ -348,3 +369,4 @@ li.reference {
 li.youtube {
 	background-color: rgba(122,0,0,1);
 }
+
