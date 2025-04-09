@@ -9,12 +9,14 @@
 }
 #google, 
 #url, 
-#ai, 
+#bingorai #ai,
+#bingorai #bing, 
 #reference, 
 #youtube {
 	font-family: 'Roboto', sans-serif;
 	//display: flex;
 	//align-items: center;
+  height: 2.685em;
 	form {
 		width: 100%;
 		display: flex;
@@ -146,44 +148,96 @@
 	}
 }
 
+
+#bingorai {
+  width: 100%;
+  #bing { 
+    p {
+      width: 12%; 
+    }
+    .srs {
+      width: 51.8%;
+    }
+    .bchk {
+      height: 100%;
+    }
+    .go {
+      margin-right: 8.3%;
+    }
+  }
+}
+
+
+
 #ai {
   display: flex;
   justify-content: center;
-  .perai {
+  .switcharoo {
+    width: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
-    flex: 1 1 0px;
-    line-height: 1em;
-    a {
+    cursor: pointer;
+    transition: all 0.2s ease;
+    &:hover {
+      background-color: #000;
+    }
+    i {
+      transform: rotate(90deg);
       color: #fff;
-      text-decoration: none;
-      display: flex;
-      justify-content: center;
-      align-items:center;
-      // padding: 0.82em;
-      padding: 0.7em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
-      width: 100%;
-      // background-color: blue;
-      transition: all 0.2s ease;
-      &:hover {
-        background-color: #3d571c;
-      }
-    }
-    a.cgpt {
-      border-top-left-radius: 8px;
-    }
-    a.perpr {
-      border-top-right-radius: 8px;
-    }
-    a .mg {
-      margin-left: 0.5em;
-    }
-    a img {
-      width: 20px;
-      height: 20px;
+      font-size: 1em;
     }
   }
+
+
+
+  .therest {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    .perai {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 1 0px;
+      line-height: 1em;
+      a {
+        color: #fff;
+        text-decoration: none;
+        display: flex;
+        justify-content: center;
+        align-items:center;
+        // padding: 0.82em;
+        padding: 0.7em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
+        width: 100%;
+        // background-color: blue;
+        transition: all 0.2s ease;
+        &:hover {
+          background-color: #3d571c;
+        }
+      }
+      a.cgpt {
+        border-top-left-radius: 8px;
+      }
+      a.perpr {
+        border-top-right-radius: 8px;
+      }
+      a .mg {
+        margin-left: 0.5em;
+      }
+      a img {
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+
+
+
+
+
+
   .perai.ch,
   .perai.ge,
   .perai.gr {
@@ -226,20 +280,38 @@
 	}
 }
 @media screen and (max-width: 700px) {
-#google, 
-#url, 
-#ai, 
-#reference, 
-#youtube {
-	.go {
-		margin-right: 2%;
-	}
-}	
+
+
+
+
+  #google, 
+  #url, 
+  #bingorai #ai,
+  #bingorai #bing, 
+  #reference, 
+  #youtube {
+    height: auto;
+  } 
+  #bingorai #ai {
+    height: 50px;
+  }
+
+  #google, 
+  #url, 
+  #bingorai #ai,
+  #bingorai #bing, 
+  #reference, 
+  #youtube {
+  	.go {
+  		margin-right: 2%;
+  	}
+  }	
 }
 @media screen and (max-width: 650px) {
 	#google, 
 	#url, 
-	#ai, 
+  #bingorai #ai,
+  #bingorai #bing, 
 	#reference, 
 	#youtube {
 		form {
@@ -284,27 +356,15 @@
 		}
 	}
 
-
-
-
 	ul#sortablesearch #google,
 	ul#sortablesearch #url,
-	ul#sortablesearch #ai,
+	ul#sortablesearch #bingorai #ai,
+  ul#sortablesearch #bingorai #bing,
 	ul#sortablesearch #reference,
 	ul#sortablesearch #youtube,
 	 {
 		flex-direction: column;
 	}
-
-
-
-
-
-
-
-
-
-
 
 }
 
@@ -334,7 +394,8 @@ ul#sortablesearch li.sert {
 }
 ul#sortablesearch #google,
 ul#sortablesearch #url,
-ul#sortablesearch #ai,
+ul#sortablesearch #bingorai #ai,
+ul#sortablesearch #bingorai #bing,
 ul#sortablesearch #reference,
 ul#sortablesearch #youtube,
  {
