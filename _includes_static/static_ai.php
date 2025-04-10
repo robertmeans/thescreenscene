@@ -5,7 +5,6 @@
       <i class="fas fa-exchange-alt"></i>
     </div>
 
-
     <div class="therest">
       <div class="perai ch">
         <a class="<?php if ($r[0] == "3") { echo 'cgpt'; } ?>" target="_blank"><span class="mg">ChatGPT</span></a>

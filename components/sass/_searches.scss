@@ -180,21 +180,21 @@
     cursor: pointer;
     transition: all 0.2s ease;
     &:hover {
-      background-color: #000;
+      background-color: rgba(61,87,28,1);
     }
     i {
       transform: rotate(90deg);
       color: #fff;
       font-size: 1em;
     }
+    &.cgpt {
+      border-top-left-radius: 8px;
+    }
   }
-
-
-
   .therest {
     display: flex;
     justify-content: center;
-    align-items: center;
+    // align-items: center;
     flex: 1;
     .perai {
       display: flex;
@@ -293,7 +293,7 @@
     height: auto;
   } 
   #bingorai #ai {
-    height: 50px;
+    // height: 50px;
   }
 
   #google, 
