@@ -17,6 +17,7 @@
 	//display: flex;
 	//align-items: center;
   height: 2.685em;
+  transition: all 0.2s ease;
 	form {
 		width: 100%;
 		display: flex;
@@ -149,6 +150,10 @@
 }
 
 
+
+
+
+
 #bingorai {
   width: 100%;
   #bing { 
@@ -169,7 +174,8 @@
 
 
 
-#ai {
+#ai,
+#bing {
   display: flex;
   justify-content: center;
   .switcharoo {
@@ -208,10 +214,9 @@
         display: flex;
         justify-content: center;
         align-items:center;
-        // padding: 0.82em;
-        padding: 0.7em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields. */
+        padding: 0.7em; /* yeah, yeah... I'm not thrilled about this explicit em but it was easier than forcing the height of all the other search fields when I was already so settled on their perfection. */
         width: 100%;
-        // background-color: blue;
+        height: 100%;
         transition: all 0.2s ease;
         &:hover {
           background-color: #3d571c;
@@ -229,21 +234,27 @@
       a img {
         width: 20px;
         height: 20px;
+        transition: all 0.2s ease;
       }
     }
+    &.borai-fade-in {
+      opacity: 1;
+      animation-name: fadeInOpacity;
+      animation-iteration-count: 1;
+      animation-timing-function: ease-in;
+      animation-duration: .5s;      
+    }
   }
-
-
-
-
-
-
   .perai.ch,
   .perai.ge,
   .perai.gr {
     border-right: 1px dotted rgba(255,255,255,0.2);
   }
 
+}
+@keyframes fadeInOpacity {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 @media screen and (max-width: 650px) {
@@ -280,10 +291,6 @@
 	}
 }
 @media screen and (max-width: 700px) {
-
-
-
-
   #google, 
   #url, 
   #bingorai #ai,
@@ -293,7 +300,11 @@
     height: auto;
   } 
   #bingorai #ai {
-    // height: 50px;
+    height: 80px;
+    a img {
+      width: 30px;
+      height: 30px;
+    }
   }
 
   #google, 
