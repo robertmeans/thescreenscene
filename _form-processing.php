@@ -422,8 +422,13 @@ if (isset($_POST['reset'])) {
   if (isset($_POST['go_to_homepage'])) {
     $id = $_SESSION['id'];
     $current_project = $_POST['current_project'];
+    $last_project = $_POST['last_project'];
 
-    $result = update_current_project($id, $current_project);
+    if ($current_project !== $last_project) {
+      $result = update_current_and_last_project($id, $current_project, $last_project);
+    } else {
+      $result = update_current_project($id, $current_project);
+    }
 
     if ($result === 'pass') {
       $_SESSION['current_project'] = $current_project;

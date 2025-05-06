@@ -23,6 +23,37 @@
     </form>
   </li>
 
+
+
+
+
+
+
+
+
+<?php } if ($layout_context == 'homepage') { ?>
+  <li>
+    <form id="et-form" action="" method="post">
+      <input type="hidden" id="ownShare" name="ownShare" value="0">
+      <input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
+      <input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
+      <a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Last Project:<br>[9 tops!]</span><i class="far fa-caret-square-left fa-fw"></i></div></a>
+    </form>
+  </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php } if ($row['edit'] == "1" && $layout_context == 'homepage') { ?>
 
 	<li>
@@ -125,6 +156,55 @@
 
 <?php } if ($layout_context == 'homepage') { ?>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <li>
+    <form id="et-form" action="" method="post">
+      <input type="hidden" id="ownShare" name="ownShare" value="0">
+      <input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
+      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
+      <input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
+      <a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Last Project:<br>[9 tops!]</span><i class="far fa-caret-square-left fa-fw"></i></div></a>
+    </form>
+  </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<li>
 		<form id="et-form" action="" method="post">
 			<input type="hidden" id="ownShare" name="ownShare" value="1">
@@ -181,10 +261,6 @@
     </form>  
   </li>
 
-
-
-
-
 <!-- 
   <li>
     <form class="gth" method="post">
@@ -194,15 +270,6 @@
   </li>
 
  -->
-
-
-
-
-
-
-
-
-
 
 <?php if ($layout_context == 'homepage') { ?>
 

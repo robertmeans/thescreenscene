@@ -207,7 +207,8 @@ function update_current_project($id, $current_project) {
 
   if ($count > 0) {
 
-    $sql2 = "UPDATE users SET current_project = '" . $current_project . "' ";
+    $sql2 = "UPDATE users SET ";
+    $sql2 .= "current_project = '" . $current_project . "' ";
     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
     $sql2 .= "LIMIT 1";
 
@@ -220,6 +221,34 @@ function update_current_project($id, $current_project) {
     return 'fail';
   }
 }
+
+function update_current_and_last_project($id, $current_project, $last_project) { 
+  global $db;
+
+  $count = verify_access($id, $current_project);
+
+  if ($count > 0) {
+
+    $sql2 = "UPDATE users SET ";
+    $sql2 .= "current_project = '" . $current_project . "', ";
+    $sql2 .= "last_project = '" . $last_project . "' ";
+    $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
+    $sql2 .= "LIMIT 1";
+
+    $result2 = mysqli_query($db, $sql2);
+
+    if ($result2) {
+      return 'pass';
+    }
+  } else {
+    return 'fail';
+  }
+}
+
+
+
+
+
 
 
 

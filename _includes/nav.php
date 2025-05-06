@@ -29,6 +29,7 @@
       while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form method="post" class="dd">
         <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+        <input type="hidden" name="last_project" value="<?= $current_project; ?>">
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>">
 				<input type="hidden" name="go_to_homepage" value="1">
 				<a class="gth-link dda" tabindex="<?= $i ?>"><?= $rowg['project_name'] ?></a>

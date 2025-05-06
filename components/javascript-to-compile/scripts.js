@@ -495,7 +495,7 @@ $(document).ready(function() { // 122120856 start
   });
 
   $('.review-project a.gth-link').on('click', function(e) {
-    /* this is a differnet version of '.gth-link' because I 'bout broke my brain trying to figure out how to get this to appear on the title bar of the my_projects.php page without interfering with the dropdown toggle. */
+    /* this is a differnet version of '.gth-link' (exclusively used on 'my_projects.php' - it's the little house to the left of both the "title bar" and inner nav when the project is toggled open) because I 'bout broke my brain trying to figure out how to get this to appear on the title bar of the my_projects.php page without interfering with the dropdown toggle. */
     var current_loc = window.location.href;
     e.stopPropagation();
 
