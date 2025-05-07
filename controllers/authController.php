@@ -33,7 +33,9 @@ function remember_me() {
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['verified'] = $user['active'];
 			$_SESSION['admin'] = $user['admin'];
-			$_SESSION['current_project'] = $user['current_project'];
+			$_SESSION['current_project'] = $user['current_project']; /* value = id */
+      $_SESSION['last_project'] = $user['last_project']; /* value = id */
+      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
 			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}
@@ -62,6 +64,8 @@ function verifyUser($token) {
 			$_SESSION['lastname'] = $user['last_name'];
 			$_SESSION['email'] = $user['email'];
 			$_SESSION['current_project'] = $user['current_project'];
+      $_SESSION['last_project'] = $user['last_project'];
+      $_SESSION['last_project_name'] = $user['last_proj_name'];
 
 			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);

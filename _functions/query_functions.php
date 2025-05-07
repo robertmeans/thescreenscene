@@ -222,7 +222,7 @@ function update_current_project($id, $current_project) {
   }
 }
 
-function update_current_and_last_project($id, $current_project, $last_project) { 
+function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
   global $db;
 
   $count = verify_access($id, $current_project);
@@ -231,7 +231,8 @@ function update_current_and_last_project($id, $current_project, $last_project) {
 
     $sql2 = "UPDATE users SET ";
     $sql2 .= "current_project = '" . $current_project . "', ";
-    $sql2 .= "last_project = '" . $last_project . "' ";
+    $sql2 .= "last_project = '" . $last_project . "', ";
+    $sql2 .= "last_proj_name = '" . $last_project_name . "' ";
     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
     $sql2 .= "LIMIT 1";
 

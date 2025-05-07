@@ -163,23 +163,14 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
   <li>
     <form id="et-form" action="" method="post">
-      <input type="hidden" id="ownShare" name="ownShare" value="0">
-      <input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
-      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
-      <input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-      <a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Last Project:<br>[9 tops!]</span><i class="far fa-caret-square-left fa-fw"></i></div></a>
+      <input type="hidden" name="go_to_last_project" value="1">
+      <input type="hidden" name="current_project" value="<?= $last_project; ?>">
+      <input type="hidden" name="last_project" value="<?= $current_project; ?>">
+      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
+      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+      <a class="gth-link"><div class="tooltip"><span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span><i class="far fa-caret-square-left fa-fw"></i></div></a>
     </form>
   </li>
 

@@ -419,29 +419,58 @@ if (isset($_POST['reset'])) {
     tooltip =   'Go to homepage'
     trigger =   .gth-link 
     refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly */
-  if (isset($_POST['go_to_homepage'])) {
-    $id = $_SESSION['id'];
-    $current_project = $_POST['current_project'];
-    $last_project = $_POST['last_project'];
+if (isset($_POST['go_to_homepage'])) {
+  $id = $_SESSION['id'];
+  $current_project = $_POST['current_project'];
+  $last_project = $_POST['last_project'];
+  $last_project_name = $_POST['last_project_name'];
 
-    if ($current_project !== $last_project) {
-      $result = update_current_and_last_project($id, $current_project, $last_project);
-    } else {
-      $result = update_current_project($id, $current_project);
-    }
-
-    if ($result === 'pass') {
-      $_SESSION['current_project'] = $current_project;
-      if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
-      $signal = 'ok';
-      echo json_encode($signal);
-    } else {
-      $_SESSION['got-kicked-out'] = 'nossir';
-      $signal = 'ok';
-      echo json_encode($signal);   
-    }
-
+  if ($current_project !== $last_project) {
+    $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
+  } else {
+    $result = update_current_project($id, $current_project);
   }
+
+  if ($result === 'pass') {
+    $_SESSION['current_project'] = $current_project;
+    $_SESSION['last_project_name'] = $last_project_name;
+    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
+    $signal = 'ok';
+    echo json_encode($signal);
+  } else {
+    $_SESSION['got-kicked-out'] = 'nossir';
+    $signal = 'ok';
+    echo json_encode($signal);   
+  }
+
+}
+
+
+if (isset($_POST['go_to_last_project'])) {
+  $id = $_SESSION['id'];
+  $current_project = $_POST['current_project'];
+  $last_project = $_POST['last_project'];
+  $last_project_name = $_POST['last_project_name'];
+
+  if ($current_project !== $last_project) {
+    $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
+  } else {
+    $result = update_current_project($id, $current_project);
+  }
+
+  if ($result === 'pass') {
+    $_SESSION['current_project'] = $last_project;
+    $_SESSION['last_project_name'] = $last_project_name;
+    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
+    $signal = 'ok';
+    echo json_encode($signal);
+  } else {
+    $_SESSION['got-kicked-out'] = 'nossir';
+    $signal = 'ok';
+    echo json_encode($signal);   
+  }
+
+}
 
 /*  link handler
     tooltip =   'Organize search fields' | (Google, URL, AI, Reference, YouTube)
