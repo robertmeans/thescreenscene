@@ -26,6 +26,8 @@ if (is_post_request()) {
 if ($current_project != '0') { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 
+  $_SESSION['current_project_name'] = $row['project_name']; /* wow, this gem could have saved 2 days */
+
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 
     if (isset($_SESSION['go-to-my_projects'])) {

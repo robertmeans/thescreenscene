@@ -16,8 +16,15 @@ function remember_me() {
 	global $conn;
 	if (!empty($_COOKIE['token'])) {
 		$token = $_COOKIE['token']; 
-		
-		$sql = "SELECT * FROM users WHERE email_code=? LIMIT 1";
+
+		// $sql = "SELECT * FROM users WHERE email_code=? LIMIT 1";
+
+    $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+    $sql .= "FROM users as u ";
+    $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
+    $sql .= "WHERE u.email_code=? ";
+    $sql .= "LIMIT 1";
+
 		$stmt = $conn->prepare($sql);
 		$stmt->bind_param('s', $token);
 
@@ -34,6 +41,7 @@ function remember_me() {
 			$_SESSION['verified'] = $user['active'];
 			$_SESSION['admin'] = $user['admin'];
 			$_SESSION['current_project'] = $user['current_project']; /* value = id */
+      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
@@ -49,7 +57,15 @@ remember_me();
 function verifyUser($token) {
  
 	global $conn;
-	$sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
+
+	// $sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
+
+  $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+  $sql .= "FROM users as u ";
+  $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
+  $sql .= "WHERE u.email_code='$token' ";
+  $sql .= "LIMIT 1";
+
 	$result = mysqli_query($conn, $sql);
 
 	if (mysqli_num_rows($result) > 0) {
@@ -63,9 +79,10 @@ function verifyUser($token) {
 			$_SESSION['firstname'] = $user['first_name'];
 			$_SESSION['lastname'] = $user['last_name'];
 			$_SESSION['email'] = $user['email'];
-			$_SESSION['current_project'] = $user['current_project'];
-      $_SESSION['last_project'] = $user['last_project'];
-      $_SESSION['last_project_name'] = $user['last_proj_name'];
+			$_SESSION['current_project'] = $user['current_project']; /* value = id */
+      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
+      $_SESSION['last_project'] = $user['last_project']; /* value = id */
+      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
 			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);

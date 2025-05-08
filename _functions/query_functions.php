@@ -199,7 +199,6 @@ function verify_access($id, $current_project) {
 }
 
 
-
 function update_current_project($id, $current_project) { 
   global $db;
 
@@ -232,7 +231,7 @@ function update_current_and_last_project($id, $current_project, $last_project, $
     $sql2 = "UPDATE users SET ";
     $sql2 .= "current_project = '" . $current_project . "', ";
     $sql2 .= "last_project = '" . $last_project . "', ";
-    $sql2 .= "last_proj_name = '" . $last_project_name . "' ";
+    $sql2 .= "last_proj_name = '" . $last_project_name . "' "; 
     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
     $sql2 .= "LIMIT 1";
 
@@ -245,12 +244,6 @@ function update_current_and_last_project($id, $current_project, $last_project, $
     return 'fail';
   }
 }
-
-
-
-
-
-
 
 
 function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {
@@ -279,7 +272,6 @@ function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {
 }
 
 
-
 function delete_bookmark($id, $current_project, $count2, $cp) { 
   global $db;
 
@@ -304,7 +296,6 @@ function delete_bookmark($id, $current_project, $count2, $cp) {
   }
 
 }
-
 
 
 function project_colormode_owner($user_id, $color, $current_project) { // 12.30.20 - checks out/no changes

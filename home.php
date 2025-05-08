@@ -56,7 +56,7 @@ require '_includes/head.php';
 
 <?php } ?>
 
-    <input type="hidden" name="login">
+    <input type="hidden" name="login"><?php /* key */ ?>
     <input type="text" class="text" name="firstname" value="<?= $firstname; ?>" placeholder="First Name or Email">
     <input type="password" id="password-home" class="text login-pswd" name="password" placeholder="Password">
 

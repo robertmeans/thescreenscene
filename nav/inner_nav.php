@@ -23,36 +23,27 @@
     </form>
   </li>
 
-
-
-
-
-
-
-
-
 <?php } if ($layout_context == 'homepage') { ?>
   <li>
     <form id="et-form" action="" method="post">
-      <input type="hidden" id="ownShare" name="ownShare" value="0">
-      <input type="hidden" id="curpro" name="current_project" value="<?= $current_project; ?>">
-      <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
-      <input type="checkbox" id="et1" name="edit_toggle" value="1" <?php if ($row['edit_toggle'] == "1") { echo "checked"; }  ?>>
-      <a id="edit-content" class="static <?php if ($row['edit_toggle'] == "1") { echo "active"; }  ?>"><div class="tooltip"><span class="tooltiptext">Last Project:<br>[9 tops!]</span><i class="far fa-caret-square-left fa-fw"></i></div></a>
+      <input type="hidden" name="go_to_last_project" value="foo"><?php /* key */ ?>
+      <input type="hidden" name="current_project" value="<?= $last_project; ?>"><?php /* ID of destination project */ ?>
+      <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project, abt to be last */ ?>
+      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>"><?php /* Current project name, abt to be last */ ?> 
+      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
+
+        <?php if ($last_project != '0') { ?>
+          <a class="gth-link"><div class="tooltip">
+            <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
+            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+        <?php } else { ?>
+          <a class="nope"><div class="tooltip">
+            <span class="tooltiptext">No last project found</span>
+            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+        <?php } ?>
+
     </form>
   </li>
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php } if ($row['edit'] == "1" && $layout_context == 'homepage') { ?>
 
@@ -156,46 +147,35 @@
 
 <?php } if ($layout_context == 'homepage') { ?>
 
-
-
-
-
-
-
-
   <li>
     <form id="et-form" action="" method="post">
-      <input type="hidden" name="go_to_last_project" value="1">
-      <input type="hidden" name="current_project" value="<?= $last_project; ?>">
-      <input type="hidden" name="last_project" value="<?= $current_project; ?>">
-      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
+
+        <?php /*
+        ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
+        */ ?>
+
+      <input type="hidden" name="go_to_last_project" value="foo"><?php /* key */ ?>
+      <input type="hidden" name="current_project" value="<?= $last_project; ?>"><?php /* ID of destination project */ ?>
+      <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project, abt to be last */ ?>
+      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>"><?php /* Current project name, abt to be last */ ?> 
       <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-      <a class="gth-link"><div class="tooltip"><span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span><i class="far fa-caret-square-left fa-fw"></i></div></a>
+      
+        <?php /*
+        ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
+        */ ?>
+
+        <?php if ($last_project != '0') { ?>
+          <a class="gth-link"><div class="tooltip">
+            <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
+            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+        <?php } else { ?>
+          <a class="nope"><div class="tooltip">
+            <span class="tooltiptext">No last project found</span>
+            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+        <?php } ?>
+
     </form>
   </li>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<li>
 		<form id="et-form" action="" method="post">
 			<input type="hidden" id="ownShare" name="ownShare" value="1">

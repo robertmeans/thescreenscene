@@ -220,7 +220,16 @@ if (isset($_POST['login'])) {
       // having to accept email or username because of how Apple/ios binds these two
       // in their login management
       // $sql = "SELECT * FROM users WHERE email=? OR username=? LIMIT 1";
-      $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
+
+
+      // $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
+
+      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.password_recover, u.admin, u.allow_email, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+      $sql .= "FROM users as u ";
+      $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
+      $sql .= "WHERE LOWER(u.email) LIKE LOWER(?) OR LOWER(u.username) LIKE LOWER(?) ";
+      $sql .= "LIMIT 1";
+
       $stmt = $conn->prepare($sql);
       $stmt->bind_param('ss', $username, $username);
       $stmt->execute();
@@ -242,7 +251,12 @@ if (isset($_POST['login'])) {
       $_SESSION['email'] = $user['email'];
       $_SESSION['verified'] = $user['active'];
       $_SESSION['admin'] = $user['admin'];
-      $_SESSION['current_project'] = $user['current_project'];
+      $_SESSION['current_project'] = $user['current_project']; /* value = id */
+      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
+
+      $_SESSION['last_project'] = $user['last_project']; /* value = id */
+      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
+
       $_SESSION['token'] = $user['email_code'];
 
         // you're not verified yet -> go see a msg telling you we're waiting for
@@ -421,9 +435,9 @@ if (isset($_POST['reset'])) {
     refreshes index.php which calls homepage_logged_in.php to sort via session variable, otherwise defaults to either homepage_ower.php or homepage_shared_with.php accordingly */
 if (isset($_POST['go_to_homepage'])) {
   $id = $_SESSION['id'];
-  $current_project = $_POST['current_project'];
-  $last_project = $_POST['last_project'];
-  $last_project_name = $_POST['last_project_name'];
+  $current_project = $_POST['current_project']; /* ID of destination project */
+  $last_project = $_POST['last_project']; /* ID of current project */
+  $last_project_name = $_POST['last_project_name']; /* NAME of current project (going to make it "last project") */
 
   if ($current_project !== $last_project) {
     $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
@@ -433,6 +447,37 @@ if (isset($_POST['go_to_homepage'])) {
 
   if ($result === 'pass') {
     $_SESSION['current_project'] = $current_project;
+    $_SESSION['last_project'] = $last_project;
+    $_SESSION['last_project_name'] = $last_project_name;
+    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
+    $signal = 'ok';
+    echo json_encode($signal);
+  } else {
+    $_SESSION['got-kicked-out'] = 'nossir';
+    $signal = 'ok';
+    echo json_encode($signal);   
+  }
+}
+
+
+/*  inner_nav.php */
+if (isset($_POST['go_to_last_project'])) {
+  $id = $_SESSION['id'];
+  $current_project = $_POST['current_project']; /* ID of destination project */
+  $last_project = $_POST['last_project'];
+  $last_project_name = $_POST['last_project_name'];
+
+  if ($last_project == '0') { return; } else {
+
+  if ($current_project !== $last_project) {
+    $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
+  } else {
+    $result = update_current_project($id, $current_project);
+  }
+
+  if ($result === 'pass') {
+    $_SESSION['current_project'] = $current_project;
+    $_SESSION['last_project'] = $last_project; 
     $_SESSION['last_project_name'] = $last_project_name;
     if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
     $signal = 'ok';
@@ -444,31 +489,6 @@ if (isset($_POST['go_to_homepage'])) {
   }
 
 }
-
-
-if (isset($_POST['go_to_last_project'])) {
-  $id = $_SESSION['id'];
-  $current_project = $_POST['current_project'];
-  $last_project = $_POST['last_project'];
-  $last_project_name = $_POST['last_project_name'];
-
-  if ($current_project !== $last_project) {
-    $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
-  } else {
-    $result = update_current_project($id, $current_project);
-  }
-
-  if ($result === 'pass') {
-    $_SESSION['current_project'] = $last_project;
-    $_SESSION['last_project_name'] = $last_project_name;
-    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
-    $signal = 'ok';
-    echo json_encode($signal);
-  } else {
-    $_SESSION['got-kicked-out'] = 'nossir';
-    $signal = 'ok';
-    echo json_encode($signal);   
-  }
 
 }
 
