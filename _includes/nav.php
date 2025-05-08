@@ -36,7 +36,8 @@
         */ ?>
 
         <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project - about to be "last" */ ?>
-        <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>"><?php /* NAME of current project - about to be "last" */ ?>
+        <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>"><?php /* NAME of current project - about to be "last"  ... var here was: $row['project_name']; before changed to $_SESSION */ ?>
+
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>"><?php /* ID of destination project */ ?>
 
         <?php /*
