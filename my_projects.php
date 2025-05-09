@@ -19,7 +19,7 @@ $last_project_name = $_SESSION['last_project_name'];
 <div id="table-page" class="my-projects">
   <div id="project-wrap">
 <?php show_session_variables(); ?>
-  <div class="project-greeting">
+  <div class="project-greeting top">
     <div>
       <p class="h">My account info</p>
       <p>First name: <?= $_SESSION['firstname']; ?> | Last name: <?= $_SESSION['lastname']; ?></p>
@@ -35,6 +35,11 @@ $last_project_name = $_SESSION['last_project_name'];
     </div>
   </div>
   <div class="project-greeting">
+    <div class="mp-last-project">
+      <a class="mp-lpl" href="."><div class="tooltip">
+        <span class="tooltiptext">Last Project:<br><?= $current_project_name; ?></span>
+        <i class="far fa-caret-square-left fa-fw"></i></div></a>
+    </div>
     <div class="search-field">
       <i class="fas fa-search fa-fw"></i><input id="mp_searchInput" type="text" placeholder="Search...">
     </div>

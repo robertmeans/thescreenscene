@@ -321,11 +321,22 @@ ul#sortablesearch li.static {
 	}
 }
 
-
-
-.project-greeting {
-	color: #003f87;
+#table-page {
+  #project-wrap {
+    .project-greeting {
+      color: #003f87;
+      .mp-last-project {
+        display: flex;
+        align-items: center;
+        margin-right: 1em;
+        a.mp-lpl {
+          color: #003f87;
+        }
+      }
+    }
+  }
 }
+
 // inner_nav - homepage
 ul.inner-nav li a {
 	color: #003f87;

@@ -31,8 +31,11 @@
 		}
 		.project-greeting {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      margin: 1em 0.5em;
+      &.top {
+        justify-content: space-between;
+      }
       p {
         line-height: 1.25em;
       }
@@ -69,8 +72,14 @@
       .bold {
         font-weight: bold;
       }
-			margin: 1em 0.5em;
-
+      .mp-last-project {
+        display: flex;
+        align-items: center;
+        margin-right: 1em;
+        a.mp-lpl {
+          color: #fff;
+        }
+      }
 		}
     // div.project-greeting.my-info {
 
