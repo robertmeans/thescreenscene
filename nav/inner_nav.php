@@ -15,12 +15,7 @@
 	if ($layout_context != 'homepage') { ?>
 
 	<li>
-    <form class="gth" method="post">
-      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
-      <input type="hidden" name="go_to_homepage" value="1">
-      <a class="gth-link"><div class="tooltip"><span class="tooltiptext"><?php if ($layout_context != 'new_project') { ?>Homepage of this project<?php } else { ?>Homepage of last project<?php } ?></span><i class="fas fa-house-user fa-fw"></i></div></a>
-    </form>
+    <a href="."><div class="tooltip"><span class="tooltiptext"><?php if ($layout_context != 'new_project') { ?>Homepage of this project<?php } else { ?>Homepage of last project<?php } ?></span><i class="fas fa-house-user fa-fw"></i></div></a>
   </li>
 
 <?php } if ($layout_context == 'homepage') { ?>
@@ -137,12 +132,7 @@
 	if ($layout_context != 'homepage') { /* begin owner navigation */ ?>	
 
 	<li>
-    <form class="gth" method="post">
-      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-      <input type="hidden" name="current_project" value="<?= $current_project; ?>">
-      <input type="hidden" name="go_to_homepage" value="1">
-      <a class="gth-link"><div class="tooltip"><span class="tooltiptext"><?php if ($layout_context != 'new_project') { ?>Homepage of this project<?php } else { ?>Homepage of last project<?php } ?></span><i class="fas fa-house-user fa-fw"></i></div></a>
-    </form>
+    <a href="."><div class="tooltip"><span class="tooltiptext"><?php if ($layout_context != 'new_project') { ?>Homepage of this project<?php } else { ?>Homepage of last project<?php } ?></span><i class="fas fa-house-user fa-fw"></i></div></a>
   </li>
 
 <?php } if ($layout_context == 'homepage') { ?>

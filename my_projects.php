@@ -37,7 +37,7 @@ $last_project_name = $_SESSION['last_project_name'];
   <div class="project-greeting">
     <div class="mp-last-project">
       <a class="mp-lpl" href="."><div class="tooltip">
-        <span class="tooltiptext">Last Project:<br><?= $current_project_name; ?></span>
+        <span class="tooltiptext">You just left:<br><?= $current_project_name; ?></span>
         <i class="far fa-caret-square-left fa-fw"></i></div></a>
     </div>
     <div class="search-field">
