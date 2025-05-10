@@ -120,7 +120,7 @@ if ($projects > 0) {
         <form method="post">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <input type="hidden" name="organizesearchfields" value="1">
-          <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
+          <div class="tooltip"><span class="tooltiptext">Config settings</span><a class="osf-link"><i class="fas fa-cog fa-fw"></i></a></div>
         </form>
       </li>
       <li>
@@ -222,7 +222,7 @@ if ($projects > 0) {
         <form method="post">
         <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
         <input type="hidden" name="organizesearchfields" value="1">
-        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
+        <div class="tooltip"><span class="tooltiptext">Config settings</span><a class="osf-link"><i class="fas fa-cog fa-fw"></i></a></div>
         </form>
       </li>
       <?php if ($row['share'] == "1") { ?>
@@ -336,7 +336,7 @@ if ($projects > 0) {
         <form method="post">
         <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
         <input type="hidden" name="organizesearchfields" value="1">
-        <div class="tooltip"><span class="tooltiptext">Organize search fields</span><a class="osf-link"><i class="fas fa-sort fa-fw"></i></a></div>
+        <div class="tooltip"><span class="tooltiptext">Config settings</span><a class="osf-link"><i class="fas fa-cog fa-fw"></i></a></div>
         </form>
       </li>
       <li>

@@ -24,9 +24,9 @@
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/v4-shims.css">
   	
-  <?php if (WWW_ROOT != 'http://localhost/browsergadget') { ?>
+  <?php // if (WWW_ROOT != 'http://localhost/browsergadget') {      /* not sure why I had this wrapped */ ?>
 	<link href='https://fonts.googleapis.com/css?family=Architects+Daughter|Courier+Prime|Roboto|Special+Elite' rel='stylesheet' type='text/css'>
-  <?php } ?>
+  <?php // } /* it was causing blurry text when on localhost though so now it's off */ ?>
 
   <?php if ($layout_context == 'new-project') { 
     ?><link rel="stylesheet" href="style-dark.css?<?php echo time(); ?>" type="text/css">

@@ -30,11 +30,11 @@
         <?php if ($last_project != '0') { ?>
           <a class="gth-link"><div class="tooltip">
             <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
-            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+            <i class="fas fa-history fa-fw"></i></div></a>
         <?php } else { ?>
           <a class="nope"><div class="tooltip">
             <span class="tooltiptext">No last project found</span>
-            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+            <i class="fas fa-history fa-fw"></i></div></a>
         <?php } ?>
 
     </form>
@@ -59,7 +59,7 @@
       <input type="hidden" name="organizesearchfields" value="1">
       <input type="hidden" name="current_project" value="<?= $current_project; ?>">
       <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
-      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Config settings</span><i class="fas fa-cog fa-fw"></i></div></a>
     </form>
   </li>
 
@@ -157,11 +157,11 @@
         <?php if ($last_project != '0') { ?>
           <a class="gth-link"><div class="tooltip">
             <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
-            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+            <i class="fas fa-history fa-fw"></i></div></a>
         <?php } else { ?>
           <a class="nope"><div class="tooltip">
             <span class="tooltiptext">No last project found</span>
-            <i class="far fa-caret-square-left fa-fw"></i></div></a>
+            <i class="fas fa-history fa-fw"></i></div></a>
         <?php } ?>
 
     </form>
@@ -181,7 +181,7 @@
 	<li>
     <form class="gth" method="post">
       <input type="hidden" name="organizesearchfields" value="1">
-      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Organize search fields</span><i class="fas fa-sort fa-fw"></i></div></a>
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Config settings</span><i class="fas fa-cog fa-fw"></i></div></a>
     </form>
   </li>
 
