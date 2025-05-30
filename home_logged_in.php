@@ -5,6 +5,7 @@ require_once 'config/initialize.php';
 $user_id = $_SESSION['id'];
 $current_project = $_SESSION['current_project'];
 $last_project = $_SESSION['last_project'];
+$history = $_SESSION['recent_projects'];
 $last_project_name = $_SESSION['last_project_name'];
 
 if (is_post_request()) {

@@ -19,25 +19,28 @@
   </li>
 
 <?php } if ($layout_context == 'homepage') { ?>
+
   <li>
-    <form id="et-form" action="" method="post">
-      <input type="hidden" name="go_to_last_project" value="foo"><?php /* key */ ?>
-      <input type="hidden" name="current_project" value="<?= $last_project; ?>"><?php /* ID of destination project */ ?>
-      <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project, abt to be last */ ?>
-      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>"><?php /* Current project name, abt to be last */ ?> 
-      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-
-        <?php if ($last_project != '0') { ?>
-          <a class="gth-link"><div class="tooltip">
-            <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
-            <i class="fas fa-history fa-fw"></i></div></a>
-        <?php } else { ?>
-          <a class="nope"><div class="tooltip">
-            <span class="tooltiptext">No last project found</span>
-            <i class="fas fa-history fa-fw"></i></div></a>
+    <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
+    <ul class="rliul">
+      <?php if ($history) { 
+        foreach($history as $entry) { ?>
+          <?php if ($entry['id'] != $current_project) { ?>
+            <li class="rli">
+              <form method="post">
+                <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
+                <input type="hidden" name="last_project" value="<?= $current_project; ?>">
+                <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
+                <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
+                <a class="gth-link recents"><?= $entry['project_name']; ?></a>
+              </form>
+            </li>
+          <?php } ?>
         <?php } ?>
-
-    </form>
+      <?php } else { ?>
+        <li class="rli empty">No history found</li>
+      <?php } ?>
+    </ul>
   </li>
 
 <?php } if ($row['edit'] == "1" && $layout_context == 'homepage') { ?>
@@ -59,7 +62,7 @@
       <input type="hidden" name="organizesearchfields" value="1">
       <input type="hidden" name="current_project" value="<?= $current_project; ?>">
       <input type="hidden" id="userid" name="user_id" value="<?= $user_id; ?>">
-      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Config settings</span><i class="fas fa-cog fa-fw"></i></div></a>
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Settings</span><i class="fas fa-cog fa-fw"></i></div></a>
     </form>
   </li>
 
@@ -138,34 +141,28 @@
 <?php } if ($layout_context == 'homepage') { ?>
 
   <li>
-    <form id="et-form" action="" method="post">
-
-        <?php /*
-        ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
-        */ ?>
-
-      <input type="hidden" name="go_to_last_project" value="foo"><?php /* key */ ?>
-      <input type="hidden" name="current_project" value="<?= $last_project; ?>"><?php /* ID of destination project */ ?>
-      <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project, abt to be last */ ?>
-      <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>"><?php /* Current project name, abt to be last */ ?> 
-      <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-      
-        <?php /*
-        ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
-        */ ?>
-
-        <?php if ($last_project != '0') { ?>
-          <a class="gth-link"><div class="tooltip">
-            <span class="tooltiptext">Last Project:<br><?= $last_project_name; ?></span>
-            <i class="fas fa-history fa-fw"></i></div></a>
-        <?php } else { ?>
-          <a class="nope"><div class="tooltip">
-            <span class="tooltiptext">No last project found</span>
-            <i class="fas fa-history fa-fw"></i></div></a>
+    <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
+    <ul class="rliul">
+      <?php if ($history) { 
+        foreach($history as $entry) { ?>
+          <?php if ($entry['id'] != $current_project) { ?>
+            <li class="rli">
+              <form method="post">
+                <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
+                <input type="hidden" name="last_project" value="<?= $current_project; ?>">
+                <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
+                <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
+                <a class="gth-link recents"><?= $entry['project_name']; ?></a>
+              </form>
+            </li>
+          <?php } ?>
         <?php } ?>
-
-    </form>
+      <?php } else { ?>
+        <li class="rli empty">No history found</li>
+      <?php } ?>
+    </ul>
   </li>
+
 	<li>
 		<form id="et-form" action="" method="post">
 			<input type="hidden" id="ownShare" name="ownShare" value="1">
@@ -181,7 +178,7 @@
 	<li>
     <form class="gth" method="post">
       <input type="hidden" name="organizesearchfields" value="1">
-      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Config settings</span><i class="fas fa-cog fa-fw"></i></div></a>
+      <a class="osf-link"><div class="tooltip"><span class="tooltiptext">Settings</span><i class="fas fa-cog fa-fw"></i></div></a>
     </form>
   </li>
 

@@ -221,6 +221,54 @@ function update_current_project($id, $current_project) {
   }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
+//   global $db;
+
+//   $count = verify_access($id, $current_project);
+
+//   if ($count > 0) {
+
+//     $sql2 = "UPDATE users SET ";
+//     $sql2 .= "current_project = '" . $current_project . "', ";
+//     $sql2 .= "last_project = '" . $last_project . "', ";
+//     $sql2 .= "last_proj_name = '" . $last_project_name . "' "; 
+//     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
+//     $sql2 .= "LIMIT 1";
+
+//     $result2 = mysqli_query($db, $sql2);
+
+//     if ($result2) {
+//       return 'pass';
+//     }
+//   } else {
+//     return 'fail';
+//   }
+// }
+
+
 function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
   global $db;
 
@@ -228,10 +276,51 @@ function update_current_and_last_project($id, $current_project, $last_project, $
 
   if ($count > 0) {
 
+
+    $sql3  = "SELECT history FROM users WHERE user_id='"  . db_escape($db, $id) . "' LIMIT 1";
+    $result3 = mysqli_query($db, $sql3); 
+    confirm_result_set($result3);
+    $row3 = mysqli_fetch_assoc($result3);
+    // return $row;
+
+
+      // Step 2: Decode history (or start fresh)
+      $history = json_decode($row3['history'] ?? '[]', true);
+      if (!is_array($history)) {
+          $history = [];
+      }
+
+      // Step 3: Remove any existing entry with same project ID
+      $filtered = [];
+      foreach ($history as $entry) {
+          if ($entry['id'] != $last_project) {
+              $filtered[] = $entry;
+          }
+      }
+
+      // Step 4: Add new entry to the beginning
+      array_unshift($filtered, [
+          'id' => $last_project,
+          'project_name' => $last_project_name
+      ]);
+
+      // Step 5: Keep only the last 5
+      $filtered = array_slice($filtered, 0, 5);
+
+      // Step 6: Save back to DB
+      $newHistoryJson = json_encode($filtered);
+
+
+
     $sql2 = "UPDATE users SET ";
     $sql2 .= "current_project = '" . $current_project . "', ";
     $sql2 .= "last_project = '" . $last_project . "', ";
-    $sql2 .= "last_proj_name = '" . $last_project_name . "' "; 
+    $sql2 .= "last_proj_name = '" . $last_project_name . "', "; 
+
+
+    $sql2 .= "history = '" . $newHistoryJson . "' ";
+
+
     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
     $sql2 .= "LIMIT 1";
 
@@ -244,6 +333,23 @@ function update_current_and_last_project($id, $current_project, $last_project, $
     return 'fail';
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {

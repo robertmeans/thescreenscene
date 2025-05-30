@@ -342,6 +342,20 @@ ul.inner-nav li a {
 
   }
 }
+/* recents */
+ul.inner-nav li {
+  ul.rliul {
+    border: 1px solid #052847;
+    box-shadow: 0px 0px 7px rgba(0,0,0,0.6);
+    a.recents {
+      color: #fff;
+      background-color: #4978ad;
+      &:hover {
+        background-color: #052847;
+      }
+    }
+  }
+}
 .project-details ul.inner-nav { // inner_nav projects page
 
   a i.fa-info-circle,

@@ -50,6 +50,7 @@ ul.inner-nav {
 					border: 1px solid #ccc;
 					transition: all 0.2s ease;
 				}
+
 				a.classic {
 					background-color: #fff;
 					color: blue;
@@ -82,6 +83,7 @@ ul.inner-nav {
 					}
 				}
 			}
+
 			&:hover {
 				visibility: visible;
 				opacity: 1;
@@ -91,6 +93,28 @@ ul.inner-nav {
 
 			}
 		}
+    ul.rliul {
+      padding-top: 0px;
+      border: 1px solid #000;
+      box-shadow: 0px 0px 7px rgba(0,0,0,0.8);
+      a.recents {
+        color: #fff;
+        padding: 0.75em;
+        width: 100%;
+        background-color: #444444;
+        border: none;
+        &:hover {
+          color: #fff;
+          background-color: #222222;
+        }
+      }
+      li.rli {
+        margin: 0;
+        &.empty {
+          padding: 0.5em;
+        }
+      }
+    }
 		&:hover > ul {
 			visibility: visible;
 			opacity: 1;

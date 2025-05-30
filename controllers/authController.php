@@ -19,7 +19,7 @@ function remember_me() {
 
 		// $sql = "SELECT * FROM users WHERE email_code=? LIMIT 1";
 
-    $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+    $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
     $sql .= "FROM users as u ";
     $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
     $sql .= "WHERE u.email_code=? ";
@@ -45,6 +45,8 @@ function remember_me() {
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
+      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
+
 			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}
 	} 
@@ -60,7 +62,7 @@ function verifyUser($token) {
 
 	// $sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
 
-  $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+  $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
   $sql .= "FROM users as u ";
   $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
   $sql .= "WHERE u.email_code='$token' ";
@@ -83,6 +85,8 @@ function verifyUser($token) {
       $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
+
+      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
 
 			$_SESSION['new'] = "woot";
 			header('location:'. WWW_ROOT);

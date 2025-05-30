@@ -224,7 +224,7 @@ if (isset($_POST['login'])) {
 
       // $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
 
-      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.password_recover, u.admin, u.allow_email, u.current_project, u.last_project, u.last_proj_name, p.project_name ";
+      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.password_recover, u.admin, u.allow_email, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
       $sql .= "FROM users as u ";
       $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
       $sql .= "WHERE LOWER(u.email) LIKE LOWER(?) OR LOWER(u.username) LIKE LOWER(?) ";
@@ -243,7 +243,18 @@ if (isset($_POST['login'])) {
         $li .= '<li class="no-count">That user does not exist</li>';
         $class = 'red';
       } else if ($userCount == 1 && password_verify($password, $user['password'])) {
+        
+
+
         // login success
+
+      $history = json_decode($user['history'] ?? '[]', true);
+      if (!is_array($history)) {
+          $history = [];
+      }
+
+
+
       $_SESSION['id'] = $user['user_id'];
       $_SESSION['username'] = $user['username'];
       $_SESSION['firstname'] = $user['first_name'];
@@ -256,6 +267,13 @@ if (isset($_POST['login'])) {
 
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
+
+
+
+      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
+
+
+
 
       $_SESSION['token'] = $user['email_code'];
 
@@ -429,6 +447,27 @@ if (isset($_POST['reset'])) {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*  link handler
     tooltip =   'Go to homepage'
     trigger =   .gth-link 
@@ -438,6 +477,18 @@ if (isset($_POST['go_to_homepage'])) {
   $current_project = $_POST['current_project']; /* ID of destination project */
   $last_project = $_POST['last_project']; /* ID of current project */
   $last_project_name = $_POST['last_project_name']; /* NAME of current project (going to make it "last project") */
+
+
+  // Ensure the session variable exists
+  if (!isset($_SESSION['recent_projects'])) {
+      $_SESSION['recent_projects'] = [];
+  }
+
+
+
+
+
+
 
   if ($current_project !== $last_project) {
     $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
@@ -467,30 +518,67 @@ if (isset($_POST['go_to_last_project'])) {
   $last_project = $_POST['last_project'];
   $last_project_name = $_POST['last_project_name'];
 
+  // Ensure the session variable exists
+  if (!isset($_SESSION['recent_projects'])) {
+      $_SESSION['recent_projects'] = [];
+  }  
+
+
+
+
+
+
+
+
   if ($last_project == '0') { return; } else {
 
-  if ($current_project !== $last_project) {
-    $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
-  } else {
-    $result = update_current_project($id, $current_project);
-  }
+    if ($current_project !== $last_project) {
+      $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
+    } else {
+      $result = update_current_project($id, $current_project);
+    }
 
-  if ($result === 'pass') {
-    $_SESSION['current_project'] = $current_project;
-    $_SESSION['last_project'] = $last_project; 
-    $_SESSION['last_project_name'] = $last_project_name;
-    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
-    $signal = 'ok';
-    echo json_encode($signal);
-  } else {
-    $_SESSION['got-kicked-out'] = 'nossir';
-    $signal = 'ok';
-    echo json_encode($signal);   
+    if ($result === 'pass') {
+      $_SESSION['current_project'] = $current_project;
+      $_SESSION['last_project'] = $last_project; 
+      $_SESSION['last_project_name'] = $last_project_name;
+      if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
+      $signal = 'ok';
+      echo json_encode($signal);
+    } else {
+      $_SESSION['got-kicked-out'] = 'nossir';
+      $signal = 'ok';
+      echo json_encode($signal);   
+    }
+
   }
 
 }
 
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /*  link handler
     tooltip =   'Organize search fields' | (Google, URL, AI, Reference, YouTube)
