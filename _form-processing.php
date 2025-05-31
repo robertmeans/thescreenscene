@@ -274,18 +274,7 @@ if (isset($_POST['login'])) {
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
-
-
-
       $_SESSION['recent_projects'] = $history = json_decode($user['history'] ?? '[]', true);
-
-
-      
-
-
-
-
-
 
       $_SESSION['token'] = $user['email_code'];
 
@@ -534,19 +523,6 @@ if (isset($_POST['go_to_last_project'])) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  inner_nav.php - delete from history */
 if (isset($_POST['delete_from_history'])) {
   $id = $_SESSION['id'];
@@ -570,24 +546,6 @@ if (isset($_POST['delete_from_history'])) {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
