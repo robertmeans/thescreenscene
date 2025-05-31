@@ -168,15 +168,6 @@ if (isset($_POST['signup'])) {
 }
 
 
-
-
-
-
-
-
-
-
-
 // if user clicks on login
 if (isset($_POST['login'])) {
   local_testing_delay($x);
@@ -234,7 +225,7 @@ if (isset($_POST['login'])) {
 
       // $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
 
-      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.password_recover, u.admin, u.allow_email, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
+      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
       $sql .= "FROM users as u ";
       $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
       $sql .= "WHERE LOWER(u.email) LIKE LOWER(?) OR LOWER(u.username) LIKE LOWER(?) ";
@@ -274,7 +265,7 @@ if (isset($_POST['login'])) {
       $_SESSION['last_project'] = $user['last_project']; /* value = id */
       $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
 
-      $_SESSION['recent_projects'] = $history = json_decode($user['history'] ?? '[]', true);
+      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
 
       $_SESSION['token'] = $user['email_code'];
 
@@ -522,7 +513,6 @@ if (isset($_POST['go_to_last_project'])) {
 }
 
 
-
 /*  inner_nav.php - delete from history */
 if (isset($_POST['delete_from_history'])) {
   $id = $_SESSION['id'];
@@ -534,7 +524,7 @@ if (isset($_POST['delete_from_history'])) {
     // $_SESSION['current_project'] = $current_project;
     // $_SESSION['last_project'] = $last_project; 
     // $_SESSION['last_project_name'] = $last_project_name;
-    $_SESSION['recent_projects'] = $filtered;
+    // $_SESSION['recent_projects'] = $filtered;
 
     if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
     $signal = 'ok';
@@ -546,7 +536,6 @@ if (isset($_POST['delete_from_history'])) {
   }
 
 }
-
 
 
 /*  link handler

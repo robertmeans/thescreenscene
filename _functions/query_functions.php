@@ -256,8 +256,8 @@ function update_current_and_last_project($id, $current_project, $last_project, $
           'project_name' => $last_project_name
       ]);
 
-      // Step 5: Keep only the last 5
-      $filtered = array_slice($filtered, 0, 5);
+      // Step 5: Keep the last 15
+      $filtered = array_slice($filtered, 0, 15);
 
       // Step 6: Save back to DB
       $newHistoryJson = json_encode($filtered);
@@ -273,20 +273,13 @@ function update_current_and_last_project($id, $current_project, $last_project, $
     $result2 = mysqli_query($db, $sql2);
 
     if ($result2) {
+      $_SESSION['recent_projects'] = $filtered;
       return 'pass';
     } 
   } else {
     return 'fail';
   }
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -324,21 +317,11 @@ function remove_project_from_history($id, $current_project) {
   $result2 = mysqli_query($db, $update);
 
   if ($result2) {
+    $_SESSION['recent_projects'] = $filtered;
     return $filtered;
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {

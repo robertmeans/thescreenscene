@@ -23,9 +23,11 @@
   <li>
     <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
     <ul class="rliul">
-      <?php if ($history) { 
-        foreach($history as $entry) { ?>
-          <?php if ($entry['id'] != $current_project) { ?>
+      <?php if ($history && count($history) > 0) { 
+        $i = 0;
+        foreach($history as $entry) { 
+          if ($entry['id'] != $current_project && !empty($entry)) { 
+          $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
                 <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
@@ -41,9 +43,11 @@
                 <a class="delrec"><i class="fas fa-times-circle fa-fw"></i></a>
               </form>
             </li>
-          <?php } ?>
-        <?php } ?>
-      <?php } else { ?>
+          <?php } else { '<li class="rli empty">No history found</li>'; break; } 
+          if ($i == 5) { break; }
+
+          } /* end foreach */
+         } else { ?>
         <li class="rli empty">No history found</li>
       <?php } ?>
     </ul>
@@ -150,8 +154,10 @@
     <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
     <ul class="rliul">
       <?php if ($history && count($history) > 0) { 
-        foreach($history as $entry) { ?>
-          <?php if ($entry['id'] != $current_project) { ?>
+        $i = 0;
+        foreach($history as $entry) { 
+          if ($entry['id'] != $current_project && !empty($entry)) {  
+          $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
                 <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
@@ -167,10 +173,11 @@
                 <a class="delrec"><i class="fas fa-times-circle fa-fw"></i></a>
               </form>
             </li>
-          <?php } ?>
+          <?php } else { '<li class="rli empty">No history found</li>'; break; } 
+          if ($i == 5) { break; }
 
-        <?php } ?>
-      <?php } else { ?>
+          } /* end foreach */
+        } else { ?>
         <li class="rli empty">No history found</li>
       <?php } ?>
     </ul>
