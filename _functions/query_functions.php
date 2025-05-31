@@ -222,53 +222,6 @@ function update_current_project($id, $current_project) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
-//   global $db;
-
-//   $count = verify_access($id, $current_project);
-
-//   if ($count > 0) {
-
-//     $sql2 = "UPDATE users SET ";
-//     $sql2 .= "current_project = '" . $current_project . "', ";
-//     $sql2 .= "last_project = '" . $last_project . "', ";
-//     $sql2 .= "last_proj_name = '" . $last_project_name . "' "; 
-//     $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
-//     $sql2 .= "LIMIT 1";
-
-//     $result2 = mysqli_query($db, $sql2);
-
-//     if ($result2) {
-//       return 'pass';
-//     }
-//   } else {
-//     return 'fail';
-//   }
-// }
-
-
 function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
   global $db;
 
@@ -282,7 +235,6 @@ function update_current_and_last_project($id, $current_project, $last_project, $
     confirm_result_set($result3);
     $row3 = mysqli_fetch_assoc($result3);
     // return $row;
-
 
       // Step 2: Decode history (or start fresh)
       $history = json_decode($row3['history'] ?? '[]', true);
@@ -310,25 +262,19 @@ function update_current_and_last_project($id, $current_project, $last_project, $
       // Step 6: Save back to DB
       $newHistoryJson = json_encode($filtered);
 
-
-
     $sql2 = "UPDATE users SET ";
     $sql2 .= "current_project = '" . $current_project . "', ";
     $sql2 .= "last_project = '" . $last_project . "', ";
     $sql2 .= "last_proj_name = '" . $last_project_name . "', "; 
-
-
     $sql2 .= "history = '" . $newHistoryJson . "' ";
-
-
-    $sql2 .= "WHERE user_id='"  . db_escape($db, $id) . "' ";
+    $sql2 .= "WHERE user_id='" . db_escape($db, $id) . "' ";
     $sql2 .= "LIMIT 1";
 
     $result2 = mysqli_query($db, $sql2);
 
     if ($result2) {
       return 'pass';
-    }
+    } 
   } else {
     return 'fail';
   }
@@ -339,6 +285,49 @@ function update_current_and_last_project($id, $current_project, $last_project, $
 
 
 
+
+
+
+
+
+function remove_project_from_history($id, $current_project) { 
+  global $db;
+
+  /* get currentt history from db */
+  $sql = "SELECT history FROM users WHERE user_id='"  . db_escape($db, $id) . "' LIMIT 1";
+  $result = mysqli_query($db, $sql); 
+  confirm_result_set($result);
+  $row = mysqli_fetch_assoc($result);
+
+  /* decode JSON (start fresh if null/invalid) */
+  $history = json_decode($row['history'] ?? '[]', true);
+  if (!is_array($history)) {
+      $history = [];
+  }
+
+  /* remove entry by project ID */
+  $filtered = [];
+  foreach ($history as $entry) {
+    if ((int)$entry['id'] !== (int)$current_project) {
+        $filtered[] = $entry;
+    }
+  }
+
+  /* save the new history back to db */
+  $newHistoryJson = json_encode($filtered);
+
+  $update  = "UPDATE users SET ";
+  $update .= "history = '" . $newHistoryJson . "' ";
+  $update .= "WHERE user_id = '" . db_escape($db, $id) . "' ";
+  $update .= "LIMIT 1";
+
+  $result2 = mysqli_query($db, $update);
+
+  if ($result2) {
+    return $filtered;
+  }
+
+}
 
 
 

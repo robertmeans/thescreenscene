@@ -565,6 +565,62 @@ $(document).ready(function() {
     })
   });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+  $(document).on('click', '.delrec', function(e) {
+  /* note: there's nother version of this that handles the link on the my_projects.php page in the title bar of each project. search: $('.review-project a.gth-link').on('click', function(e) */
+    var current_loc = window.location.href;
+    e.stopPropagation();
+
+    $.ajax({
+      dataType: "JSON",
+      url: "_form-processing.php",
+      type: "POST",
+      data: $(this).closest('form').serialize(),
+      success: function(response) {
+        console.log(response);
+        if(response == 'ok') {
+          if (current_loc.indexOf("localhost") > -1) {
+            window.location.replace("http://localhost/browsergadget");
+          } else {
+            window.location.replace("https://browsergadget.com");
+          }
+        }
+      },
+      error: function(response) {
+        console.log(response);
+      }, 
+      complete: function() {
+
+      }
+    })
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   /* my_projects.php: 'View Projects Page' - from Dropdown navigation + inner_nav.php - DONE */
   $(document).on('click','.vpp-link', function() {
     var current_loc = window.location.href;

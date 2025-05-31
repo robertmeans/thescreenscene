@@ -167,6 +167,16 @@ if (isset($_POST['signup'])) {
 
 }
 
+
+
+
+
+
+
+
+
+
+
 // if user clicks on login
 if (isset($_POST['login'])) {
   local_testing_delay($x);
@@ -244,16 +254,12 @@ if (isset($_POST['login'])) {
         $class = 'red';
       } else if ($userCount == 1 && password_verify($password, $user['password'])) {
         
+      // login success
 
-
-        // login success
-
-      $history = json_decode($user['history'] ?? '[]', true);
-      if (!is_array($history)) {
-          $history = [];
-      }
-
-
+      // $history = json_decode($user['history'] ?? '[]', true);
+      // if (!is_array($history)) {
+      //     $history = [];
+      // }
 
       $_SESSION['id'] = $user['user_id'];
       $_SESSION['username'] = $user['username'];
@@ -270,7 +276,13 @@ if (isset($_POST['login'])) {
 
 
 
-      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
+
+      $_SESSION['recent_projects'] = $history = json_decode($user['history'] ?? '[]', true);
+
+
+      
+
+
 
 
 
@@ -448,26 +460,6 @@ if (isset($_POST['reset'])) {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  link handler
     tooltip =   'Go to homepage'
     trigger =   .gth-link 
@@ -483,12 +475,6 @@ if (isset($_POST['go_to_homepage'])) {
   if (!isset($_SESSION['recent_projects'])) {
       $_SESSION['recent_projects'] = [];
   }
-
-
-
-
-
-
 
   if ($current_project !== $last_project) {
     $result = update_current_and_last_project($id, $current_project, $last_project, $last_project_name);
@@ -523,13 +509,6 @@ if (isset($_POST['go_to_last_project'])) {
       $_SESSION['recent_projects'] = [];
   }  
 
-
-
-
-
-
-
-
   if ($last_project == '0') { return; } else {
 
     if ($current_project !== $last_project) {
@@ -550,15 +529,47 @@ if (isset($_POST['go_to_last_project'])) {
       $signal = 'ok';
       echo json_encode($signal);   
     }
-
   }
-
 }
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/*  inner_nav.php - delete from history */
+if (isset($_POST['delete_from_history'])) {
+  $id = $_SESSION['id'];
+  $current_project = $_POST['current_project']; /* ID of destination project */
+ 
+  $filtered = remove_project_from_history($id, $current_project);
+
+  if ($filtered) {
+    // $_SESSION['current_project'] = $current_project;
+    // $_SESSION['last_project'] = $last_project; 
+    // $_SESSION['last_project_name'] = $last_project_name;
+    $_SESSION['recent_projects'] = $filtered;
+
+    if (isset($_SESSION['got-kicked-out'])) { unset($_SESSION['got-kicked-out']); } /* failsafe */
+    $signal = 'ok';
+    echo json_encode($signal);
+  } else {
+    $_SESSION['got-kicked-out'] = 'nossir';
+    $signal = 'ok';
+    echo json_encode($signal);   
+  }
+
+}
 
 
 

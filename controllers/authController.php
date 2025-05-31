@@ -47,7 +47,6 @@ function remember_me() {
 
       $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
 
-			// ^^ admin defaults to 2. 1 = top dog and must be manually changed in db
 		}
 	} 
 }

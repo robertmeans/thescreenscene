@@ -27,12 +27,18 @@
         foreach($history as $entry) { ?>
           <?php if ($entry['id'] != $current_project) { ?>
             <li class="rli">
-              <form method="post">
+              <form class="gthcon" method="post">
                 <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
                 <input type="hidden" name="last_project" value="<?= $current_project; ?>">
                 <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
                 <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
                 <a class="gth-link recents"><?= $entry['project_name']; ?></a>
+              </form> 
+
+              <form method="post">
+                <input type="hidden" name="delete_from_history" value="foo"><?php /* key */ ?>
+                <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
+                <a class="delrec"><i class="fas fa-times-circle fa-fw"></i></a>
               </form>
             </li>
           <?php } ?>
@@ -143,19 +149,26 @@
   <li>
     <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
     <ul class="rliul">
-      <?php if ($history) { 
+      <?php if ($history && count($history) > 0) { 
         foreach($history as $entry) { ?>
           <?php if ($entry['id'] != $current_project) { ?>
             <li class="rli">
-              <form method="post">
+              <form class="gthcon" method="post">
                 <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
                 <input type="hidden" name="last_project" value="<?= $current_project; ?>">
                 <input type="hidden" name="last_project_name" value="<?= $row['project_name']; ?>">
                 <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
                 <a class="gth-link recents"><?= $entry['project_name']; ?></a>
+              </form> 
+
+              <form method="post">
+                <input type="hidden" name="delete_from_history" value="foo"><?php /* key */ ?>
+                <input type="hidden" name="current_project" value="<?= $entry['id']; ?>">
+                <a class="delrec"><i class="fas fa-times-circle fa-fw"></i></a>
               </form>
             </li>
           <?php } ?>
+
         <?php } ?>
       <?php } else { ?>
         <li class="rli empty">No history found</li>
