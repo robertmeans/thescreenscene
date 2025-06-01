@@ -23,10 +23,10 @@
   <li>
     <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
     <ul class="rliul">
-      <?php if ($history && count($history) > 0) { 
+      <?php if ($history && (count($history) > 0)) { 
         $i = 0;
         foreach($history as $entry) { 
-          if ($entry['id'] != $current_project && !empty($entry)) { 
+          if (($entry['id'] != $current_project) && !empty($entry)) { 
           $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
@@ -153,10 +153,10 @@
   <li>
     <a class="static"><div class="tooltip"><span class="tooltiptext">Recent history</span><i class="fas fa-history fa-fw"></i></div></a>
     <ul class="rliul">
-      <?php if ($history && count($history) > 0) { 
+      <?php if ($history && (count($history) > 0)) { 
         $i = 0;
         foreach($history as $entry) { 
-          if ($entry['id'] != $current_project && !empty($entry)) {  
+          if (($entry['id'] != $current_project) && !empty($entry)) {  
           $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
