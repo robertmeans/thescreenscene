@@ -276,10 +276,63 @@ function update_current_and_last_project($id, $current_project, $last_project, $
       $_SESSION['recent_projects'] = $filtered;
       return 'pass';
     } 
-  } else {
-    return 'fail';
+
+  } else { 
+    /* it failed verify_access() which means they are not a member of this project. remove it from recent history if it's there. */
+
+  /* get currentt history from db */
+  $sql = "SELECT history FROM users WHERE user_id='"  . db_escape($db, $id) . "' LIMIT 1";
+  $result = mysqli_query($db, $sql); 
+  confirm_result_set($result);
+  $row = mysqli_fetch_assoc($result);
+
+  /* decode JSON (start fresh if null/invalid) */
+  $history = json_decode($row['history'] ?? '[]', true);
+  if (!is_array($history)) {
+      $history = [];
+  }
+
+  /* remove entry by project ID */
+  $filtered = [];
+  foreach ($history as $entry) {
+    if ((int)$entry['id'] !== (int)$current_project) {
+        $filtered[] = $entry;
+    }
+  }
+
+  /* save the new history back to db */
+  $newHistoryJson = json_encode($filtered);
+
+  $update  = "UPDATE users SET ";
+  $update .= "history = '" . $newHistoryJson . "' ";
+  $update .= "WHERE user_id = '" . db_escape($db, $id) . "' ";
+  $update .= "LIMIT 1";
+
+  $result2 = mysqli_query($db, $update);
+
+  if ($result2) {
+    $_SESSION['recent_projects'] = $filtered;
+    return $filtered;
+  }
+
+    // return 'fail';
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

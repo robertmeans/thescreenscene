@@ -801,26 +801,42 @@ if (isset($_POST['deletebookmark'])) {
 
       global $db;
 
+
+
+
       /* start by creating a new project with user_id = the user's ID */
-      $one = "INSERT INTO projects ";
-      $one .= "(project_name, project_notes) ";
-      $one .= "VALUES ("; 
-      $one .= "'" . db_escape($db, $row['project_name'])    . "', ";
-      $one .= "'" . db_escape($db, $row['project_notes'])    . "'";
-      $one .= ")";
+      // $one = "INSERT INTO projects ";
+      // $one .= "(project_name, project_notes) ";
+      // $one .= "VALUES ("; 
+      // $one .= "'" . db_escape($db, $row['project_name'])    . "', ";
+      // $one .= "'" . db_escape($db, $row['project_notes'])    . "'";
+      // $one .= ")";
+
+
+      $one  = "INSERT INTO projects (project_name, project_notes) VALUES (?, ?)";
+      $stmtOne = $conn->prepare($one);
+
+      // $stmtOne->bind_param('ss', $row['project_name'], $row['project_notes']);
+
+
+
 
       /* we're going to grab the last id assigned for the project just created and insert it as the project_id in the project_user table */
-      $two = "INSERT INTO project_user ";
-      $two .= "(owner_id, share, edit, project_id) ";
-      $two .= "VALUES (";
-      $two .= "'" . db_escape($db, $user_id) . "', ";
-      $two .= "'" . db_escape($db, $row['share']) . "', ";
-      $two .= "'" . db_escape($db, $row['edit']) . "', ";
-      $two .= "LAST_INSERT_ID()";
-      $two .= ")"; 
+      // $two = "INSERT INTO project_user ";
+      // $two .= "(owner_id, share, edit, project_id) ";
+      // $two .= "VALUES (";
+      // $two .= "'" . db_escape($db, $user_id) . "', ";
+      // $two .= "'" . db_escape($db, $row['share']) . "', ";
+      // $two .= "'" . db_escape($db, $row['edit']) . "', ";
+      // $two .= "LAST_INSERT_ID()";
+      // $two .= ")"; 
+
+      $two  = "INSERT INTO project_user (owner_id, share, edit, project_id) VALUES (?, ?, ?, ?)":
+      $stmtTwo = $conn->prepare($two);
+
 
       /* running the 1st query to create a new project */
-      $result1 = mysqli_query($db, $one);
+      $result1 = $stmtOne->bind_param('ss', $row['project_name'], $row['project_notes']);
 
       if ($result1 === true) {
       /* if the project was successfully created */
@@ -830,7 +846,8 @@ if (isset($_POST['deletebookmark'])) {
         update_users_current_project($new_id, $user_id);
 
         /* and run the next query which adds this project to the project_user table */
-        $result = mysqli_query($db, $two);
+        // $result = mysqli_query($db, $two);
+        $result = $stmtTwo->bind_param('ssss', $user_id, $row['share'], $row['edit'], LAST_INSERT_ID());
 
         if ($result) { 
         /* if the project is successfully added to the project_user table then change the current_project in the session and send them to the homepage with their new project */

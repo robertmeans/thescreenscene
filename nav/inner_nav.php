@@ -23,7 +23,7 @@ if ($layout_context != 'homepage') { ?>
       <?php if ($history && (count($history) > 0)) { 
         $i = 0;
         foreach($history as $entry) { 
-          if ($entry['id'] == $current_project) { continue; } 
+          if ($entry['id'] == $current_project || empty($entry['project_name'])) { continue; } 
           $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">

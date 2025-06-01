@@ -68,7 +68,7 @@ if ($projects < 10 || $_SESSION['admin'] == 1 || $_SESSION['email'] == 'robertme
   <?php } ?>
 
     <form id="new-project-form" method="post">
-      <input type="hidden" name="create-new-project" method="post">
+      <input type="hidden" name="create-new-project" method="post"><?php /* key */ ?>
 
       <div id="message">
         <div id="msg-ul"></div>
@@ -104,8 +104,6 @@ if ($projects < 10 || $_SESSION['admin'] == 1 || $_SESSION['email'] == 'robertme
       <input type="hidden" name="cancelprojectdetails" value="yo">
       <input type="hidden" name="newprojectcancelbtn" value="yo">
     </form>
-
-
 
   <?php } else { ?>
       <p class="query-tinkerer">Hello <?= $row['first_name'] ?>,<br/>There is a limit of 10 projects for now. Is it worth $20 a year to have unlimited projects? Let me know via the contact form at the bottom of this page.</p>
