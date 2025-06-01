@@ -41,8 +41,8 @@ require '_includes/head.php';
 <?php show_session_variables(); ?>
 
   <div class="cpnf">
-  	<p>Looks like the project you were most recently viewing was deleted since you last saw it.
-      <form method="post" style="display: block;margin: 0 auto; width: 96%;">
+  	<p>Looks like the project you were most recently viewing was deleted (or you left it) since you last saw it.
+      <form method="post" style="display: block;margin: 1em 0 0; width: 96%;">
         <input type="hidden" id="viewprojectspage" name="viewprojectspage" value="yo">
         Go to your <a class="vpp-link go">projects page</a> and choose another.
       </form>

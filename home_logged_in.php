@@ -11,7 +11,8 @@ $last_project_name = $_SESSION['last_project_name'];
 if (is_post_request()) {
   if(isset($_POST['color'])) {
     $color = $_POST['color'];
-    if (isset($_POST['owner'])) {
+    $oos = $_POST['owner'];
+    if ($oos == "1") {
       $result = project_colormode_owner($user_id, $color, $current_project);
     } else {
       $result = project_colormode_shared_with($user_id, $color, $current_project);
@@ -27,7 +28,8 @@ if (is_post_request()) {
 if ($current_project != '0') { // not a brand new member
   $row = assemble_current_project($user_id, $current_project); // get project deets ready
 
-  $_SESSION['current_project_name'] = $row['project_name']; /* wow, this gem could have saved 2 days */
+  if (!is_null($row)) { $_SESSION['current_project_name'] = $row['project_name']; } 
+  // $_SESSION['current_project_name'] = $row['project_name']; /* wow, this gem could have saved 2 days */
 
   if (isset($row['shared_with']) && $row['shared_with'] == $user_id) { // show shared_with results
 

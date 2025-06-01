@@ -225,8 +225,8 @@ require '_includes/head.php'; ?>
     <form class="edit-user remove-self" method="post">
       <div class="sudeets">Me <?php /* id 'rmfp' = remove me from project */ ?>
         <input type="hidden" id="rmfp_project_name" name="project_name" value="<?= $row['project_name']; ?>">
-        <input type="hidden" id="rmfp_my_project_id" name="project_id" value="<?= $row['project_id']; ?>">
-        <input type="hidden" id="rmfp_my_username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
+        <input type="hidden" id="rmfp_project_id" name="project_id" value="<?= $row['project_id']; ?>">
+        <input type="hidden" id="rmfp_username" name="username" value="<?= $row['first_name'] . ' ' . $row['last_name']; ?>">
 
       <span>Permissions: <?php
         if ($row['share'] == 0 && $row['edit'] == 0) { echo 'View only'; }
@@ -242,7 +242,7 @@ require '_includes/head.php'; ?>
     </div>
     <div class="rsu-btns">
       <input type="hidden" id="rmfp_remove_me" name="remove_me" value="<?= $user_id; ?>">
-      <a class="rsu removeme" data-id="rmfp">Leave</a>
+      <a class="rsu removeme" data-id="rmfp">Leave</a><?php /* this is not working */ ?>
     </div>
     </form>
   </li>
