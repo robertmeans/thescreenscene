@@ -29,17 +29,13 @@
       while ($rowg = mysqli_fetch_assoc($result)) { ?>		
 				<form method="post" class="dd">
         <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-        <input type="hidden" name="user_id" value="<?= $user_id; ?>">
-
         <?php /*
         ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
         */ ?>
-
         <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project - about to be "last" */ ?>
         <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>"><?php /* NAME of current project - about to be "last"  ... var here was: $row['project_name']; before changed to $_SESSION */ ?>
 
 				<input type="hidden" name="current_project" value="<?= $rowg['project_id']; ?>"><?php /* ID of destination project */ ?>
-
         <?php /*
         ***************************** DON'T CHANGE A MOTHER FRICKIN' THING HERE! *****************************
         */ ?>

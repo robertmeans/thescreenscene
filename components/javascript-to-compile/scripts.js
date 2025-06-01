@@ -537,7 +537,7 @@ $(document).ready(function() {
 
   /* Homepage link from: inner_nav.php + my_projects.php + nav.php */
   $(document).on('click', '.gth-link', function(e) {
-  /* note: there's nother version of this that handles the link on the my_projects.php page in the title bar of each project. search: $('.review-project a.gth-link').on('click', function(e) */
+  /* note: there's another version of this that handles the link on the my_projects.php page in the title bar of each project. search: $('.review-project a.gth-link').on('click', function(e) */
     var current_loc = window.location.href;
     e.stopPropagation();
 
