@@ -83,9 +83,8 @@ if ($projects > 0) {
       <div class="pro-left">
         <form class="hmp" method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="gth-link shared"><i class="fas fa-home fa-fw"></i></a>
         </form>
@@ -109,9 +108,8 @@ if ($projects > 0) {
       <li><?php /* dnhfs = do not hide from search */ ?>
         <form method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
         </form>
@@ -185,9 +183,8 @@ if ($projects > 0) {
       <div class="pro-left">
         <form class="hmp" method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="gth-link shared"><i class="fas fa-home fa-fw"></i></a>
         </form>
@@ -211,9 +208,8 @@ if ($projects > 0) {
       <li>
         <form method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
         <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
         </form>
@@ -303,9 +299,8 @@ if ($projects > 0) {
       <div class="pro-left">
         <form class="hmp" method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <a class="gth-link shared"><i class="fas fa-home fa-fw"></i></a>
         </form>
@@ -325,9 +320,8 @@ if ($projects > 0) {
       <li>
         <form method="post">
           <input type="hidden" name="go_to_homepage" value="foo"><?php /* key */ ?>
-          <input type="hidden" name="user_id" value="<?= $user_id; ?>">
           <input type="hidden" name="last_project" value="<?= $current_project; ?>"><?php /* ID of current project */ ?>
-          <input type="hidden" name="last_project_name" value="<?= $current_project_name; ?>">
+          <input type="hidden" name="last_project_name" value="<?= $_SESSION['current_project_name']; ?>">
           <input type="hidden" name="current_project" value="<?= $row['id']; ?>">
           <div class="tooltip"><span class="tooltiptext">Homepage of this project</span><a class="gth-link"><i class="fas fa-home fa-fw"></i></a></div>
         </form>
