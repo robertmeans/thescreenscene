@@ -782,7 +782,7 @@ if (isset($_POST['deletebookmark'])) {
     $row['share']         = '1' ?? '' ;
     $row['edit']          = '1' ?? '' ;
 
-    local_testing_delay($x);
+    local_testing_delay(0);
 
     // validation
     if (empty($row['project_name'])) {
@@ -800,9 +800,7 @@ if (isset($_POST['deletebookmark'])) {
     if ($li === '') {
 
       global $db;
-
-
-
+      $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
 
       /* start by creating a new project with user_id = the user's ID */
       // $one = "INSERT INTO projects ";
@@ -831,23 +829,24 @@ if (isset($_POST['deletebookmark'])) {
       // $two .= "LAST_INSERT_ID()";
       // $two .= ")"; 
 
-      $two  = "INSERT INTO project_user (owner_id, share, edit, project_id) VALUES (?, ?, ?, ?)":
+      $two  = "INSERT INTO project_user (owner_id, share, edit, project_id) VALUES (?, ?, ?, ?)";
       $stmtTwo = $conn->prepare($two);
 
 
       /* running the 1st query to create a new project */
       $result1 = $stmtOne->bind_param('ss', $row['project_name'], $row['project_notes']);
+      $project_id = $mysqli->insert_id;
 
       if ($result1 === true) {
       /* if the project was successfully created */
 
         /* grab that new project id, assign it to a variable $new_id and put it in the users table as this users current_project */
-        $new_id = mysqli_insert_id($db);
+        
         update_users_current_project($new_id, $user_id);
 
         /* and run the next query which adds this project to the project_user table */
         // $result = mysqli_query($db, $two);
-        $result = $stmtTwo->bind_param('ssss', $user_id, $row['share'], $row['edit'], LAST_INSERT_ID());
+        $result = $stmtTwo->bind_param('ssss', $user_id, $row['share'], $row['edit'], $project_id);
 
         if ($result) { 
         /* if the project is successfully added to the project_user table then change the current_project in the session and send them to the homepage with their new project */

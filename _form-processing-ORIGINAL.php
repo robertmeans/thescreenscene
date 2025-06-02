@@ -1,6 +1,6 @@
 <?php
 require_once 'config/initialize.php';
-$x = 0;
+
 if (is_post_request()) {
 
 // sign-up
