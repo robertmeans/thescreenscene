@@ -505,25 +505,72 @@ function find_project_notes($user_id, $current_project) {
 
 
 // 1222202024
-function update_users_current_project($new_id, $user_id) {
-  global $db;
+// function update_users_current_project($new_id, $user_id) {
+//   global $db;
 
-  $sql = "UPDATE users SET ";
-  $sql .= "current_project ='" . $new_id . "' ";
-  $sql .= "WHERE user_id='"  . $user_id . "' ";
-  $sql .= "LIMIT 1";
+//   $sql = "UPDATE users SET ";
+//   $sql .= "current_project ='" . $new_id . "' ";
+//   $sql .= "WHERE user_id='"  . $user_id . "' ";
+//   $sql .= "LIMIT 1";
 
-  $result = mysqli_query($db, $sql);
-  // echo $sql;  
+//   $result = mysqli_query($db, $sql);
+//   // echo $sql;  
 
-  if ($result) {
+//   if ($result) {
+//     return true;
+//   } else {
+//     echo mysqli_error($db);
+//     db_disconnect($db);
+//     exit;
+//   }
+// }
+
+function update_users_current_project($new_id, $user_id): bool {
+  $db = Database::getInstance()->getConnection();
+
+  try {
+    $stmt = $db->prepare("
+      UPDATE users
+      SET current_project = :current_project
+      WHERE user_id = :user_id
+      LIMIT 1
+    ");
+
+    $stmt->execute([
+      'current_project' => $new_id,
+      'user_id' => $user_id
+    ]);
+
     return true;
-  } else {
-    echo mysqli_error($db);
-    db_disconnect($db);
+
+  } catch (PDOException $e) {
+    echo "PDO Error: " . $e->getMessage();
     exit;
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // used on home_logged_in.php to see where to direct this user
 function does_user_have_a_single_project($user_id) {
