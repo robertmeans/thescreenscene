@@ -790,7 +790,7 @@ if (isset($_POST['create-new-project'])) {
   $user_id = $_SESSION['id'];
   $row = [];
   $row['project_name']  = trim($_POST['project_name'] ?? '');
-  $row['project_notes'] = $_POST['project_notes'] ?? '';
+  $row['project_notes'] = trim($_POST['project_notes'] ?? '');
   $row['share']         = '1';
   $row['edit']          = '1';
 
@@ -810,7 +810,7 @@ if (isset($_POST['create-new-project'])) {
   }
 
   if ($li === '') {
-    $db = Database::getInstance()->getConnection();
+    $db = Database::getInstance()->getConnection(); /* this is the first place I re-defined $db when starting my PDO refactoring. just making a note of it because it's kind of a big deal. ...it's the very first. like a newborn baby. can you see the sun peaking up over the horizon? can you hear the voices of a thousand angels erupting into perfect harmony? :) */
 
     try {
       // Start a transaction

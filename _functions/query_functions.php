@@ -222,102 +222,94 @@ function update_current_project($id, $current_project) {
 }
 
 
-function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) { 
-  global $db;
+function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) {
+  global $pdo_db;
 
-  $count = verify_access($id, $current_project);
+  $count = verify_access($id, $current_project); // Ensure this function is also updated to use PDO
 
   if ($count > 0) {
+    // Step 1: Fetch user's project history
+    $stmt = $pdo_db->prepare("SELECT history FROM users WHERE user_id = :id LIMIT 1");
+    $stmt->execute([':id' => $id]);
+    $row3 = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    $history = json_decode($row3['history'] ?? '[]', true);
+    if (!is_array($history)) {
+      $history = [];
+    }
 
-    $sql3  = "SELECT history FROM users WHERE user_id='"  . db_escape($db, $id) . "' LIMIT 1";
-    $result3 = mysqli_query($db, $sql3); 
-    confirm_result_set($result3);
-    $row3 = mysqli_fetch_assoc($result3);
-    // return $row;
+    // Step 2: Remove any existing entry with the same project ID
+    $filtered = array_filter($history, function ($entry) use ($last_project) {
+      return (int)$entry['id'] !== (int)$last_project;
+    });
 
-      // Step 2: Decode history (or start fresh)
-      $history = json_decode($row3['history'] ?? '[]', true);
-      if (!is_array($history)) {
-          $history = [];
-      }
+    // Step 3: Add the new entry to the beginning
+    array_unshift($filtered, [
+      'id' => $last_project,
+      'project_name' => $last_project_name
+    ]);
 
-      // Step 3: Remove any existing entry with same project ID
-      $filtered = [];
-      foreach ($history as $entry) {
-          if ($entry['id'] != $last_project) {
-              $filtered[] = $entry;
-          }
-      }
+    // Step 4: Limit to last 15 entries
+    $filtered = array_slice($filtered, 0, 15);
+    $newHistoryJson = json_encode($filtered);
 
-      // Step 4: Add new entry to the beginning
-      array_unshift($filtered, [
-          'id' => $last_project,
-          'project_name' => $last_project_name
-      ]);
+    // Step 5: Update user record
+    $sql = "UPDATE users SET 
+              current_project = :current_project, 
+              last_project = :last_project, 
+              last_proj_name = :last_proj_name, 
+              history = :history 
+            WHERE user_id = :id 
+            LIMIT 1";
 
-      // Step 5: Keep the last 15
-      $filtered = array_slice($filtered, 0, 15);
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      ':current_project' => $current_project,
+      ':last_project' => $last_project,
+      ':last_proj_name' => $last_project_name,
+      ':history' => $newHistoryJson,
+      ':id' => $id
+    ]);
 
-      // Step 6: Save back to DB
-      $newHistoryJson = json_encode($filtered);
-
-    $sql2 = "UPDATE users SET ";
-    $sql2 .= "current_project = '" . $current_project . "', ";
-    $sql2 .= "last_project = '" . $last_project . "', ";
-    $sql2 .= "last_proj_name = '" . $last_project_name . "', "; 
-    $sql2 .= "history = '" . $newHistoryJson . "' ";
-    $sql2 .= "WHERE user_id='" . db_escape($db, $id) . "' ";
-    $sql2 .= "LIMIT 1";
-
-    $result2 = mysqli_query($db, $sql2);
-
-    if ($result2) {
+    if ($success) {
       $_SESSION['recent_projects'] = $filtered;
       return 'pass';
-    } 
+    }
 
-  } else { 
-    /* it failed verify_access() which means they are not a member of this project. remove it from recent history if it's there. */
+  } else {
+    // They don't have access; strip the project from their recent history
 
-  /* get currentt history from db */
-  $sql = "SELECT history FROM users WHERE user_id='"  . db_escape($db, $id) . "' LIMIT 1";
-  $result = mysqli_query($db, $sql); 
-  confirm_result_set($result);
-  $row = mysqli_fetch_assoc($result);
+    $stmt = $pdo_db->prepare("SELECT history FROM users WHERE user_id = :id LIMIT 1");
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  /* decode JSON (start fresh if null/invalid) */
-  $history = json_decode($row['history'] ?? '[]', true);
-  if (!is_array($history)) {
+    $history = json_decode($row['history'] ?? '[]', true);
+    if (!is_array($history)) {
       $history = [];
-  }
+    }
 
-  /* remove entry by project ID */
-  $filtered = [];
-  foreach ($history as $entry) {
-    if ((int)$entry['id'] !== (int)$current_project) {
-        $filtered[] = $entry;
+    $filtered = array_filter($history, function ($entry) use ($current_project) {
+      return (int)$entry['id'] !== (int)$current_project;
+    });
+
+    $newHistoryJson = json_encode(array_values($filtered)); // Reindex for consistency
+
+    $sql = "UPDATE users SET history = :history WHERE user_id = :id LIMIT 1";
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      ':history' => $newHistoryJson,
+      ':id' => $id
+    ]);
+
+    if ($success) {
+      $_SESSION['recent_projects'] = array_values($filtered);
+      return $filtered;
     }
   }
 
-  /* save the new history back to db */
-  $newHistoryJson = json_encode($filtered);
-
-  $update  = "UPDATE users SET ";
-  $update .= "history = '" . $newHistoryJson . "' ";
-  $update .= "WHERE user_id = '" . db_escape($db, $id) . "' ";
-  $update .= "LIMIT 1";
-
-  $result2 = mysqli_query($db, $update);
-
-  if ($result2) {
-    $_SESSION['recent_projects'] = $filtered;
-    return $filtered;
-  }
-
-    // return 'fail';
-  }
+  return 'fail';
 }
+
 
 
 
