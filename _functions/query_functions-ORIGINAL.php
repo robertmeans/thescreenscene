@@ -370,45 +370,29 @@ function remove_project_from_history($id, $current_project) {
 
 
 function update_bookmark($id, $current_project, $count2, $name, $url, $cp) {
-  global $pdo_db;
+  global $db;
 
   $count = verify_access($id, $current_project);
-  // error_log("verify_access returned: $count");
-  if ($count <= 0) {
+
+  if ($count > 0) {
+
+    $sql = "UPDATE projects SET ";
+    $sql .= $count2 . "_text='"  . db_escape($db, $name)  . "', ";
+    $sql .= $count2 . "_url='"   . db_escape($db, $url)   . "' ";
+    $sql .= "WHERE id='"  . db_escape($db, $cp) . "' ";
+    $sql .= "LIMIT 1";
+
+    $result = mysqli_query($db, $sql);
+
+    if ($result) {
+      return 'pass';
+    }
+
+  } else {
     return 'fail';
   }
 
-  // Whitelist acceptable bookmark columns to prevent SQL injection via $count2
-  // this is all unnecessary as $count2 does not come from user input...
-  // $range = [];
-  // for ($i = 1; $i <= 72; $i++) {
-  //   $formattedNumber = str_pad($i, 2, '0', STR_PAD_LEFT); // Using str_pad()
-  //   $range[] = $formattedNumber;
-  // }
-  // if (!in_array($count2, $range)) {
-  //   return 'fail';
-  // }
-
-  $text_field = $count2 . '_text';
-  $url_field  = $count2 . '_url';
-
-  $sql = "UPDATE projects 
-          SET {$text_field} = :name, {$url_field} = :url 
-          WHERE id = :cp 
-          LIMIT 1";
-
-  $stmt = $pdo_db->prepare($sql);
-  $stmt->bindParam(':name', $name, PDO::PARAM_STR);
-  $stmt->bindParam(':url',  $url,  PDO::PARAM_STR);
-  $stmt->bindParam(':cp',   $cp,   PDO::PARAM_INT);
-
-  if ($stmt->execute()) {
-    return 'pass';
-  }
-
-  return 'fail';
 }
-
 
 
 function delete_bookmark($id, $current_project, $count2, $cp) { 

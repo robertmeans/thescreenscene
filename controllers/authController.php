@@ -13,109 +13,143 @@ $admin = "";
 $visible = "";
 
 function remember_me() {
-	global $conn;
-	if (!empty($_COOKIE['token'])) {
-		$token = $_COOKIE['token']; 
+  global $pdo_db;
 
-		// $sql = "SELECT * FROM users WHERE email_code=? LIMIT 1";
+  if (!empty($_COOKIE['token'])) {
+    $token = $_COOKIE['token'];
 
-    $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
-    $sql .= "FROM users as u ";
-    $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
-    $sql .= "WHERE u.email_code=? ";
-    $sql .= "LIMIT 1";
+    try {
+      $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, ";
+      $sql .= "u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
+      $sql .= "FROM users u ";
+      $sql .= "LEFT JOIN projects p ON u.current_project = p.id ";
+      $sql .= "WHERE u.email_code = :token ";
+      $sql .= "LIMIT 1";
 
-		$stmt = $conn->prepare($sql);
-		$stmt->bind_param('s', $token);
+      $stmt = $pdo_db->prepare($sql);
+      $stmt->execute(['token' => $token]);
 
-		if ($stmt->execute()) {
-			$result = $stmt->get_result();
-			$user = $result->fetch_assoc();
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-			// put user in session (log them in)
-			$_SESSION['id'] = $user['user_id'];
-			$_SESSION['username'] = $user['username'];
-			$_SESSION['firstname'] = $user['first_name'];
-			$_SESSION['lastname'] = $user['last_name'];
-			$_SESSION['email'] = $user['email'];
-			$_SESSION['verified'] = $user['active'];
-			$_SESSION['admin'] = $user['admin'];
-			$_SESSION['current_project'] = $user['current_project']; /* value = id */
-      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
-      $_SESSION['last_project'] = $user['last_project']; /* value = id */
-      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
+      if ($user) {
+        $_SESSION['id']                  = $user['user_id'];
+        $_SESSION['username']           = $user['username'];
+        $_SESSION['firstname']          = $user['first_name'];
+        $_SESSION['lastname']           = $user['last_name'];
+        $_SESSION['email']              = $user['email'];
+        $_SESSION['verified']           = $user['active'];
+        $_SESSION['admin']              = $user['admin'];
+        $_SESSION['current_project']    = $user['current_project'];
+        $_SESSION['current_project_name'] = $user['project_name'];
+        $_SESSION['last_project']       = $user['last_project'];
+        $_SESSION['last_project_name']  = $user['last_proj_name'];
+        $_SESSION['recent_projects']    = json_decode($user['history'] ?? '[]', true);
+      }
 
-      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
-
-		}
-	} 
+    } catch (PDOException $e) {
+      error_log('Remember Me Error: ' . $e->getMessage());
+      // Optional: clear the cookie to prevent repeated failure
+      setcookie('token', '', time() - 3600, '/');
+    }
+  }
 }
+
 
 remember_me(); 
 
 
 // verify user by token
-function verifyUser($token) {
- 
-	global $conn;
+function verifyUser($token)
+{
+  global $pdo_db;
 
-	// $sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
+  try {
+    // Step 1: Find user with matching token and join current project name
+    $stmt = $pdo_db->prepare("
+      SELECT 
+        u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, 
+        u.current_project, u.last_project, u.last_proj_name, u.history, 
+        p.project_name
+      FROM users u
+      LEFT JOIN projects p ON u.current_project = p.id
+      WHERE u.email_code = :token
+      LIMIT 1
+    ");
+    $stmt->execute(['token' => $token]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-  $sql  = "SELECT u.user_id, u.username, u.first_name, u.last_name, u.email, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
-  $sql .= "FROM users as u ";
-  $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
-  $sql .= "WHERE u.email_code='$token' ";
-  $sql .= "LIMIT 1";
+    // Step 2: If user exists, activate and log them in
+    if ($user) {
+      $update_stmt = $pdo_db->prepare("
+        UPDATE users
+        SET active = 1
+        WHERE email_code = :token
+        LIMIT 1
+      ");
+      $update_stmt->execute(['token' => $token]);
 
-	$result = mysqli_query($conn, $sql);
-
-	if (mysqli_num_rows($result) > 0) {
-		$user = mysqli_fetch_assoc($result);
-		$update_query = "UPDATE users SET active=1 WHERE email_code='$token'";
-
-		if (mysqli_query($conn, $update_query)) {
-			// login success
-			$_SESSION['id'] = $user['user_id'];
-			$_SESSION['username'] = $user['username'];
-			$_SESSION['firstname'] = $user['first_name'];
-			$_SESSION['lastname'] = $user['last_name'];
-			$_SESSION['email'] = $user['email'];
-			$_SESSION['current_project'] = $user['current_project']; /* value = id */
-      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
-      $_SESSION['last_project'] = $user['last_project']; /* value = id */
-      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
-
+      $_SESSION['id'] = $user['user_id'];
+      $_SESSION['username'] = $user['username'];
+      $_SESSION['firstname'] = $user['first_name'];
+      $_SESSION['lastname'] = $user['last_name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['current_project'] = $user['current_project'];
+      $_SESSION['current_project_name'] = $user['project_name'];
+      $_SESSION['last_project'] = $user['last_project'];
+      $_SESSION['last_project_name'] = $user['last_proj_name'];
       $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
 
-			$_SESSION['new'] = "woot";
-			header('location:'. WWW_ROOT);
-			exit();
-		}
-	} else {
-		$_SESSION['new'] = "toot";
-    header('location:'. WWW_ROOT);
+      $_SESSION['new'] = "woot";
+    } else {
+      $_SESSION['new'] = "toot";
+    }
+
+    header('Location: ' . WWW_ROOT);
     exit();
-	}
+
+  } catch (PDOException $e) {
+    // Optional: log error to error log
+    $_SESSION['new'] = "dberror";
+    header('Location: ' . WWW_ROOT);
+    exit();
+  }
 }
+
 
 
 // user has a password-reset token in query string they've presented
-function resetPassword($token) 
+function resetPassword($token)
 {
-	global $conn;
-	$sql = "SELECT * FROM users WHERE email_code='$token' LIMIT 1";
-	$result = mysqli_query($conn, $sql);
-	$user = mysqli_fetch_assoc($result);
+  global $pdo_db;
 
-  if (count($user) > 0) {
-    $_SESSION['firstname'] = $user['first_name'];
-  	$_SESSION['email'] = $user['email'];
-    $_SESSION['pr'] = 'showmepr';
-  } else {
-    $_SESSION['pr'] = 'wrongtoken';
+  try {
+    $stmt = $pdo_db->prepare("
+      SELECT first_name, email
+      FROM users
+      WHERE email_code = :token
+      LIMIT 1
+    ");
+
+    $stmt->execute(['token' => $token]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+      $_SESSION['firstname'] = $user['first_name'];
+      $_SESSION['email'] = $user['email'];
+      $_SESSION['pr'] = 'showmepr'; // show password reset UI
+    } else {
+      $_SESSION['pr'] = 'wrongtoken'; // signal invalid token
+    }
+
+    header('Location: ' . WWW_ROOT);
+    exit();
+
+  } catch (PDOException $e) {
+    // Optional: log error here for audit/debugging
+    $_SESSION['pr'] = 'dberror';
+    header('Location: ' . WWW_ROOT);
+    exit();
   }
-
-	header('location:' . WWW_ROOT);
-	exit();
 }
+
 

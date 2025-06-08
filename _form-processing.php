@@ -7,10 +7,13 @@ if (is_post_request()) {
 if (isset($_POST['signup'])) {
   local_testing_delay($x);
 
-  $signal = '';
-  $msg = '';
-  $li = '';
-  $class = '';
+  // Initialize response
+  $response = [
+      'signal' => '',
+      'msg' => '',
+      'li' => '',
+      'class' => ''
+  ];
 
   $username = $_POST['firstname'];
   $firstname = $_POST['firstname'];
@@ -104,340 +107,362 @@ if (isset($_POST['signup'])) {
     $class = 'red';
   }
 
-  if ($li === '') {
+  if ($response['li'] === '') {
 
-    $emailQuery = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
-    $stmt = $conn->prepare($emailQuery);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
+  global $pdo_db;
 
-    /* updated to PHP v7.2 on GoDaddy and unchecked mysqli and checked nd_mysqli */
-    /* in order to get this command to work */
-    $result = $stmt->get_result();
-    $userCount = $result->num_rows;
-    $stmt->close();
+    try {
+      // Check for duplicate email
+      $stmt = $pdo_db->prepare("SELECT 1 FROM users WHERE LOWER(email) = LOWER(?) LIMIT 1");
+      $stmt->execute([$email]);
 
-    if ($userCount > 0) {
-      $signal = 'bad';
-      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-      $li .= '<li class="no-count">Email already exists</li>';
-      $class = 'orange';
-    } else {
-
-      $password = password_hash($password, PASSWORD_DEFAULT);
-      $token = bin2hex(random_bytes(50));
-      $verified = false;
-
-      $sql = "INSERT INTO users (username, first_name, last_name, email, active, email_code, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param('ssssdss', $firstname, $firstname, $lastname, $email, $verified, $token, $password);
-
-      if ($stmt->execute()) {
-        
-        $user_id = $conn->insert_id;
-
-        // $_SESSION['id'] = $user_id;
-        // $_SESSION['username'] = $username;
-        $_SESSION['firstname'] = $firstname;
-        $_SESSION['email'] = $email;
-
-        if (WWW_ROOT != 'http://localhost/browsergadget') {
-          sendVerificationEmail($firstname, $lastname, $email, $token);
-        }
-
-        $signal = 'ok';
-
+      if ($stmt->fetch()) {
+        $response['signal'] = 'bad';
+        $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $response['li'] = '<li class="no-count">Email already exists</li>';
+        $response['class'] = 'orange';
       } else {
-        $signal = 'bad';
-        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-        $li .= '<li class="no-count">Database error: failed to register. Server could be undergoing a reboot. Please give it a minute and try again.</li>';
-        $class = 'red';
-        // make sure you have mySQL error turned on - 1st line
-        // of database.php - to troubleshoot if you're seeing this message.
+        // Email is unique – proceed with registration
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $token = bin2hex(random_bytes(50));
+        $verified = 0;
+
+        $insertSQL = "INSERT INTO users (username, first_name, last_name, email, active, email_code, password)
+                      VALUES (?, ?, ?, ?, ?, ?, ?)";
+        $insertStmt = $pdo_db->prepare($insertSQL);
+        $success = $insertStmt->execute([
+            $firstname, $firstname, $lastname, $email, $verified, $token, $passwordHash
+        ]);
+
+        if ($success) {
+          $userId = $pdo_db->lastInsertId();
+          $_SESSION['firstname'] = $firstname;
+          $_SESSION['email'] = $email;
+
+          if (WWW_ROOT !== 'http://localhost/browsergadget') {
+              sendVerificationEmail($firstname, $lastname, $email, $token);
+          }
+
+          $response['signal'] = 'ok';
+        } else {
+          throw new Exception("Signup failed. Please try again.");
+        }
       }
+
+    } catch (Exception $e) {
+      // Log $e->getMessage() in production
+      $response['signal'] = 'bad';
+      $response['msg'] = '<span class="login-txt">Something went wrong</span>';
+      $response['li'] = '<li class="no-count">Error processing request</li>';
+      $response['class'] = 'red';
     }
-  } 
-  $data = array(
-    'signal' => $signal,
-    'msg' => $msg,
-    'li' => $li,
-    'class' => $class
-  );
-  echo json_encode($data);
 
+    echo json_encode($response);
+  }
 }
-
 
 // if user clicks on login
 if (isset($_POST['login'])) {
   local_testing_delay($x);
 
-  $signal = '';
-  $msg = '';
-  $li = '';
-  $class = '';
-  $password_txt = '';
-  $msg_txt = '';
-  $count = '';
+  $response = [
+    'signal' => '',
+    'msg' => '',
+    'li' => '',
+    'class' => '',
+    'password_txt' => '',
+    'msg_txt' => '',
+    'count' => ''
+  ];
 
-  $username = $_POST['firstname'];
-  $password = $_POST['password'];
+  $username = trim($_POST['firstname'] ?? '');
+  $password = $_POST['password'] ?? '';
 
   // validation
   if (empty($username)) {
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">First name or email required</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">First name or email required</li>';
+    $response['class'] = 'red';
   }
 
   if (empty($password)) {
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">Please enter your password</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">Please enter your password</li>';
+    $response['class'] = 'red';
   }
 
+  if ($response['li'] === '') {
+    try {
+      $stmt = $pdo_db->prepare("SELECT COUNT(*) FROM users WHERE LOWER(username) LIKE LOWER(?)");
+      $stmt->execute([$username]);
+      $count = $stmt->fetchColumn();
 
-  if ($li === '') {
-
-    // $userQuery = "SELECT * FROM users WHERE username=? LIMIT 2";
-    $userQuery = "SELECT * FROM users WHERE LOWER(username) LIKE LOWER(?) LIMIT 2";
-    $stmt = $conn->prepare($userQuery);
-    $stmt->bind_param('s', $username);
-    $stmt->execute();
-
-    $result = $stmt->get_result();
-    $userCount = $result->num_rows;
-    $stmt->close();
-
-      if ($userCount > 1) {
-        $signal = 'bad';
-        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-        $li .= '<li class="no-count">There are multiple users with the first name "' . $username . '". Please use your email address to login.</li>';
-        $class = 'orange';
+      if ($count > 1) {
+        $response['signal'] = 'bad';
+        $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $response['li'] .= '<li class="no-count">There are multiple users with the first name "' . htmlspecialchars($username) . '". Please use your email address to login.</li>';
+        $response['class'] = 'orange';
       } else {
+        $sql = "
+          SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code,
+                 u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history,
+                 p.project_name
+          FROM users u
+          LEFT JOIN projects p ON u.current_project = p.id
+          WHERE LOWER(u.email) LIKE LOWER(?) OR LOWER(u.username) LIKE LOWER(?)
+          LIMIT 1
+        ";
 
-      // having to accept email or username because of how Apple/ios binds these two
-      // in their login management
-      // $sql = "SELECT * FROM users WHERE email=? OR username=? LIMIT 1";
+        $stmt = $pdo_db->prepare($sql);
+        $stmt->execute([$username, $username]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        if (!$user) {
+          $response['signal'] = 'bad';
+          $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+          $response['li'] .= '<li class="no-count">That user does not exist</li>';
+          $response['class'] = 'red';
+        } elseif (password_verify($password, $user['password'])) {
 
-      // $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) OR LOWER(username) LIKE LOWER(?) LIMIT 1";
+          $_SESSION['id'] = $user['user_id'];
+          $_SESSION['username'] = $user['username'];
+          $_SESSION['firstname'] = $user['first_name'];
+          $_SESSION['lastname'] = $user['last_name'];
+          $_SESSION['email'] = $user['email'];
+          $_SESSION['verified'] = $user['active'];
+          $_SESSION['admin'] = $user['admin'];
+          $_SESSION['current_project'] = $user['current_project'];
+          $_SESSION['current_project_name'] = $user['project_name'];
+          $_SESSION['last_project'] = $user['last_project'];
+          $_SESSION['last_project_name'] = $user['last_proj_name'];
+          $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
+          $_SESSION['token'] = $user['email_code'];
 
-      $sql  = "SELECT u.user_id, u.username, u.password, u.first_name, u.last_name, u.email, u.email_code, u.active, u.admin, u.current_project, u.last_project, u.last_proj_name, u.history, p.project_name ";
-      $sql .= "FROM users as u ";
-      $sql .= "LEFT JOIN projects as p ON u.current_project=p.id ";
-      $sql .= "WHERE LOWER(u.email) LIKE LOWER(?) OR LOWER(u.username) LIKE LOWER(?) ";
-      $sql .= "LIMIT 1";
-
-      $stmt = $conn->prepare($sql);
-      $stmt->bind_param('ss', $username, $username);
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $userCount = $result->num_rows;
-      $user = $result->fetch_assoc();
-
-      if ($userCount < 1) {
-        $signal = 'bad';
-        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-        $li .= '<li class="no-count">That user does not exist</li>';
-        $class = 'red';
-      } else if ($userCount == 1 && password_verify($password, $user['password'])) {
-        
-      // login success
-
-      // $history = json_decode($user['history'] ?? '[]', true);
-      // if (!is_array($history)) {
-      //     $history = [];
-      // }
-
-      $_SESSION['id'] = $user['user_id'];
-      $_SESSION['username'] = $user['username'];
-      $_SESSION['firstname'] = $user['first_name'];
-      $_SESSION['lastname'] = $user['last_name'];
-      $_SESSION['email'] = $user['email'];
-      $_SESSION['verified'] = $user['active'];
-      $_SESSION['admin'] = $user['admin'];
-      $_SESSION['current_project'] = $user['current_project']; /* value = id */
-      $_SESSION['current_project_name'] = $user['project_name']; /* value = project name */
-
-      $_SESSION['last_project'] = $user['last_project']; /* value = id */
-      $_SESSION['last_project_name'] = $user['last_proj_name']; /* value = name */
-
-      $_SESSION['recent_projects'] = json_decode($user['history'] ?? '[]', true);
-
-      $_SESSION['token'] = $user['email_code'];
-
-        // you're not verified yet -> go see a msg telling you we're waiting for
-        // email verification
-        if (($user['active']) === 0) {
-          $signal = 'bad';
-          $msg = '<span class="login-txt"><img src="_images/login.png"></span>';
-          $li .= '<li class="no-count">Email has not been verified</li>';
-          $class = 'blue';
-        } else {
-
-          // user is logged in and verified. did they check the rememberme?
-          if (isset($_POST['remember_me']) || isset($_POST['remember_me-insert'])) {
-            $token = $_SESSION['token'];
-            setCookie('token', $token, time() + (1825 * 24 * 60 * 60));
+          if ($user['active'] == 0) {
+            $response['signal'] = 'bad';
+            $response['msg'] = '<span class="login-txt"><img src="_images/login.png"></span>';
+            $response['li'] .= '<li class="no-count">Email has not been verified</li>';
+            $response['class'] = 'blue';
+          } else {
+            if (isset($_POST['remember_me']) || isset($_POST['remember_me-insert'])) {
+              setcookie('token', $_SESSION['token'], time() + (1825 * 24 * 60 * 60));
+            }
+            $response['signal'] = 'ok';
           }
-
-          // everything checks out -> you're good to go!
-          $signal = 'ok';
+        } else {
+          $response['signal'] = 'bad';
+          $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+          $response['li'] .= '<li class="count">Wrong credential combination. (note: password is case sensitive.)</li>';
+          $response['class'] = 'red';
+          $response['count'] = 'on';
         }
-
-      } else {
-        // the combination of stuff you typed doesn't match anything in the db
-        $signal = 'bad';
-        $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-        $li .= '<li class="count">Wrong credential combination. (note: password is case sensitive.)</li>';
-        $class = 'red';
-        $count = 'on';
       }
-    } 
-  } 
-  $data = array(
-    'signal' => $signal,
-    'msg' => $msg,
-    'li' => $li,
-    'class' => $class,
-    'password_txt' => $password_txt,
-    'msg_txt' => $msg_txt,
-    'count' => $count
-  );
-  echo json_encode($data);
+    } catch (PDOException $e) {
+      $response['signal'] = 'bad';
+      $response['msg'] = 'Database error: ' . $e->getMessage();
+      $response['class'] = 'red';
+    }
+  }
 
+  echo json_encode($response);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // forgot password
 if (isset($_POST['forgotpass'])) {
   local_testing_delay($x);
 
-  $signal = '';
-  $msg = '';
-  $li = '';
-  $class = '';
-  $msg_txt = '';
-  $email = $_POST['forgotemail'];
+  global $pdo_db;
+
+  $response = [
+    'signal' => '',
+    'msg' => '',
+    'li' => '',
+    'class' => '',
+    'msg_txt' => ''
+  ];
+
+  $email = trim($_POST['forgotemail'] ?? '');
 
   // validation
   if (empty($email)) {
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">Email required. It\'s the only thing here for Pete\'s sake.</li>';
-    $class = 'red';
-  } 
-
-  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">Email is invalid</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">Email required. It\'s the only thing here for Pete\'s sake.</li>';
+    $response['class'] = 'red';
   }
 
-  if ($li === '') {
+  if (!empty($email) && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">Email is invalid</li>';
+    $response['class'] = 'red';
+  }
 
-    $sql = "SELECT * FROM users WHERE LOWER(email) LIKE LOWER(?) LIMIT 1";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param('s', $email);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $userCount = $result->num_rows;
-    $user = $result->fetch_assoc();
-    
-    if ($userCount === 1) {
+  if ($response['li'] === '') {
+    try {
+      $stmt = $pdo_db->prepare("
+        SELECT * FROM users
+        WHERE LOWER(email) LIKE LOWER(:email)
+        LIMIT 1
+      ");
+      $stmt->execute(['email' => $email]);
+      $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-      $token = $user['email_code'];
+      if ($user) {
+        $token = $user['email_code'];
 
-      if (WWW_ROOT != 'http://localhost/browsergadget') {
-        sendPasswordResetLink($email, $token);
-      }
+        if (WWW_ROOT != 'http://localhost/browsergadget') {
+          sendPasswordResetLink($email, $token);
+        }
 
-      $signal = 'ok';
+        $response['signal'] = 'ok';
 
       } else {
+        $response['signal'] = 'bad';
+        $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+        $response['li'] .= '<li class="no-count">There is no one here with that email address.</li>';
+        $response['class'] = 'red';
+      }
 
-      $signal = 'bad';
-      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-      $li .= '<li class="no-count">There is no one here with that email address.</li>';
-      $class = 'red';
+    } catch (PDOException $e) {
+      $response['signal'] = 'bad';
+      $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+      $response['li'] .= '<li class="no-count">Database error: ' . $e->getMessage() . '</li>';
+      $response['class'] = 'red';
     }
+  }
 
-  } 
-  $data = array(
-    'signal' => $signal,
-    'msg' => $msg,
-    'li' => $li,
-    'class' => $class,
-    'msg_txt' => $msg_txt
-  );
-  echo json_encode($data);
-
+  echo json_encode($response);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // reset password 
 if (isset($_POST['reset'])) {
   local_testing_delay($x);
 
-  $signal = '';
-  $msg = '';
-  $li = '';
-  $class = '';
-  $msg_txt = '';
-  $password = $_POST['password'];
-  $passwordConf = $_POST['passwordConf'];
+  $response = [
+    'signal' => '',
+    'msg' => '',
+    'li' => '',
+    'class' => '',
+    'msg_txt' => ''
+  ];
 
-  // validation
+  $password = trim($_POST['password'] ?? '');
+  $passwordConf = trim($_POST['passwordConf'] ?? '');
+
+  // Validation: Empty Fields
   if (empty($password) || empty($passwordConf)) {
     local_testing_delay($x);
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">Enter new password in both fields.</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">Enter new password in both fields.</li>';
+    $response['class'] = 'red';
   }
 
-  if ((!empty($password) && !empty($passwordConf)) && $password !== $passwordConf) {
+  // Validation: Mismatched Passwords
+  if (!empty($password) && !empty($passwordConf) && $password !== $passwordConf) {
     local_testing_delay($x);
-    $signal = 'bad';
-    $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-    $li .= '<li class="no-count">Passwords do not match.</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+    $response['li'] .= '<li class="no-count">Passwords do not match.</li>';
+    $response['class'] = 'red';
   }
 
-   if ($li === '') {
+  // If all validations passed...
+  if (empty($response['li'])) {
+    try {
+      $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+      $email = $_SESSION['email'] ?? '';
 
-    $password = password_hash($password, PASSWORD_DEFAULT);
-    $email = $_SESSION['email'];
+      if (empty($email)) {
+        throw new Exception('Session email is missing.');
+      }
 
-    $sql = "UPDATE users SET password='$password' WHERE email='$email'";
-    $result = mysqli_query($conn, $sql);
+      $stmt = $pdo_db->prepare("
+        UPDATE users
+        SET password = :password
+        WHERE email = :email
+        LIMIT 1
+      ");
 
-    if ($result) {
-      unset($_SESSION['pr']);
+      $stmt->execute([
+        'password' => $hashedPassword,
+        'email' => $email
+      ]);
 
-      $signal = 'ok';
-    } else {
+      if ($stmt->rowCount() === 1) {
+        unset($_SESSION['pr']); // clear password reset token/session flag
+        $response['signal'] = 'ok';
+      } else {
+        throw new Exception('Password update failed or no matching user.');
+      }
 
-      $signal = 'bad';
-      $msg = '<span class="login-txt"><img src="_images/try-again.png"></span>';
-      $li .= '<li class="no-count">Something did not go right.</li>';
-      $class = 'red';
+    } catch (Exception $e) {
+      $response['signal'] = 'bad';
+      $response['msg'] = '<span class="login-txt"><img src="_images/try-again.png"></span>';
+      $response['li'] .= '<li class="no-count">Something did not go right.</li>';
+      $response['class'] = 'red';
 
+      // Optional: log error $e->getMessage()
     }
-
   }
-  $data = array(
-    'signal' => $signal,
-    'msg' => $msg,
-    'li' => $li,
-    'class' => $class,
-    'msg_txt' => $msg_txt
-  );
-  echo json_encode($data);
 
+  echo json_encode($response);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /*  link handler
@@ -783,10 +808,16 @@ if (isset($_POST['deletebookmark'])) {
 
 /* new_project.php - create a new project .createnewproject */ 
 if (isset($_POST['create-new-project'])) {
-  $signal = '';
-  $li = '';
-  $class = '';
 
+  global $pdo_db;
+
+  // Initialize response
+  $response = [
+    'signal' => '',
+    'li' => '',
+    'class' => ''
+  ];
+  
   $user_id = $_SESSION['id'];
   $row = [];
   $row['project_name']  = trim($_POST['project_name'] ?? '');
@@ -798,73 +829,70 @@ if (isset($_POST['create-new-project'])) {
 
   // validation
   if (empty($row['project_name'])) {
-    $signal = 'bad';
-    $li .= '<li class="no-count">Cannot leave Project Name empty.</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['li'] .= '<li class="no-count">Cannot leave Project Name empty.</li>';
+    $response['class'] = 'red';
   }
 
   if (has_length_greater_than($row['project_notes'], 1500)) {
-    $signal = 'bad';
-    $li .= '<li class="no-count">Contain the beast! Project notes cannot exceed 1,500 characters.</li>';
-    $class = 'red';
+    $response['signal'] = 'bad';
+    $response['li'] .= '<li class="no-count">Contain the beast! Project notes cannot exceed 1,500 characters.</li>';
+    $response['class'] = 'red';
   }
 
-  if ($li === '') {
-    $db = Database::getInstance()->getConnection(); /* this is the first place I re-defined $db when starting my PDO refactoring. just making a note of it because it's kind of a big deal. ...it's the very first. like a newborn baby. can you see the sun peaking up over the horizon? can you hear the voices of a thousand angels erupting into perfect harmony? :) */
-
+  if ($response['li'] === '') {
     try {
       // Start a transaction
-      $db->beginTransaction();
+      $pdo_db->beginTransaction();
 
       // 1. Insert new project
-      $stmt1 = $db->prepare("
+      $stmt1 = $pdo_db->prepare("
         INSERT INTO projects (project_name, project_notes)
         VALUES (:project_name, :project_notes)
       ");
       $stmt1->execute([
-        'project_name' => $row['project_name'],
-        'project_notes' => $row['project_notes']
+        ':project_name' => $row['project_name'],
+        ':project_notes' => $row['project_notes']
       ]);
 
-      // Get the ID of the newly created project
-      $new_id = $db->lastInsertId();
+      $new_id = $pdo_db->lastInsertId();
 
-      // 2. Insert into project_user
-      $stmt2 = $db->prepare("
+      // 2. Link user to project
+      $stmt2 = $pdo_db->prepare("
         INSERT INTO project_user (owner_id, share, edit, project_id)
         VALUES (:owner_id, :share, :edit, :project_id)
       ");
       $stmt2->execute([
-        'owner_id' => $user_id,
-        'share' => $row['share'],
-        'edit' => $row['edit'],
-        'project_id' => $new_id
+        ':owner_id' => $user_id,
+        ':share' => $row['share'],
+        ':edit' => $row['edit'],
+        ':project_id' => $new_id
       ]);
 
-      // 3. Update user’s current project
+      // 3. Update session and user record
       update_users_current_project($new_id, $user_id);
 
       // 4. Commit transaction
-      $db->commit();
+      $pdo_db->commit();
 
-      // 5. Session cleanup and signal
-      unset($_SESSION['first-project'], $_SESSION['no-projects'], $_SESSION['cancel-option'], $_SESSION['go-to-my_projects']);
+      unset(
+        $_SESSION['first-project'],
+        $_SESSION['no-projects'],
+        $_SESSION['cancel-option'],
+        $_SESSION['go-to-my_projects']
+      );
       $_SESSION['current_project'] = $new_id;
-      $signal = 'ok';
+      $response['signal'] = 'ok';
 
     } catch (PDOException $e) {
-      $db->rollBack();
-      $signal = 'bad';
-      $li .= '<li class="no-count">Database error: ' . $e->getMessage() . '</li>';
-      $class = 'red';
+      $pdo_db->rollBack();
+      $response['signal'] = 'bad';
+      $response['li'] .= '<li class="no-count">Database error: ' . $e->getMessage() . '</li>';
+      $response['class'] = 'red';
     }
   }
 
-  echo json_encode([
-    'signal' => $signal,
-    'li' => $li,
-    'class' => $class
-  ]);
+  echo json_encode($response);
 }
 
 
