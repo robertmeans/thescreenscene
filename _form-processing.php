@@ -913,41 +913,65 @@ if (isset($_POST['create-new-project'])) {
 
 
 /* add new note */
-if (isset($_POST['new_or_update_a_note'])) { 
+if (isset($_POST['new_or_update_a_note'])) {
 
-  $user_id = $_SESSION['id'];
-  $current_project = $_SESSION['current_project'];
+  $user_id = $_SESSION['id'] ?? null;
+  $current_project = $_SESSION['current_project'] ?? null;
 
-  $sort           = $_POST['sort']  ?? '' ;
-  $cp             = $_POST['cp']  ?? '' ;
-  $uid            = $user_id ?? '' ;
-  $name           = $_POST['name']  ?? '' ;
-  $urly           = $_POST['urly']  ?? '' ;
-  $note           = $_POST['note']  ?? '' ;
-  $clipboard      = $_POST['clipboard'] ?? '' ;
-  $truncate       = $_POST['truncate']  ?? '' ;
-  
-  global $db;
+  // Defensive extraction from $_POST
+  $sort       = $_POST['sort'] ?? '';
+  $cp         = $_POST['cp'] ?? '';
+  $name       = $_POST['name'] ?? '';
+  $urly       = $_POST['urly'] ?? '';
+  $note       = $_POST['note'] ?? '';
+  $clipboard  = $_POST['clipboard'] ?? '';
+  $truncate   = $_POST['truncate'] ?? '';
 
-  $sql = "INSERT INTO notes ";
-  $sql .= "(user_id, project_id, name, url, note, sort, clipboard, truncate) ";
-  $sql .= "VALUES ("; 
-  $sql .= "'" . $uid . "', ";
-  $sql .= "'" . $cp    . "', ";
-  $sql .= "'" . db_escape($db, $name)    . "', ";
-  $sql .= "'" . db_escape($db, $urly)    . "', ";
-  $sql .= "'" . db_escape($db, $note)    . "', ";
-  $sql .= "'" . db_escape($db, $sort)    . "', ";
-  $sql .= "'" . $clipboard    . "', ";
-  $sql .= "'" . $truncate    . "'";
-  $sql .= ")";
+  global $pdo_db;
 
-  $result = mysqli_query($db, $sql);
+  try {
+    $sql = "INSERT INTO notes (
+              user_id,
+              project_id,
+              name,
+              url,
+              note,
+              sort,
+              clipboard,
+              truncate
+            ) VALUES (
+              :uid,
+              :cp,
+              :name,
+              :url,
+              :note,
+              :sort,
+              :clipboard,
+              :truncate
+            )";
 
-  if ($result) { 
-    echo 'data updated';
-  } 
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      'uid'        => $user_id,
+      'cp'         => $cp,
+      'name'       => $name,
+      'url'        => $urly,
+      'note'       => $note,
+      'sort'       => $sort,
+      'clipboard'  => $clipboard,
+      'truncate'   => $truncate
+    ]);
+
+    if ($success) {
+      echo 'data updated';
+    }
+
+  } catch (PDOException $e) {
+    error_log("Failed to insert note: " . $e->getMessage());
+    // Optionally: echo 'error';
+  }
 }
+
 
   
 if (isset($_POST['delete_a_note'])) {
@@ -973,33 +997,48 @@ if (isset($_POST['delete_a_note'])) {
 
 if (isset($_POST['modify_a_note'])) {
 
-  $user_id = $_SESSION['id'];
-  $current_project = $_SESSION['current_project'];
+  $user_id = $_SESSION['id'] ?? null;
+  $current_project = $_SESSION['current_project'] ?? null;
 
-  $name           = $_POST['name']  ?? ''  ;
-  $urly           = $_POST['urly']  ?? ''  ;
-  $note           = $_POST['note']  ?? ''  ;
-  $clipboard      = $_POST['clipboard']  ?? ''  ;
-  $truncate      = $_POST['truncate']  ?? ''  ;
-  $nid            = $_POST['nid']   ?? ''  ;
-  
-  global $db;
+  $name       = $_POST['name'] ?? '';
+  $urly       = $_POST['urly'] ?? '';
+  $note       = $_POST['note'] ?? '';
+  $clipboard  = $_POST['clipboard'] ?? '';
+  $truncate   = $_POST['truncate'] ?? '';
+  $nid        = $_POST['nid'] ?? '';
 
-  $sql = "UPDATE notes SET ";
-  $sql .= "name='" . db_escape($db, h($name))    . "', ";
-  $sql .= "url='" . db_escape($db, $urly)    . "', ";
-  $sql .= "note='" . db_escape($db, h($note))    . "', ";
-  $sql .= "clipboard='" . $clipboard    . "', ";
-  $sql .= "truncate='" . $truncate    . "' ";
-  $sql .= "WHERE note_id='"  . $nid . "' ";
-  $sql .= "LIMIT 1";
+  global $pdo_db;
 
-  $result = mysqli_query($db, $sql);
+  try {
+    $sql = "UPDATE notes SET
+              name = :name,
+              url = :url,
+              note = :note,
+              clipboard = :clipboard,
+              truncate = :truncate
+            WHERE note_id = :nid
+            LIMIT 1";
 
-  if ($result) { 
-    echo 'data updated';
-  } 
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      'name'      => $name,
+      'url'       => $urly,
+      'note'      => $note,
+      'clipboard' => $clipboard,
+      'truncate'  => $truncate,
+      'nid'       => $nid
+    ]);
+
+    if ($success) {
+      echo 'data updated';
+    }
+
+  } catch (PDOException $e) {
+    error_log("Note update failed: " . $e->getMessage());
+    // Optionally: echo 'error';
+  }
 }
+
 
 
 
