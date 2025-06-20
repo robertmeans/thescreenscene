@@ -35,8 +35,12 @@ function OnSubmitFormSwap() {
   }
   return true;
 }
-
-
+/* put focus in field if selection is made on this bar */
+$(document).ready(function() {
+  $(".chk-ref").click(function() {
+    $("#sr_04").focus();
+  })
+});
 
 
 
@@ -102,6 +106,7 @@ function submitGoogle() {
 $(document).ready(function() {
   $(".gchk").change(function() {
       $(".gchk").not(this).prop('checked', false);
+      $("#sr_01").focus();
   });
 });
 // end google search
