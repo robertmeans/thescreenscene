@@ -7,6 +7,18 @@
 .tabs {
 	margin: 1em 0 0.5em;
 }
+
+
+
+
+
+
+
+
+
+
+
+
 #google, 
 #url, 
 #bingorai #ai,
@@ -154,49 +166,124 @@
 
 
 
+
+
+
+
+
+
+
 #bingorai {
+  position: relative;
+  // height: 2.864em;
+  height: 43px;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+/* Make switcharoo stay in place */
+#bingorai .switcharoo {
+  position: relative;
+  z-index: 10;
+  // padding-right: 1em; /* space for the icon if needed */
+}
+
+/* Common layout for searches content panels */
+#bingorai .searches {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
-  #bing { 
-    p {
-      width: 12%; 
-    }
-    .srs {
-      width: 51.8%;
-    }
-    .bchk {
-      height: 100%;
-    }
-    .go {
-      margin-right: 8.3%;
-    }
-  }
+}
+
+/* Only .therest slides */
+#bingorai .therest {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  transition: transform .6s ease, opacity .5s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Active */
+#bingorai .visible .therest {
+  height: 100%;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(0);
+  z-index: 1;
 }
 
 
+
+
+
+
+
+/* Entering */
+.slide-in-right .therest {
+  transform: translateX(100%);
+  opacity: 1;
+}
+
+/* Exiting */
+.slide-out-left .therest {
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+/* Reset position (centered and visible) */
+.reset-slide .therest {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.switcharoo {
+  width: 30px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s ease;
+  &:hover {
+    background-color: rgba(61,87,28,1);
+  }
+  i {
+    // transform: rotate(90deg);
+    color: #fff;
+    font-size: 1em;
+  }
+  &.cgpt {
+    border-top-left-radius: 8px;
+  }
+}
+#bingorai.bgrow .switcharoo:hover {
+  background-color: rgba(61,87,28,0.5);
+}
 
 #ai,
 #bing {
   display: flex;
   justify-content: center;
-  .switcharoo {
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    &:hover {
-      background-color: rgba(61,87,28,1);
-    }
-    i {
-      transform: rotate(90deg);
-      color: #fff;
-      font-size: 1em;
-    }
-    &.cgpt {
-      border-top-left-radius: 8px;
-    }
-  }
+
   .therest {
     display: flex;
     justify-content: center;
@@ -252,6 +339,15 @@
   }
 
 }
+
+
+// #bing { 
+//   display: none; 
+// }
+
+
+
+
 @keyframes fadeInOpacity {
   0% { opacity: 0; }
   100% { opacity: 1; }
@@ -377,6 +473,16 @@
 		flex-direction: column;
 	}
 
+  #bingorai {
+    height: 3.25em;
+    &.bgrow {
+      height: 173px;
+    }
+  }
+  // #bingorai.bgrow {
+  //   height: 173px;
+  // }
+
 }
 
 ul#top-search li:first-child {
@@ -441,4 +547,11 @@ li.reference {
 li.youtube {
 	background-color: rgba(122,0,0,1);
 }
+
+
+
+
+
+
+
 

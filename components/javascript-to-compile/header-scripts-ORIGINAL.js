@@ -67,46 +67,23 @@ $(document).ready(function() {
 
 
 // begin bing/AI switcharoo
-$(document).ready(function () {
-  // Initial state: show #ai, hide #bing
-  $('#bing').removeClass('visible');
-  $('#ai').addClass('visible reset-slide');
-
-  $(document).on('click', '.switcharoo', function () {
-    var $current, $next;
-
-    if ($('#ai').hasClass('visible')) {
-      $current = $('#ai');
-      $next = $('#bing');
-      $('#bingorai').addClass('bgrow');
+$(document).ready(function() {
+  $(document).on('click','.switcharoo',function() {
+    if ($('[data-role=curves').hasClass('cgpt')) {
+      var curvetl = 'cgpt';
+      var curvetr = 'perpr';
     } else {
-      $current = $('#bing');
-      $next = $('#ai');
-      $('#bingorai').removeClass('bgrow');
+      var curvetl = '';
+      var curvetr = '';
     }
 
-    // Prepare next view to enter from right
-    $next
-      .removeClass('visible slide-out-left reset-slide')
-      .addClass('slide-in-right');
-
-    // Slide current out to left
-    $current
-      .removeClass('reset-slide')
-      .addClass('slide-out-left')
-      .removeClass('visible');
-
-    // Slight delay to let browser render "slide-in-right" before centering
-    setTimeout(function () {
-      $next
-        .removeClass('slide-in-right')
-        .addClass('reset-slide visible');
-    }, 20);
-  });
-
-  // Focus input when any checkbox is clicked
-  $(document).on('click', '.bchk', function () {
-    $('#sr_03').focus();
+    if ($('#bingorai').hasClass('isai')) {
+      $('#bingorai').removeClass('isai');
+      $('#bingorai').html('<div id="bing" class="searches"><div data-role="curves" class="switcharoo '+curvetl+'"><i class="fas fa-exchange-alt"></i></div><div class="therest borai-fade-in"><form name="bing" method="get" onSubmit="return submitBing();" target="_blank"><p>Bing</p><div class="srs"><input type="text" id="sr_03" name="q" value=""> <a data-role="srcr" data-id="sr_03"><i class="fas fa-backspace"></i></a><a data-role="srcb" data-id="sr_03" class="srcb static"><i class="far fa-copy fa-fw"></i></a></div><input type="hidden" id="h_sr_03"><div class="check-group"><div class="chk-img"><input class="bchk" type="checkbox" id="bingImages" name="bchk"><label class="bchk-label">Images</label></div><div class="chk-map"><input class="bchk" type="checkbox" id="bingMaps" name="bchk"><label class="bchk-label">Maps</label></div></div><!-- .check-group --><div class="go"><a class="go-a static" onclick="$(this).closest(\'form\').submit()">Go</a></div></form></div><!-- end Bing -->');
+    } else {
+      $('#bingorai').addClass('isai');
+      $('#bingorai').html('<div id="ai" class="searches"><div data-role="curves" class="switcharoo '+curvetl+'"><i class="fas fa-exchange-alt"></i></div><div class="therest borai-fade-in"><div class="perai ch"><a href="https://chatgpt.com/" target="_blank"><img src="_images/chatgpt-logo-white.webp"><span class="mg">ChatGPT</span></a></div><div class="perai ge"><a href="https://gemini.google.com/" target="_blank"><img src="_images/gemini-logo-color.webp"><span class="mg">Gemini</span></a></div><div class="perai gr"><a href="https://grok.com/" target="_blank"><img src="_images/grok-logo-white.webp"><span class="mg">Grok</span></a></div><div class="perai pe"><a class="'+curvetr+'" href="https://perplexity.ai/" target="_blank"><img src="_images/perplexity-logo-white.webp"><span class="mg">Perplexity</span></a></div></div></div><!-- end AI -->');
+    }
   });
 });
 // end bing/AI switcharoo
