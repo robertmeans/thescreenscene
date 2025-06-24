@@ -5,11 +5,29 @@ function clearForms() {
     document.forms[i].reset();
   }
 }
+
+// $(document).ready(function() {
+//   $(document).on('click','.topchk',function() {
+//     if (!$('.refchk-label.btmchk').hasClass('on')) {
+//       $('.refchk-label.btmchk').addClass('on');
+//     } else {
+//       $('.refchk-label.btmchk').removeClass('on');
+//     }
+    
+//   });
+// });
+$(document).ready(function() {
+  $(document).on('click','.topchk',function() {
+    $('.refchk-label.btmchk').toggleClass('on');
+  });
+});
+
+
 // decide where to send for dictionary or thesaurus search  
 // when Thesaurus is primary search and Dictionary holds the radio button
 // OnSubmitForm() - if Thesaurus is primary but Dictionary is checked
 function OnSubmitForm() {
-  if(document.reference.dictionary.checked == true) 
+  if(document.reference.dictionary.checked == true || document.reference.dictionaryerase.checked == true) 
   {
     document.reference.action ="https://dictionary.com/browse/" + document.getElementById('sr_04').value;
     // used to be (below). not sure why the empty quotes at end...?
@@ -25,7 +43,7 @@ function OnSubmitForm() {
 // when Dictionary is primary search and Thesaurus holds the radio button
 // OnSubmitFormSwap() - if Dictionary is primary but Thesaurus is checked
 function OnSubmitFormSwap() {
-  if(document.reference.thesaurus.checked == true) 
+  if(document.reference.thesaurus.checked == true || document.reference.thesauruserase.checked == true) 
   {
     document.reference.action ="https://www.thesaurus.com/browse/" + document.getElementById('sr_04').value;
     // document.reference.action ="http://www.thesaurus.com/browse/" + document.getElementById('q').value + "";

@@ -8,10 +8,14 @@
     <input type="hidden" id="h_sr_04">
     
     <div class="check-group">
-    	<div class="chk-ref">
-		    <input class="refchk" type="checkbox" name="thesaurus" id="thesaurus">
-		    <label for="thesaurus" class="refchk-label">Thesaurus</label>
+    	<div class="chk-ref refbkc">
+		    <input class="refchk topchk" type="checkbox" name="thesauruserase">
+		    <label for="thesaurus" class="refchk-label erase"><i class="fas fa-eraser"></i></label>
 	    </div>
+      <div class="chk-ref refcg">
+        <input class="refchk" type="checkbox" name="thesaurus">
+        <label for="thesaurus" class="refchk-label btmchk">Thesaurus</label>
+      </div>
     </div><!-- .check-group -->
 
     <div class="go"><a class="go-a static" onclick="$(this).closest('form').submit()">Go</a></div>

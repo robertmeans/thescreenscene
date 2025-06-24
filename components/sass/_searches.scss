@@ -69,24 +69,55 @@
 		&:hover {
 			background-color: rgba(255,255,255,0.3);
 		}
+
+
+
+
+
+    &.refbkc {
+      width: 30%;
+      &:hover {
+        background-color: rgba(0,0,0,0.3);
+      }
+      &:hover + .refcg {
+        background-color: rgba(255,255,255,0.3);
+      }
+    }
+    &.refcg {
+      width: 70%;
+    }
+
+
+
+
+
 	}
 	.chk-yt:hover {
 		background-color: inherit;
 	}
-	.chk-ref {
-	}
 	.gchk:checked + .gchk-label,
 	.bchk:checked + .bchk-label,
-	.refchk:checked + .refchk-label,
-	 {
+	.refchk:checked + .refchk-label{
 		background-color: rgba(255,255,255,0.3);
-	}	
+	}
+  
 	label {
 		cursor: pointer;
 		display: flex;
 		width: 100%;
 		justify-content: center;
 		align-items: center;
+    &.erase {
+      // justify-content: flex-end;
+      // padding-right: 10px;
+    }
+    &.title {
+      justify-content: flex-start;
+      padding-left: 10px;
+    }
+    &.btmchk.on {
+      background-color: rgba(255,255,255,0.3);
+    }
 	}
 	.gchk,
 	.bchk,
