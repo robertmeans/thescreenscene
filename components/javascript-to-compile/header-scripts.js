@@ -5,6 +5,100 @@ function clearForms() {
     document.forms[i].reset();
   }
 }
+
+
+// $(document).ready(function() {
+//   $(document).on('click','.chkreftog',function() {
+//     // var $checkbox = $(this).closest('.eraselabel').find('.refchkbox');
+
+//     $('.chk-ref.chkreftog').toggleClass('selected');
+//     $('.refchkbox').prop('checked', !('.refchkbox').prop('checked'));
+//   });
+// });
+
+
+
+// $(document).ready(function() {
+//   $('.chkreftog').on('click', function() {
+//     // Toggle `.selected` on all matching divs
+//     $("#sr_04").focus();
+//     $('.chk-ref.chkreftog').toggleClass('selected');
+
+//     // Toggle the checkbox state
+//     $('.refchkbox').prop('checked', function(i, val) {
+//       return !val;
+//     }).trigger('change');
+//   });
+// });
+
+
+
+// $(document).ready(function() {
+//   $('.chkreftog').on('click', function() {
+//     // Get current state of the checkbox
+//     const isChecked = $('.refchkbox').prop('checked');
+
+//     // Invert it
+//     const newState = !isChecked;
+
+//     $("#sr_04").focus();
+//     // Apply the new state to the checkbox
+//     $('.refchkbox').prop('checked', newState).trigger('change');
+
+//     // Apply the new state visually
+//     $('.chk-ref.chkreftog').toggleClass('selected', newState);
+//   });
+// });
+
+
+$(document).ready(function () {
+  $('.chkreftog').on('click', function () {
+    const action = $(this).data('action');       // 'clear' or 'label'
+    const $input = $('#sr_04');
+    const $checkbox = $('.refchkbox');
+
+    // If clear action, wipe input value
+    if (action === 'clear') {
+      $input.val('');
+    }
+
+    // Always focus input
+    $input.focus();
+
+    // If action is 'label', move cursor to end
+    if (action === 'label') {
+      const val = $input.val();
+      $input[0].setSelectionRange(val.length, val.length);
+    }
+
+    // Toggle checkbox state
+    const newChecked = !$checkbox.prop('checked');
+    $checkbox.prop('checked', newChecked).trigger('change');
+
+    // Sync visual state on both toggles
+    $('.chkreftog').toggleClass('selected', newChecked);
+  });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // decide where to send for dictionary or thesaurus search  
 // when Thesaurus is primary search and Dictionary holds the radio button
 // OnSubmitForm() - if Thesaurus is primary but Dictionary is checked
@@ -36,11 +130,11 @@ function OnSubmitFormSwap() {
   return true;
 }
 /* put focus in field if selection is made on this bar */
-$(document).ready(function() {
-  $(".chk-ref").click(function() {
-    $("#sr_04").focus();
-  })
-});
+// $(document).ready(function() {
+//   $(".chk-ref").click(function() {
+//     $("#sr_04").focus();
+//   })
+// });
 
 
 

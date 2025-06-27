@@ -62,6 +62,7 @@
 		flex-grow: 1;
 		position: relative;
 		justify-content: center;
+    // align-items: center;
 		width: 50%;
 		height: 100%;
 		color: #fff;
@@ -70,6 +71,19 @@
 			background-color: rgba(255,255,255,0.3);
 		}
 	}
+  .chk-ref.eraselabel {
+    align-items: center;
+  }
+  .chk-ref.eraserref {
+    width: 1em;
+    align-items: center;
+  }
+  .refchkbox {
+    display: none;
+  }
+  // .chk-ref.eraselabel {
+    // flex: 1; 
+  // }
 	.chk-yt:hover {
 		background-color: inherit;
 	}
@@ -77,7 +91,7 @@
 	}
 	.gchk:checked + .gchk-label,
 	.bchk:checked + .bchk-label,
-	.refchk:checked + .refchk-label,
+  .chk-ref.selected
 	 {
 		background-color: rgba(255,255,255,0.3);
 	}	
