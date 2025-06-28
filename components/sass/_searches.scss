@@ -429,12 +429,13 @@
   }	
 }
 @media screen and (max-width: 650px) {
-	#google, 
-	#url, 
-  #bingorai #ai,
-  #bingorai #bing, 
-	#reference, 
-	#youtube {
+	// #google, 
+	// #url, 
+  #bingorai #ai
+  // #bingorai #bing, 
+	// #reference, 
+	// #youtube 
+  {
 		form {
 			flex-direction: column;
 		}
@@ -448,7 +449,7 @@
 			width: 90%;
 		}
 		input[type=text] {
-			font-size: 1.5em;
+			// font-size: 1.5em;
 			margin: 0 0 3px 0;
 		}
 		i.fa-backspace {
@@ -477,6 +478,43 @@
 		}
 	}
 
+
+  #google,
+  #url,
+  #reference,
+  #bingorai #bing,
+  #youtube {
+    form {
+      flex-wrap: wrap;
+      p {
+        width: 22%;
+      }
+      .srs {
+        width: 75%;
+        margin-left: 5px;
+      }
+      .check-group {
+        height: auto;
+      }      
+    }
+  }
+  #bingorai {
+    .visible {
+      .therest {
+        height: auto;
+      }
+    }
+  }
+
+
+
+
+
+
+
+
+
+
 	ul#sortablesearch #google,
 	ul#sortablesearch #url,
 	ul#sortablesearch #bingorai #ai,
@@ -490,7 +528,7 @@
   #bingorai {
     height: 3.25em;
     &.bgrow {
-      height: 173px;
+      height: 90px;
     }
   }
   // #bingorai.bgrow {

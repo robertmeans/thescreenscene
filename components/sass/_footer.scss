@@ -278,8 +278,9 @@ footer {
     width: 90%;
     text-align: right;
     // line-height: 8em;
-    margin-top: 6em;
-    margin-bottom: 4em;
+    // margin-top: 6em;
+    // margin-bottom: 4em;
+    margin: 6em auto 4em;
     font-size: 12px;
     color: #808080;
     a.eb {
@@ -338,10 +339,11 @@ footer {
 
 @media screen and (max-width: 430px) {
   footer {
-    // #email-bob {
-    //   width: 80%;
-    //   max-width: 80%;
-    // }
+    #email-bob {
+      width: 96%;
+      max-width: 400px;
+      margin: 0 auto;
+    }
     form#contactForm {
       width: 96%;
       max-width: 96%;

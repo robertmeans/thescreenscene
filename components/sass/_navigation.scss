@@ -268,3 +268,15 @@ nav ul li {
 		border: 1px solid #fff;	
 	}
 }
+
+@media screen and (max-width: 650px) {
+  // nav {
+  //   display: none;
+  // }
+  nav ul li a {
+    i.far,
+    i.fas {
+      display: none;
+    }
+  }
+}

@@ -185,24 +185,27 @@ ul.inner-nav {
 
 @media screen and (max-width: 650px) {
 	ul.tab-links {
-		justify-content: space-around;
-		width: 100%;
+		// justify-content: space-around;
+		// width: 100%;
+    margin: 0 0.5em;
 		input {
-			padding: 1em 1.5em;
+			// padding: 1em 1.5em;
+      padding: 5px 10px;
 		}
 		li {
-			margin: 0;
-			width: 30%;
+			margin: 0 10px 0 0;
+			// width: 30%;
 			display: flex;
 			justify-content: center;
 		}
 	}
 	ul.inner-nav {
 		flex-wrap: wrap;
-		justify-content: space-around;
-		margin: 0;
+		// justify-content: space-around;
+		margin: 0.5em;
 		li {
-			padding: 1em 1em 0.6em;
+			// padding: 1em 1em 0.6em;
+      padding: 0.25em 0em;
 			.project-name {
 				padding: 8px 0px;
 			}
