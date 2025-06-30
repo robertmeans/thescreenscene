@@ -7,50 +7,6 @@ function clearForms() {
 }
 
 
-// $(document).ready(function() {
-//   $(document).on('click','.chkreftog',function() {
-//     // var $checkbox = $(this).closest('.eraselabel').find('.refchkbox');
-
-//     $('.chk-ref.chkreftog').toggleClass('selected');
-//     $('.refchkbox').prop('checked', !('.refchkbox').prop('checked'));
-//   });
-// });
-
-
-
-// $(document).ready(function() {
-//   $('.chkreftog').on('click', function() {
-//     // Toggle `.selected` on all matching divs
-//     $("#sr_04").focus();
-//     $('.chk-ref.chkreftog').toggleClass('selected');
-
-//     // Toggle the checkbox state
-//     $('.refchkbox').prop('checked', function(i, val) {
-//       return !val;
-//     }).trigger('change');
-//   });
-// });
-
-
-
-// $(document).ready(function() {
-//   $('.chkreftog').on('click', function() {
-//     // Get current state of the checkbox
-//     const isChecked = $('.refchkbox').prop('checked');
-
-//     // Invert it
-//     const newState = !isChecked;
-
-//     $("#sr_04").focus();
-//     // Apply the new state to the checkbox
-//     $('.refchkbox').prop('checked', newState).trigger('change');
-
-//     // Apply the new state visually
-//     $('.chk-ref.chkreftog').toggleClass('selected', newState);
-//   });
-// });
-
-
 $(document).ready(function () {
   $('.chkreftog').on('click', function () {
     const action = $(this).data('action');       // 'clear' or 'label'
@@ -79,25 +35,6 @@ $(document).ready(function () {
     $('.chkreftog').toggleClass('selected', newChecked);
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // decide where to send for dictionary or thesaurus search  
 // when Thesaurus is primary search and Dictionary holds the radio button
@@ -135,8 +72,6 @@ function OnSubmitFormSwap() {
 //     $("#sr_04").focus();
 //   })
 // });
-
-
 
 
 // begin bing search
@@ -229,19 +164,51 @@ $(document).ready(function() {
 // end google search
 
 // begin YouTube search
-function submitYouTube() {
-  var ytinput = document.getElementById("sr_05").value;
-  var ytstring = ytinput.trim();
-  if (ytstring !== '') {
-    $('#sr_05').val(ytstring);
-    // event.preventDefault(); // Prevent default anchor behavior
-    document.youtube.action ="https://www.youtube.com/results";
-  }  else {
-    // event.preventDefault(); // Prevent default anchor behavior
-    window.open("https://www.youtube.com", "_blank");
+// function submitYouTube() {
+//   var ytinput = document.getElementById("sr_05").value;
+//   var ytstring = ytinput.trim();
+//   if (ytstring !== '') {
+//     $('#sr_05').val(ytstring);
+//     // event.preventDefault(); // Prevent default anchor behavior
+//     document.youtube.action ="https://www.youtube.com/results";
+//   }  else {
+//     // event.preventDefault(); // Prevent default anchor behavior
+//     window.open("https://www.youtube.com", "_blank");
+//   }
+//   return true;
+// }
+
+$(document).ready(function () {
+  function handleYouTubeSubmit(e) {
+    e.preventDefault(); // Block default browser form submission
+
+    const ytVal = $('#sr_05').val().trim();
+    const $form = $('#youtube-form');
+
+    if (ytVal !== '') {
+      $('#sr_05').val(ytVal);
+      $form.attr('action', 'https://www.youtube.com/results');
+      $form[0].submit(); // Submit programmatically
+    } else {
+      window.open("https://www.youtube.com", "_blank");
+    }
+
+    return false;
   }
-  return true;
-}
+
+  // Handle button click
+  $('#yt-go').on('click', handleYouTubeSubmit);
+
+  // Handle Enter key in input field
+  $('#sr_05').on('keypress', function (e) {
+    if (e.which === 13) { // 13 = Enter
+      handleYouTubeSubmit(e);
+    }
+  });
+
+  // Optional: handle Enter key if someone presses it anywhere inside the form
+  $('#youtube-form').on('submit', handleYouTubeSubmit);
+});
 
 
 // document.addEventListener("DOMContentLoaded", function () {

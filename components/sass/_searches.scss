@@ -53,6 +53,13 @@
 		justify-content: center;
 		height: 100%;
 		margin: 0 1em;
+
+
+  .eraserref:hover + .subhov {
+    background-color: rgba(255,255,255,0.2);
+  }
+
+    
 	}	
 	.chk-img,
 	.chk-map,
@@ -62,6 +69,7 @@
 		flex-grow: 1;
 		position: relative;
 		justify-content: center;
+    cursor: pointer;
     // align-items: center;
 		width: 50%;
 		height: 100%;
@@ -78,6 +86,7 @@
     width: 1em;
     align-items: center;
   }
+
   .refchkbox {
     display: none;
   }

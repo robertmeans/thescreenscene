@@ -1,7 +1,3 @@
-<!--
-let's start over. below is all the code in hopes this will make more sense. what I am trying to accomplish is when someone clicks on the div with class 'eraserref' it will clear contents of the input '#sr_04', put the cursor in that field, toggle 'checked' on input '.refchkbox', and toggle class 'selected' to both divs with class 'chkreftog'. if someone clicks the div with class 'eraselabel' it will do all the above except clear contents of the input '#sr_04' field. it will just put the cursor at the end of any contents that might already be in the 'sr_04' field.
--->
-
 <div id="reference" class="searches mid">
   <form name="reference" method="get" onSubmit="return OnSubmitForm();" target="_blank">
     <p>Thesaurus</p>
@@ -23,7 +19,7 @@ let's start over. below is all the code in hopes this will make more sense. what
       </div>
 
       <!-- Checkbox and Label -->
-      <div class="chk-ref chkreftog" data-action="label">
+      <div class="chk-ref chkreftog subhov" data-action="label">
         <label>
           <input type="checkbox" class="refchkbox" id="dictionary" name="dictionary" />
           Dictionary

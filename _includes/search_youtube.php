@@ -1,5 +1,5 @@
 <div id="youtube" class="searches bottom">
-<form name="youtube" method="get" onSubmit="return submitYouTube();" target="_blank">
+<form name="youtube" method="get" target="_blank" id="youtube-form">
 
   <p>YouTube</p>
     <div class="srs">
@@ -11,6 +11,6 @@
     	<div class="chk-yt"></div>
     </div>
 
-    <div class="go"><a class="go-a static" onclick="$(this).closest('form').submit()">Go</a></div>
+    <div class="go"><a class="go-a static" href="/#" id="yt-go">Go</a></div>
 </form> 
 </div><!-- end YouTube -->
