@@ -176,46 +176,11 @@ $(document).ready(function() {
 // sort hyperlinks - start
 $(document).ready(function() {
   $( "#sortable" ).sortable({
-  update: function (event, ui) {
-    save_order();
-   }  
+	update: function (event, ui) {
+		save_order();
+	 }	
   });
 });
-
-/* below is what chatgpt wrote on 07.17.25 in hopes of swapping anchors instead of the linear shift. it resulted in waaay wonky behavior after the first swap - and then only on Chrome */
-/*
-var oldIndex = null;
-$(document).ready(function() {
-  $("#sortable").sortable({
-    start: function(event, ui) {
-      oldIndex = ui.item.index();
-    },
-    stop: function(event, ui) {
-      var newIndex = ui.item.index();
-
-      if (oldIndex !== newIndex) {
-        var $sortable = $("#sortable");
-        var $items = $sortable.children("li");
-        var $movedItem = $items.eq(newIndex);
-
-        if (oldIndex < newIndex) {
-          // Dragged down: insert after
-          $items.eq(oldIndex).insertAfter($movedItem);
-        } else {
-          // Dragged up: insert before
-          $items.eq(oldIndex).insertBefore($movedItem);
-        }
-
-        $sortable.sortable("cancel"); // prevents default shift behavior
-      }
-
-      save_order();
-    }
-  });
-});
-*/
-
-
 
 function save_order() {
 var reorder = new Array();

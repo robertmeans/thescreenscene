@@ -146,7 +146,7 @@ if ($layout_context != 'homepage') { ?>
   <li class="project-name">| <a name="tab4" class="project-link tabs tab-links show-notes"><div class="tooltip"><span class="tooltiptext">Project notes</span><input type="submit" id="yotab4" name="tab4" value="<?= $row['project_name']; ?>"></div></a></li>
 <?php } ?>
 
-<?php if ($layout_context != 'homepage' && $layout_context != "new_project") { ?>
+<?php if ($layout_context != 'homepage' && $layout_context != "new_project" && $layout_context != 'edit_order') { ?>
   <li class="project-name" style="cursor:default;">| <span style="margin-left:0.5em;cursor:default;"><?= $row['project_name']; ?></span></li> 
 <?php } 
 

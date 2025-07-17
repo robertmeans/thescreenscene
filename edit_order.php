@@ -40,6 +40,7 @@ $layout_context = "edit_order";
 <ul class="inner-nav">
   <?php require 'nav/inner_nav.php'; ?>
 </ul>
+<p class="oyo">Note: Buckle up! This feature is wonky AF! When you move a bookmark, every bookmark moves one space to the right. They don't swap places. I wish they did but you cannot imagine the complications that creates.</p>
 <?php show_session_variables(); ?>
 <ul id="sortable" class="order">
 
