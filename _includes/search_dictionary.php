@@ -24,6 +24,8 @@
 
 	    </div>
     </div><!-- .check-group -->
-    <div class="go"><a class="go-a static" onclick="$(this).closest('form').submit()">Go</a></div>
+    <div class="go ph">
+      <a class="go-a static" onclick="$(this).closest('form').submit()">Go</a> <a class="pha">ph</a>
+    </div>
 </form>
 </div><!-- #reference -->

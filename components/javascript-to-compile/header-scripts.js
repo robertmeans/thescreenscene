@@ -66,6 +66,14 @@ function OnSubmitFormSwap() {
   }
   return true;
 }
+$(document).ready(function() {
+  $(".pha").click(function() {
+    event.preventDefault();
+    var urlToOpen = "https://howtopronounce.com/" + document.getElementById('sr_04').value;
+    window.open(urlToOpen, '_blank');
+    // window.open(https://howtopronounce/ + document.getElementById('sr_04').value, '_blank');
+  })
+});
 /* put focus in field if selection is made on this bar */
 // $(document).ready(function() {
 //   $(".chk-ref").click(function() {

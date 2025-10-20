@@ -9,16 +9,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
 #google, 
 #url, 
 #bingorai #ai,
@@ -46,6 +36,23 @@
 		display: flex;
 		padding: 0.5em 0em 0.5em 0em;
 		margin-right: 8%;
+    &.ph {
+      margin-right: 0;
+      width: 102px;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 25px;
+      a.pha {
+        font-size: 0.8em;
+        color: rgba(255,255,255,0.5);
+        cursor: pointer;
+        text-decoration: none;
+        &:hover {
+          text-decoration: none;
+          color: rgba(255,255,255,1);
+        }
+      }
+    }
 	}
 	.check-group {
 		display: flex;
