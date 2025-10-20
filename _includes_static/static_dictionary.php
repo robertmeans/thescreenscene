@@ -14,7 +14,7 @@
     </div><!-- .check-group -->
 
     <div class="go ph">
-      <a class="go-a static" onclick="$(this).closest('form').submit()">Go</a> <a class="pha">ph</a>
+      <a class="go-a static" onclick="$(this).closest('form').submit()">Go</a> <a class="pha"><img src="_images/pronounce.webp"></a>
     </div>
 
 </div><!-- #reference -->
