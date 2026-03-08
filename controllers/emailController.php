@@ -14,9 +14,18 @@ function sendVerificationEmail($firstname, $lastname, $email, $token) {
 
   try {
 
-      mail_config();   
+      // turned off when moved to VeeroTech and replaced with what's below
+      // mail_config();   
 
-      $mail->setFrom('donotreply@browsergadget.com', 'BrowserGadget');
+      $mail->Host       = 'mail.browsergadget.com';                  // Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+      $mail->Username   = 'bob@browsergadget.com';            // SMTP username
+      $mail->Password   = 'gD42R6=7D7pI>xe';                  // SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit SSL encryption
+      $mail->Port       = 465; 
+
+
+      $mail->setFrom('bob@browsergadget.com', 'BrowserGadget');
       $mail->addAddress($email);     // Add a recipient
       $mail->addReplyTo('donotreply@browsergadget.com');
       // $mail->addCC('cc@example.com');
@@ -78,10 +87,18 @@ function sendPasswordResetLink($email, $token) {
 
   try {
       
-    mail_config(); 
+      // turned off when moved to VeeroTech and replaced with what's below
+      // mail_config();   
+
+      $mail->Host       = 'mail.browsergadget.com';                  // Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+      $mail->Username   = 'bob@browsergadget.com';            // SMTP username
+      $mail->Password   = 'gD42R6=7D7pI>xe';                  // SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit SSL encryption
+      $mail->Port       = 465;  
 
     //Recipients
-    $mail->setFrom('donotreply@browsergadget.com', 'BrowserGadget');
+    $mail->setFrom('bob@browsergadget.com', 'BrowserGadget');
     $mail->addAddress($email);     // Add a recipient
     $mail->addReplyTo('donotreply@browsergadget.com');
     // $mail->addCC('cc@example.com');
@@ -132,10 +149,18 @@ function emailBob($name, $email, $message) {
 
   try {
       
-    mail_config(); 
+      // turned off when moved to VeeroTech and replaced with what's below
+      // mail_config();   
+
+      $mail->Host       = 'mail.browsergadget.com';           // Set the SMTP server to send through
+      $mail->SMTPAuth   = true;                               // Enable SMTP authentication
+      $mail->Username   = 'bob@browsergadget.com';            // SMTP username
+      $mail->Password   = 'gD42R6=7D7pI>xe';                  // SMTP password
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        // Enable implicit SSL encryption
+      $mail->Port       = 465; 
 
     //Recipients
-    $mail->setFrom('donotreply@browsergadget.com', 'BrowserGadget');
+    $mail->setFrom('bob@browsergadget.com', 'BrowserGadget');
     $mail->addAddress('browsergadget@gmail.com');     // Add a recipient
     $mail->addReplyTo($email, $name);
     // $mail->addCC('cc@example.com');
