@@ -22,8 +22,11 @@ if ($layout_context != 'homepage') { ?>
     <ul class="rliul">
       <?php if ($history && (count($history) > 0)) { 
         $i = 0;
+        $exclude_projects = [
+          '22', // card stuff
+        ];
         foreach($history as $entry) { 
-          if ($entry['id'] == $current_project || empty($entry['project_name'])) { continue; } 
+          if ($entry['id'] == $current_project || empty($entry['project_name']) || !empty(array_intersect($entry, $exclude_projects))) { continue; } 
           $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
@@ -132,6 +135,10 @@ if ($layout_context != 'homepage') { ?>
       </li>       
     </ul>
   </li>
+<?php } ?>
+
+<?php if ($user_id == "1") { ?>
+  <li><a class="classic" href="https://bobmeans.com/o" target="_blank"><i class="fas fa-dollar-sign"></i></a></li>
 <?php } ?>
 
 <?php if ($oos == "1" && $layout_context == 'edit_order') { ?>
