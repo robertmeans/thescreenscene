@@ -449,22 +449,6 @@ if (isset($_POST['reset'])) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*  link handler
     tooltip =   'Go to homepage'
     trigger =   .gth-link 
