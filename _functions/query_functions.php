@@ -180,6 +180,34 @@ function edit_search_order($user_id, $current_project) {
 
 
 function verify_access($id, $current_project) {
+  global $pdo_db;
+
+  if (isset($_SESSION['project-owner']) && $_SESSION['project-owner'] === 'project-owner') {
+    return 1;
+  }
+
+  $sql = "
+    SELECT COUNT(*) 
+    FROM project_user
+    WHERE (
+      owner_id = :id
+      OR shared_with = :id
+    )
+    AND project_id = :project_id
+    LIMIT 1
+  ";
+
+  $stmt = $pdo_db->prepare($sql);
+
+  $stmt->execute([
+    ':id' => $id,
+    ':project_id' => $current_project
+  ]);
+
+  return (int)$stmt->fetchColumn();
+}
+/* old ....
+function verify_access($id, $current_project) {
   global $db;
 
   if (isset($_SESSION['project-owner']) && $_SESSION['project-owner'] == 'project-owner') {
@@ -197,6 +225,7 @@ function verify_access($id, $current_project) {
   }
   return $count;
 }
+*/
 
 
 function update_current_project($id, $current_project) { 
@@ -222,6 +251,112 @@ function update_current_project($id, $current_project) {
 }
 
 
+function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) {
+  global $pdo_db;
+
+  // Project IDs that should never appear in recent project history
+  $history_exempt_project_ids = [22,30303];
+  $history_exempt_project_ids = array_map('intval', $history_exempt_project_ids);
+
+  $count = verify_access($id, $current_project);
+
+  if ($count > 0) {
+    // Step 1: Fetch user's project history
+    $stmt = $pdo_db->prepare("SELECT history FROM users WHERE user_id = :id LIMIT 1");
+    $stmt->execute([':id' => $id]);
+    $row3 = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $history = json_decode($row3['history'] ?? '[]', true);
+    if (!is_array($history)) {
+      $history = [];
+    }
+
+    // Step 2: Always remove exempt projects from history
+    $filtered = array_filter($history, function ($entry) use ($history_exempt_project_ids) {
+      return !in_array((int)$entry['id'], $history_exempt_project_ids, true);
+    });
+
+    // Step 3: Only add last_project to history if it is not exempt
+    if (!in_array((int)$last_project, $history_exempt_project_ids, true)) {
+      // Remove any existing entry with the same project ID
+      $filtered = array_filter($filtered, function ($entry) use ($last_project) {
+        return (int)$entry['id'] !== (int)$last_project;
+      });
+
+      // Add the new entry to the beginning
+      array_unshift($filtered, [
+        'id' => $last_project,
+        'project_name' => $last_project_name
+      ]);
+
+      // Limit to last 15 entries
+      $filtered = array_slice($filtered, 0, 15);
+    }
+
+    $filtered = array_values($filtered);
+    $newHistoryJson = json_encode($filtered);
+
+    // Step 4: Update user record
+    $sql = "UPDATE users SET 
+              current_project = :current_project, 
+              last_project = :last_project, 
+              last_proj_name = :last_proj_name, 
+              history = :history 
+            WHERE user_id = :id 
+            LIMIT 1";
+
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      ':current_project' => $current_project,
+      ':last_project' => $last_project,
+      ':last_proj_name' => $last_project_name,
+      ':history' => $newHistoryJson,
+      ':id' => $id
+    ]);
+
+    if ($success) {
+      $_SESSION['recent_projects'] = $filtered;
+      return 'pass';
+    }
+
+  } else {
+    // They don't have access; strip the project from their recent history
+
+    $stmt = $pdo_db->prepare("SELECT history FROM users WHERE user_id = :id LIMIT 1");
+    $stmt->execute([':id' => $id]);
+    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    $history = json_decode($row['history'] ?? '[]', true);
+    if (!is_array($history)) {
+      $history = [];
+    }
+
+    // Remove the current project and any exempt projects from history
+    $filtered = array_filter($history, function ($entry) use ($current_project, $history_exempt_project_ids) {
+      return (int)$entry['id'] !== (int)$current_project
+        && !in_array((int)$entry['id'], $history_exempt_project_ids, true);
+    });
+
+    $filtered = array_values($filtered);
+    $newHistoryJson = json_encode($filtered);
+
+    $sql = "UPDATE users SET history = :history WHERE user_id = :id LIMIT 1";
+    $stmt = $pdo_db->prepare($sql);
+    $success = $stmt->execute([
+      ':history' => $newHistoryJson,
+      ':id' => $id
+    ]);
+
+    if ($success) {
+      $_SESSION['recent_projects'] = $filtered;
+      return $filtered;
+    }
+  }
+
+  return 'fail';
+}
+
+/* old... 
 function update_current_and_last_project($id, $current_project, $last_project, $last_project_name) {
   global $pdo_db;
 
@@ -310,7 +445,7 @@ function update_current_and_last_project($id, $current_project, $last_project, $
   return 'fail';
 }
 
-
+*/
 
 
 

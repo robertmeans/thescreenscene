@@ -22,11 +22,9 @@ if ($layout_context != 'homepage') { ?>
     <ul class="rliul">
       <?php if ($history && (count($history) > 0)) { 
         $i = 0;
-        $exclude_projects = [
-          '22', // card stuff
-        ];
+        /* see: '$history_exempt_project_ids = [];' in query_functions.php to exclude certian projects */
         foreach($history as $entry) { 
-          if ($entry['id'] == $current_project || empty($entry['project_name']) || !empty(array_intersect($entry, $exclude_projects))) { continue; } 
+          if ($entry['id'] == $current_project || empty($entry['project_name'])) { continue; } 
           $i++; ?>
             <li class="rli">
               <form class="gthcon" method="post">
